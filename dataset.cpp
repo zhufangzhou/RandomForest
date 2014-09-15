@@ -4,13 +4,15 @@ Dataset::Dataset() {
 	// initialize X and y, otherwise will error when call realloc
 	X = NULL;
 	y = NULL;
-	discrete_idx = NULL;
-	discrete_size = 0;
+	// discrete_idx = NULL;
+	// discrete_size = 0;
+	discrete_mask = NULL;	
 }
 
 Dataset::~Dataset() {
 	delete[] X;
 	delete[] y;
+	delete[] discrete_mask;
 }
 
 
@@ -48,9 +50,14 @@ void Dataset::readBinary(std::string filename, int feature_size, int *discrete_i
 	this->feature_size = feature_size;
 	
 	// determine which features is discrete
+	discrete_mask = new bool[feature_size];
+	memset(discrete_mask, false, sizeof(bool)*feature_size);
 	if (!(discrete_idx == 0 || discrete_idx == NULL)) {
-		this->discrete_idx = discrete_idx;
-		this->discrete_size = discrete_size;
+		// this->discrete_idx = discrete_idx;
+		// this->discrete_size = discrete_size;
+		for (int j = 0; j < discrete_size; j++) {
+			discrete_mask[discrete_idx[j]] = true;
+		}
 	}
 
 	// delete buffer
@@ -93,9 +100,14 @@ void Dataset::readBinary(std::string feature_filename, std::string label_filenam
 	this->feature_size = feature_size;
 
 	// determine which features is discrete
-	if (!(discrete_size == 0 || discrete_idx == NULL)) {
-		this->discrete_idx = discrete_idx;
-		this->discrete_size = discrete_size;
+	discrete_mask = new bool[feature_size];
+	memset(discrete_mask, false, sizeof(bool)*feature_size);
+	if (!(discrete_idx == 0 || discrete_idx == NULL)) {
+		// this->discrete_idx = discrete_idx;
+		// this->discrete_size = discrete_size;
+		for (int j = 0; j < discreate_size; j++) {
+			discrete_mask[discrete_idx[j]] = true;
+		}
 	}
 
 	delete[] X_buf;
@@ -157,9 +169,14 @@ void Dataset::readText(std::string filename, int feature_size, int *discrete_idx
 	this->feature_size = feature_size;
 
 	// determine which features is discrete
-	if (!(discrete_size == 0 || discrete_idx == NULL)) {
-		this->discrete_idx = discrete_idx;
-		this->discrete_size = discrete_size;
+	discrete_mask = new bool[feature_size];
+	memset(discrete_mask, false, sizeof(bool)*feature_size);
+	if (!(discrete_idx == 0 || discrete_idx == NULL)) {
+		// this->discrete_idx = discrete_idx;
+		// this->discrete_size = discrete_size;
+		for (int j = 0; j < discreate_size; j++) {
+			discrete_mask[discrete_idx[j]] = true;
+		}
 	}
 	
 	delete[] line;

@@ -10,8 +10,9 @@ public:
 	int feature_size;						// feature size
 	double *X;								// sample
 	double *y;								// label
-	int *discrete_idx;						// discrete feature idx array
-	int discrete_size;						// discreate feature size
+	bool *discrete_mask;						// true --> discrete feature, false --> continuous feature
+	// int *discrete_idx;						// discrete feature idx array
+	// int discrete_size;						// discreate feature size
 	Dataset();
 	~Dataset();
 	void readText(std::string filename, int feature_size, int *discrete_idx = NULL, int discrete_size = 0);
