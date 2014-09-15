@@ -94,13 +94,13 @@ void DecisionTreeClassifier::split(int max_feature, int *feature_list, double *c
 
 		} else {									// continuous feature
 			feature_order = partial_argsort(ds->X, ds->sample_size, ds->feature_size, 
-				pa->sample_index, pa->sample_size, cFeature, ASC, feature_order);
+			pa->sample_index, pa->sample_size, cFeature, ASC, feature_order);
 			
 			// parent node gini
 			criterionValue = Criterion::gini(pa->weighted_frequency, n_classes);
 			
-			// sample index = pa->sample_index[feature_order[j]]
-			last_sIdx = pa->sample_index[feature_order[0]];
+			// sample index = feature_order[j]
+			last_sIdx = feature_order[0];
 
 			// initialize weighted_frequency
 			memset(lWeighted_frequency, 0, sizeof(double)*n_classes);
@@ -109,7 +109,7 @@ void DecisionTreeClassifier::split(int max_feature, int *feature_list, double *c
 			last_oper_id = 0;
 			min_lr_gini_sum = 99999;								// a big real number
 			for (int j = 1; j < pa->sample_size; j++) {
-				sIdx = pa->sample_index[feature_order[j]];
+				sIdx = feature_order[j];
 				if ((int)ds->y[sIdx] != (int)ds->y[last_sIdx]) {	// split when adjacent sample class is different
 					// update left and right node's weighted frequency corresponding to this split
 					weighted_frequency_temp = (j-last_oper_id)*class_weight[(int)ds->y[last_sIdx]];
