@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include "dataset.h"
 
-typedef int sample_size_t
+typedef int sample_size_t;
 
 struct node_t {
 	double weighted_frequency[2];			// 0 is negative, 1 is positive
@@ -31,7 +31,7 @@ struct node_t {
 	// index of right child in the tree vector
 	int rchild;
 
-	reset() {
+	void reset() {
 		sample_index = NULL;
 		memset(weighted_frequency, 0, sizeof(double)*2);
 		feature_index = -1;
@@ -51,7 +51,7 @@ private:
 	int max_depth;								// max depth of the tree
 	int min_leaf_samples;						// minimum samples in the leaves
 	Dataset *ds;
-	vector<node_t> root;						// tree structure
+	std::vector<node_t> root;						// tree structure
 	void check_param(int min_leaf_sample, int max_depth, int feature_size);
 	void init(int min_leaf_samples, int max_depth);
 protected:
@@ -59,7 +59,7 @@ protected:
 public:
 	// read data from binary file
 	BaseTree(std::string filename, int feature_size, int min_leaf_samples, int max_depth);
-	BaseTree(std::string feature_filename, std::label_filename, int feature_size, int min_leaf_samples, int max_depth);
+	BaseTree(std::string feature_filename, std::string label_filename, int feature_size, int min_leaf_samples, int max_depth);
 	// read data from text file
 	BaseTree(std::string filename, int min_leaf_samples, int max_depth);
 	~BaseTree();
@@ -89,7 +89,7 @@ public:
 	double getFeature_value() {
 		return feature_value;
 	}
-	split(int feature_size, int max_feature, node_t *pa, node_t *lchild, node_t *rchild);
+	void split(int feature_size, int max_feature, node_t *pa, node_t *lchild, node_t *rchild);
 };
 
 #endif

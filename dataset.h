@@ -1,18 +1,21 @@
-#ifndef DATASET_HEADER
-#define DATASET_HEADER
+#ifndef __DATASET_HEADER
+#define __DATASET_HEADER
 
-#include <iostream>
-#include <cstdio>
-#include <string>
-#include "../OpenSource/utils/Utils.h"
+//#include <iostream>
+//#include <cstdio>
+//#include <string>
+//#include <vector>
+#include "../utils/Utils.h"
 
 
 class Dataset {
 private:
 	int sample_size;						// sample size
 	int feature_size;						// feature size
-	double *X;					// sample
-	double *y;					// label
+//	std::vector<double> X;					// sample
+//	std::vector<double> y;					// label
+	double *X;
+	double *y;
 public:
 	Dataset();
 	~Dataset();
