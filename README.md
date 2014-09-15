@@ -13,8 +13,9 @@ all label and features are treated as double float (64bit) type
 
 **example**
 
-	1.2 3.5 2.1 2.1
-	0.2 20 3.4 2.1
+**1** 1.2 3.5 2.1 2.1
+
+**0** 0.2 20 3.4 2.1
 
 ###binary type
 
