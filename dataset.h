@@ -1,27 +1,22 @@
 #ifndef __DATASET_HEADER
 #define __DATASET_HEADER
 
-//#include <iostream>
-//#include <cstdio>
-//#include <string>
-//#include <vector>
 #include "../utils/Utils.h"
+#include <cstdlib>
 
-
-class Dataset {
-private:
+class Dataset {	
+public:
 	int sample_size;						// sample size
 	int feature_size;						// feature size
-//	std::vector<double> X;					// sample
-//	std::vector<double> y;					// label
-	double *X;
-	double *y;
-public:
+	double *X;								// sample
+	double *y;								// label
+	int *discrete_idx;						// discrete feature idx array
+	int discrete_size;						// discreate feature size
 	Dataset();
 	~Dataset();
-	void readText(std::string filename, int feature_size);
-	void readBinary(std::string filename, int feature_size);
-	void readBinary(std::string feature_filename, std::string label_filename, int feature_size);
+	void readText(std::string filename, int feature_size, int *discrete_idx = NULL, int discrete_size = 0);
+	void readBinary(std::string filename, int feature_size, int *discrete_idx = NULL, int discrete_size = 0);
+	void readBinary(std::string feature_filename, std::string label_filename, int feature_size, int *discrete_idx = NULL, int discrete_size = 0);
 };
 
 
