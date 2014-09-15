@@ -90,7 +90,7 @@ void Dataset::readBinary(std::string feature_filename, std::string label_filenam
 }
 
 void Dataset::readText(std::string filename, int feature_size) {
-	/*FILE *fp = fopen(filename.c_str(), "r");
+	FILE *fp = fopen(filename.c_str(), "r");
 	int i;
 	const 
 	timer.tic();
@@ -109,6 +109,6 @@ void Dataset::readText(std::string filename, int feature_size) {
 	this->sample_size = i;
 	this->feature_size = feature_size;
 	
-	fclose(fp);*/
+	fclose(fp);
 }
 
