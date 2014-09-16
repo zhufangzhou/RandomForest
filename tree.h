@@ -19,6 +19,8 @@ struct node_t {
 	
 	// the chosen feature to split the node
 	int feature_index;
+	// whether this feature is discrete
+	bool is_discrete;
 	// the threshold of the chosen feature
 	double feature_value;
 

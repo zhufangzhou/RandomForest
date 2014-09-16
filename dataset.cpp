@@ -15,6 +15,41 @@ Dataset::~Dataset() {
 	delete[] discrete_mask;
 }
 
+void Dataset::handle_discrete_feature(int *discrete_idx, int discrete_size) {
+	// use set to obatain unique discrete values
+	std::unordered_set<discrete_t> ss;
+	int counts = 0;
+
+	// determine which features is discrete
+	discrete_mask = new int[feature_size];
+
+	memset(discrete_mask, 0xff, sizeof(int)*feature_size);
+	
+	if (!(discrete_idx == 0 || discrete_idx == NULL)) {
+		this->discrete_idx = discrete_idx;
+		this->discrete_size = discrete_size;
+		
+		this->discrete_value = new discrete_t*[discrete_size];
+		for (int j = 0; j < discrete_size; j++) {
+			// update the discrete mask, if -1 is continuous then the index of discrete_value
+			discrete_mask[discrete_idx[j]] = j;
+			// clear the unordered_set for a new discrete feature
+			ss.clear();
+			// insert all the feature value of this discrete feature into unordered_set and get distinct value
+			for (int i = 0; i < sample_size; i++) {
+				ss.insert((discrete_t) X[i*feature_size + discrete_idx[j]]);
+			}
+			discrete_value[j] = new discrete_t[ss.size() + 1];
+			// the first element for each discrete feature is its distinct value count
+			discrete_value[j][0] = 0;
+			// iterate the unordered_set to get all the distinct value for this discrete feature
+			for (auto it = ss.begin(); it != ss.end(); it++) {
+				discrete_value[j][(int)++discrete_value[j][0]] = *it;
+			}
+		}
+
+	}
+}
 
 void Dataset::readBinary(std::string filename, int feature_size, int *discrete_idx, int discrete_size) {
 	FILE* fp = fopen(filename.c_str(), "rb");
@@ -49,16 +84,8 @@ void Dataset::readBinary(std::string filename, int feature_size, int *discrete_i
 	this->sample_size = i;
 	this->feature_size = feature_size;
 	
-	// determine which features is discrete
-	discrete_mask = new bool[feature_size];
-	memset(discrete_mask, false, sizeof(bool)*feature_size);
-	if (!(discrete_idx == 0 || discrete_idx == NULL)) {
-		// this->discrete_idx = discrete_idx;
-		// this->discrete_size = discrete_size;
-		for (int j = 0; j < discrete_size; j++) {
-			discrete_mask[discrete_idx[j]] = true;
-		}
-	}
+	// deal with discrete feature
+	handle_discrete_feature(discrete_idx, discrete_size);
 
 	// delete buffer
 	delete[] X_buf;
@@ -99,16 +126,8 @@ void Dataset::readBinary(std::string feature_filename, std::string label_filenam
 	this->sample_size = i;
 	this->feature_size = feature_size;
 
-	// determine which features is discrete
-	discrete_mask = new bool[feature_size];
-	memset(discrete_mask, false, sizeof(bool)*feature_size);
-	if (!(discrete_idx == 0 || discrete_idx == NULL)) {
-		// this->discrete_idx = discrete_idx;
-		// this->discrete_size = discrete_size;
-		for (int j = 0; j < discreate_size; j++) {
-			discrete_mask[discrete_idx[j]] = true;
-		}
-	}
+	// deal with discrete feature
+	handle_discrete_feature(discrete_idx, discrete_size);
 
 	delete[] X_buf;
 	fclose(fp_feature);
@@ -168,16 +187,8 @@ void Dataset::readText(std::string filename, int feature_size, int *discrete_idx
 	this->sample_size = i;
 	this->feature_size = feature_size;
 
-	// determine which features is discrete
-	discrete_mask = new bool[feature_size];
-	memset(discrete_mask, false, sizeof(bool)*feature_size);
-	if (!(discrete_idx == 0 || discrete_idx == NULL)) {
-		// this->discrete_idx = discrete_idx;
-		// this->discrete_size = discrete_size;
-		for (int j = 0; j < discreate_size; j++) {
-			discrete_mask[discrete_idx[j]] = true;
-		}
-	}
+	// deal with discrete feature
+	handle_discrete_feature(discrete_idx, discrete_size);
 	
 	delete[] line;
 	delete[] X_buf;
