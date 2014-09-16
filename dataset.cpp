@@ -51,30 +51,43 @@ void Dataset::handle_discrete_feature(int *discrete_idx, int discrete_size) {
 	}
 }
 
-void Dataset::readBinary(std::string filename, int feature_size, int *discrete_idx, int discrete_size) {
+void Dataset::readBinary(std::string filename, int feature_size, bool is_train, int *discrete_idx, int discrete_size) {
 	FILE* fp = fopen(filename.c_str(), "rb");
 	int i = 0;
 	double *X_buf, y_buf;
+	size_t read_count;
 	X_buf = new double[feature_size];
 
 	timer.tic();
 	std::cout << "Start reading dataset from " << filename << std::endl;
 
-	// first read a sample into buffer
-	while (fread(&y_buf, sizeof(double), 1, fp)) {	
-		if (fread(X_buf, sizeof(double), feature_size, fp) != feature_size) {
-			std::cout << "dataset size is wrong, missing several values" << std::endl;
-			exit(EXIT_FAILURE);
+	if(is_train) {
+		// first read a sample into buffer
+		while (fread(&y_buf, sizeof(double), 1, fp)) {	
+			if (fread(X_buf, sizeof(double), feature_size, fp) != feature_size) {
+				std::cout << "dataset size is wrong, missing several values" << std::endl;
+				exit(EXIT_FAILURE);
+			}
+			
+			// sample size add one
+			i++;
+			// expand space to store current sample
+			X = (double*) realloc(X, sizeof(double)*i*feature_size);
+			y = (double*) realloc(y, sizeof(double)*i);
+			// copy buffer to dataset
+			memcpy(X + (i-1)*feature_size, X_buf, sizeof(double)*feature_size);
+			memcpy(y + (i-1), &y_buf, sizeof(double));
 		}
-		
-		// sample size add one
-		i++;
-		// expand space to store current sample
-		X = (double*) realloc(X, sizeof(double)*i*feature_size);
-		y = (double*) realloc(y, sizeof(double)*i);
-		// copy buffer to dataset
-		memcpy(X + (i-1)*feature_size, X_buf, sizeof(double)*feature_size);
-		memcpy(y + (i-1), &y_buf, sizeof(double));
+	} else {
+		while (read_count = fread(X_buf, sizeof(double), feature_size, fp)) {
+			if(read_count != feature_size) {
+				std::cout << "dataset size is wrong, missing several values" << std::endl;
+				exit(EXIT_FAILURE);
+			}
+			i++;
+			X = (double*) realloc(X, sizeof(double)*i*feature_size);
+			memcpy(X + (i-1)*feature_size, X_buf, sizeof(double)*feature_size);
+		}
 	}
 	
 	std::cout << "Finish reading dataset. Sample size: " << i << ", Feature size: " << feature_size << "." << std::endl;
@@ -134,13 +147,13 @@ void Dataset::readBinary(std::string feature_filename, std::string label_filenam
 	fclose(fp_label);
 }
 
-void Dataset::readText(std::string filename, int feature_size, int *discrete_idx, int discreate_size) {
+void Dataset::readText(std::string filename, int feature_size, bool is_train, int *discrete_idx, int discreate_size) {
 	FILE *fp = fopen(filename.c_str(), "r");
 	const int MAX_LINE = feature_size * 20;
 	const char* DELIMITER = " ";
 	double *X_buf = new double[feature_size], y_buf;
 	char *line = new char[MAX_LINE], *pch;
-	int i;
+	int i, start;
 
 	timer.tic();
 	std::cout << "Start reading dataset from " << filename << std::endl;
@@ -152,10 +165,16 @@ void Dataset::readText(std::string filename, int feature_size, int *discrete_idx
 			std::cout << "Line " << i+1 << " miss label." << std::endl;
 			exit(EXIT_FAILURE);
 		}
-		y_buf = atof(pch);
+		if (is_train) {
+			y_buf = atof(pch);
+			start = 0;
+		} else {								// predict do not need to read label
+			X_buf[0] = atof(pch);
+			start = 1;
+		}
 
 		// read features
-		for (int j = 0; j < feature_size - 1; j++) {
+		for (int j = start; j < feature_size - 1; j++) {
 			pch = strtok(NULL, DELIMITER);
 			if (pch == NULL || pch == "") {
 				std::cout << "Line " << i+1 << " miss feature" << "." << std::endl;

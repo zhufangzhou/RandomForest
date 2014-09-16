@@ -6,6 +6,8 @@
 #include <unordered_set>
 
 #define discrete_t double
+#define TRAIN true
+#define PREDICT false
 
 class Dataset {	
 private:
@@ -26,9 +28,9 @@ public:
 	Dataset();
 	~Dataset();
 	
-	void readText(std::string filename, int feature_size, int *discrete_idx = NULL, int discrete_size = 0);
+	void readText(std::string filename, int feature_size, bool is_train, int *discrete_idx = NULL, int discrete_size = 0);
 	
-	void readBinary(std::string filename, int feature_size, int *discrete_idx = NULL, int discrete_size = 0);
+	void readBinary(std::string filename, int feature_size, bool is_train, int *discrete_idx = NULL, int discrete_size = 0);
 	void readBinary(std::string feature_filename, std::string label_filename, int feature_size, 
 					int *discrete_idx = NULL, int discrete_size = 0);
 };

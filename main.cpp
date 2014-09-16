@@ -9,7 +9,7 @@ int main() {
 	}*/
 	Dataset ds;
 	//ds.readBinary("data.dat", 99);
-	ds.readText("data.txt", 5);
+	ds.readText("data.txt", 5, TRAIN);
 	print_mat(ds.X, ds.sample_size, ds.feature_size, "feature matrix");
 	print_vec(ds.y, ds.sample_size, "label vector");
 	return 0;

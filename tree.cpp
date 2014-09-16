@@ -1,19 +1,11 @@
 #include "tree.h"
 
-BaseTree::BaseTree(std::string filename, bool is_text, int feature_size, int min_leaf_samples, int max_depth, 
-					int *discrete_idx, int discrete_size) {
-	check_param(min_leaf_samples, max_depth, feature_size);
+BaseTree::BaseTree(int min_leaf_samples, int max_depth, int *discrete_idx, int discrete_size) {
+	check_param(min_leaf_samples, max_depth);
 	init(min_leaf_samples, max_depth);
-	if (is_text == TEXT) {
-		this->ds->readText(filename, feature_size, discrete_idx, discrete_size);
-	} else {
-		this->ds->readBinary(filename, feature_size, discrete_idx, discrete_size);	
-	}
 }
 
-
-
-void BaseTree::check_param(int min_leaf_samples, int max_depth, int feature_size) {
+void BaseTree::check_param(int min_leaf_samples, int max_depth) {
 	if (min_leaf_samples <= 0) {
 		std::cout << "min_leaf_samples must be positive integer." << std::endl;
 		exit(EXIT_FAILURE);
@@ -21,11 +13,6 @@ void BaseTree::check_param(int min_leaf_samples, int max_depth, int feature_size
 
 	if (max_depth <= 0) {
 		std::cout << "max_depth must be positive integer." << std::endl;
-		exit(EXIT_FAILURE);
-	}
-
-	if (feature_size <= 0) {
-		std::cout << "feature_size must be positive integer." << std::endl;
 		exit(EXIT_FAILURE);
 	}
 }
@@ -213,6 +200,30 @@ void DecisionTreeClassifier::split(int max_feature, int *feature_list, double *c
 	// free space
 	delete[] lWeighted_frequency;
 	delete[] rWeighted_frequency;
+}
+
+void DecisionTreeClassifier::train(double *X, double *y, int sample_size, int feature_size, double *class_weight) {
+	if (class_weight == NULL) {
+		class_weight = new double[n_classes];
+	}
+	// initialize dataset
+	ds->sample_size = sample_size;
+	ds->feature_size = feature_size;
+	ds->X = new double[sample_size*feature_size];
+	memcpy(ds->X, X, sizeof(double)*sample_size*feature_size);
+	ds->y = new double[sample_size];
+	memcpy(ds->y, y, sizeof(double)*sample_size);
+
+	// train model
+	build_tree(feature_size, class_weight);
+}
+
+void DecisionTreeClassifier::train(std::string filename, int feature_size, bool is_text, double *class_weight) {
+
+}
+
+void DecisionTreeClassifier::train(std::string feature_filename, std::string label_filename, int feature_size, double *class_weight) {
+
 }
 
 double Criterion::gini(double *arr, int size) {

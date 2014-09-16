@@ -60,16 +60,11 @@ protected:
 	int min_leaf_samples;						// minimum samples in the leaves
 	int n_classes;
 	std::vector<node_t> tree;						// tree structure
-	void check_param(int min_leaf_sample, int max_depth, int feature_size);
+	void check_param(int min_leaf_sample, int max_depth);
 	void init(int min_leaf_samples, int max_depth);
 public:
-	// read data from binary file
-	BaseTree(std::string filename, bool is_text, int feature_size, int min_leaf_samples, int max_depth,
+	BaseTree(int min_leaf_samples, int max_depth,
 			int *discrete_idx = NULL, int discrete_size = 0);
-	BaseTree(std::string feature_filename, std::string label_filename, int feature_size, 
-		int min_leaf_samples, int max_depth, int *discrete_idx = NULL, int discrete_size = 0);
-	// read data from text file
-	BaseTree(std::string filename, int min_leaf_samples, int max_depth);
 	~BaseTree();
 	//void train(double *class_weight = NULL);
 	//void train(double *X, int *y, double *class_weight = NULL);
@@ -83,8 +78,9 @@ protected:
 	void split(int max_feature, int *feature_list, double *class_weight,
 				node_t *pa, node_t *lchilde, node_t *rchild);
 public:
-
-	void train(double *class_weight = NULL);
+	void train(double *X, double *y, int sample_size, int feature_size, double *class_weight = NULL);
+	void train(std::string filename, int feature_size, bool is_text, double *class_weight = NULL);
+	void train(std::string feature_filename, std::string label_filename, int feature_size, double *class_weight = NULL);
 };
 
 class Criterion {
