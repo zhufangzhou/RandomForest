@@ -1,7 +1,7 @@
 #ifndef __DATASET_HEADER
 #define __DATASET_HEADER
 
-#include "../utils/Utils.h"
+#include "Utils.h"
 #include <cstdlib>
 #include <unordered_set>
 
