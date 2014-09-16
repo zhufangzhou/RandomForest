@@ -81,6 +81,7 @@ public:
 	void train(double *X, double *y, int sample_size, int feature_size, double *class_weight = NULL);
 	void train(std::string filename, int feature_size, bool is_text, double *class_weight = NULL);
 	void train(std::string feature_filename, std::string label_filename, int feature_size, double *class_weight = NULL);
+	double predict(double *feature_list);
 };
 
 class Criterion {

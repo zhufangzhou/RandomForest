@@ -202,6 +202,7 @@ void DecisionTreeClassifier::split(int max_feature, int *feature_list, double *c
 	delete[] rWeighted_frequency;
 }
 
+<<<<<<< HEAD
 void DecisionTreeClassifier::train(double *X, double *y, int sample_size, int feature_size, double *class_weight) {
 	if (class_weight == NULL) {
 		class_weight = new double[n_classes];
@@ -223,6 +224,24 @@ void DecisionTreeClassifier::train(std::string filename, int feature_size, bool 
 }
 
 void DecisionTreeClassifier::train(std::string feature_filename, std::string label_filename, int feature_size, double *class_weight) {
+}
+double DecisionTreeClassifier::predict(double *feature_list){
+	node_t *current_node = &this->tree[0];
+	while(!current_node->is_leaf){
+		if(current_node->is_discrete)
+			if(feature_list[current_node->feature_index] == current_node->feature_value)
+				current_node = &this->tree[current_node->lchild];
+			else
+				current_node = &this->tree[current_node->rchild];
+
+		else
+			if(feature_list[current_node->feature_index] < current_node->feature_value)
+				current_node = &this->tree[current_node->lchild];
+			else
+				current_node = &this->tree[current_node->rchild];
+
+	}
+	return current_node->weighted_frequency[1] / (current_node->weighted_frequency[0] + current_node->weighted_frequency[1]);
 
 }
 
