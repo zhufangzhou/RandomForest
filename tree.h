@@ -85,6 +85,7 @@ protected:
 public:
 
 	void train(double *class_weight = NULL);
+	double predict(double *feature_list);
 };
 
 class Criterion {

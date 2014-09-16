@@ -215,6 +215,26 @@ void DecisionTreeClassifier::split(int max_feature, int *feature_list, double *c
 	delete[] rWeighted_frequency;
 }
 
+double DecisionTreeClassifier::predict(double *feature_list){
+	node_t *current_node = &this->tree[0];
+	while(!current_node->is_leaf){
+		if(current_node->is_discrete)
+			if(feature_list[current_node->feature_index] == current_node->feature_value)
+				current_node = &this->tree[current_node->lchild];
+			else
+				current_node = &this->tree[current_node->rchild];
+
+		else
+			if(feature_list[current_node->feature_index] < current_node->feature_value)
+				current_node = &this->tree[current_node->lchild];
+			else
+				current_node = &this->tree[current_node->rchild];
+
+	}
+	return current_node->weighted_frequency[1] / (current_node->weighted_frequency[0] + current_node->weighted_frequency[1]);
+
+}
+
 double Criterion::gini(double *arr, int size) {
 	double *proba = vec_normalize(arr, size, NOT_INPLACE);
 	double gini = 1.0;
