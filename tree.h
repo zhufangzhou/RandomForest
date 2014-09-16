@@ -7,7 +7,10 @@
 #include <cstdlib>
 #include "dataset.h"
 
+#define BINARY false
+#define TEXT true
 typedef int sample_size_t;
+
 
 // tree node structure
 struct node_t {
@@ -61,14 +64,15 @@ protected:
 	void init(int min_leaf_samples, int max_depth);
 public:
 	// read data from binary file
-	BaseTree(std::string filename, int feature_size, int min_leaf_samples, int max_depth);
+	BaseTree(std::string filename, bool is_text, int feature_size, int min_leaf_samples, int max_depth,
+			int *discrete_idx = NULL, int discrete_size = 0);
 	BaseTree(std::string feature_filename, std::string label_filename, int feature_size, 
-		int min_leaf_samples, int max_depth);
+		int min_leaf_samples, int max_depth, int *discrete_idx = NULL, int discrete_size = 0);
 	// read data from text file
 	BaseTree(std::string filename, int min_leaf_samples, int max_depth);
 	~BaseTree();
-	void train(double *class_weight = NULL);
-	void train(double *X, int *y, double *class_weight = NULL);
+	//void train(double *class_weight = NULL);
+	//void train(double *X, int *y, double *class_weight = NULL);
 	//double* predict(std::string filename);	// binary
 	//double* predict(std::string filename);	// text
 };
@@ -76,10 +80,11 @@ public:
 class DecisionTreeClassifier : public BaseTree {
 protected:
 	void build_tree(int max_feature, double *class_weight);
-	void split(int max_feature, int *feature_list, double *class_weight, node_t *pa, node_t *lchilde, node_t *rchild);
+	void split(int max_feature, int *feature_list, double *class_weight,
+				node_t *pa, node_t *lchilde, node_t *rchild);
 public:
-	DecisionTreeClassifier(std::string filename, int feature_size, int min_leaf_samples, int max_depth);
-	DecisionTreeClassifier(std::string filename, int min_leaf_samples, int max_depth);
+
+	void train(double *class_weight = NULL);
 };
 
 class Criterion {

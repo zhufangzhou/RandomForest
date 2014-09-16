@@ -1,10 +1,17 @@
 #include "tree.h"
 
-BaseTree::BaseTree(std::string filename, int feature_size, int min_leaf_samples, int max_depth) {
+BaseTree::BaseTree(std::string filename, bool is_text, int feature_size, int min_leaf_samples, int max_depth, 
+					int *discrete_idx, int discrete_size) {
 	check_param(min_leaf_samples, max_depth, feature_size);
 	init(min_leaf_samples, max_depth);
-	this->ds->readBinary(filename, feature_size);
+	if (is_text == TEXT) {
+		this->ds->readText(filename, feature_size, discrete_idx, discrete_size);
+	} else {
+		this->ds->readBinary(filename, feature_size, discrete_idx, discrete_size);	
+	}
 }
+
+
 
 void BaseTree::check_param(int min_leaf_samples, int max_depth, int feature_size) {
 	if (min_leaf_samples <= 0) {
@@ -70,7 +77,8 @@ void DecisionTreeClassifier::build_tree(int max_feature, double *class_weight) {
 	}
 }
 
-void DecisionTreeClassifier::split(int max_feature, int *feature_list, double *class_weight, node_t *pa, node_t *lchild, node_t *rchild) {
+void DecisionTreeClassifier::split(int max_feature, int *feature_list, double *class_weight, 
+									node_t *pa, node_t *lchild, node_t *rchild) {
 	int cFeature, bestFeature;						// current feature index and best feature index
 	double criterionValue, bestCriterionValue = -1;	// here we choose gini index
 	double proba, weighted_frequency_temp, lFraction, min_lr_gini_sum, lr_gini_sum;
