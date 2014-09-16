@@ -7,8 +7,12 @@
 #include <cstdlib>
 #include "dataset.h"
 
+#define BINARY false
+#define TEXT true
 typedef int sample_size_t;
 
+
+// tree node structure
 struct node_t {
 	double weighted_frequency[2];			// 0 is negative, 1 is positive
 	// sample index in this node, will be deleted after splitting
@@ -18,6 +22,8 @@ struct node_t {
 	
 	// the chosen feature to split the node
 	int feature_index;
+	// whether this feature is discrete
+	bool is_discrete;
 	// the threshold of the chosen feature
 	double feature_value;
 
@@ -47,49 +53,43 @@ struct node_t {
 };
 
 class BaseTree {
-private:
-	int max_depth;								// max depth of the tree
-	int min_leaf_samples;						// minimum samples in the leaves
-	Dataset *ds;
-	std::vector<node_t> root;						// tree structure
-	void check_param(int min_leaf_sample, int max_depth, int feature_size);
-	void init(int min_leaf_samples, int max_depth);
 protected:
 	virtual void build_tree() = 0;
+	Dataset *ds;
+	int max_depth;								// max depth of the tree
+	int min_leaf_samples;						// minimum samples in the leaves
+	int n_classes;
+	std::vector<node_t> tree;						// tree structure
+	void check_param(int min_leaf_sample, int max_depth, int feature_size);
+	void init(int min_leaf_samples, int max_depth);
 public:
 	// read data from binary file
-	BaseTree(std::string filename, int feature_size, int min_leaf_samples, int max_depth);
-	BaseTree(std::string feature_filename, std::string label_filename, int feature_size, int min_leaf_samples, int max_depth);
+	BaseTree(std::string filename, bool is_text, int feature_size, int min_leaf_samples, int max_depth,
+			int *discrete_idx = NULL, int discrete_size = 0);
+	BaseTree(std::string feature_filename, std::string label_filename, int feature_size, 
+		int min_leaf_samples, int max_depth, int *discrete_idx = NULL, int discrete_size = 0);
 	// read data from text file
 	BaseTree(std::string filename, int min_leaf_samples, int max_depth);
 	~BaseTree();
-	void train(double *class_weight = NULL);
-	void train(double *X, int *y, double *class_weight = NULL);
+	//void train(double *class_weight = NULL);
+	//void train(double *X, int *y, double *class_weight = NULL);
 	//double* predict(std::string filename);	// binary
 	//double* predict(std::string filename);	// text
 };
 
 class DecisionTreeClassifier : public BaseTree {
 protected:
-	void build_tree(int max_feature);
+	void build_tree(int max_feature, double *class_weight);
+	void split(int max_feature, int *feature_list, double *class_weight,
+				node_t *pa, node_t *lchilde, node_t *rchild);
 public:
-	DecisionTreeClassifier(std::string filename, int feature_size, int min_leaf_samples, int max_depth);
-	DecisionTreeClassifier(std::string filename, int min_leaf_samples, int max_depth);
+
+	void train(double *class_weight = NULL);
 };
 
-
-class Splitter {
-private:
-	int feature_index;
-	double feature_value;
+class Criterion {
 public:
-	int getFeature_index() {
-		return feature_index;
-	}
-	double getFeature_value() {
-		return feature_value;
-	}
-	void split(int feature_size, int max_feature, node_t *pa, node_t *lchild, node_t *rchild);
+	static double gini(double *arr, int size);
 };
 
 #endif
