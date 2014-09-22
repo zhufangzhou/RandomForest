@@ -28,6 +28,8 @@ public:
 	Dataset();
 	~Dataset();
 	
+	void set_dataset(double *X, double *y, int sample_size, int feature_size, int *discrete_idx, int discrete_size);
+
 	void readText(std::string filename, int feature_size, bool is_train, int *discrete_idx = NULL, int discrete_size = 0);
 	
 	void readBinary(std::string filename, int feature_size, bool is_train, int *discrete_idx = NULL, int discrete_size = 0);

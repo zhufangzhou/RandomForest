@@ -1,6 +1,7 @@
 #include "tree.h"
 
-BaseTree::BaseTree(int min_leaf_samples, int max_depth, int *discrete_idx, int discrete_size) {
+BaseTree::BaseTree(int min_leaf_samples, int max_depth) {
+	if (max_depth == -1) max_depth = INF;
 	check_param(min_leaf_samples, max_depth);
 	init(min_leaf_samples, max_depth);
 }
@@ -24,6 +25,8 @@ void BaseTree::init(int min_leaf_samples, int max_depth) {
 	this->n_classes = 2;
 }
 
+DecisionTreeClassifier::DecisionTreeClassifier(int min_leaf_samples, int max_depth) : BaseTree(min_leaf_samples, max_depth) {}
+
 void DecisionTreeClassifier::build_tree(int max_feature, double *class_weight) {
 	node_t root, *cNode, lNode, rNode;
 	int *feature_list = new int[max_feature];
@@ -45,40 +48,44 @@ void DecisionTreeClassifier::build_tree(int max_feature, double *class_weight) {
 		// get a node to split
 		cNode = &tree[cNodeIdx];
 
-		if (cNode->depth == max_depth || cNode->sample_size < min_leaf_samples * 2) {	// cNode is leaf node
+		// if satisfy stopping condition or the node is pure
+		if (cNode->depth == max_depth || cNode->sample_size < min_leaf_samples * 2 || 
+			zero(cNode->weighted_frequency[0]) || zero(cNode->weighted_frequency[1])) {	// cNode is leaf node
 			cNode->is_leaf = true;
 		} else {	// if cNode is not a leaf node , then split	into two children node
 			// split the current and generate left and right child
 			split(max_feature, feature_list, class_weight, cNode, &lNode, &rNode);
 
-			
 			// add left and right child to tree
 			cNode->lchild = tree.size();
+			cNode->rchild = tree.size()+1;
 			tree.push_back(lNode);
-			cNode->rchild = tree.size();
 			tree.push_back(rNode);
 		}
 		
 		// choose next node to split
 		cNodeIdx++;
 	}
+
+	delete[] feature_list;
 }
 
 void DecisionTreeClassifier::split(int max_feature, int *feature_list, double *class_weight, 
 									node_t *pa, node_t *lchild, node_t *rchild) {
 	int cFeature, bestFeature;						// current feature index and best feature index
 	double criterionValue, bestCriterionValue = -1;	// here we choose gini index
-	double proba, weighted_frequency_temp, lFraction, min_lr_gini_sum, lr_gini_sum;
+	double proba, weighted_frequency_temp, lFraction, min_lr_gini_sum, lr_gini_sum, split_value = 0;
 	double *lWeighted_frequency, *rWeighted_frequency;
 	discrete_t *dValues;
 	int *dSample_Count;
 	int dValue_count, *class_count;
-	int *feature_order, sIdx, last_sIdx, last_oper_id, split_value = 0, left_size;
+	int *feature_order, sIdx, last_sIdx, last_oper_id, left_size;
 
 	lWeighted_frequency = new double[n_classes];
 	rWeighted_frequency = new double[n_classes];
+	feature_order = new int[pa->sample_size];
 	// random sample `max_feature` features from the total feature set
-	feature_list = random_sample(pa->sample_index, pa->sample_size, 1, max_feature, feature_list);
+	feature_list = random_sample(ds->feature_size, max_feature, feature_list);
 	for (int i = 0; i < max_feature; i++) {
 		cFeature = feature_list[i];					// current feature index
 		
@@ -143,11 +150,17 @@ void DecisionTreeClassifier::split(int max_feature, int *feature_list, double *c
 			
 			for (int j = 1; j < pa->sample_size; j++) {
 				sIdx = feature_order[j];
-				if ((int)ds->y[sIdx] != (int)ds->y[last_sIdx]) {	// split when adjacent sample class is different
+				// split when adjacent sample class and feature value is different
+				if ( ((int)ds->y[sIdx] != (int)ds->y[last_sIdx]) &&
+					 (ds->X[sIdx*ds->feature_size + cFeature] != ds->X[last_sIdx*ds->feature_size + cFeature]) ) {	
 					// update left and right node's weighted frequency corresponding to this split
-					weighted_frequency_temp = (j-last_oper_id)*class_weight[(int)ds->y[last_sIdx]];
-					lWeighted_frequency[(int)ds->y[last_sIdx]] += weighted_frequency_temp;
-					rWeighted_frequency[(int)ds->y[last_sIdx]] -= weighted_frequency_temp;
+					int idx_temp;
+					for (int k = last_oper_id; k < j; k++) {
+						idx_temp = feature_order[k];
+						weighted_frequency_temp = class_weight[(int)ds->y[idx_temp]];
+						lWeighted_frequency[(int)ds->y[idx_temp]] += weighted_frequency_temp;
+						rWeighted_frequency[(int)ds->y[idx_temp]] -= weighted_frequency_temp;
+					}
 					// calculate gini sum of two child node
 					lFraction = (double)j/pa->sample_size;
 					lr_gini_sum = lFraction*Criterion::gini(lWeighted_frequency, n_classes)
@@ -155,7 +168,7 @@ void DecisionTreeClassifier::split(int max_feature, int *feature_list, double *c
 					// choose a best split point
 					if (lr_gini_sum < min_lr_gini_sum) {
 						min_lr_gini_sum = lr_gini_sum;
-						split_value = (ds->X[sIdx*ds->feature_size + cFeature] + ds->X[last_sIdx*ds->feature_size]) / 2;
+						split_value = (ds->X[sIdx*ds->feature_size + cFeature] + ds->X[last_sIdx*ds->feature_size + cFeature]) / 2;
 						left_size = j;
 					}
 					last_oper_id = j;
@@ -202,28 +215,49 @@ void DecisionTreeClassifier::split(int max_feature, int *feature_list, double *c
 	delete[] rWeighted_frequency;
 }
 
-void DecisionTreeClassifier::train(double *X, double *y, int sample_size, int feature_size, double *class_weight) {
+void DecisionTreeClassifier::train(double *X, double *y, int sample_size, int feature_size, 
+					int *discrete_idx, int discrete_size, double *class_weight) {
+	// if not specify class_weight, use ones vector as default
 	if (class_weight == NULL) {
 		class_weight = new double[n_classes];
+		for (int i = 0; i < n_classes; i++) class_weight[i] = 1.0;
 	}
-	// initialize dataset
-	ds->sample_size = sample_size;
-	ds->feature_size = feature_size;
-	ds->X = new double[sample_size*feature_size];
-	memcpy(ds->X, X, sizeof(double)*sample_size*feature_size);
-	ds->y = new double[sample_size];
-	memcpy(ds->y, y, sizeof(double)*sample_size);
+	ds->set_dataset(X, y, sample_size, feature_size, discrete_idx, discrete_size);
 
 	// train model
 	build_tree(feature_size, class_weight);
 }
 
-void DecisionTreeClassifier::train(std::string filename, int feature_size, bool is_text, double *class_weight) {
+void DecisionTreeClassifier::train(std::string filename, int feature_size, bool is_text, 
+					int *discrete_idx, int discrete_size, double *class_weight) {
+	// if not specify class_weight, use ones vector as default
+	if (class_weight == NULL) {
+		class_weight = new double[n_classes];
+		for (int i = 0; i < n_classes; i++) class_weight[i] = 1.0;
+	}
+	// read data from file
+	if (is_text) {
+		ds->readText(filename, feature_size, TRAIN, discrete_idx, discrete_size);
+	} else {
+		ds->readBinary(filename, feature_size, TRAIN, discrete_idx, discrete_size);
+	}
 
+	// train model
+	build_tree(feature_size, class_weight);
 }
 
-void DecisionTreeClassifier::train(std::string feature_filename, std::string label_filename, int feature_size, double *class_weight) {
+void DecisionTreeClassifier::train(std::string feature_filename, std::string label_filename, int feature_size,
+					int *discrete_idx, int discrete_size, double *class_weight) {
+	// if not specify class_weight, use ones vector as default
+	if (class_weight == NULL) {
+		class_weight = new double[n_classes];
+		for (int i = 0; i < n_classes; i++) class_weight[i] = 1.0;
+	}
+	// read data from feature file and label file (only for binary file)
+	ds->readBinary(feature_filename, label_filename, feature_size, discrete_idx, discrete_size);
 
+	// train model
+	build_tree(feature_size, class_weight);
 }
 
 double DecisionTreeClassifier::predict(double *feature_list){
@@ -243,7 +277,6 @@ double DecisionTreeClassifier::predict(double *feature_list){
 
 	}
 	return current_node->weighted_frequency[1] / (current_node->weighted_frequency[0] + current_node->weighted_frequency[1]);
-
 }
 
 double Criterion::gini(double *arr, int size) {

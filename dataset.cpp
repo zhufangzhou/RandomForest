@@ -15,6 +15,19 @@ Dataset::~Dataset() {
 	delete[] discrete_mask;
 }
 
+void Dataset::set_dataset(double *X, double *y, int sample_size, int feature_size, int *discrete_idx, int discrete_size) {
+	// initialize dataset
+	this->sample_size = sample_size;
+	this->feature_size = feature_size;
+	this->X = new double[sample_size*feature_size];
+	memcpy(this->X, X, sizeof(double)*sample_size*feature_size);
+	this->y = new double[sample_size];
+	memcpy(this->y, y, sizeof(double)*sample_size);
+
+	// deal with discrete feature
+	handle_discrete_feature(discrete_idx, discrete_size);
+}
+
 void Dataset::handle_discrete_feature(int *discrete_idx, int discrete_size) {
 	// use set to obatain unique discrete values
 	std::unordered_set<discrete_t> ss;
@@ -105,7 +118,8 @@ void Dataset::readBinary(std::string filename, int feature_size, bool is_train, 
 	fclose(fp);
 }
 
-void Dataset::readBinary(std::string feature_filename, std::string label_filename, int feature_size, int *discrete_idx, int discreate_size) {
+void Dataset::readBinary(std::string feature_filename, std::string label_filename, int feature_size,
+						 int *discrete_idx, int discreate_size) {
 	FILE *fp_feature = fopen(feature_filename.c_str(), "rb");
 	FILE *fp_label = fopen(label_filename.c_str(), "rb");
 	int i = 0, j = 0;
@@ -153,7 +167,7 @@ void Dataset::readText(std::string filename, int feature_size, bool is_train, in
 	const char* DELIMITER = " ";
 	double *X_buf = new double[feature_size], y_buf;
 	char *line = new char[MAX_LINE], *pch;
-	int i, start;
+	int i = 0, start;
 
 	timer.tic();
 	std::cout << "Start reading dataset from " << filename << std::endl;

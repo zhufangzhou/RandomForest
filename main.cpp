@@ -7,10 +7,12 @@ int main() {
 		n = r.next_double();
 		fwrite(&n, sizeof(double), 1, fp);
 	}*/
-	Dataset ds;
+	//Dataset ds;
 	//ds.readBinary("data.dat", 99);
-	ds.readText("data.txt", 5, TRAIN);
-	print_mat(ds.X, ds.sample_size, ds.feature_size, "feature matrix");
-	print_vec(ds.y, ds.sample_size, "label vector");
+	// ds.readText("data.txt", 5, TRAIN);
+	// print_mat(ds.X, ds.sample_size, ds.feature_size, "feature matrix");
+	// print_vec(ds.y, ds.sample_size, "label vector");
+	DecisionTreeClassifier *clf = new DecisionTreeClassifier(1, -1);
+	clf->train("data.txt", 5, TEXT);
 	return 0;
 }

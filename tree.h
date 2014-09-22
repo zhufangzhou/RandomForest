@@ -54,7 +54,7 @@ struct node_t {
 
 class BaseTree {
 protected:
-	virtual void build_tree() = 0;
+	virtual void build_tree(int max_feature, double *class_weight) = 0;
 	Dataset *ds;
 	int max_depth;								// max depth of the tree
 	int min_leaf_samples;						// minimum samples in the leaves
@@ -63,8 +63,7 @@ protected:
 	void check_param(int min_leaf_sample, int max_depth);
 	void init(int min_leaf_samples, int max_depth);
 public:
-	BaseTree(int min_leaf_samples, int max_depth,
-			int *discrete_idx = NULL, int discrete_size = 0);
+	BaseTree(int min_leaf_samples, int max_depth);
 	~BaseTree();
 	//void train(double *class_weight = NULL);
 	//void train(double *X, int *y, double *class_weight = NULL);
@@ -78,9 +77,14 @@ protected:
 	void split(int max_feature, int *feature_list, double *class_weight,
 				node_t *pa, node_t *lchilde, node_t *rchild);
 public:
-	void train(double *X, double *y, int sample_size, int feature_size, double *class_weight = NULL);
-	void train(std::string filename, int feature_size, bool is_text, double *class_weight = NULL);
-	void train(std::string feature_filename, std::string label_filename, int feature_size, double *class_weight = NULL);
+	DecisionTreeClassifier(int min_leaf_samples, int max_depth);
+
+	void train(double *X, double *y, int sample_size, int feature_size, 
+				int *discrete_idx = NULL, int discrete_size = 0, double *class_weight = NULL);
+	void train(std::string filename, int feature_size, bool is_text,
+				int *discrete_idx = NULL, int discrete_size = 0, double *class_weight = NULL);
+	void train(std::string feature_filename, std::string label_filename, int feature_size,
+				int *discrete_idx = NULL, int discrete_size = 0, double *class_weight = NULL);
 	double predict(double *feature_list);
 };
 
