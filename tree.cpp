@@ -277,8 +277,8 @@ void DecisionTreeClassifier::train(std::string feature_filename, std::string lab
 	gen_model();
 }
 
-double DecisionTreeClassifier::predict(std::string filename, int feature_size, bool is_text){
-	node_t *current_node = &this->tree[0];
+double* DecisionTreeClassifier::predict(std::string filename, int feature_size, bool is_text){
+	/*node_t *current_node = &this->tree[0];
 	while(!current_node->is_leaf){
 		if(current_node->is_discrete)
 			if(feature_list[current_node->feature_index] == current_node->feature_value)
@@ -292,8 +292,9 @@ double DecisionTreeClassifier::predict(std::string filename, int feature_size, b
 			else
 				current_node = &this->tree[current_node->rchild];
 
-	}
-	return current_node->weighted_frequency[1] / (current_node->weighted_frequency[0] + current_node->weighted_frequency[1]);
+	}*/
+	return NULL;
+	// return current_node->weighted_frequency[1] / (current_node->weighted_frequency[0] + current_node->weighted_frequency[1]);
 }
 
 void DecisionTreeClassifier::gen_model() {
@@ -378,15 +379,15 @@ void DecisionTreeClassifier::export_dotfile(std::string dot_filename) {
 	for (int i = 0; i < model.model_size; i++) {
 		cNode = model.tree[i];
 		if (cNode.is_leaf) {
-			fprintf(fp, "%d [label=\"gini = %.3lf\npositive proba = %.3lf\", shape=\"box\"];\n", i, cNode.criterion, cNode.node_value);
+			fprintf(fp, "%d [label=\"gini = %.3lf\\npositive proba = %.3lf\", shape=\"box\"];\n", i, cNode.criterion, cNode.node_value);
 		} else {
 			if (cNode.is_discrete) {
-				fprintf(fp, "%d [label=\"X[%d] = %.3lf\ngini = %.3lf\", shape=\"box\"];\n", i, cNode.feature_index, cNode.feature_value, cNode.criterion);
+				fprintf(fp, "%d [label=\"X[%d] = %.3lf\\ngini = %.3lf\", shape=\"box\"];\n", i, cNode.feature_index, cNode.feature_value, cNode.criterion);
 			} else {
-				fprintf(fp, "%d [label=\"X[%d] < %.3lf\ngini = %.3lf\", shape=\"box\"];\n", i, cNode.feature_index, cNode.feature_value, cNode.criterion);
+				fprintf(fp, "%d [label=\"X[%d] < %.3lf\\ngini = %.3lf\", shape=\"box\"];\n", i, cNode.feature_index, cNode.feature_value, cNode.criterion);
 			}
-			fprintf(fp, "%d -> %d\n", i, cNode.lchild);
-			fprintf(fp, "%d -> %d\n", i, cNode.rchild);
+			fprintf(fp, "%d -> %d;\n", i, cNode.lchild);
+			fprintf(fp, "%d -> %d;\n", i, cNode.rchild);
 		}
 	}
 	fprintf(fp, "}\n");
