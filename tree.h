@@ -133,7 +133,9 @@ public:
 				int *discrete_idx = NULL, int discrete_size = 0, double *class_weight = NULL);
 	void train(std::string feature_filename, std::string label_filename, int feature_size,
 				int *discrete_idx = NULL, int discrete_size = 0, double *class_weight = NULL);
-	double predict(double *feature_list);
+
+	double* predict(double *X, int sample_size, int feature_size);
+	double* predict(std::string feature_filename, int feature_size, bool is_text);
 
 	void dump(std::string model_filename);
 	void load(std::string model_filename);

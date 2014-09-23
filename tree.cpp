@@ -277,7 +277,7 @@ void DecisionTreeClassifier::train(std::string feature_filename, std::string lab
 	gen_model();
 }
 
-double DecisionTreeClassifier::predict(double *feature_list){
+double DecisionTreeClassifier::predict(std::string filename, int feature_size, bool is_text){
 	node_t *current_node = &this->tree[0];
 	while(!current_node->is_leaf){
 		if(current_node->is_discrete)
