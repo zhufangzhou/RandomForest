@@ -78,7 +78,7 @@ void Dataset::readBinary(std::string filename, int feature_size, bool is_train, 
 		// first read a sample into buffer
 		while (fread(&y_buf, sizeof(double), 1, fp)) {	
 			if (fread(X_buf, sizeof(double), feature_size, fp) != feature_size) {
-				std::cout << "dataset size is wrong, missing several values" << std::endl;
+				std::cerr << "dataset size is wrong, missing several values" << std::endl;
 				exit(EXIT_FAILURE);
 			}
 			
@@ -169,14 +169,14 @@ void Dataset::readText(std::string filename, int feature_size, bool is_train, in
 	char *line = new char[MAX_LINE], *pch;
 	int i = 0, start;
 
-	timer.tic();
 	std::cout << "Start reading dataset from " << filename << std::endl;
+	timer.tic();
 	
 	// read a line and split to get label and each feature value	
 	while (fgets(line, MAX_LINE, fp)) {
 		pch = strtok(line, DELIMITER);			// read label
 		if (pch == NULL || pch == "") {
-			std::cout << "Line " << i+1 << " miss label." << std::endl;
+			std::cerr << "Line " << i+1 << " miss label." << std::endl;
 			exit(EXIT_FAILURE);
 		}
 		if (is_train) {
@@ -191,7 +191,7 @@ void Dataset::readText(std::string filename, int feature_size, bool is_train, in
 		for (int j = start; j < feature_size - 1; j++) {
 			pch = strtok(NULL, DELIMITER);
 			if (pch == NULL || pch == "") {
-				std::cout << "Line " << i+1 << " miss feature" << "." << std::endl;
+				std::cerr << "Line " << i+1 << " miss feature" << "." << std::endl;
 				exit(EXIT_FAILURE);
 			}
 			X_buf[j] = atof(pch);
@@ -199,7 +199,7 @@ void Dataset::readText(std::string filename, int feature_size, bool is_train, in
 		// read last feature
 		pch = strtok(NULL, "\n");
 		if (pch == NULL || pch == "") {
-			std::cout << "Line " << i+1 << " miss feature" << "." << std::endl;
+			std::cerr << "Line " << i+1 << " miss feature" << "." << std::endl;
 			exit(EXIT_FAILURE);
 		}
 		X_buf[feature_size-1] = atof(pch);
@@ -215,6 +215,7 @@ void Dataset::readText(std::string filename, int feature_size, bool is_train, in
 	}
 
 	std::cout << "Finish reading dataset. Sample size: " << i << ", Feature size: " << feature_size << "." << std::endl;
+	
 	timer.toc();
 	
 	this->sample_size = i;

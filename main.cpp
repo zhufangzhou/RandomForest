@@ -12,7 +12,10 @@ int main() {
 	// ds.readText("data.txt", 5, TRAIN);
 	// print_mat(ds.X, ds.sample_size, ds.feature_size, "feature matrix");
 	// print_vec(ds.y, ds.sample_size, "label vector");
-	DecisionTreeClassifier *clf = new DecisionTreeClassifier(1, -1);
-	clf->train("data.txt", 5, TEXT);
+	DecisionTreeClassifier *clf = new DecisionTreeClassifier(1, 10);
+	clf->train("data2.txt", 100, TEXT);
+	clf->export_dotfile("tree.dot");
+	double *imp = clf->compute_importance();
+	print_vec(imp, 100, "Feature Importance");
 	return 0;
 }

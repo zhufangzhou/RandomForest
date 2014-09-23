@@ -6,14 +6,20 @@ BaseTree::BaseTree(int min_leaf_samples, int max_depth) {
 	init(min_leaf_samples, max_depth);
 }
 
+BaseTree::~BaseTree() {
+	delete ds;
+	delete[] model.tree;
+	tree.clear();
+}
+
 void BaseTree::check_param(int min_leaf_samples, int max_depth) {
 	if (min_leaf_samples <= 0) {
-		std::cout << "min_leaf_samples must be positive integer." << std::endl;
+		std::cerr << "min_leaf_samples must be positive integer." << std::endl;
 		exit(EXIT_FAILURE);
 	}
 
 	if (max_depth <= 0) {
-		std::cout << "max_depth must be positive integer." << std::endl;
+		std::cerr << "max_depth must be positive integer." << std::endl;
 		exit(EXIT_FAILURE);
 	}
 }
@@ -47,6 +53,7 @@ void DecisionTreeClassifier::build_tree(int max_feature, double *class_weight) {
 	while (cNodeIdx < tree.size()) {
 		// get a node to split
 		cNode = &tree[cNodeIdx];
+		cNode->criterion = Criterion::gini(cNode->weighted_frequency, n_classes);
 
 		// if satisfy stopping condition or the node is pure
 		if (cNode->depth == max_depth || cNode->sample_size < min_leaf_samples * 2 || 
@@ -54,6 +61,8 @@ void DecisionTreeClassifier::build_tree(int max_feature, double *class_weight) {
 			cNode->is_leaf = true;
 		} else {	// if cNode is not a leaf node , then split	into two children node
 			// split the current and generate left and right child
+			lNode.reset();
+			rNode.reset();
 			split(max_feature, feature_list, class_weight, cNode, &lNode, &rNode);
 
 			// add left and right child to tree
@@ -185,6 +194,7 @@ void DecisionTreeClassifier::split(int max_feature, int *feature_list, double *c
 			pa->feature_index = cFeature;
 			pa->feature_value = split_value;
 			pa->is_discrete = (ds->discrete_mask[cFeature] != -1);
+			pa->improvement = bestCriterionValue;
 			lchild->sample_size = left_size;
 			rchild->sample_size = pa->sample_size - left_size;
 		}
@@ -213,6 +223,7 @@ void DecisionTreeClassifier::split(int max_feature, int *feature_list, double *c
 	// free space
 	delete[] lWeighted_frequency;
 	delete[] rWeighted_frequency;
+	delete[] feature_order;
 }
 
 void DecisionTreeClassifier::train(double *X, double *y, int sample_size, int feature_size, 
@@ -226,6 +237,8 @@ void DecisionTreeClassifier::train(double *X, double *y, int sample_size, int fe
 
 	// train model
 	build_tree(feature_size, class_weight);
+	// generate model using tree structure
+	gen_model();
 }
 
 void DecisionTreeClassifier::train(std::string filename, int feature_size, bool is_text, 
@@ -244,6 +257,8 @@ void DecisionTreeClassifier::train(std::string filename, int feature_size, bool 
 
 	// train model
 	build_tree(feature_size, class_weight);
+	// generate model using tree structure
+	gen_model();
 }
 
 void DecisionTreeClassifier::train(std::string feature_filename, std::string label_filename, int feature_size,
@@ -258,6 +273,8 @@ void DecisionTreeClassifier::train(std::string feature_filename, std::string lab
 
 	// train model
 	build_tree(feature_size, class_weight);
+	// generate model using tree structure
+	gen_model();
 }
 
 double DecisionTreeClassifier::predict(double *feature_list){
@@ -279,6 +296,102 @@ double DecisionTreeClassifier::predict(double *feature_list){
 	return current_node->weighted_frequency[1] / (current_node->weighted_frequency[0] + current_node->weighted_frequency[1]);
 }
 
+void DecisionTreeClassifier::gen_model() {
+	double node_value;
+	model.tree = new model_t[tree.size()];
+	int counts = 0;
+	for (auto it = tree.begin(); it != tree.end(); it++) {
+		node_value = it->weighted_frequency[1] / (it->weighted_frequency[0] + it->weighted_frequency[1]);
+		model.tree[counts++] = model_t(it->is_leaf, node_value, it->feature_index, it->is_discrete, it->feature_value, 
+		it->improvement, it->criterion, it->depth, it->lchild, it->rchild);
+	}
+	model.model_size = counts;
+	model.feature_size = ds->feature_size;
+}
+
+double* DecisionTreeClassifier::compute_importance() {
+	double *importance;
+	model_t cNode;
+	if (model.tree == NULL) {
+		std::cerr << "Please call `train` function first." << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	importance = new double[model.feature_size];
+	memset(importance, 0, sizeof(double) * model.feature_size);
+	// add all the improvement from those node who use this feature as a split feature
+	for (int i = 0; i < model.model_size; i++) {
+		cNode = model.tree[i];
+		if (!cNode.is_leaf) {
+			importance[cNode.feature_index] += cNode.improvement;
+		}
+	}
+	// normalize the importance
+	vec_normalize(importance, model.feature_size, INPLACE);
+	return importance;
+}
+
+void DecisionTreeClassifier::dump(std::string model_filename) {
+	FILE *fp;
+	if ((fp = fopen(model_filename.c_str(), "wb")) == NULL) {
+		std::cerr << "Fail to open the model file: " << model_filename << "." << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	if (model.tree == NULL) {
+		std::cerr << "Please call `train` function first." << std::endl;
+		exit(EXIT_FAILURE);
+	}
+
+	timer.tic("Begin Dump Model.");
+	// dump the model to model_filename
+	fwrite(&model.model_size, sizeof(int), 1, fp);
+	fwrite(&model.feature_size, sizeof(int), 1, fp);
+	fwrite(model.tree, sizeof(model_t), model.model_size, fp);
+	timer.toc("Finish Dump Model.");
+}
+
+void DecisionTreeClassifier::load(std::string model_filename) {
+	FILE *fp;
+	if ((fp = fopen(model_filename.c_str(), "wb")) == NULL) {
+		std::cerr << "Fail to open the model file: " << model_filename << "." << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	// delete current model first
+	if (model.tree != NULL)
+		delete[] model.tree;
+
+	timer.tic("Begin Load Moedl.");
+	fread(&model.model_size, sizeof(int), 1, fp);
+	fread(&model.feature_size, sizeof(int), 1, fp);
+	fread(model.tree, sizeof(model_t), model.model_size, fp);
+	timer.toc("Finish Load Model.");
+}
+
+void DecisionTreeClassifier::export_dotfile(std::string dot_filename) {
+	FILE *fp;
+	model_t cNode;
+	if (model.tree == NULL) {
+		std::cerr << "Please call `train` function first." << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	fp = fopen(dot_filename.c_str(), "w");
+	fprintf(fp, "digraph Tree {\n");
+	for (int i = 0; i < model.model_size; i++) {
+		cNode = model.tree[i];
+		if (cNode.is_leaf) {
+			fprintf(fp, "%d [label=\"gini = %.3lf\npositive proba = %.3lf\", shape=\"box\"];\n", i, cNode.criterion, cNode.node_value);
+		} else {
+			if (cNode.is_discrete) {
+				fprintf(fp, "%d [label=\"X[%d] = %.3lf\ngini = %.3lf\", shape=\"box\"];\n", i, cNode.feature_index, cNode.feature_value, cNode.criterion);
+			} else {
+				fprintf(fp, "%d [label=\"X[%d] < %.3lf\ngini = %.3lf\", shape=\"box\"];\n", i, cNode.feature_index, cNode.feature_value, cNode.criterion);
+			}
+			fprintf(fp, "%d -> %d\n", i, cNode.lchild);
+			fprintf(fp, "%d -> %d\n", i, cNode.rchild);
+		}
+	}
+	fprintf(fp, "}\n");
+}
+
 double Criterion::gini(double *arr, int size) {
 	double *proba = vec_normalize(arr, size, NOT_INPLACE);
 	double gini = 1.0;
@@ -288,4 +401,3 @@ double Criterion::gini(double *arr, int size) {
 	delete[] proba;
 	return gini;
 }
-
