@@ -59,6 +59,8 @@ void DecisionTreeClassifier::build_tree(int max_feature, double *class_weight) {
 		if (cNode->depth == max_depth || cNode->sample_size < min_leaf_samples * 2 || 
 			zero(cNode->weighted_frequency[0]) || zero(cNode->weighted_frequency[1])) {	// cNode is leaf node
 			cNode->is_leaf = true;
+			// delete leaf node's sample_index
+			delete[] cNode->sample_index;
 		} else {	// if cNode is not a leaf node , then split	into two children node
 			// split the current and generate left and right child
 			lNode.reset();
@@ -277,37 +279,109 @@ void DecisionTreeClassifier::train(std::string feature_filename, std::string lab
 	gen_model();
 }
 
-double* DecisionTreeClassifier::predict(std::string filename, int feature_size, bool is_text){
-	/*node_t *current_node = &this->tree[0];
-	while(!current_node->is_leaf){
-		if(current_node->is_discrete)
-			if(feature_list[current_node->feature_index] == current_node->feature_value)
-				current_node = &this->tree[current_node->lchild];
-			else
-				current_node = &this->tree[current_node->rchild];
-
-		else
-			if(feature_list[current_node->feature_index] < current_node->feature_value)
-				current_node = &this->tree[current_node->lchild];
-			else
-				current_node = &this->tree[current_node->rchild];
-
-	}*/
-	return NULL;
-	// return current_node->weighted_frequency[1] / (current_node->weighted_frequency[0] + current_node->weighted_frequency[1]);
-}
-
 void DecisionTreeClassifier::gen_model() {
 	double node_value;
 	model.tree = new model_t[tree.size()];
 	int counts = 0;
 	for (auto it = tree.begin(); it != tree.end(); it++) {
 		node_value = it->weighted_frequency[1] / (it->weighted_frequency[0] + it->weighted_frequency[1]);
-		model.tree[counts++] = model_t(it->is_leaf, node_value, it->feature_index, it->is_discrete, it->feature_value, 
-		it->improvement, it->criterion, it->depth, it->lchild, it->rchild);
+		model.tree[counts++] = model_t(it->is_leaf, node_value, it->feature_index, it->is_discrete, it->feature_value,
+			it->improvement, it->criterion, it->depth, it->lchild, it->rchild);
 	}
 	model.model_size = counts;
 	model.feature_size = ds->feature_size;
+}
+
+int* DecisionTreeClassifier::apply() {
+	model_t *cNode;
+	int *leaf_idx, cIdx, feature_idx;
+	double cFeature_value, threshold;
+	leaf_idx = new int[ds->sample_size];
+	
+	for (int i = 0; i < ds->sample_size; i++) {
+		cIdx = 0;
+		cNode = &model.tree[cIdx];
+		while (!cNode->is_leaf) {
+			threshold = cNode->feature_value;
+			feature_idx = cNode->feature_index;
+			cFeature_value = ds->X[i*ds->feature_size + feature_idx];
+			// whether is discrete feature or not 
+			if (cNode->is_discrete) {
+				if (cFeature_value == threshold) {
+					cIdx = cNode->lchild;
+				} else {
+					cIdx = cNode->rchild;
+				}
+			} else {
+				if (cFeature_value < threshold) {
+					cIdx = cNode->lchild;
+				} else {
+					cIdx = cNode->rchild;
+				}
+			}
+			cNode = &model.tree[cIdx];
+		}
+		leaf_idx[i] = cIdx;
+	}
+	return leaf_idx;
+}
+
+int* DecisionTreeClassifier::apply(std::string filename, int feature_size, bool is_text) {
+	// read data from file
+	if (is_text) {
+		ds->readText(filename, feature_size, PREDICT);
+	}
+	else {
+		ds->readBinary(filename, feature_size, PREDICT);
+	}
+
+	return apply();
+}
+
+int* DecisionTreeClassifier::apply(double *X, int sample_size, int feature_size) {
+	// set the dataset
+	ds->set_dataset(X, NULL, sample_size, feature_size);
+
+	return apply();
+}
+
+double* DecisionTreeClassifier::predict(int *leaf_idx, bool is_proba) {
+	double *ret;
+	ret = new double[ds->sample_size];
+	if (is_proba) {
+		for (int i = 0; i < ds->sample_size; i++) {
+			ret[i] = model.tree[leaf_idx[i]].node_value;
+		}
+	}
+	else {
+		for (int i = 0; i < ds->sample_size; i++) {
+			ret[i] = (int)(model.tree[leaf_idx[i]].node_value + 0.5);
+		}
+	}
+	delete[] leaf_idx;
+}
+
+double* DecisionTreeClassifier::predict(double *X, int sample_size, int feature_size, bool is_proba) {
+	int *leaf_idx;
+	
+	leaf_idx = apply(X, sample_size, feature_size);
+	if (leaf_idx == NULL) {
+		std::cerr << "Fail to predict." << std::endl;
+		exit(EXIT_FAILURE);
+	}
+
+	return predict(leaf_idx, is_proba);
+}
+
+double* DecisionTreeClassifier::predict(std::string filename, int feature_size, bool is_text, bool is_proba){
+	int *leaf_idx;
+	leaf_idx = apply(filename, feature_size, is_text);
+	if (leaf_idx == NULL) {
+		std::cerr << "Fail to predict." << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	
+	return predict(leaf_idx, is_proba);
 }
 
 double* DecisionTreeClassifier::compute_importance() {

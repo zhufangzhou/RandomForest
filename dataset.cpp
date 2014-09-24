@@ -4,8 +4,8 @@ Dataset::Dataset() {
 	// initialize X and y, otherwise will error when call realloc
 	X = NULL;
 	y = NULL;
-	// discrete_idx = NULL;
-	// discrete_size = 0;
+	discrete_idx = NULL;
+	discrete_size = 0;
 	discrete_mask = NULL;	
 }
 
@@ -15,14 +15,29 @@ Dataset::~Dataset() {
 	delete[] discrete_mask;
 }
 
+void Dataset::reset() {
+	delete[] X;
+	delete[] y;
+	sample_size = 0;
+	feature_size = 0;
+}
+
 void Dataset::set_dataset(double *X, double *y, int sample_size, int feature_size, int *discrete_idx, int discrete_size) {
+	// first reset the dataset
+	reset();
 	// initialize dataset
 	this->sample_size = sample_size;
 	this->feature_size = feature_size;
-	this->X = new double[sample_size*feature_size];
-	memcpy(this->X, X, sizeof(double)*sample_size*feature_size);
-	this->y = new double[sample_size];
-	memcpy(this->y, y, sizeof(double)*sample_size);
+	
+	if (X != NULL) {
+		this->X = new double[sample_size*feature_size];
+		memcpy(this->X, X, sizeof(double)*sample_size*feature_size);
+	}
+	
+	if (y != NULL) {
+		this->y = new double[sample_size];
+		memcpy(this->y, y, sizeof(double)*sample_size);
+	}
 
 	// deal with discrete feature
 	handle_discrete_feature(discrete_idx, discrete_size);
@@ -33,12 +48,13 @@ void Dataset::handle_discrete_feature(int *discrete_idx, int discrete_size) {
 	std::unordered_set<discrete_t> ss;
 	int counts = 0;
 
-	// determine which features is discrete
-	discrete_mask = new int[feature_size];
-
-	memset(discrete_mask, 0xff, sizeof(int)*feature_size);
+	
 	
 	if (!(discrete_idx == 0 || discrete_idx == NULL)) {
+		// determine which features is discrete
+		discrete_mask = new int[feature_size];
+		memset(discrete_mask, 0xff, sizeof(int)*feature_size);
+		
 		this->discrete_idx = discrete_idx;
 		this->discrete_size = discrete_size;
 		
@@ -53,15 +69,15 @@ void Dataset::handle_discrete_feature(int *discrete_idx, int discrete_size) {
 				ss.insert((discrete_t) X[i*feature_size + discrete_idx[j]]);
 			}
 			discrete_value[j] = new discrete_t[ss.size() + 1];
-			// the first element for each discrete feature is its distinct value count
+			// the first element for each discrete feature is its distinct value count --> discrete_value[j][0]
 			discrete_value[j][0] = 0;
 			// iterate the unordered_set to get all the distinct value for this discrete feature
 			for (auto it = ss.begin(); it != ss.end(); it++) {
 				discrete_value[j][(int)++discrete_value[j][0]] = *it;
 			}
 		}
-
 	}
+	delete[] discrete_mask;
 }
 
 void Dataset::readBinary(std::string filename, int feature_size, bool is_train, int *discrete_idx, int discrete_size) {
@@ -69,6 +85,10 @@ void Dataset::readBinary(std::string filename, int feature_size, bool is_train, 
 	int i = 0;
 	double *X_buf, y_buf;
 	size_t read_count;
+	
+	// first reset the dataset
+	reset();
+	
 	X_buf = new double[feature_size];
 
 	timer.tic();
@@ -126,6 +146,9 @@ void Dataset::readBinary(std::string feature_filename, std::string label_filenam
 	double *X_buf;
 	size_t read_count;
 	
+	// first reset the dataset
+	reset();
+
 	X_buf = (double*) malloc(sizeof(double)*feature_size);
 
 	timer.tic();
@@ -168,6 +191,9 @@ void Dataset::readText(std::string filename, int feature_size, bool is_train, in
 	double *X_buf = new double[feature_size], y_buf;
 	char *line = new char[MAX_LINE], *pch;
 	int i = 0, start;
+
+	// first reset the dataset
+	reset();
 
 	std::cout << "Start reading dataset from " << filename << std::endl;
 	timer.tic();

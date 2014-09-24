@@ -12,6 +12,7 @@
 class Dataset {	
 private:
 	void handle_discrete_feature(int *discrete_idx, int discrete_size);
+	void reset();
 public:
 	int sample_size;						// sample size
 	int feature_size;						// feature size
@@ -28,7 +29,7 @@ public:
 	Dataset();
 	~Dataset();
 	
-	void set_dataset(double *X, double *y, int sample_size, int feature_size, int *discrete_idx, int discrete_size);
+	void set_dataset(double *X, double *y, int sample_size, int feature_size, int *discrete_idx = NULL, int discrete_size = NULL);
 
 	void readText(std::string filename, int feature_size, bool is_train, int *discrete_idx = NULL, int discrete_size = 0);
 	

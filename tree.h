@@ -104,7 +104,6 @@ protected:
 	int n_classes;
 	std::vector<node_t> tree;					// tree structure
 
-	
 	model_meta model;								// tree model (remove some useless information of tree structure)
 	void check_param(int min_leaf_sample, int max_depth);
 	void init(int min_leaf_samples, int max_depth);
@@ -123,7 +122,8 @@ protected:
 	void split(int max_feature, int *feature_list, double *class_weight,
 				node_t *pa, node_t *lchilde, node_t *rchild);
 	void gen_model();
-
+	int* apply();
+	double* predict(int* leaf_idx, bool is_proba);
 public:
 	DecisionTreeClassifier(int min_leaf_samples, int max_depth);
 
@@ -133,9 +133,10 @@ public:
 				int *discrete_idx = NULL, int discrete_size = 0, double *class_weight = NULL);
 	void train(std::string feature_filename, std::string label_filename, int feature_size,
 				int *discrete_idx = NULL, int discrete_size = 0, double *class_weight = NULL);
-
-	double* predict(double *X, int sample_size, int feature_size);
-	double* predict(std::string feature_filename, int feature_size, bool is_text);
+	int* apply(double *X, int sample_size, int feature_size);
+	int* apply(std::string feature_filename, int feature_size, bool is_text);
+	double* predict(double *X, int sample_size, int feature_size, bool is_proba = true);
+	double* predict(std::string feature_filename, int feature_size, bool is_text, bool is_proba = true);
 
 	void dump(std::string model_filename);
 	void load(std::string model_filename);
