@@ -22,6 +22,7 @@
 *.vcxproj
 *.idb
 *.filters
+*.user
 
 # Compiled Static libraries
 *.lai
