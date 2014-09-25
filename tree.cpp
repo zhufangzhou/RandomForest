@@ -340,7 +340,7 @@ int* DecisionTreeClassifier::apply(std::string filename, int feature_size, bool 
 
 int* DecisionTreeClassifier::apply(double *X, int sample_size, int feature_size) {
 	// set the dataset
-	ds->set_dataset(X, NULL, sample_size, feature_size);
+	ds->set_dataset(X, sample_size, feature_size);
 
 	return apply();
 }

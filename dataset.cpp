@@ -23,6 +23,14 @@ void Dataset::reset() {
 }
 
 void Dataset::set_dataset(double *X, double *y, int sample_size, int feature_size, int *discrete_idx, int discrete_size) {
+	set_dataset(X, sample_size, feature_size, discrete_idx, discrete_size);
+	if (y != NULL) {
+		this->y = new double[sample_size];
+		memcpy(this->y, y, sizeof(double)*sample_size);
+	}
+}
+
+void Dataset::set_dataset(double *X, int sample_size, int feature_size, int *discrete_idx, int discrete_size) {
 	// first reset the dataset
 	reset();
 	// initialize dataset
@@ -33,14 +41,10 @@ void Dataset::set_dataset(double *X, double *y, int sample_size, int feature_siz
 		this->X = new double[sample_size*feature_size];
 		memcpy(this->X, X, sizeof(double)*sample_size*feature_size);
 	}
-	
-	if (y != NULL) {
-		this->y = new double[sample_size];
-		memcpy(this->y, y, sizeof(double)*sample_size);
-	}
 
 	// deal with discrete feature
-	handle_discrete_feature(discrete_idx, discrete_size);
+	if (discrete_idx != 0 && discrete_idx != NULL)
+		handle_discrete_feature(discrete_idx, discrete_size);
 }
 
 void Dataset::handle_discrete_feature(int *discrete_idx, int discrete_size) {

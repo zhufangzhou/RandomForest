@@ -29,7 +29,8 @@ public:
 	Dataset();
 	~Dataset();
 	
-	void set_dataset(double *X, double *y, int sample_size, int feature_size, int *discrete_idx = NULL, int discrete_size = NULL);
+	void set_dataset(double *X, double *y, int sample_size, int feature_size, int *discrete_idx = NULL, int discrete_size = 0);
+	void set_dataset(double *X, int sample_size, int feature_size, int *discrete_idx = NULL, int discrete_size = 0);
 
 	void readText(std::string filename, int feature_size, bool is_train, int *discrete_idx = NULL, int discrete_size = 0);
 	
