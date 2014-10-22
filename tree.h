@@ -9,6 +9,8 @@
 
 #define BINARY false
 #define TEXT true
+#define PROBA true
+#define LABEL false
 typedef int sample_size_t;
 
 class Dataset;
@@ -127,17 +129,20 @@ protected:
 	double* predict(int* leaf_idx, bool is_proba);
 public:
 	DecisionTreeClassifier(int min_leaf_samples, int max_depth);
+	
+	// this method is for RandomForestClassifier, use a small fraction of features and do not copy training data into class
+	void train(Dataset ds, int max_feature, double *class_weight = NULL);
 
-	void train(double *X, double *y, int sample_size, int feature_size, 
+	void train(double *X, double *y, int sample_size, int feature_size, bool is_copy,
 				int *discrete_idx = NULL, int discrete_size = 0, double *class_weight = NULL);
 	void train(std::string filename, int feature_size, bool is_text,
 				int *discrete_idx = NULL, int discrete_size = 0, double *class_weight = NULL);
 	void train(std::string feature_filename, std::string label_filename, int feature_size,
 				int *discrete_idx = NULL, int discrete_size = 0, double *class_weight = NULL);
-	int* apply(double *X, int sample_size, int feature_size);
+	int* apply(double *X, int sample_size, int feature_size, bool is_copy);
 	int* apply(std::string feature_filename, int feature_size, bool is_text);
-	double* predict(double *X, int sample_size, int feature_size, bool is_proba = true);
-	double* predict(std::string feature_filename, int feature_size, bool is_text, bool is_proba = true);
+	double* predict(double *X, int sample_size, int feature_size, bool is_proba = PROBA, bool is_copy = true);
+	double* predict(std::string feature_filename, int feature_size, bool is_text, bool is_proba = PROBA);
 
 	void dump(std::string model_filename);
 	void load(std::string model_filename);

@@ -1,6 +1,7 @@
 #include "dataset.h"
 #include "tree.h"
 #include "utils.h"
+#include "metrics.h"
 int main() {
 	/*FILE *fp = fopen("data.dat", "wb");
 	double n;

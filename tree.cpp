@@ -230,14 +230,25 @@ void DecisionTreeClassifier::split(int max_feature, int *feature_list, double *c
 	delete[] feature_order;
 }
 
-void DecisionTreeClassifier::train(double *X, double *y, int sample_size, int feature_size, 
+void DecisionTreeClassifier::train(Dataset train_ds, int max_feature, double* class_weight) {
+	// if not specify class_weight, use ones vector as default
+	if (class_weight == NULL) 
+		class_weight = gen_dones(n_classes);
+	ds->set_dataset(train_ds, false);	
+
+	// train model
+	build_tree(max_feature, class_weight);
+	// generate model using tree structure
+	gen_model();
+}
+
+void DecisionTreeClassifier::train(double *X, double *y, int sample_size, int feature_size, bool is_copy,
 					int *discrete_idx, int discrete_size, double *class_weight) {
 	// if not specify class_weight, use ones vector as default
-	if (class_weight == NULL) {
-		class_weight = new double[n_classes];
-		for (int i = 0; i < n_classes; i++) class_weight[i] = 1.0;
-	}
-	ds->set_dataset(X, y, sample_size, feature_size, discrete_idx, discrete_size);
+	if (class_weight == NULL) 
+		class_weight = gen_dones(n_classes);
+
+	ds->set_dataset(X, y, sample_size, feature_size, is_copy, discrete_idx, discrete_size);
 
 	// train model
 	build_tree(feature_size, class_weight);
@@ -248,10 +259,9 @@ void DecisionTreeClassifier::train(double *X, double *y, int sample_size, int fe
 void DecisionTreeClassifier::train(std::string filename, int feature_size, bool is_text, 
 					int *discrete_idx, int discrete_size, double *class_weight) {
 	// if not specify class_weight, use ones vector as default
-	if (class_weight == NULL) {
-		class_weight = new double[n_classes];
-		for (int i = 0; i < n_classes; i++) class_weight[i] = 1.0;
-	}
+	if (class_weight == NULL) 
+		class_weight = gen_dones(n_classes);
+	
 	// read data from file
 	if (is_text) {
 		ds->readText(filename, feature_size, TRAIN, discrete_idx, discrete_size);
@@ -268,10 +278,9 @@ void DecisionTreeClassifier::train(std::string filename, int feature_size, bool 
 void DecisionTreeClassifier::train(std::string feature_filename, std::string label_filename, int feature_size,
 					int *discrete_idx, int discrete_size, double *class_weight) {
 	// if not specify class_weight, use ones vector as default
-	if (class_weight == NULL) {
-		class_weight = new double[n_classes];
-		for (int i = 0; i < n_classes; i++) class_weight[i] = 1.0;
-	}
+	if (class_weight == NULL) 
+		class_weight = gen_dones(n_classes);
+	
 	// read data from feature file and label file (only for binary file)
 	ds->readBinary(feature_filename, label_filename, feature_size, discrete_idx, discrete_size);
 
@@ -340,9 +349,9 @@ int* DecisionTreeClassifier::apply(std::string filename, int feature_size, bool 
 	return apply();
 }
 
-int* DecisionTreeClassifier::apply(double *X, int sample_size, int feature_size) {
+int* DecisionTreeClassifier::apply(double *X, int sample_size, int feature_size, bool is_copy) {
 	// set the dataset
-	ds->set_dataset(X, sample_size, feature_size);
+	ds->set_dataset(X, sample_size, feature_size, is_copy);
 
 	return apply();
 }
@@ -354,8 +363,7 @@ double* DecisionTreeClassifier::predict(int *leaf_idx, bool is_proba) {
 		for (int i = 0; i < ds->sample_size; i++) {
 			ret[i] = model.tree[leaf_idx[i]].node_value;
 		}
-	}
-	else {
+	} else {
 		for (int i = 0; i < ds->sample_size; i++) {
 			ret[i] = (int)(model.tree[leaf_idx[i]].node_value + 0.5);
 		}
@@ -364,10 +372,10 @@ double* DecisionTreeClassifier::predict(int *leaf_idx, bool is_proba) {
 	return ret;
 }
 
-double* DecisionTreeClassifier::predict(double *X, int sample_size, int feature_size, bool is_proba) {
+double* DecisionTreeClassifier::predict(double *X, int sample_size, int feature_size, bool is_proba, bool is_copy) {
 	int *leaf_idx;
 	
-	leaf_idx = apply(X, sample_size, feature_size);
+	leaf_idx = apply(X, sample_size, feature_size, is_copy);
 	if (leaf_idx == NULL) {
 		std::cerr << "Fail to predict." << std::endl;
 		exit(EXIT_FAILURE);

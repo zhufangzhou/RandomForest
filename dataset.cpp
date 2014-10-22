@@ -23,22 +23,36 @@ void Dataset::reset() {
 	feature_size = 0;
 }
 
-void Dataset::set_dataset(double *X, double *y, int sample_size, int feature_size, int *discrete_idx, int discrete_size) {
-	set_dataset(X, sample_size, feature_size, discrete_idx, discrete_size);
-	if (y != NULL) {
+void Dataset::set_dataset(Dataset ds, bool is_copy) {
+	set_dataset(ds.X, ds.y, ds.sample_size, ds.feature_size, is_copy, ds.discrete_idx, ds.discrete_size);	
+}
+
+void Dataset::set_dataset(double *X, double *y, int sample_size, int feature_size, bool is_copy, int *discrete_idx, int discrete_size) {
+	set_dataset(X, sample_size, feature_size, is_copy, discrete_idx, discrete_size);
+	if (y == NULL)
+		throw "dataset.cpp::set_dataset-->\n\tVector `y` must not be NULL";
+	// do we copy the y into the dataset or just point to it
+	if (!is_copy) {
+		this->y = y;
+	} else {
 		this->y = new double[sample_size];
 		memcpy(this->y, y, sizeof(double)*sample_size);
 	}
 }
 
-void Dataset::set_dataset(double *X, int sample_size, int feature_size, int *discrete_idx, int discrete_size) {
+void Dataset::set_dataset(double *X, int sample_size, int feature_size, bool is_copy, int *discrete_idx, int discrete_size) {
 	// first reset the dataset
 	reset();
 	// initialize dataset
 	this->sample_size = sample_size;
 	this->feature_size = feature_size;
 	
-	if (X != NULL) {
+	if (X == NULL)
+		throw "dataset.cpp::set_dataset-->\n\tVector `X` must not be NULL";
+	// do we copy the X into the dataset or just point to it
+	if (!is_copy) {
+		this->X = X;
+	} else {
 		this->X = new double[sample_size*feature_size];
 		memcpy(this->X, X, sizeof(double)*sample_size*feature_size);
 	}

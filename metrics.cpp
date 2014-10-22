@@ -1,22 +1,40 @@
 #include "metrics.h"
 #include "utils.h"
-double Metrics::precision(double *y_pred, double *y_true, int size) {
+
+int* Metrics::gen_label(double* proba, int size, double threshold) {
+	int *label = new int[size];
+	if (threshold > 1 || threshold < 0) {
+		throw "metrics.cpp::gen_label-->\n\tThe `threshold` which is used to generate label must between 0 and 1";
+	}
+	for (int i = 0; i < size; i++) {
+		if (proba[i] > 1 || proba[i] < 0) {
+			throw "metrics.cpp::gen_label-->\n\tThe `proba` which is used generate label must between 0 and 1";
+		} else if (proba[i] >= threshold) {
+			label[i] = 1;
+		} else {
+			label[i] = 0;
+		}
+	}
+	return label;
+}
+
+double Metrics::precision(double *y_pred, double *y_true, int size, double threshold) {
 	int *y_pred_i, *y_true_i;
-	y_pred_i = double2int(y_pred, size);
+	y_pred_i = Metrics::gen_label(y_pred, size, threshold);
 	y_true_i = double2int(y_true, size);
 	return Metrics::precision(y_pred_i, y_true_i, size);
+}
+
+double Metrics::precision(double *y_pred, int *y_true, int size, double threshold) {
+	int *y_pred_i;
+	y_pred_i = Metrics::gen_label(y_pred, size, threshold);
+	return Metrics::precision(y_pred_i, y_true, size);
 }
 
 double Metrics::precision(int *y_pred, double *y_true, int size) {
 	int *y_true_i;
 	y_true_i = double2int(y_true, size);
 	return Metrics::precision(y_pred, y_true_i, size);
-}
-
-double Metrics::precision(double *y_pred, int *y_true, int size) {
-	int *y_pred_i;
-	y_pred_i = double2int(y_pred, size);
-	return Metrics::precision(y_pred_i, y_true, size);
 }
 
 double Metrics::precision(int *y_pred, int *y_true, int size) {
@@ -34,23 +52,23 @@ double Metrics::precision(int *y_pred, int *y_true, int size) {
 	return (double)TP / (TP + FP);
 }
 
-double Metrics::recall(double *y_pred, double *y_true, int size) {
+double Metrics::recall(double *y_pred, double *y_true, int size, double threshold) {
 	int *y_pred_i, *y_true_i;
-	y_pred_i = double2int(y_pred, size);
+	y_pred_i = Metrics::gen_label(y_pred, size, threshold);
 	y_true_i = double2int(y_true, size);
 	return Metrics::recall(y_pred_i, y_true_i, size);
+}
+
+double Metrics::recall(double *y_pred, int *y_true, int size, double threshold) {
+	int *y_pred_i;
+	y_pred_i = Metrics::gen_label(y_pred, size, threshold);
+	return Metrics::recall(y_pred_i, y_true, size);
 }
 
 double Metrics::recall(int *y_pred, double *y_true, int size) {
 	int *y_true_i;
 	y_true_i = double2int(y_true, size);
 	return Metrics::recall(y_pred, y_true_i, size);
-}
-
-double Metrics::recall(double *y_pred, int *y_true, int size) {
-	int *y_pred_i;
-	y_pred_i = double2int(y_pred, size);
-	return Metrics::recall(y_pred_i, y_true, size);
 }
 
 double Metrics::recall(int *y_pred, int *y_true, int size) {
