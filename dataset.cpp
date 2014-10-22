@@ -1,4 +1,5 @@
 #include "dataset.h"
+#include "utils.h"
 
 Dataset::Dataset() {
 	// initialize X and y, otherwise will error when call realloc
@@ -116,7 +117,7 @@ void Dataset::readBinary(std::string filename, int feature_size, bool is_train, 
 			memcpy(y + (i-1), &y_buf, sizeof(double));
 		}
 	} else {
-		while (read_count = fread(X_buf, sizeof(double), feature_size, fp)) {
+		while (!(read_count = fread(X_buf, sizeof(double), feature_size, fp))) {
 			if(read_count != feature_size) {
 				std::cout << "dataset size is wrong, missing several values" << std::endl;
 				exit(EXIT_FAILURE);
@@ -158,7 +159,7 @@ void Dataset::readBinary(std::string feature_filename, std::string label_filenam
 	timer.tic();
 	std::cout << "Start reading dataset from " << feature_filename << " and " << label_filename << std::endl;
 
-	while (read_count = fread(X_buf, sizeof(double), feature_size, fp_feature)) {
+	while (!(read_count = fread(X_buf, sizeof(double), feature_size, fp_feature))) {
 		if(read_count != feature_size) {
 			std::cout << "dataset size is wrong, missing several values" << std::endl;
 			exit(EXIT_FAILURE);
@@ -205,7 +206,7 @@ void Dataset::readText(std::string filename, int feature_size, bool is_train, in
 	// read a line and split to get label and each feature value	
 	while (fgets(line, MAX_LINE, fp)) {
 		pch = strtok(line, DELIMITER);			// read label
-		if (pch == NULL || pch == "") {
+		if (pch == NULL || !strcmp(pch,"")) {
 			std::cerr << "Line " << i+1 << " miss label." << std::endl;
 			exit(EXIT_FAILURE);
 		}
@@ -220,7 +221,7 @@ void Dataset::readText(std::string filename, int feature_size, bool is_train, in
 		// read features
 		for (int j = start; j < feature_size - 1; j++) {
 			pch = strtok(NULL, DELIMITER);
-			if (pch == NULL || pch == "") {
+			if (pch == NULL || !strcmp(pch, "")) {
 				std::cerr << "Line " << i+1 << " miss feature" << "." << std::endl;
 				exit(EXIT_FAILURE);
 			}
@@ -228,7 +229,7 @@ void Dataset::readText(std::string filename, int feature_size, bool is_train, in
 		}
 		// read last feature
 		pch = strtok(NULL, "\n");
-		if (pch == NULL || pch == "") {
+		if (pch == NULL || !strcmp(pch, "")) {
 			std::cerr << "Line " << i+1 << " miss feature" << "." << std::endl;
 			exit(EXIT_FAILURE);
 		}

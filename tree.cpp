@@ -1,4 +1,6 @@
 #include "tree.h"
+#include "utils.h"
+#include "dataset.h"
 
 BaseTree::BaseTree(int min_leaf_samples, int max_depth) {
 	if (max_depth == -1) max_depth = INF;
@@ -57,7 +59,7 @@ void DecisionTreeClassifier::build_tree(int max_feature, double *class_weight) {
 
 		// if satisfy stopping condition or the node is pure
 		if (cNode->depth == max_depth || cNode->sample_size < min_leaf_samples * 2 || 
-			zero(cNode->weighted_frequency[0]) || zero(cNode->weighted_frequency[1])) {	// cNode is leaf node
+			is_zero(cNode->weighted_frequency[0]) || is_zero(cNode->weighted_frequency[1])) {	// cNode is leaf node
 			cNode->is_leaf = true;
 			// delete leaf node's sample_index
 			delete[] cNode->sample_index;
@@ -359,6 +361,7 @@ double* DecisionTreeClassifier::predict(int *leaf_idx, bool is_proba) {
 		}
 	}
 	delete[] leaf_idx;
+	return ret;
 }
 
 double* DecisionTreeClassifier::predict(double *X, int sample_size, int feature_size, bool is_proba) {
@@ -476,3 +479,4 @@ double Criterion::gini(double *arr, int size) {
 	delete[] proba;
 	return gini;
 }
+

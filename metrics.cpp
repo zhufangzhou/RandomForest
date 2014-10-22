@@ -1,5 +1,5 @@
 #include "metrics.h"
-
+#include "utils.h"
 double Metrics::precision(double *y_pred, double *y_true, int size) {
 	int *y_pred_i, *y_true_i;
 	y_pred_i = double2int(y_pred, size);

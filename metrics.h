@@ -1,8 +1,8 @@
 #ifndef __METRICS
 #define __METRICS
 
-#include "Utils.h"
 #include <iostream>
+
 namespace Metrics {
 	double precision(double* y_pred, double* y_true, int size);
 	double precision(int* y_pred, double* y_true, int size);

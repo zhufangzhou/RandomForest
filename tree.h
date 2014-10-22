@@ -5,12 +5,13 @@
 #include <string>
 #include <cstdio>
 #include <cstdlib>
-#include "dataset.h"
+#include <vector>
 
 #define BINARY false
 #define TEXT true
 typedef int sample_size_t;
 
+class Dataset;
 
 // tree node structure
 struct node_t {

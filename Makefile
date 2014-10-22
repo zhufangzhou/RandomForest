@@ -1,12 +1,13 @@
 CC = g++
-CXXFLAGS = -g -Wno-write-strings -std=c++0x -I../utils
+ALL_LIB = main.o dataset.o tree.o utils.o
+CXXFLAGS = -g -Wno-write-strings -std=c++0x -I../utils/include
 
-main: main.o dataset.o Utils.o tree.o
-main.o: main.cpp
-dataset.o: dataset.h dataset.cpp
-Utils.o: ../utils/Utils.cpp
-	g++ -g -c ../utils/Utils.cpp -std=c++0x
-tree.o: tree.h tree.cpp
+main: $(ALL_LIB)
+	$(CC) $(CXXFLAGS) $(ALL_LIB) -o main
 
+%.o: %.cpp
+	g++ -g -std=c++0x -c $< -o $@ -I../utils/include
+utils.o: ../utils/src/utils.cpp
+	g++ -g -std=c++0x -c ../utils/src/utils.cpp -o utils.o -I../utils/include
 clean:
-	rm -f main.o dataset.o Utils.o tree.o main
+	rm -f main.o dataset.o  tree.o main utils.o
