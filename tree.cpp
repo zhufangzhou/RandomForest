@@ -31,6 +31,7 @@ void BaseTree::init(int min_leaf_samples, int max_depth) {
 	this->max_depth = max_depth;
 	this->ds = new Dataset();
 	this->n_classes = 2;
+	this->has_gen_model = false;
 }
 
 DecisionTreeClassifier::DecisionTreeClassifier(int min_leaf_samples, int max_depth) : BaseTree(min_leaf_samples, max_depth) {}
@@ -230,7 +231,7 @@ void DecisionTreeClassifier::split(int max_feature, int *feature_list, double *c
 	delete[] feature_order;
 }
 
-void DecisionTreeClassifier::train(Dataset train_ds, int max_feature, double* class_weight) {
+void DecisionTreeClassifier::train(Dataset* train_ds, int max_feature, double* class_weight) {
 	// if not specify class_weight, use ones vector as default
 	if (class_weight == NULL) 
 		class_weight = gen_dones(n_classes);
@@ -301,17 +302,24 @@ void DecisionTreeClassifier::gen_model() {
 	}
 	model.model_size = counts;
 	model.feature_size = ds->feature_size;
+	this->has_gen_model = true;
 }
 
 int* DecisionTreeClassifier::apply() {
 	model_t *cNode;
 	int *leaf_idx, cIdx, feature_idx;
 	double cFeature_value, threshold;
-	leaf_idx = new int[ds->sample_size];
 	
+	if (!has_gen_model)
+		throw "tree.cpp::apply-->\n\tYou can not predict without training";
+
+	leaf_idx = new int[ds->sample_size];
 	for (int i = 0; i < ds->sample_size; i++) {
 		cIdx = 0;
 		cNode = &model.tree[cIdx];
+		if (cNode == NULL) {
+			throw "tree.cpp::apply-->\n\terror with the model";
+		}
 		while (!cNode->is_leaf) {
 			threshold = cNode->feature_value;
 			feature_idx = cNode->feature_index;
@@ -398,9 +406,8 @@ double* DecisionTreeClassifier::predict(std::string filename, int feature_size, 
 double* DecisionTreeClassifier::compute_importance() {
 	double *importance;
 	model_t cNode;
-	if (model.tree == NULL) {
-		std::cerr << "Please call `train` function first." << std::endl;
-		exit(EXIT_FAILURE);
+	if (!has_gen_model) {
+		throw "tree.cpp::compute_importance-->\n\tYou need to call `train` before `compute_importance`";
 	}
 	importance = new double[model.feature_size];
 	memset(importance, 0, sizeof(double) * model.feature_size);

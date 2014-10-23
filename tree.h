@@ -110,13 +110,12 @@ protected:
 	model_meta model;								// tree model (remove some useless information of tree structure)
 	void check_param(int min_leaf_sample, int max_depth);
 	void init(int min_leaf_samples, int max_depth);
+
+	bool has_gen_model; 						// flag to indicate whether there is a model in the current class instance
 public:
 	BaseTree(int min_leaf_samples, int max_depth);
 	~BaseTree();
-	//void train(double *class_weight = NULL);
-	//void train(double *X, int *y, double *class_weight = NULL);
-	//double* predict(std::string filename);	// binary
-	//double* predict(std::string filename);	// text
+	virtual void train(Dataset* ds, int max_feature, double *class_weight = NULL) = 0;
 };
 
 class DecisionTreeClassifier : public BaseTree {
@@ -131,7 +130,7 @@ public:
 	DecisionTreeClassifier(int min_leaf_samples, int max_depth);
 	
 	// this method is for RandomForestClassifier, use a small fraction of features and do not copy training data into class
-	void train(Dataset ds, int max_feature, double *class_weight = NULL);
+	void train(Dataset* ds, int max_feature, double *class_weight = NULL);
 
 	void train(double *X, double *y, int sample_size, int feature_size, bool is_copy,
 				int *discrete_idx = NULL, int discrete_size = 0, double *class_weight = NULL);

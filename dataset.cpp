@@ -23,8 +23,8 @@ void Dataset::reset() {
 	feature_size = 0;
 }
 
-void Dataset::set_dataset(Dataset ds, bool is_copy) {
-	set_dataset(ds.X, ds.y, ds.sample_size, ds.feature_size, is_copy, ds.discrete_idx, ds.discrete_size);	
+void Dataset::set_dataset(Dataset* ds, bool is_copy) {
+	set_dataset(ds->X, ds->y, ds->sample_size, ds->feature_size, is_copy, ds->discrete_idx, ds->discrete_size);	
 }
 
 void Dataset::set_dataset(double *X, double *y, int sample_size, int feature_size, bool is_copy, int *discrete_idx, int discrete_size) {
