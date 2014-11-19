@@ -160,16 +160,13 @@ void Dataset::load_data(const std::string& filename, const learn_mode mode) {
 	}
 
 	/* read examples */
-	std::cout << "Loading data from file " << filename << " ..." << std::endl;
-	t->tic();
+	t->tic("Loading data from file"+filename+" ...");
 	ex_vec = dr->read_examples();
 	n_examples = ex_vec.size();
-	std::cout << "Done. ";
-	t->toc();
+	t->toc("Done.");
 
 	/* generate dataset */
-	std::cout << "Generating dataset ..." << std::endl;
-	t->tic();
+	t->tic("Generating dataset ...");
 	te = new ev_pair_t[1];
 	tf = new int[1];
 	tot_size = 0;
@@ -203,8 +200,7 @@ void Dataset::load_data(const std::string& filename, const learn_mode mode) {
 		t_sum += size[i-1];
 		x[i] = x[0] + t_sum;	
 	}
-	std::cout << "Done. "; 
-	t->toc();
+	t->toc("Done.");
 
 	/* free space */
 	delete[] tf;
