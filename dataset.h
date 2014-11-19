@@ -23,6 +23,10 @@ enum learn_mode {TRAIN, PREDICT}; 	/** `train` mode or `predict` mode */
 typedef struct {
 	int ex_id;  /** example id */
 	feature_t fea_value; /** feature value */
+	void set(int ex_id, feature_t fea_value) {
+		this->ex_id = ex_id;
+		this->fea_value = fea_value;
+	}
 }ev_pair_t;
 
 class example_t {
@@ -48,7 +52,7 @@ class example_t {
 		 */
 		void push_back(int id, feature_t value);
 		/**
-		 * @brief debug print information
+		 * @brief debug print some information for debugging
 		 */
 		void debug();
 };
@@ -91,7 +95,7 @@ class DataReader {
 class Dataset {
 	private:
 		ev_pair_t** x; 		/** each row is an attribute */	
-		int* size; 			/** number of examples with non-zero feature value for each attribute */
+		int* size; 			/** number of examples with non-zero feature values for each attribute */
 		target_t* y; 		/** label for each example */
 		
 		int n_classes; 		/** number of classes */
@@ -100,12 +104,50 @@ class Dataset {
 
 		bool* is_cate; 		/** is the ith attribute categorical */
 
-		bool is_init;
+		bool is_init; 		/** boolean variable to indicate whether dataset has been initialized */
+		learn_mode mode; 	/** learn mode */
+		
+		/**
+		 * @brief isort code comes from `fest package` http://lowrank.net/nikos/fest/
+		 *
+		 * @param a example_id-feature_value pair array
+		 * @param f corresponding feature_id in array `a`
+		 * @param n array length
+		 */
+		void isort(ev_pair_t* a, int* f, int n);
+		/**
+		 * @brief qsortlazy code comes from `fest package` http://lowrank.net/nikos/fest/
+		 *
+		 * @param a example_id-feature_value pair array
+		 * @param f corresponding feature_id in array `a`
+		 * @param l begin index in array
+		 * @param u end index in array
+		 */
+		void qsortlazy(ev_pair_t* a, int* f, int l, int u);
+		/**
+		 * @brief sort code comes from `fest package` http://lowrank.net/nikos/fest/
+		 *
+		 * @param a example_id-feature_value pair array
+		 * @param f corresponding feature_id in array `a`
+		 * @param len array length
+		 */
+		void sort(ev_pair_t* a, int* f, int len);
 	public:
 		/**
-		 * @brief Dataset 
+		 * @brief Dataset constructor
 		 */
 		Dataset();
+		/**
+		 * @brief Dataset constructor
+		 *
+		 * @param n_classes number of classes in the training set
+		 * @param n_features number of features
+		 */
+		Dataset(int n_classes, int n_features);
+		/**
+		 * @brief ~Dataset deconstructor
+		 */
+		~Dataset();
 		/**
 		 * @brief init 
 		 *
@@ -114,16 +156,21 @@ class Dataset {
 		 */
 		void init(int n_classes, int n_features);
 		/**
-		 * @brief ~Dataset deconstructor
-		 */
-		~Dataset();
-		/**
 		 * @brief load_data generate the dataset from input file
 		 *
 		 * @param filename input file name
 		 * @param mode `TRAIN` or `PREDICT`
 		 */
 		void load_data(const std::string& filename, const learn_mode mode);
+		/**
+		 * @brief load_data_meta 
+		 *
+		 * @param filename
+		 */
 		void load_data_meta(const std::string& filename);
+		/**
+		 * @brief debug print some information for debugging
+		 */
+		void debug();
 };
 

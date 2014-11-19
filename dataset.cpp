@@ -20,7 +20,7 @@ example_t::~example_t() {
 }
 
 void example_t::push_back(int id, feature_t value) {
-	fea_id = (int*)realloc(fea_id, nnz+1);
+	fea_id = (int*)realloc(fea_id, sizeof(int)*(nnz+1));
 	fea_value = (feature_t*)realloc(fea_value, nnz+1);
 
 	fea_id[nnz] = id;
@@ -68,16 +68,16 @@ example_t* DataReader::read_an_example() {
 
 	ret = new example_t();
 	
-	if (mode == TRAIN) {
+	if (mode != PREDICT) {
 		ifs >> ret->y;
-		p_pos = 0;
-		getline(ifs, line);
+		p_pos = 0; getline(ifs, line);
 		c_pos = line.find(' ', 0);
 	} else {
-		p_pos = 0;
-		c_pos = 0;
+		p_pos = 0; c_pos = 0;
 		getline(ifs, line);
 	}
+
+	if (line.length() < 1) return NULL;
 	
 	while (p_pos <= c_pos) {
 		p_pos = c_pos + 1;
@@ -126,6 +126,7 @@ Dataset::Dataset(int n_classes, int n_features) {
 Dataset::~Dataset() {
 	delete[] x;
 	delete[] x[0];
+	delete[] size;
 	delete[] y;
 	delete[] is_cate;	
 }
@@ -134,7 +135,9 @@ void Dataset::init(int n_classes, int n_features) {
 	this->n_classes = n_classes;
 	this->n_features = n_features;
 	x = new ev_pair_t*[this->n_features];
-	x[0] = new ev_pair_t[1];
+	y = NULL;
+	size = new int[this->n_features];
+	memset(size, 0, sizeof(int)*n_features);
 
 	is_cate = new bool[this->n_features];
 	is_init = true;
@@ -143,21 +146,135 @@ void Dataset::init(int n_classes, int n_features) {
 void Dataset::load_data(const std::string& filename, const learn_mode mode) {
 	DataReader* dr = new DataReader(filename, n_features, mode);
 	std::vector<example_t*> ex_vec;
+	/* te and tf correspond to each other */
+	ev_pair_t* te; /* store ev_pair*/
+	int* tf; /* store feature_id for sorting */
+	int tot_size; /* total size in the dataset */
 	m_timer* t = new m_timer();
+
+	this->mode = mode;
 
 	if (!is_init) {
 		std::cerr << "Please init the Dataset first" << std::endl;
 		exit(EXIT_FAILURE);
 	}
 
-	t->tic("Loading data from file "+filename+" ...");
+	/* read examples */
+	std::cout << "Loading data from file " << filename << " ..." << std::endl;
+	t->tic();
 	ex_vec = dr->read_examples();
-	t->toc("Done.");
+	n_examples = ex_vec.size();
+	std::cout << "Done. ";
+	t->toc();
 
-	t->tic("Generating dataset ...");
-	for (auto it = ex_vec.begin(); it != ex_vec.end(); it++) {
-			
+	/* generate dataset */
+	std::cout << "Generating dataset ..." << std::endl;
+	t->tic();
+	te = new ev_pair_t[1];
+	tf = new int[1];
+	tot_size = 0;
+	int ex_id = 0;
+	/* predict mode does not need y arrary*/
+	if (mode != PREDICT) {
+		y = new target_t[1];
 	}
-	t->toc("Done.");
+	for (auto it = ex_vec.begin(); it != ex_vec.end(); it++, ex_id++) {
+		/* allocate memory to variables */
+		te = (ev_pair_t*)realloc(te, sizeof(ev_pair_t)*(tot_size+(*it)->nnz));
+		tf = (int*)realloc(tf, sizeof(int)*(tot_size+(*it)->nnz));
+		/* predict mode does not has label */
+		if (mode != PREDICT) {
+			y = (target_t*)realloc(y, sizeof(target_t)*(ex_id+1));
+			y[ex_id] = (*it)->y;
+		}
+
+		for (int i = 0; i < (*it)->nnz; i++) {
+			size[(*it)->fea_id[i]]++;
+			tf[tot_size] = (*it)->fea_id[i];
+			te[tot_size].set(ex_id, (*it)->fea_value[i]);
+			tot_size++;
+		}
+	}
+
+	sort(te, tf, tot_size);
+	int t_sum = 0;
+	x[0] = te;
+	for (int i = 1; i < n_features; i++) {
+		t_sum += size[i-1];
+		x[i] = x[0] + t_sum;	
+	}
+	std::cout << "Done. "; 
+	t->toc();
+
+	/* free space */
+	delete[] tf;
 }
 
+void Dataset::isort(ev_pair_t* a, int* f, int n){
+    int i,j;
+    float tv;
+    int te;
+    for(i=1; i<n; i++){
+        for(j=i; j>0 && (f[j-1] > f[j] || (f[j-1] == f[j] && a[j-1].fea_value > a[j].fea_value)); j--){
+            te=f[j];         	f[j]=f[j-1];                 		f[j-1]=te;
+            te=a[j].ex_id; 		a[j].ex_id=a[j-1].ex_id; 			a[j-1].ex_id=te;
+            tv=a[j].fea_value;  a[j].fea_value=a[j-1].fea_value;    a[j-1].fea_value=tv;
+        }
+    }
+}
+
+void Dataset::qsortlazy(ev_pair_t* a, int* f, int l, int u){
+    int i,j,r;
+    float sv,tv;
+    int se,te;
+    if (u-l<7)
+        return;
+    r=l+rand()%(u-l);
+    te=a[r].ex_id; 		a[r].ex_id=a[l].ex_id; 			a[l].ex_id=te;
+    tv=a[r].fea_value;  a[r].fea_value=a[l].fea_value;  a[l].fea_value=tv;
+    te=f[r];         	f[r]=f[l];                 		f[l]=te;
+    i=l;
+    j=u+1;
+    while(1){
+        do i++; while (i<=u && (f[i] < te || (f[i]==te && a[i].fea_value < tv)));
+        do j--; while (f[j] > te || (f[j]==te && a[j].fea_value > tv));
+        if (i>j)
+            break;
+        se=f[i];        	f[i]=f[j];           	    	 f[j]=se;
+        se=a[i].ex_id; 		a[i].ex_id=a[j].ex_id; 			 a[j].ex_id=se;
+        sv=a[i].fea_value;  a[i].fea_value=a[j].fea_value;   a[j].fea_value=sv;
+    }
+    te=a[l].ex_id; 		a[l].ex_id=a[j].ex_id; 			a[j].ex_id=te;
+    tv=a[l].fea_value;  a[l].fea_value=a[j].fea_value;  a[j].fea_value=tv;
+    te=f[l];         	f[l]=f[j];                 		f[j]=te;
+    qsortlazy(a,f,l,j-1);
+    qsortlazy(a,f,j+1,u);
+}
+
+void Dataset::sort(ev_pair_t* a, int* f, int len){
+    qsortlazy(a,f,0,len-1);
+    isort(a,f,len);
+}
+
+void Dataset::debug() {
+	std::cout << "Class size: " << n_classes << std::endl;
+	std::cout << "Example size: " << n_examples << std::endl;
+	std::cout << "Feature size: " << n_features << std::endl;
+	if (mode != PREDICT) {
+		std::cout << "Labels: " << std::endl;
+		for (int i = 0; i < n_examples; i++) {
+			std::cout << y[i] << " ";
+		}
+		std::cout << std::endl;
+	}
+	std::cout << "Features: " << std::endl;
+	for (int i = 0; i < n_features; i++) {
+		std::cout << "#" << i << "--> ";
+		for (int j = 0; j < size[i]; j++) {
+			std::cout << x[i][j].ex_id << ":" << x[i][j].fea_value << " ";
+		}
+		std::cout << std::endl;
+	}
+
+	std::cout << std::endl;
+}
