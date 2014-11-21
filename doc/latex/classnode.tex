@@ -1,0 +1,69 @@
+\hypertarget{classnode}{\section{node Class Reference}
+\label{classnode}\index{node@{node}}
+}
+
+
+{\ttfamily \#include $<$tree.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classnode_a82be3536d3bca59c1fe27f53970e674c}{dump} (const std\+::string \&filename, int n\+\_\+classes)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{classnode_a67c3c0be5001ace8494a6292e8079001}{is\+\_\+cate}
+\item 
+int \hyperlink{classnode_ad65aefa2c967c82cd88e6870085d7f3e}{feature\+\_\+id}
+\item 
+\hyperlink{dataset_8h_ac2e4791c62a663377be91b0922cede72}{feature\+\_\+t} \hyperlink{classnode_a3774a77cb58d1554f63f34cbcb737a0c}{threshold}
+\item 
+float $\ast$ \hyperlink{classnode_a4c6e2c13d2313c35199252051bd46c46}{portion}
+\item 
+int \hyperlink{classnode_abbd7d4174869fead5f901b042a2f9712}{leaf\+\_\+idx}
+\item 
+node\+\_\+t $\ast$ \hyperlink{classnode_aacd557e63e1f9dca9048ed58bb3dbb2c}{left}
+\item 
+node\+\_\+t $\ast$ \hyperlink{classnode_a8ab67b704953f3699d566a1a5d6047ad}{right}
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classnode_a82be3536d3bca59c1fe27f53970e674c}{\index{node@{node}!dump@{dump}}
+\index{dump@{dump}!node@{node}}
+\subsubsection[{dump}]{\setlength{\rightskip}{0pt plus 5cm}void node\+::dump (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{filename, }
+\item[{int}]{n\+\_\+classes}
+\end{DoxyParamCaption}
+)}}\label{classnode_a82be3536d3bca59c1fe27f53970e674c}
+point to right node 
+
+\subsection{Member Data Documentation}
+\hypertarget{classnode_ad65aefa2c967c82cd88e6870085d7f3e}{\index{node@{node}!feature\+\_\+id@{feature\+\_\+id}}
+\index{feature\+\_\+id@{feature\+\_\+id}!node@{node}}
+\subsubsection[{feature\+\_\+id}]{\setlength{\rightskip}{0pt plus 5cm}int node\+::feature\+\_\+id\hspace{0.3cm}{\ttfamily [protected]}}}\label{classnode_ad65aefa2c967c82cd88e6870085d7f3e}
+is the split feature categorical \hypertarget{classnode_a67c3c0be5001ace8494a6292e8079001}{\index{node@{node}!is\+\_\+cate@{is\+\_\+cate}}
+\index{is\+\_\+cate@{is\+\_\+cate}!node@{node}}
+\subsubsection[{is\+\_\+cate}]{\setlength{\rightskip}{0pt plus 5cm}bool node\+::is\+\_\+cate\hspace{0.3cm}{\ttfamily [protected]}}}\label{classnode_a67c3c0be5001ace8494a6292e8079001}
+\hypertarget{classnode_abbd7d4174869fead5f901b042a2f9712}{\index{node@{node}!leaf\+\_\+idx@{leaf\+\_\+idx}}
+\index{leaf\+\_\+idx@{leaf\+\_\+idx}!node@{node}}
+\subsubsection[{leaf\+\_\+idx}]{\setlength{\rightskip}{0pt plus 5cm}int node\+::leaf\+\_\+idx\hspace{0.3cm}{\ttfamily [protected]}}}\label{classnode_abbd7d4174869fead5f901b042a2f9712}
+size should be n\+\_\+classes, means the weighted frequency for each class \hypertarget{classnode_aacd557e63e1f9dca9048ed58bb3dbb2c}{\index{node@{node}!left@{left}}
+\index{left@{left}!node@{node}}
+\subsubsection[{left}]{\setlength{\rightskip}{0pt plus 5cm}node\+\_\+t$\ast$ node\+::left\hspace{0.3cm}{\ttfamily [protected]}}}\label{classnode_aacd557e63e1f9dca9048ed58bb3dbb2c}
+-\/1 if this node is not leaf otherwise non-\/negtive integer \hypertarget{classnode_a4c6e2c13d2313c35199252051bd46c46}{\index{node@{node}!portion@{portion}}
+\index{portion@{portion}!node@{node}}
+\subsubsection[{portion}]{\setlength{\rightskip}{0pt plus 5cm}float$\ast$ node\+::portion\hspace{0.3cm}{\ttfamily [protected]}}}\label{classnode_a4c6e2c13d2313c35199252051bd46c46}
+for categorical attribute is the chosen feature value for left child node, for continous attribute is the threshold to determine left or right \hypertarget{classnode_a8ab67b704953f3699d566a1a5d6047ad}{\index{node@{node}!right@{right}}
+\index{right@{right}!node@{node}}
+\subsubsection[{right}]{\setlength{\rightskip}{0pt plus 5cm}node\+\_\+t$\ast$ node\+::right\hspace{0.3cm}{\ttfamily [protected]}}}\label{classnode_a8ab67b704953f3699d566a1a5d6047ad}
+point to left node \hypertarget{classnode_a3774a77cb58d1554f63f34cbcb737a0c}{\index{node@{node}!threshold@{threshold}}
+\index{threshold@{threshold}!node@{node}}
+\subsubsection[{threshold}]{\setlength{\rightskip}{0pt plus 5cm}{\bf feature\+\_\+t} node\+::threshold\hspace{0.3cm}{\ttfamily [protected]}}}\label{classnode_a3774a77cb58d1554f63f34cbcb737a0c}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{tree_8h}{tree.\+h}\end{DoxyCompactItemize}

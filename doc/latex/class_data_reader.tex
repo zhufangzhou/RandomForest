@@ -1,0 +1,120 @@
+\hypertarget{class_data_reader}{\section{Data\+Reader Class Reference}
+\label{class_data_reader}\index{Data\+Reader@{Data\+Reader}}
+}
+
+
+{\ttfamily \#include $<$dataset.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_data_reader_ad4ac7edfbc6771fe1c696ef34d7e79cb}{Data\+Reader} (const std\+::string \&filename, int \hyperlink{class_data_reader_a3d27a389f86383adf1b15d84b5ec5fa7}{n\+\_\+features}, const \hyperlink{dataset_8h_a87dfee910993320c6720931fb701cc41}{learn\+\_\+mode} \hyperlink{class_data_reader_a76f00afd1dd174c2f1ead09b88f5679f}{mode})
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_data_reader}{Data\+Reader} constructor. \end{DoxyCompactList}\item 
+\hyperlink{class_data_reader_a1fd456f99a9b364953f7973842ea5d25}{$\sim$\+Data\+Reader} ()
+\begin{DoxyCompactList}\small\item\em $\sim$\+Data\+Reader deconstructor \end{DoxyCompactList}\item 
+\hyperlink{classexample__t}{example\+\_\+t} $\ast$ \hyperlink{class_data_reader_a468abd296a9d085a643241eeb605a316}{read\+\_\+an\+\_\+example} ()
+\begin{DoxyCompactList}\small\item\em read\+\_\+an\+\_\+example read an example \end{DoxyCompactList}\item 
+std\+::vector$<$ \hyperlink{classexample__t}{example\+\_\+t} $\ast$ $>$ \hyperlink{class_data_reader_afde7816490861599edb7fa2111dd97d3}{read\+\_\+examples} ()
+\begin{DoxyCompactList}\small\item\em read\+\_\+examples read all the example \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{class_data_reader_a3d27a389f86383adf1b15d84b5ec5fa7}{n\+\_\+features}
+\item 
+std\+::ifstream \hyperlink{class_data_reader_abbfd55937610f3cca1d34f21bcbcda0d}{ifs}
+\item 
+\hyperlink{dataset_8h_a87dfee910993320c6720931fb701cc41}{learn\+\_\+mode} \hyperlink{class_data_reader_a76f00afd1dd174c2f1ead09b88f5679f}{mode}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_data_reader_ad4ac7edfbc6771fe1c696ef34d7e79cb}{\index{Data\+Reader@{Data\+Reader}!Data\+Reader@{Data\+Reader}}
+\index{Data\+Reader@{Data\+Reader}!Data\+Reader@{Data\+Reader}}
+\subsubsection[{Data\+Reader}]{\setlength{\rightskip}{0pt plus 5cm}Data\+Reader\+::\+Data\+Reader (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{filename, }
+\item[{int}]{n\+\_\+features, }
+\item[{const {\bf learn\+\_\+mode}}]{mode}
+\end{DoxyParamCaption}
+)}}\label{class_data_reader_ad4ac7edfbc6771fe1c696ef34d7e79cb}
+
+
+\hyperlink{class_data_reader}{Data\+Reader} constructor. 
+
+learn mode 
+\begin{DoxyParams}{Parameters}
+{\em n\+\_\+features} & number of features \\
+\hline
+{\em mode} & train or predict \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_data_reader_a1fd456f99a9b364953f7973842ea5d25}{\index{Data\+Reader@{Data\+Reader}!````~Data\+Reader@{$\sim$\+Data\+Reader}}
+\index{````~Data\+Reader@{$\sim$\+Data\+Reader}!Data\+Reader@{Data\+Reader}}
+\subsubsection[{$\sim$\+Data\+Reader}]{\setlength{\rightskip}{0pt plus 5cm}Data\+Reader\+::$\sim$\+Data\+Reader (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_data_reader_a1fd456f99a9b364953f7973842ea5d25}
+
+
+$\sim$\+Data\+Reader deconstructor 
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_data_reader_a468abd296a9d085a643241eeb605a316}{\index{Data\+Reader@{Data\+Reader}!read\+\_\+an\+\_\+example@{read\+\_\+an\+\_\+example}}
+\index{read\+\_\+an\+\_\+example@{read\+\_\+an\+\_\+example}!Data\+Reader@{Data\+Reader}}
+\subsubsection[{read\+\_\+an\+\_\+example}]{\setlength{\rightskip}{0pt plus 5cm}{\bf example\+\_\+t} $\ast$ Data\+Reader\+::read\+\_\+an\+\_\+example (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_data_reader_a468abd296a9d085a643241eeb605a316}
+
+
+read\+\_\+an\+\_\+example read an example 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ifs} & input file stream to read example\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a single example's features 
+\end{DoxyReturn}
+\hypertarget{class_data_reader_afde7816490861599edb7fa2111dd97d3}{\index{Data\+Reader@{Data\+Reader}!read\+\_\+examples@{read\+\_\+examples}}
+\index{read\+\_\+examples@{read\+\_\+examples}!Data\+Reader@{Data\+Reader}}
+\subsubsection[{read\+\_\+examples}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$ {\bf example\+\_\+t} $\ast$ $>$ Data\+Reader\+::read\+\_\+examples (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_data_reader_afde7816490861599edb7fa2111dd97d3}
+
+
+read\+\_\+examples read all the example 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a vector contains all examples' features 
+\end{DoxyReturn}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_data_reader_abbfd55937610f3cca1d34f21bcbcda0d}{\index{Data\+Reader@{Data\+Reader}!ifs@{ifs}}
+\index{ifs@{ifs}!Data\+Reader@{Data\+Reader}}
+\subsubsection[{ifs}]{\setlength{\rightskip}{0pt plus 5cm}std\+::ifstream Data\+Reader\+::ifs\hspace{0.3cm}{\ttfamily [private]}}}\label{class_data_reader_abbfd55937610f3cca1d34f21bcbcda0d}
+number of features in the input file \hypertarget{class_data_reader_a76f00afd1dd174c2f1ead09b88f5679f}{\index{Data\+Reader@{Data\+Reader}!mode@{mode}}
+\index{mode@{mode}!Data\+Reader@{Data\+Reader}}
+\subsubsection[{mode}]{\setlength{\rightskip}{0pt plus 5cm}{\bf learn\+\_\+mode} Data\+Reader\+::mode\hspace{0.3cm}{\ttfamily [private]}}}\label{class_data_reader_a76f00afd1dd174c2f1ead09b88f5679f}
+input file stream related to the input file \hypertarget{class_data_reader_a3d27a389f86383adf1b15d84b5ec5fa7}{\index{Data\+Reader@{Data\+Reader}!n\+\_\+features@{n\+\_\+features}}
+\index{n\+\_\+features@{n\+\_\+features}!Data\+Reader@{Data\+Reader}}
+\subsubsection[{n\+\_\+features}]{\setlength{\rightskip}{0pt plus 5cm}int Data\+Reader\+::n\+\_\+features\hspace{0.3cm}{\ttfamily [private]}}}\label{class_data_reader_a3d27a389f86383adf1b15d84b5ec5fa7}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{dataset_8h}{dataset.\+h}\item 
+\hyperlink{dataset_8cpp}{dataset.\+cpp}\end{DoxyCompactItemize}

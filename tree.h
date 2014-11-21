@@ -7,76 +7,97 @@
  */
 #pragma once
 
-#include <iostream>
-#include <string>
+/* C header file */
 #include <cstdio>
 #include <cstdlib>
+#include <cmath>
+/* C++ header file */
+#include <iostream>
+#include <fstream>
+#include <algorithm>
+#include <string>
 #include <vector>
-
+#include <stack>
+/* my header file */
 #include "dataset.h"
 
-class node {
-	protected:
-		bool is_cate; /** is the split feature categorical */
-		int feature_id;
-		feature_t threshold; /** for categorical attribute is the chosen feature value for left child node, for continous attribute is the threshold to determine left or right */
 
-		float* portion; /** size should be n_classes, means the weighted frequency for each class */
+class node {
+	public:
+		bool is_cate; /** is the split feature categorical */
+		int feature_id; /** split feature id */
+		feature_t threshold; /** for categorical attribute is the chosen feature value for left child node, for continous attribute is the threshold to determine left or right */
+		float measure; /** heuristic measure(e.g. gini index or information gain) */
+		int n_examples; /** number of examples in this node */
+
+		float* portion; /** size should be `n_classes`, means the weighted frequency for each class */
+		int n_classes; /** number of different class in the node */
 
 		int leaf_idx; 	/** -1 if this node is not leaf otherwise non-negtive integer */
-		node_t* left; /** point to left node */
-		node_t* right; /** point to right node */
-	public:
-		void dump(const std::string& filename, int n_classes);
+		node* left; /** point to left node */
+		node* right; /** point to right node */
+
+		node(int n_classes);
+		~node();
+		void dump(const std::string& filename);
+		void dump(std::ofstream& ofs);
 };
 
-class batch_node : public node_t {
+class batch_node : public node {
 	public:
 
 };
 
-class online_node : public node_t {
+class online_node : public node {
 	public:
 };
 
 class tree {
 	protected:
-		node_t* root; 		/** root node of the tree */
-		node_t** leaf_pt; 	/** pointer array which point to all the leaf in the tree */
+		node* root; 		/** root node of the tree */
+		node** leaf_pt; 	/** pointer array which point to all the leaf in the tree */
 		int leaf_size; 		/** number of leaves in the tree */
 		
+		int n_features; 	/** total number of features in the training set */
+		std::string feature_rule; 	/** max feature criterion for splitting,
+				 					* default `sqrt`, avaiable option are `log` or real number between 0 and 1
+								    * represent percent of `n_features` or integer larger than 1 represent number of `max_feature`
+									* */
+
 		int max_feature; 	/** number of feature to consider when split */
 		int max_depth; 		/** the maximum depth to grow */
 		int min_split; 		/** the minimum examples needed to split */
 
 		float* fea_imp; 	/** feature importance */
 	public:
-		tree_t();
-		tree_t(std::string feature_rule, int max_depth, int min_split);
+		tree();
+		~tree();
+		tree(std::string feature_rule, int max_depth, int min_split);
 		void init(std::string feature_rule, int max_depth, int min_split);
-		virtual void build(Dataset* d) = 0;
-		float* compute_importance();
+		float* compute_importance(bool re_compute = false);
 
+		void free_tree(node*& nd);
 		void dump(std::string& filename);		
 		void load(std::string& filename);
 };
 
-class decision_tree : public tree_t {
+class decision_tree : public tree {
+	public:
+		void build(Dataset* d);
+};
 
-}
-
-class online_tree : public tree_t {
+class online_tree : public tree {
 
 };
 
-class split_t {
+class split {
 	int fea_id; 	/** feature id */
 };
 
-class best_split : public split_t{
+class best_split : public split {
 
 };
 
-class random_split : public split_t {
+class random_split : public split {
 
 };

@@ -1,0 +1,158 @@
+\hypertarget{classtree}{\section{tree Class Reference}
+\label{classtree}\index{tree@{tree}}
+}
+
+
+{\ttfamily \#include $<$tree.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classtree_ab76e0197e552ba02bab77f06ef0af8ce}{tree\+\_\+t} ()
+\item 
+\hyperlink{classtree_a339b589372b72f6fe1ae169bc7401aee}{tree\+\_\+t} (std\+::string \hyperlink{classtree_a5aba3b77a347165517a20d5fab94382d}{feature\+\_\+rule}, int \hyperlink{classtree_a0a9f968fac827d3239be67488c34fb21}{max\+\_\+depth}, int \hyperlink{classtree_ae70cd626c0b50a0b8306a94a9e5e8fd7}{min\+\_\+split})
+\item 
+void \hyperlink{classtree_a1160f63037df412b4b3f4ad9d736bb85}{init} (std\+::string \hyperlink{classtree_a5aba3b77a347165517a20d5fab94382d}{feature\+\_\+rule}, int \hyperlink{classtree_a0a9f968fac827d3239be67488c34fb21}{max\+\_\+depth}, int \hyperlink{classtree_ae70cd626c0b50a0b8306a94a9e5e8fd7}{min\+\_\+split})
+\item 
+void \hyperlink{classtree_a4dc9068331f4249196d82c11045c4fba}{set\+\_\+feature\+\_\+rule} (std\+::string \hyperlink{classtree_a5aba3b77a347165517a20d5fab94382d}{feature\+\_\+rule})
+\item 
+void \hyperlink{classtree_a99011ba47a1c8da3bcbc237df65e5afe}{set\+\_\+max\+\_\+depth} (int \hyperlink{classtree_a0a9f968fac827d3239be67488c34fb21}{max\+\_\+depth})
+\item 
+void \hyperlink{classtree_afd722e513ec0e04c1cb3810d37c7d046}{set\+\_\+min\+\_\+split} (int \hyperlink{classtree_ae70cd626c0b50a0b8306a94a9e5e8fd7}{min\+\_\+split})
+\item 
+virtual void \hyperlink{classtree_a8fb18e2d3cd27f29a2071fd127cd6805}{build} (\hyperlink{class_dataset}{Dataset} $\ast$d)=0
+\item 
+float $\ast$ \hyperlink{classtree_af6574aaba296b8f8472d0c0d7a6f781e}{compute\+\_\+importance} ()
+\item 
+void \hyperlink{classtree_a67d4b4ac85b1b98f6ab6ad87bce5213a}{dump} (std\+::string \&filename)
+\item 
+void \hyperlink{classtree_a9d6d8200465e95e4573ab36941008b2a}{load} (std\+::string \&filename)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+node\+\_\+t $\ast$ \hyperlink{classtree_a1c9d515ea8291ba3e8dd27a32ad11c99}{root}
+\item 
+node\+\_\+t $\ast$$\ast$ \hyperlink{classtree_a30ebe7c91d8a7c68e05bd40b06867f95}{leaf\+\_\+pt}
+\item 
+int \hyperlink{classtree_a551919e1402a700821694297623017fc}{leaf\+\_\+size}
+\item 
+std\+::string \hyperlink{classtree_a5aba3b77a347165517a20d5fab94382d}{feature\+\_\+rule}
+\item 
+int \hyperlink{classtree_a6f4304318f8f091f7d783ac1ec7d2775}{max\+\_\+feature}
+\item 
+int \hyperlink{classtree_a0a9f968fac827d3239be67488c34fb21}{max\+\_\+depth}
+\item 
+int \hyperlink{classtree_ae70cd626c0b50a0b8306a94a9e5e8fd7}{min\+\_\+split}
+\item 
+float $\ast$ \hyperlink{classtree_ad335e57b2f4f2326825694311bcc69e7}{fea\+\_\+imp}
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classtree_a8fb18e2d3cd27f29a2071fd127cd6805}{\index{tree@{tree}!build@{build}}
+\index{build@{build}!tree@{tree}}
+\subsubsection[{build}]{\setlength{\rightskip}{0pt plus 5cm}virtual void tree\+::build (
+\begin{DoxyParamCaption}
+\item[{{\bf Dataset} $\ast$}]{d}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}}\label{classtree_a8fb18e2d3cd27f29a2071fd127cd6805}
+\hypertarget{classtree_af6574aaba296b8f8472d0c0d7a6f781e}{\index{tree@{tree}!compute\+\_\+importance@{compute\+\_\+importance}}
+\index{compute\+\_\+importance@{compute\+\_\+importance}!tree@{tree}}
+\subsubsection[{compute\+\_\+importance}]{\setlength{\rightskip}{0pt plus 5cm}float$\ast$ tree\+::compute\+\_\+importance (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classtree_af6574aaba296b8f8472d0c0d7a6f781e}
+\hypertarget{classtree_a67d4b4ac85b1b98f6ab6ad87bce5213a}{\index{tree@{tree}!dump@{dump}}
+\index{dump@{dump}!tree@{tree}}
+\subsubsection[{dump}]{\setlength{\rightskip}{0pt plus 5cm}void tree\+::dump (
+\begin{DoxyParamCaption}
+\item[{std\+::string \&}]{filename}
+\end{DoxyParamCaption}
+)}}\label{classtree_a67d4b4ac85b1b98f6ab6ad87bce5213a}
+\hypertarget{classtree_a1160f63037df412b4b3f4ad9d736bb85}{\index{tree@{tree}!init@{init}}
+\index{init@{init}!tree@{tree}}
+\subsubsection[{init}]{\setlength{\rightskip}{0pt plus 5cm}void tree\+::init (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{feature\+\_\+rule, }
+\item[{int}]{max\+\_\+depth, }
+\item[{int}]{min\+\_\+split}
+\end{DoxyParamCaption}
+)}}\label{classtree_a1160f63037df412b4b3f4ad9d736bb85}
+\hypertarget{classtree_a9d6d8200465e95e4573ab36941008b2a}{\index{tree@{tree}!load@{load}}
+\index{load@{load}!tree@{tree}}
+\subsubsection[{load}]{\setlength{\rightskip}{0pt plus 5cm}void tree\+::load (
+\begin{DoxyParamCaption}
+\item[{std\+::string \&}]{filename}
+\end{DoxyParamCaption}
+)}}\label{classtree_a9d6d8200465e95e4573ab36941008b2a}
+\hypertarget{classtree_a4dc9068331f4249196d82c11045c4fba}{\index{tree@{tree}!set\+\_\+feature\+\_\+rule@{set\+\_\+feature\+\_\+rule}}
+\index{set\+\_\+feature\+\_\+rule@{set\+\_\+feature\+\_\+rule}!tree@{tree}}
+\subsubsection[{set\+\_\+feature\+\_\+rule}]{\setlength{\rightskip}{0pt plus 5cm}void tree\+::set\+\_\+feature\+\_\+rule (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{feature\+\_\+rule}
+\end{DoxyParamCaption}
+)}}\label{classtree_a4dc9068331f4249196d82c11045c4fba}
+\hypertarget{classtree_a99011ba47a1c8da3bcbc237df65e5afe}{\index{tree@{tree}!set\+\_\+max\+\_\+depth@{set\+\_\+max\+\_\+depth}}
+\index{set\+\_\+max\+\_\+depth@{set\+\_\+max\+\_\+depth}!tree@{tree}}
+\subsubsection[{set\+\_\+max\+\_\+depth}]{\setlength{\rightskip}{0pt plus 5cm}void tree\+::set\+\_\+max\+\_\+depth (
+\begin{DoxyParamCaption}
+\item[{int}]{max\+\_\+depth}
+\end{DoxyParamCaption}
+)}}\label{classtree_a99011ba47a1c8da3bcbc237df65e5afe}
+\hypertarget{classtree_afd722e513ec0e04c1cb3810d37c7d046}{\index{tree@{tree}!set\+\_\+min\+\_\+split@{set\+\_\+min\+\_\+split}}
+\index{set\+\_\+min\+\_\+split@{set\+\_\+min\+\_\+split}!tree@{tree}}
+\subsubsection[{set\+\_\+min\+\_\+split}]{\setlength{\rightskip}{0pt plus 5cm}void tree\+::set\+\_\+min\+\_\+split (
+\begin{DoxyParamCaption}
+\item[{int}]{min\+\_\+split}
+\end{DoxyParamCaption}
+)}}\label{classtree_afd722e513ec0e04c1cb3810d37c7d046}
+\hypertarget{classtree_ab76e0197e552ba02bab77f06ef0af8ce}{\index{tree@{tree}!tree\+\_\+t@{tree\+\_\+t}}
+\index{tree\+\_\+t@{tree\+\_\+t}!tree@{tree}}
+\subsubsection[{tree\+\_\+t}]{\setlength{\rightskip}{0pt plus 5cm}tree\+::tree\+\_\+t (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classtree_ab76e0197e552ba02bab77f06ef0af8ce}
+feature importance \hypertarget{classtree_a339b589372b72f6fe1ae169bc7401aee}{\index{tree@{tree}!tree\+\_\+t@{tree\+\_\+t}}
+\index{tree\+\_\+t@{tree\+\_\+t}!tree@{tree}}
+\subsubsection[{tree\+\_\+t}]{\setlength{\rightskip}{0pt plus 5cm}tree\+::tree\+\_\+t (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{feature\+\_\+rule, }
+\item[{int}]{max\+\_\+depth, }
+\item[{int}]{min\+\_\+split}
+\end{DoxyParamCaption}
+)}}\label{classtree_a339b589372b72f6fe1ae169bc7401aee}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classtree_ad335e57b2f4f2326825694311bcc69e7}{\index{tree@{tree}!fea\+\_\+imp@{fea\+\_\+imp}}
+\index{fea\+\_\+imp@{fea\+\_\+imp}!tree@{tree}}
+\subsubsection[{fea\+\_\+imp}]{\setlength{\rightskip}{0pt plus 5cm}float$\ast$ tree\+::fea\+\_\+imp\hspace{0.3cm}{\ttfamily [protected]}}}\label{classtree_ad335e57b2f4f2326825694311bcc69e7}
+the minimum examples needed to split \hypertarget{classtree_a5aba3b77a347165517a20d5fab94382d}{\index{tree@{tree}!feature\+\_\+rule@{feature\+\_\+rule}}
+\index{feature\+\_\+rule@{feature\+\_\+rule}!tree@{tree}}
+\subsubsection[{feature\+\_\+rule}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string tree\+::feature\+\_\+rule\hspace{0.3cm}{\ttfamily [protected]}}}\label{classtree_a5aba3b77a347165517a20d5fab94382d}
+number of leaves in the tree max feature criterion for splitting, default {\ttfamily sqrt}, avaiable option are {\ttfamily log} or real number between 0 and 1 represent percent of {\ttfamily n\+\_\+feature} or integer larger than 1 represent number of {\ttfamily max\+\_\+feature} \hypertarget{classtree_a30ebe7c91d8a7c68e05bd40b06867f95}{\index{tree@{tree}!leaf\+\_\+pt@{leaf\+\_\+pt}}
+\index{leaf\+\_\+pt@{leaf\+\_\+pt}!tree@{tree}}
+\subsubsection[{leaf\+\_\+pt}]{\setlength{\rightskip}{0pt plus 5cm}node\+\_\+t$\ast$$\ast$ tree\+::leaf\+\_\+pt\hspace{0.3cm}{\ttfamily [protected]}}}\label{classtree_a30ebe7c91d8a7c68e05bd40b06867f95}
+root node of the tree \hypertarget{classtree_a551919e1402a700821694297623017fc}{\index{tree@{tree}!leaf\+\_\+size@{leaf\+\_\+size}}
+\index{leaf\+\_\+size@{leaf\+\_\+size}!tree@{tree}}
+\subsubsection[{leaf\+\_\+size}]{\setlength{\rightskip}{0pt plus 5cm}int tree\+::leaf\+\_\+size\hspace{0.3cm}{\ttfamily [protected]}}}\label{classtree_a551919e1402a700821694297623017fc}
+pointer array which point to all the leaf in the tree \hypertarget{classtree_a0a9f968fac827d3239be67488c34fb21}{\index{tree@{tree}!max\+\_\+depth@{max\+\_\+depth}}
+\index{max\+\_\+depth@{max\+\_\+depth}!tree@{tree}}
+\subsubsection[{max\+\_\+depth}]{\setlength{\rightskip}{0pt plus 5cm}int tree\+::max\+\_\+depth\hspace{0.3cm}{\ttfamily [protected]}}}\label{classtree_a0a9f968fac827d3239be67488c34fb21}
+number of feature to consider when split \hypertarget{classtree_a6f4304318f8f091f7d783ac1ec7d2775}{\index{tree@{tree}!max\+\_\+feature@{max\+\_\+feature}}
+\index{max\+\_\+feature@{max\+\_\+feature}!tree@{tree}}
+\subsubsection[{max\+\_\+feature}]{\setlength{\rightskip}{0pt plus 5cm}int tree\+::max\+\_\+feature\hspace{0.3cm}{\ttfamily [protected]}}}\label{classtree_a6f4304318f8f091f7d783ac1ec7d2775}
+\hypertarget{classtree_ae70cd626c0b50a0b8306a94a9e5e8fd7}{\index{tree@{tree}!min\+\_\+split@{min\+\_\+split}}
+\index{min\+\_\+split@{min\+\_\+split}!tree@{tree}}
+\subsubsection[{min\+\_\+split}]{\setlength{\rightskip}{0pt plus 5cm}int tree\+::min\+\_\+split\hspace{0.3cm}{\ttfamily [protected]}}}\label{classtree_ae70cd626c0b50a0b8306a94a9e5e8fd7}
+the maximum depth to grow \hypertarget{classtree_a1c9d515ea8291ba3e8dd27a32ad11c99}{\index{tree@{tree}!root@{root}}
+\index{root@{root}!tree@{tree}}
+\subsubsection[{root}]{\setlength{\rightskip}{0pt plus 5cm}node\+\_\+t$\ast$ tree\+::root\hspace{0.3cm}{\ttfamily [protected]}}}\label{classtree_a1c9d515ea8291ba3e8dd27a32ad11c99}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{tree_8h}{tree.\+h}\end{DoxyCompactItemize}

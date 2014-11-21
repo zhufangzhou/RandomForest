@@ -21,7 +21,7 @@ example_t::~example_t() {
 
 void example_t::push_back(int id, feature_t value) {
 	fea_id = (int*)realloc(fea_id, sizeof(int)*(nnz+1));
-	fea_value = (feature_t*)realloc(fea_value, nnz+1);
+	fea_value = (feature_t*)realloc(fea_value, sizeof(int)*(nnz+1));
 
 	fea_id[nnz] = id;
 	fea_value[nnz] = value;
