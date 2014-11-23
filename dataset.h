@@ -92,7 +92,7 @@ class DataReader {
 		std::vector<example_t*> read_examples();
 };
 
-class Dataset {
+class dataset {
 	private:
 		ev_pair_t** x; 		/** each row is an attribute */	
 		int* size; 			/** number of examples with non-zero feature values for each attribute */
@@ -135,21 +135,21 @@ class Dataset {
 		void sort(ev_pair_t* a, int* f, int len);
 	public:
 		/**
-		 * @brief Dataset constructor
+		 * @brief dataset constructor
 		 */
-		Dataset();
+		dataset();
 		/**
-		 * @brief Dataset constructor
+		 * @brief dataset constructor
 		 *
 		 * @param n_classes number of classes in the training set
 		 * @param n_features number of features
 		 * @param weight weight for each class
 		 */
-		Dataset(int n_classes, int n_features, float* weight);
+		dataset(int n_classes, int n_features, float* weight);
 		/**
-		 * @brief ~Dataset deconstructor
+		 * @brief ~dataset deconstructor
 		 */
-		~Dataset();
+		~dataset();
 		/**
 		 * @brief init 
 		 *

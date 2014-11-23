@@ -115,15 +115,15 @@ std::vector<example_t*> DataReader::read_examples() {
 	return ret;
 }
 
-Dataset::Dataset() {
+dataset::dataset() {
 	is_init = false;
 }
 
-Dataset::Dataset(int n_classes, int n_features, float* weight) {
+dataset::dataset(int n_classes, int n_features, float* weight) {
 	init(n_classes, n_features, weight);
 }
 
-Dataset::~Dataset() {
+dataset::~dataset() {
 	delete[] x;
 	delete[] x[0];
 	delete[] size;
@@ -131,20 +131,20 @@ Dataset::~Dataset() {
 	delete[] is_cate;	
 }
 
-void Dataset::init(int n_classes, int n_features, float* weight) {
+void dataset::init(int n_classes, int n_features, float* weight) {
 	this->n_classes = n_classes;
 	this->n_features = n_features;
 	this->x = new ev_pair_t*[this->n_features];
 	this->y = NULL;
 	this->size = new int[this->n_features]();
-	/* copy weight vector to Dataset */
+	/* copy weight vector to dataset */
 	memcpy(this->weight, weight, sizeof(float)*this->n_classes);
 
 	this->is_cate = new bool[this->n_features];
 	this->is_init = true;
 }
 
-void Dataset::load_data(const std::string& filename, const learn_mode mode) {
+void dataset::load_data(const std::string& filename, const learn_mode mode) {
 	DataReader* dr = new DataReader(filename, n_features, mode);
 	std::vector<example_t*> ex_vec;
 	/* te and tf correspond to each other */
@@ -156,7 +156,7 @@ void Dataset::load_data(const std::string& filename, const learn_mode mode) {
 	this->mode = mode;
 
 	if (!is_init) {
-		std::cerr << "Please init the Dataset first" << std::endl;
+		std::cerr << "Please init the dataset first" << std::endl;
 		exit(EXIT_FAILURE);
 	}
 
@@ -212,7 +212,7 @@ void Dataset::load_data(const std::string& filename, const learn_mode mode) {
 	delete[] tf;
 }
 
-void Dataset::isort(ev_pair_t* a, int* f, int n){
+void dataset::isort(ev_pair_t* a, int* f, int n){
     int i,j;
     float tv;
     int te;
@@ -225,7 +225,7 @@ void Dataset::isort(ev_pair_t* a, int* f, int n){
     }
 }
 
-void Dataset::qsortlazy(ev_pair_t* a, int* f, int l, int u){
+void dataset::qsortlazy(ev_pair_t* a, int* f, int l, int u){
     int i,j,r;
     float sv,tv;
     int se,te;
@@ -253,12 +253,12 @@ void Dataset::qsortlazy(ev_pair_t* a, int* f, int l, int u){
     qsortlazy(a,f,j+1,u);
 }
 
-void Dataset::sort(ev_pair_t* a, int* f, int len){
+void dataset::sort(ev_pair_t* a, int* f, int len){
     qsortlazy(a,f,0,len-1);
     isort(a,f,len);
 }
 
-void Dataset::debug() {
+void dataset::debug() {
 	std::cout << "Class size: " << n_classes << std::endl;
 	std::cout << "Example size: " << n_examples << std::endl;
 	std::cout << "Feature size: " << n_features << std::endl;

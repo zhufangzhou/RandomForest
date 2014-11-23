@@ -31,7 +31,7 @@ class node {
 		float measure; /** heuristic measure(e.g. gini index or information gain) */
 		int n_examples; /** number of examples in this node */
 
-		float* portion; /** size should be `n_classes`, means the weighted frequency for each class */
+		float* cur_frequency; /** size should be `n_classes`, means the weighted frequency for each class */
 		int n_classes; /** number of different class in the node */
 
 		int leaf_idx; 	/** -1 if this node is not leaf otherwise non-negtive integer */
@@ -85,7 +85,7 @@ class tree {
 
 class decision_tree : public tree {
 	public:
-		void build(Dataset* d);
+		void build(dataset*& d);
 };
 
 class online_tree : public tree {
@@ -93,11 +93,27 @@ class online_tree : public tree {
 };
 
 class splitter {
-	int fea_id; 	/** feature id */
+	public:
+		int fea_id;					/** split feature id */
+		float threshold;			/** split threshold */
+
+		int gain;					/** heuristc measure (e.g. information gain or gini index) improvement after split */
+		
+		int n_classes; 				/** different classes when split */
+		float* left_frequency; 		/** left[j] refers to weighted frequency for class j */
+		float* right_frequency; 	/** right[j] refers to weighted frequency for class j */
+
+		splitter(int n_classes);
+		~splitter();
+		virtual void split(tree*& t, dataset*& d) = 0;
+		virtual void update(int fea_id, float threshold, float*& left, node*& nd) = 0;
 };
 
 class best_splitter : public splitter {
 
+	public: 
+		void split(tree*& t, dataset*& d);	
+		void update(int fea_id, float threshold, float*& left, node*& nd);
 };
 
 class random_splitter : public splitter {

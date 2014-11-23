@@ -13,15 +13,14 @@ node::node(int n_classes) {
 	this->threshold = (feature_t)0.0;
 	this->n_classes = n_classes;
 
-	this->portion = new float[n_classes];	
-	memset(this->portion, 0, sizeof(float)*n_classes);
+	this->cur_frequency = new float[n_classes]();	
 
 	this->leaf_idx = -1; /* set to leaf node for default */
 	this->left = this->right = NULL;
 }
 
 node::~node() {
-	delete[] portion;
+	delete[] cur_frequency;
 }
 
 // ! TODO
@@ -110,7 +109,7 @@ void tree::export_dotfile(const std::string& filename) {
 	int node_idx = 0, pa_idx;
 	std::stack<node*> st;
 	std::stack<int> st_idx;
-	float tot_portion;
+	float tot_frequency;
 
 	if (!ofs.is_open()) {
 		std::cerr << "Cannot open file " << filename << std::endl;
@@ -136,10 +135,10 @@ void tree::export_dotfile(const std::string& filename) {
         if (c_node->leaf_idx != -1) { /* leaf node */
             ofs << node_idx << " [label=\"gini = " 
 				<< std::setprecision(3) << c_node->measure << "\\npositive proba = [ ";
-			tot_portion = 0.0;
-			for (int i = 0; i < c_node->n_classes; i++) tot_portion += c_node->portion[i];
+			tot_frequency = 0.0;
+			for (int i = 0; i < c_node->n_classes; i++) tot_frequency += c_node->cur_frequency[i];
 			for (int i = 0; i < c_node->n_classes; i++) {
-				ofs << std::setprecision(3) << c_node->portion[i] / tot_portion << " ";
+				ofs << std::setprecision(3) << c_node->cur_frequency[i] / tot_frequency<< " ";
 			}
 			ofs << "]\", shape=\"box\"];" << std::endl;
         } else { /* internal node */
@@ -164,7 +163,7 @@ void tree::export_dotfile(const std::string& filename) {
 	ofs.close();
 }
 
-void decision_tree::build(Dataset* d) {
+void decision_tree::build(dataset*& d) {
 	target_t c; /* temporary variable to indicate current class */
 	std::stack<node*> st;
 	node* c_node;
@@ -172,7 +171,7 @@ void decision_tree::build(Dataset* d) {
 	root = new batch_node(d->n_classes);
 	for (int i = 0; i < d->n_examples; i++) {
 		c = d->y[i];
-		root->portion[c] += d->weight[i];
+		root->cur_frequency[c] += d->weight[i];
 	}
 
 	/* build tree */
@@ -181,5 +180,43 @@ void decision_tree::build(Dataset* d) {
 		c_node = st.top();
 		st.pop();
 
+	}
+}
+
+splitter::splitter(int n_classes) {
+	left_frequency = new float[n_classes]();
+	right_frequency = new float[n_classes]();
+}
+
+splitter::~splitter() {
+	delete[] left_frequency;
+	delete[] right_frequency;
+}
+
+void best_splitter::split(tree*& t, node*& root, dataset*& d) {
+		
+}
+
+void best_splitter::update(int fea_id, float threshold, float* left, node*& nd) {
+	float* right = new float[n_classes]();
+	for (int c = 0; c < n_classes; c++) 
+		right[c] = nd->cur_frequency[c] - left[c];
+	
+	float n_left = 0.0;	
+	for (int c = 0; c < n_classes; c++) n_left += left[c];
+	float n_right = 0.0;
+	for (int c = 0; c < n_classes; c++) n_right += right[c];
+
+	float gain;
+
+	// TODO
+	//gain = ;
+
+	if (gain > this->gain) {
+		this->gain = gain;
+		this->fea_id = fea_id;
+		this->threshold = threshold;
+		memcpy(this->left_frequency, left, sizeof(float)*n_classes);
+		memcpy(this->right_frequency, right, sizeof(float)*n_classes);
 	}
 }
