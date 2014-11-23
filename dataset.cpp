@@ -136,8 +136,7 @@ void Dataset::init(int n_classes, int n_features, float* weight) {
 	this->n_features = n_features;
 	this->x = new ev_pair_t*[this->n_features];
 	this->y = NULL;
-	this->size = new int[this->n_features];
-	memset(this->size, 0, sizeof(int)*this->n_features);
+	this->size = new int[this->n_features]();
 	/* copy weight vector to Dataset */
 	memcpy(this->weight, weight, sizeof(float)*this->n_classes);
 
