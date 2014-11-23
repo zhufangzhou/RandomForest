@@ -97,6 +97,7 @@ class Dataset {
 		ev_pair_t** x; 		/** each row is an attribute */	
 		int* size; 			/** number of examples with non-zero feature values for each attribute */
 		target_t* y; 		/** label for each example */
+		float* weight; 		/** weight for each class */
 		
 		int n_classes; 		/** number of classes */
 		int n_examples;		/** number of examples */
@@ -142,8 +143,9 @@ class Dataset {
 		 *
 		 * @param n_classes number of classes in the training set
 		 * @param n_features number of features
+		 * @param weight weight for each class
 		 */
-		Dataset(int n_classes, int n_features);
+		Dataset(int n_classes, int n_features, float* weight);
 		/**
 		 * @brief ~Dataset deconstructor
 		 */
@@ -151,10 +153,11 @@ class Dataset {
 		/**
 		 * @brief init 
 		 *
-		 * @param n_classes
-		 * @param n_features
+		 * @param n_classes number of classes in the training set
+		 * @param n_features number of features
+		 * @param weight weight for each class
 		 */
-		void init(int n_classes, int n_features);
+		void init(int n_classes, int n_features, float* weight);
 		/**
 		 * @brief load_data generate the dataset from input file
 		 *

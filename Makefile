@@ -5,6 +5,8 @@ CXXFLAGS := -g -Wno-write-strings -std=c++0x -I../utils/include
 main: $(ALL_OBJ)
 	$(CC) $(CXXFLAGS) $(ALL_OBJ) -o main
 
+debug: debug.o dataset.o utils.o
+
 utils.o: ../utils/src/utils.cpp
 	g++ -g -std=c++0x -c ../utils/src/utils.cpp -o utils.o -I../utils/include
 

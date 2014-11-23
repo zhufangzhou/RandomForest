@@ -119,8 +119,8 @@ Dataset::Dataset() {
 	is_init = false;
 }
 
-Dataset::Dataset(int n_classes, int n_features) {
-	init(n_classes, n_features);
+Dataset::Dataset(int n_classes, int n_features, float* weight) {
+	init(n_classes, n_features, weight);
 }
 
 Dataset::~Dataset() {
@@ -131,16 +131,18 @@ Dataset::~Dataset() {
 	delete[] is_cate;	
 }
 
-void Dataset::init(int n_classes, int n_features) {
+void Dataset::init(int n_classes, int n_features, float* weight) {
 	this->n_classes = n_classes;
 	this->n_features = n_features;
-	x = new ev_pair_t*[this->n_features];
-	y = NULL;
-	size = new int[this->n_features];
-	memset(size, 0, sizeof(int)*n_features);
+	this->x = new ev_pair_t*[this->n_features];
+	this->y = NULL;
+	this->size = new int[this->n_features];
+	memset(this->size, 0, sizeof(int)*this->n_features);
+	/* copy weight vector to Dataset */
+	memcpy(this->weight, weight, sizeof(float)*this->n_classes);
 
-	is_cate = new bool[this->n_features];
-	is_init = true;
+	this->is_cate = new bool[this->n_features];
+	this->is_init = true;
 }
 
 void Dataset::load_data(const std::string& filename, const learn_mode mode) {
@@ -182,6 +184,11 @@ void Dataset::load_data(const std::string& filename, const learn_mode mode) {
 		/* predict mode does not has label */
 		if (mode != PREDICT) {
 			y = (target_t*)realloc(y, sizeof(target_t)*(ex_id+1));
+			/* check `y` between 0 ~ n_classes-1 */
+			if ((*it)->y < 0 && (*it)->y >= n_classes) {
+				std::cerr << "Label must between 0 and `n_classes`-1" << std::endl;
+				exit(EXIT_FAILURE);
+			}
 			y[ex_id] = (*it)->y;
 		}
 

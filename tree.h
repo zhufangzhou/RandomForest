@@ -18,6 +18,7 @@
 #include <string>
 #include <vector>
 #include <stack>
+#include <iomanip>
 /* my header file */
 #include "dataset.h"
 
@@ -72,13 +73,14 @@ class tree {
 	public:
 		tree();
 		~tree();
-		tree(std::string feature_rule, int max_depth, int min_split);
-		void init(std::string feature_rule, int max_depth, int min_split);
+		tree(const std::string feature_rule, int max_depth, int min_split);
+		void init(const std::string feature_rule, int max_depth, int min_split);
 		float* compute_importance(bool re_compute = false);
 
 		void free_tree(node*& nd);
-		void dump(std::string& filename);		
-		void load(std::string& filename);
+		void dump(const std::string& filename);		
+		void load(const std::string& filename);
+		void export_dotfile(const std::string& filename);
 };
 
 class decision_tree : public tree {
@@ -90,14 +92,14 @@ class online_tree : public tree {
 
 };
 
-class split {
+class splitter {
 	int fea_id; 	/** feature id */
 };
 
-class best_split : public split {
+class best_splitter : public splitter {
 
 };
 
-class random_split : public split {
+class random_splitter : public splitter {
 
 };
