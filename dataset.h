@@ -41,7 +41,7 @@ class example_t {
 		 */
 		example_t();
 		/**
-		 * @brief ~example_t deconstructor
+		 * @brief ~example_t destructor
 		 */
 		~example_t();
 		/**
@@ -57,23 +57,23 @@ class example_t {
 		void debug();
 };
 
-class DataReader {
+class data_reader {
 	private:
 		int n_features;		/** number of features in the input file */
 		std::ifstream ifs; 		/** input file stream related to the input file */
 		learn_mode mode; 	/** learn mode */
 	public:
 		/**
-		 * @brief DataReader constructor
+		 * @brief data_reader constructor
 		 *
 		 * @param n_features number of features
 		 * @param mode train or predict
 		 */
-		DataReader(const std::string& filename, int n_features, const learn_mode mode);
+		data_reader(const std::string& filename, int n_features, const learn_mode mode);
 		/**
-		 * @brief ~DataReader deconstructor
+		 * @brief ~data_reader destructor
 		 */
-		~DataReader();
+		~data_reader();
 		/**
 		 * @brief read_an_example read an example
 		 *
@@ -147,7 +147,7 @@ class dataset {
 		 */
 		dataset(int n_classes, int n_features, float* weight);
 		/**
-		 * @brief ~dataset deconstructor
+		 * @brief ~dataset destructor
 		 */
 		~dataset();
 		/**

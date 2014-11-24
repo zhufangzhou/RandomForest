@@ -40,7 +40,7 @@ void example_t::debug() {
 	std::cout << std::endl << std::endl;
 }
 
-DataReader::DataReader(const std::string& filename, int n_features, const learn_mode mode) {
+data_reader::data_reader(const std::string& filename, int n_features, const learn_mode mode) {
 	ifs.open(filename.c_str(), std::ios::binary);
 	if (!ifs.is_open()) {
 		std::cerr << "Can not open file " << filename << " ." << std::endl;
@@ -50,20 +50,20 @@ DataReader::DataReader(const std::string& filename, int n_features, const learn_
 	this->mode = mode;
 }
 
-DataReader::~DataReader() {
+data_reader::~data_reader() {
 	if (ifs.is_open()) {
 		ifs.close();
 	}
 }
 
-example_t* DataReader::read_an_example() {
+example_t* data_reader::read_an_example() {
 	example_t* ret;
 	std::string line, t_str;
 	int p_pos, c_pos, feature_id;
 	feature_t feature_value;
 
 	if (ifs.eof()) {
-		return NULL;
+		return nullptr;
 	}
 
 	ret = new example_t();
@@ -77,7 +77,7 @@ example_t* DataReader::read_an_example() {
 		getline(ifs, line);
 	}
 
-	if (line.length() < 1) return NULL;
+	if (line.length() < 1) return nullptr;
 	
 	while (p_pos <= c_pos) {
 		p_pos = c_pos + 1;
@@ -99,16 +99,16 @@ example_t* DataReader::read_an_example() {
 
 	/* if read a blank line, just skip it */
 	if (ret->nnz == 0) {
-		return NULL;
+		return nullptr;
 	}
 	return ret;	
 }
 
-std::vector<example_t*> DataReader::read_examples() {
+std::vector<example_t*> data_reader::read_examples() {
 	example_t* single;
 	std::vector<example_t*> ret;
 
-	while( (single=read_an_example()) != NULL ) {
+	while( (single=read_an_example()) != nullptr) {
 		ret.push_back(single);
 	}
 
@@ -135,7 +135,7 @@ void dataset::init(int n_classes, int n_features, float* weight) {
 	this->n_classes = n_classes;
 	this->n_features = n_features;
 	this->x = new ev_pair_t*[this->n_features];
-	this->y = NULL;
+	this->y = nullptr;
 	this->size = new int[this->n_features]();
 	/* copy weight vector to dataset */
 	memcpy(this->weight, weight, sizeof(float)*this->n_classes);
@@ -145,7 +145,7 @@ void dataset::init(int n_classes, int n_features, float* weight) {
 }
 
 void dataset::load_data(const std::string& filename, const learn_mode mode) {
-	DataReader* dr = new DataReader(filename, n_features, mode);
+	data_reader* dr = new data_reader(filename, n_features, mode);
 	std::vector<example_t*> ex_vec;
 	/* te and tf correspond to each other */
 	ev_pair_t* te; /* store ev_pair*/

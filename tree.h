@@ -64,6 +64,7 @@ class tree {
 				 					* default `sqrt`, avaiable option are `log` or real number between 0 and 1
 								    * represent percent of `n_features` or integer larger than 1 represent number of `max_feature`
 									* */
+		int* valid;
 
 		int max_feature; 	/** number of feature to consider when split */
 		int max_depth; 		/** the maximum depth to grow */
@@ -118,4 +119,26 @@ class best_splitter : public splitter {
 
 class random_splitter : public splitter {
 
+};
+
+class criterion {
+	protected:
+		float tot_frequency; 	/** temporary variable store `tot_frequency` after calling `measure` function */
+		float cur_measure; 		/** current node heuristic measure value */
+		float cur_tot; 			/** current node total frequency */
+
+		bool is_init; 			/** has set the current node measure */
+	public:
+		criterion();
+		criterion(float*& frequency, int n_classes);
+
+		void set_current(float*& frequency, int n_classes);
+		float gain(float*& left_frequency, float* right_frequency, int n_classes);
+
+		virtual float measure(float*& frequency, int n_classes) = 0;
+};
+
+class gini : public criterion {
+	public:
+		float measure(float* frequency, int n_classes);
 };
