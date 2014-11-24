@@ -258,6 +258,14 @@ void dataset::sort(ev_pair_t* a, int* f, int len){
     isort(a,f,len);
 }
 
+int dataset::get_nclasses() {
+	return this->n_classes;
+}
+
+int dataset::get_nexamples() {
+	return this->n_examples;
+}
+
 void dataset::debug() {
 	std::cout << "Class size: " << n_classes << std::endl;
 	std::cout << "Example size: " << n_examples << std::endl;

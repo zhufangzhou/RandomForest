@@ -33,6 +33,10 @@ void node::dump(std::ofstream& ofs) {
 
 }
 
+batch_node::batch_node(int n_classes) : node(n_classes) {
+
+}
+
 tree::tree() {
 			
 }
@@ -163,13 +167,24 @@ void tree::export_dotfile(const std::string& filename) {
 	ofs.close();
 }
 
+int tree::get_max_feature() {
+	return this->max_feature;
+}
+
+int* tree::get_valid() {
+	return this->valid;
+}
+
 void decision_tree::build(dataset*& d) {
 	target_t c; /* temporary variable to indicate current class */
 	std::stack<node*> st;
 	node* c_node;
+	int n_classes = d->get_nclasses(), n_examples = d->get_nexamples();
+
+
 	/* allocate space to root node */	
-	root = new batch_node(d->n_classes);
-	for (int i = 0; i < d->n_examples; i++) {
+	root = new batch_node(n_classes);
+	for (int i = 0; i < n_examples; i++) {
 		c = d->y[i];
 		root->cur_frequency[c] += d->weight[i];
 	}
@@ -195,21 +210,22 @@ splitter::~splitter() {
 
 void best_splitter::split(tree*& t, node*& root, dataset*& d, criterion*& cr) {
 	ev_pair_t* x;
-	int j, fst_valid, cur_ex, prev, prev_ex;
+	int f, j, fst_valid, cur_ex, prev, prev_ex;
 	float *zero_frequency, *nonzero_frequency; /* these two are for current node */
 	float *left_frequency, threshold;
+	int n_classes = d->get_nclasses(), max_feature = t->get_max_feature(), *valid = t->get_valid();
 
 	/* the key idea of this sparse split is to determine where to put zero examples */
-	zero_frequency = new float[t->n_classes];
-	nonzero_frequency = new float[t->n_classes];
+	zero_frequency = new float[n_classes];
+	nonzero_frequency = new float[n_classes];
 
 	/* did not set `right_frequency` because `current node` minus `left_frequency` is `right_frequency` */
-	left_frequency = new float[t->n_classes];
+	left_frequency = new float[n_classes];
 
 	/* reset `criterion` class */
-	cr->set_current(root->cur_frequency, t->n_classes);
+	cr->set_current(root->cur_frequency, n_classes);
 
-	for (int i = 0; i < t->max_feature; i++) {
+	for (int i = 0; i < max_feature; i++) {
 		f = i;		/* choose a feature to test */	
 		x = d->x[f];
 		if (!d->is_cate[f]) { /* if the feature is continuous */
@@ -236,18 +252,18 @@ void best_splitter::split(tree*& t, node*& root, dataset*& d, criterion*& cr) {
 				if (t->valid[cur_ex] <= 0) continue;
 
 				/* reset `nonzero_frequency` */
-				memset(nonzero_frequency, 0, sizeof(float)*t->n_classes);
+				memset(nonzero_frequency, 0, sizeof(float)*n_classes);
 				nonzero_frequency[d->y[cur_ex]] += d->weight[cur_ex];
 			}
 
 			/* 2.except nonzero is zero */
-			for (int c = 0; c < t->n_classes; c++) 
+			for (int c = 0; c < n_classes; c++) 
 				zero_frequency[c] = root->cur_frequency[c] - nonzero_frequency[c]; 
 
-			memset(left_frequency, 0, sizeof(float)*t->n_classes);
+			memset(left_frequency, 0, sizeof(float)*n_classes);
 			/* if first valid example's feature value is positive, then zero examples must be in the left child node */		
 			if (x[prev].fea_value > 0.0) {
-				for (int c = 0; c < t->n_classes; c++) 
+				for (int c = 0; c < n_classes; c++) 
 					left_frequency[c] += zero_frequency[c];
 				
 				/* as all nonzero feature value is positive, so the first split threshold should between 0 and x[prev].fea_value */
@@ -277,7 +293,7 @@ void best_splitter::split(tree*& t, node*& root, dataset*& d, criterion*& cr) {
 
 					/* threshold 2 */
 					/* add zero examples to left */
-					for (int c = 0; c < t->n_classes; c++) 
+					for (int c = 0; c < n_classes; c++) 
 						left_frequency[c] += zero_frequency[c];
 					threshold = 0.5*(0.0 + x[cur].fea_value);
 					update(f, threshold, left_frequency, root, cr);
@@ -285,7 +301,7 @@ void best_splitter::split(tree*& t, node*& root, dataset*& d, criterion*& cr) {
 
 				/* test a split between x[prev].fea_value and x[cur].fea_value */
 				if (x[prev].fea_value != x[cur].fea_value /* feature value of previous and current are different */
-						&& d->y[prev_ex] != d->y[cur_ex].fea_value /* class label of previous and current are different */) {
+						&& d->y[prev_ex] != d->y[cur_ex] /* class label of previous and current are different */) {
 					threshold = 0.5*(x[prev].fea_value + x[cur].fea_value);
 					update(f, threshold, left_frequency, root, cr);
 				}
@@ -305,7 +321,7 @@ void best_splitter::split(tree*& t, node*& root, dataset*& d, criterion*& cr) {
 	delete[] left_frequency;
 }
 
-void best_splitter::update(int fea_id, float threshold, float* left, node*& nd, criterion*& cr) {
+void best_splitter::update(int fea_id, float threshold, float*& left, node*& nd, criterion*& cr) {
 	float* right = new float[n_classes]();
 	for (int c = 0; c < n_classes; c++) 
 		right[c] = nd->cur_frequency[c] - left[c];
@@ -333,27 +349,31 @@ criterion::criterion(float*& frequency, int n_classes) {
 	set_current(frequency, n_classes);
 }
 
-criterion::set_current(float*& frequency, int n_classes) {
-	this->measure = measure(frequency, n_classes);
+void criterion::set_current(float*& frequency, int n_classes) {
+	this->cur_measure = measure(frequency, n_classes);
 	this->cur_tot = this->tot_frequency;
 	this->is_init = true;
 }
 
-float criterion::gain(float*& cur_frequency, float*& left_frequency, float*& right_frequency, int n_classes) {
+float criterion::gain(float*& left_frequency, float*& right_frequency, int n_classes) {
 	float left_tot, right_tot;
 	float left_measure, right_measure;
+	/* need to set current node before call gain function */
 	if (!is_init) {
 		std::cerr << "Please set current measure before call gain" << std::endl;
 		exit(EXIT_FAILURE);
 	}
+	/* calculate left child node measure */
 	left_measure = measure(left_frequency, n_classes);
 	left_tot = this->tot_frequency;
+	/* calculate right child node measure */
 	right_measure = measure(right_frequency, n_classes);
 	right_tot = this->tot_frequency;
 	
+	/* return gain value */
 	return this->cur_measure 
-		- (left_tot/this->cur_tot*left_measure)
-		- (right_tot/this->cur_tot*left_measure)
+		- (left_tot / this->cur_tot * left_measure)
+		- (right_tot / this->cur_tot * left_measure);
 }
 
 float gini::measure(float*& frequency, int n_classes) {

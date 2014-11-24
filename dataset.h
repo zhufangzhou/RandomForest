@@ -94,16 +94,9 @@ class data_reader {
 
 class dataset {
 	private:
-		ev_pair_t** x; 		/** each row is an attribute */	
-		int* size; 			/** number of examples with non-zero feature values for each attribute */
-		target_t* y; 		/** label for each example */
-		float* weight; 		/** weight for each class */
-		
 		int n_classes; 		/** number of classes */
 		int n_examples;		/** number of examples */
 		int n_features; 	/** number of attributes */
-
-		bool* is_cate; 		/** is the ith attribute categorical */
 
 		bool is_init; 		/** boolean variable to indicate whether dataset has been initialized */
 		learn_mode mode; 	/** learn mode */
@@ -134,6 +127,12 @@ class dataset {
 		 */
 		void sort(ev_pair_t* a, int* f, int len);
 	public:
+		ev_pair_t** x; 		/** each row is an attribute */	
+		int* size; 			/** number of examples with non-zero feature values for each attribute */
+		target_t* y; 		/** label for each example */
+		float* weight; 		/** weight for each class */
+		bool* is_cate; 		/** is the ith attribute categorical */
+
 		/**
 		 * @brief dataset constructor
 		 */
@@ -175,5 +174,7 @@ class dataset {
 		 * @brief debug print some information for debugging
 		 */
 		void debug();
+		int get_nclasses();
+		int get_nexamples();
 };
 

@@ -22,6 +22,19 @@
 /* my header file */
 #include "dataset.h"
 
+/* declaration */
+class node;
+class batch_node;
+class online_node;
+class tree;
+class decision_tree;
+class online_tree;
+class splitter;
+class best_splitter;
+class random_splitter;
+class criterion;
+class gini;
+
 
 class node {
 	public:
@@ -46,6 +59,7 @@ class node {
 
 class batch_node : public node {
 	public:
+		batch_node(int n_classes);
 
 };
 
@@ -64,7 +78,6 @@ class tree {
 				 					* default `sqrt`, avaiable option are `log` or real number between 0 and 1
 								    * represent percent of `n_features` or integer larger than 1 represent number of `max_feature`
 									* */
-		int* valid;
 
 		int max_feature; 	/** number of feature to consider when split */
 		int max_depth; 		/** the maximum depth to grow */
@@ -72,6 +85,8 @@ class tree {
 
 		float* fea_imp; 	/** feature importance */
 	public:
+		int* valid; 		/** is the example valid to consider when split */
+
 		tree();
 		~tree();
 		tree(const std::string feature_rule, int max_depth, int min_split);
@@ -82,6 +97,9 @@ class tree {
 		void dump(const std::string& filename);		
 		void load(const std::string& filename);
 		void export_dotfile(const std::string& filename);
+
+		int get_max_feature();
+		int* get_valid();
 };
 
 class decision_tree : public tree {
@@ -106,15 +124,15 @@ class splitter {
 
 		splitter(int n_classes);
 		~splitter();
-		virtual void split(tree*& t, dataset*& d) = 0;
-		virtual void update(int fea_id, float threshold, float*& left, node*& nd) = 0;
+		virtual void split(tree*& t, node*& root, dataset*& d, criterion*& cr) = 0;
+		virtual void update(int fea_id, float threshold, float*& left, node*& nd, criterion*& cr) = 0;
 };
 
 class best_splitter : public splitter {
 
 	public: 
-		void split(tree*& t, dataset*& d);	
-		void update(int fea_id, float threshold, float*& left, node*& nd);
+		void split(tree*& t, node*& root, dataset*& d, criterion*& cr);	
+		void update(int fea_id, float threshold, float*& left, node*& nd, criterion*& cr);
 };
 
 class random_splitter : public splitter {
@@ -133,12 +151,12 @@ class criterion {
 		criterion(float*& frequency, int n_classes);
 
 		void set_current(float*& frequency, int n_classes);
-		float gain(float*& left_frequency, float* right_frequency, int n_classes);
+		float gain(float*& left_frequency, float*& right_frequency, int n_classes);
 
 		virtual float measure(float*& frequency, int n_classes) = 0;
 };
 
 class gini : public criterion {
 	public:
-		float measure(float* frequency, int n_classes);
+		float measure(float*& frequency, int n_classes);
 };
