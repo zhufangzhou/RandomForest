@@ -5,12 +5,24 @@
 
 {\ttfamily \#include $<$tree.\+h$>$}
 
+Inheritance diagram for node\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classnode}
+\end{center}
+\end{figure}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \hyperlink{classnode_a82be3536d3bca59c1fe27f53970e674c}{dump} (const std\+::string \&filename, int n\+\_\+classes)
+\hyperlink{classnode_a7e5f4a2e917fe20d91d75faf2e9ba5de}{node} (int \hyperlink{classnode_a8c4864582cb3fe15e84e7908d0965150}{n\+\_\+classes})
+\item 
+\hyperlink{classnode_a482f83436a89f09d289b26144d817adf}{$\sim$node} ()
+\item 
+void \hyperlink{classnode_a873438b420d0f6d2659a1b25875ed300}{dump} (const std\+::string \&filename)
+\item 
+void \hyperlink{classnode_acab00fde3bcc5d44044c39a37313b4eb}{dump} (std\+::ofstream \&ofs)
 \end{DoxyCompactItemize}
-\subsection*{Protected Attributes}
+\subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 bool \hyperlink{classnode_a67c3c0be5001ace8494a6292e8079001}{is\+\_\+cate}
@@ -19,51 +31,90 @@ int \hyperlink{classnode_ad65aefa2c967c82cd88e6870085d7f3e}{feature\+\_\+id}
 \item 
 \hyperlink{dataset_8h_ac2e4791c62a663377be91b0922cede72}{feature\+\_\+t} \hyperlink{classnode_a3774a77cb58d1554f63f34cbcb737a0c}{threshold}
 \item 
-float $\ast$ \hyperlink{classnode_a4c6e2c13d2313c35199252051bd46c46}{portion}
+float \hyperlink{classnode_a3c9943d5494f9418b72f2a212b06938c}{measure}
+\item 
+int \hyperlink{classnode_ae848f75fd8729aa74bd6718189387758}{n\+\_\+examples}
+\item 
+float $\ast$ \hyperlink{classnode_ae4125b554711d8ad9d6726ffd69e0b77}{cur\+\_\+frequency}
+\item 
+int \hyperlink{classnode_a8c4864582cb3fe15e84e7908d0965150}{n\+\_\+classes}
 \item 
 int \hyperlink{classnode_abbd7d4174869fead5f901b042a2f9712}{leaf\+\_\+idx}
 \item 
-node\+\_\+t $\ast$ \hyperlink{classnode_aacd557e63e1f9dca9048ed58bb3dbb2c}{left}
+\hyperlink{classnode}{node} $\ast$ \hyperlink{classnode_a7cbff55ff448f557223f79299056e9b1}{left}
 \item 
-node\+\_\+t $\ast$ \hyperlink{classnode_a8ab67b704953f3699d566a1a5d6047ad}{right}
+\hyperlink{classnode}{node} $\ast$ \hyperlink{classnode_abdc86d4c8604c481752953af3235fc47}{right}
 \end{DoxyCompactItemize}
 
 
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classnode_a7e5f4a2e917fe20d91d75faf2e9ba5de}{\index{node@{node}!node@{node}}
+\index{node@{node}!node@{node}}
+\subsubsection[{node}]{\setlength{\rightskip}{0pt plus 5cm}node\+::node (
+\begin{DoxyParamCaption}
+\item[{int}]{n\+\_\+classes}
+\end{DoxyParamCaption}
+)}}\label{classnode_a7e5f4a2e917fe20d91d75faf2e9ba5de}
+point to right node \hypertarget{classnode_a482f83436a89f09d289b26144d817adf}{\index{node@{node}!````~node@{$\sim$node}}
+\index{````~node@{$\sim$node}!node@{node}}
+\subsubsection[{$\sim$node}]{\setlength{\rightskip}{0pt plus 5cm}node\+::$\sim$node (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classnode_a482f83436a89f09d289b26144d817adf}
+
+
 \subsection{Member Function Documentation}
-\hypertarget{classnode_a82be3536d3bca59c1fe27f53970e674c}{\index{node@{node}!dump@{dump}}
+\hypertarget{classnode_a873438b420d0f6d2659a1b25875ed300}{\index{node@{node}!dump@{dump}}
 \index{dump@{dump}!node@{node}}
 \subsubsection[{dump}]{\setlength{\rightskip}{0pt plus 5cm}void node\+::dump (
 \begin{DoxyParamCaption}
-\item[{const std\+::string \&}]{filename, }
-\item[{int}]{n\+\_\+classes}
+\item[{const std\+::string \&}]{filename}
 \end{DoxyParamCaption}
-)}}\label{classnode_a82be3536d3bca59c1fe27f53970e674c}
-point to right node 
+)}}\label{classnode_a873438b420d0f6d2659a1b25875ed300}
+\hypertarget{classnode_acab00fde3bcc5d44044c39a37313b4eb}{\index{node@{node}!dump@{dump}}
+\index{dump@{dump}!node@{node}}
+\subsubsection[{dump}]{\setlength{\rightskip}{0pt plus 5cm}void node\+::dump (
+\begin{DoxyParamCaption}
+\item[{std\+::ofstream \&}]{ofs}
+\end{DoxyParamCaption}
+)}}\label{classnode_acab00fde3bcc5d44044c39a37313b4eb}
+
 
 \subsection{Member Data Documentation}
-\hypertarget{classnode_ad65aefa2c967c82cd88e6870085d7f3e}{\index{node@{node}!feature\+\_\+id@{feature\+\_\+id}}
+\hypertarget{classnode_ae4125b554711d8ad9d6726ffd69e0b77}{\index{node@{node}!cur\+\_\+frequency@{cur\+\_\+frequency}}
+\index{cur\+\_\+frequency@{cur\+\_\+frequency}!node@{node}}
+\subsubsection[{cur\+\_\+frequency}]{\setlength{\rightskip}{0pt plus 5cm}float$\ast$ node\+::cur\+\_\+frequency}}\label{classnode_ae4125b554711d8ad9d6726ffd69e0b77}
+number of examples in this node \hypertarget{classnode_ad65aefa2c967c82cd88e6870085d7f3e}{\index{node@{node}!feature\+\_\+id@{feature\+\_\+id}}
 \index{feature\+\_\+id@{feature\+\_\+id}!node@{node}}
-\subsubsection[{feature\+\_\+id}]{\setlength{\rightskip}{0pt plus 5cm}int node\+::feature\+\_\+id\hspace{0.3cm}{\ttfamily [protected]}}}\label{classnode_ad65aefa2c967c82cd88e6870085d7f3e}
+\subsubsection[{feature\+\_\+id}]{\setlength{\rightskip}{0pt plus 5cm}int node\+::feature\+\_\+id}}\label{classnode_ad65aefa2c967c82cd88e6870085d7f3e}
 is the split feature categorical \hypertarget{classnode_a67c3c0be5001ace8494a6292e8079001}{\index{node@{node}!is\+\_\+cate@{is\+\_\+cate}}
 \index{is\+\_\+cate@{is\+\_\+cate}!node@{node}}
-\subsubsection[{is\+\_\+cate}]{\setlength{\rightskip}{0pt plus 5cm}bool node\+::is\+\_\+cate\hspace{0.3cm}{\ttfamily [protected]}}}\label{classnode_a67c3c0be5001ace8494a6292e8079001}
+\subsubsection[{is\+\_\+cate}]{\setlength{\rightskip}{0pt plus 5cm}bool node\+::is\+\_\+cate}}\label{classnode_a67c3c0be5001ace8494a6292e8079001}
 \hypertarget{classnode_abbd7d4174869fead5f901b042a2f9712}{\index{node@{node}!leaf\+\_\+idx@{leaf\+\_\+idx}}
 \index{leaf\+\_\+idx@{leaf\+\_\+idx}!node@{node}}
-\subsubsection[{leaf\+\_\+idx}]{\setlength{\rightskip}{0pt plus 5cm}int node\+::leaf\+\_\+idx\hspace{0.3cm}{\ttfamily [protected]}}}\label{classnode_abbd7d4174869fead5f901b042a2f9712}
-size should be n\+\_\+classes, means the weighted frequency for each class \hypertarget{classnode_aacd557e63e1f9dca9048ed58bb3dbb2c}{\index{node@{node}!left@{left}}
+\subsubsection[{leaf\+\_\+idx}]{\setlength{\rightskip}{0pt plus 5cm}int node\+::leaf\+\_\+idx}}\label{classnode_abbd7d4174869fead5f901b042a2f9712}
+number of different class in the node \hypertarget{classnode_a7cbff55ff448f557223f79299056e9b1}{\index{node@{node}!left@{left}}
 \index{left@{left}!node@{node}}
-\subsubsection[{left}]{\setlength{\rightskip}{0pt plus 5cm}node\+\_\+t$\ast$ node\+::left\hspace{0.3cm}{\ttfamily [protected]}}}\label{classnode_aacd557e63e1f9dca9048ed58bb3dbb2c}
--\/1 if this node is not leaf otherwise non-\/negtive integer \hypertarget{classnode_a4c6e2c13d2313c35199252051bd46c46}{\index{node@{node}!portion@{portion}}
-\index{portion@{portion}!node@{node}}
-\subsubsection[{portion}]{\setlength{\rightskip}{0pt plus 5cm}float$\ast$ node\+::portion\hspace{0.3cm}{\ttfamily [protected]}}}\label{classnode_a4c6e2c13d2313c35199252051bd46c46}
-for categorical attribute is the chosen feature value for left child node, for continous attribute is the threshold to determine left or right \hypertarget{classnode_a8ab67b704953f3699d566a1a5d6047ad}{\index{node@{node}!right@{right}}
+\subsubsection[{left}]{\setlength{\rightskip}{0pt plus 5cm}{\bf node}$\ast$ node\+::left}}\label{classnode_a7cbff55ff448f557223f79299056e9b1}
+-\/1 if this node is not leaf otherwise non-\/negtive integer \hypertarget{classnode_a3c9943d5494f9418b72f2a212b06938c}{\index{node@{node}!measure@{measure}}
+\index{measure@{measure}!node@{node}}
+\subsubsection[{measure}]{\setlength{\rightskip}{0pt plus 5cm}float node\+::measure}}\label{classnode_a3c9943d5494f9418b72f2a212b06938c}
+for categorical attribute is the chosen feature value for left child node, for continous attribute is the threshold to determine left or right \hypertarget{classnode_a8c4864582cb3fe15e84e7908d0965150}{\index{node@{node}!n\+\_\+classes@{n\+\_\+classes}}
+\index{n\+\_\+classes@{n\+\_\+classes}!node@{node}}
+\subsubsection[{n\+\_\+classes}]{\setlength{\rightskip}{0pt plus 5cm}int node\+::n\+\_\+classes}}\label{classnode_a8c4864582cb3fe15e84e7908d0965150}
+size should be {\ttfamily n\+\_\+classes}, means the weighted frequency for each class \hypertarget{classnode_ae848f75fd8729aa74bd6718189387758}{\index{node@{node}!n\+\_\+examples@{n\+\_\+examples}}
+\index{n\+\_\+examples@{n\+\_\+examples}!node@{node}}
+\subsubsection[{n\+\_\+examples}]{\setlength{\rightskip}{0pt plus 5cm}int node\+::n\+\_\+examples}}\label{classnode_ae848f75fd8729aa74bd6718189387758}
+heuristic measure(e.\+g. gini index or information gain) \hypertarget{classnode_abdc86d4c8604c481752953af3235fc47}{\index{node@{node}!right@{right}}
 \index{right@{right}!node@{node}}
-\subsubsection[{right}]{\setlength{\rightskip}{0pt plus 5cm}node\+\_\+t$\ast$ node\+::right\hspace{0.3cm}{\ttfamily [protected]}}}\label{classnode_a8ab67b704953f3699d566a1a5d6047ad}
+\subsubsection[{right}]{\setlength{\rightskip}{0pt plus 5cm}{\bf node}$\ast$ node\+::right}}\label{classnode_abdc86d4c8604c481752953af3235fc47}
 point to left node \hypertarget{classnode_a3774a77cb58d1554f63f34cbcb737a0c}{\index{node@{node}!threshold@{threshold}}
 \index{threshold@{threshold}!node@{node}}
-\subsubsection[{threshold}]{\setlength{\rightskip}{0pt plus 5cm}{\bf feature\+\_\+t} node\+::threshold\hspace{0.3cm}{\ttfamily [protected]}}}\label{classnode_a3774a77cb58d1554f63f34cbcb737a0c}
+\subsubsection[{threshold}]{\setlength{\rightskip}{0pt plus 5cm}{\bf feature\+\_\+t} node\+::threshold}}\label{classnode_a3774a77cb58d1554f63f34cbcb737a0c}
+split feature id 
 
-
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-\hyperlink{tree_8h}{tree.\+h}\end{DoxyCompactItemize}
+\hyperlink{tree_8h}{tree.\+h}\item 
+\hyperlink{tree_8cpp}{tree.\+cpp}\end{DoxyCompactItemize}

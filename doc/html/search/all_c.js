@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['qsortlazy',['qsortlazy',['../class_dataset.html#a9350f5127cae101b51b43f98afe3756d',1,'Dataset']]]
+  ['qsortlazy',['qsortlazy',['../classdataset.html#a8008be7b546cc9ec90005557ad0ee289',1,'dataset']]]
 ];

@@ -118,7 +118,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="class_base_forest.html#a85cf2e2e202c6e82bf684057181138f6">   29</a></span>&#160;        <span class="keywordtype">int</span> <a class="code" href="class_base_forest.html#a85cf2e2e202c6e82bf684057181138f6">max_depth</a>;                              <span class="comment">// maximum depth for each tree estimator</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_base_forest.html#a15e0407f3c0fbc4c25e0796c781ff059">   30</a></span>&#160;        <span class="keywordtype">int</span> <a class="code" href="class_base_forest.html#a15e0407f3c0fbc4c25e0796c781ff059">min_leaf_samples</a>;                       <span class="comment">// minimum samples in each leaf</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="class_base_forest.html#abb0fa17c78f968b583bc15139f409dd5">   32</a></span>&#160;        <a class="code" href="class_dataset.html">Dataset</a> *<a class="code" href="class_base_forest.html#abb0fa17c78f968b583bc15139f409dd5">ds</a>;                                </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="class_base_forest.html#abb0fa17c78f968b583bc15139f409dd5">   32</a></span>&#160;        Dataset *<a class="code" href="class_base_forest.html#abb0fa17c78f968b583bc15139f409dd5">ds</a>;                                </div>
 <div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="class_base_forest.html#a1a271bf9403c4181aff21e54d1a5e255">   33</a></span>&#160;        std::vector&lt;BaseTree*&gt; <a class="code" href="class_base_forest.html#a1a271bf9403c4181aff21e54d1a5e255">forest</a>;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <a class="code" href="class_base_forest.html#ad32c78f5827091945a82f6b24c1b188e">BaseForest</a>();</div>
@@ -165,7 +165,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="class_base_forest_html_a5a697ac9a46154b8f551c012820ffd56"><div class="ttname"><a href="class_base_forest.html#a5a697ac9a46154b8f551c012820ffd56">BaseForest::DEFAULT_N_TREES</a></div><div class="ttdeci">static const int DEFAULT_N_TREES</div><div class="ttdef"><b>Definition:</b> forest.h:16</div></div>
 <div class="ttc" id="class_random_forest_classifier_html_a9fa7824a40995e37838c34e296538487"><div class="ttname"><a href="class_random_forest_classifier.html#a9fa7824a40995e37838c34e296538487">RandomForestClassifier::compute_max_feature</a></div><div class="ttdeci">int compute_max_feature(int feature_size)</div><div class="ttdef"><b>Definition:</b> forest.cpp:60</div></div>
 <div class="ttc" id="class_base_forest_html_a07e5f38350cc60220dab5661f378b776"><div class="ttname"><a href="class_base_forest.html#a07e5f38350cc60220dab5661f378b776">BaseForest::n_classes</a></div><div class="ttdeci">int n_classes</div><div class="ttdef"><b>Definition:</b> forest.h:28</div></div>
-<div class="ttc" id="class_dataset_html"><div class="ttname"><a href="class_dataset.html">Dataset</a></div><div class="ttdef"><b>Definition:</b> dataset.h:95</div></div>
 <div class="ttc" id="class_base_forest_html_a85cf2e2e202c6e82bf684057181138f6"><div class="ttname"><a href="class_base_forest.html#a85cf2e2e202c6e82bf684057181138f6">BaseForest::max_depth</a></div><div class="ttdeci">int max_depth</div><div class="ttdef"><b>Definition:</b> forest.h:29</div></div>
 <div class="ttc" id="class_random_forest_classifier_html_a07680b59615bb765843e3eec4139365e"><div class="ttname"><a href="class_random_forest_classifier.html#a07680b59615bb765843e3eec4139365e">RandomForestClassifier::train</a></div><div class="ttdeci">void train(std::string filename, int feature_size, bool is_text, int *discrete_idx=NULL, int discrete_size=0, double *class_weight=NULL)</div><div class="ttdef"><b>Definition:</b> forest.cpp:79</div></div>
 <div class="ttc" id="dataset_8h_html"><div class="ttname"><a href="dataset_8h.html">dataset.h</a></div></div>
@@ -174,7 +173,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Nov 21 2014 10:01:02 for Random Forest by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 24 2014 15:46:56 for Random Forest by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

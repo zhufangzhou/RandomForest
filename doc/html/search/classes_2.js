@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['ev_5fpair_5ft',['ev_pair_t',['../structev__pair__t.html',1,'']]],
-  ['example_5ft',['example_t',['../classexample__t.html',1,'']]]
+  ['data_5freader',['data_reader',['../classdata__reader.html',1,'']]],
+  ['dataset',['dataset',['../classdataset.html',1,'']]],
+  ['decision_5ftree',['decision_tree',['../classdecision__tree.html',1,'']]]
 ];

@@ -1,0 +1,115 @@
+\hypertarget{classsplitter}{\section{splitter Class Reference}
+\label{classsplitter}\index{splitter@{splitter}}
+}
+
+
+{\ttfamily \#include $<$tree.\+h$>$}
+
+Inheritance diagram for splitter\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classsplitter}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classsplitter_aecf4cc04f2ae39a4a8e13d4049d442cf}{splitter} (int \hyperlink{classsplitter_abfc53538ed65c0afd50aedbf46dff458}{n\+\_\+classes})
+\item 
+\hyperlink{classsplitter_a221bcb6b6705bb240ef6eea0c95f841a}{$\sim$splitter} ()
+\item 
+virtual void \hyperlink{classsplitter_a5795eaf65be951d241ad697e20fb2120}{split} (\hyperlink{classtree}{tree} $\ast$\&t, \hyperlink{classnode}{node} $\ast$\&root, \hyperlink{classdataset}{dataset} $\ast$\&d, \hyperlink{classcriterion}{criterion} $\ast$\&cr)=0
+\item 
+virtual void \hyperlink{classsplitter_ab2ea956cc1a10ebb39422fa5ac450af2}{update} (int \hyperlink{classsplitter_ad093754efc111ae9dcb00e844b91e979}{fea\+\_\+id}, float \hyperlink{classsplitter_af40121f8411ad94f3f1968b1d50905ed}{threshold}, float $\ast$\&left, \hyperlink{classnode}{node} $\ast$\&nd, \hyperlink{classcriterion}{criterion} $\ast$\&cr)=0
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{classsplitter_ad093754efc111ae9dcb00e844b91e979}{fea\+\_\+id}
+\item 
+float \hyperlink{classsplitter_af40121f8411ad94f3f1968b1d50905ed}{threshold}
+\item 
+int \hyperlink{classsplitter_ab0fe2776184243f87a291917dca78261}{gain}
+\item 
+int \hyperlink{classsplitter_abfc53538ed65c0afd50aedbf46dff458}{n\+\_\+classes}
+\item 
+float $\ast$ \hyperlink{classsplitter_a0a1c53a640e3305eeb32a9586fea657b}{left\+\_\+frequency}
+\item 
+float $\ast$ \hyperlink{classsplitter_a8e1727de05ad39513dab201d6657aeed}{right\+\_\+frequency}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classsplitter_aecf4cc04f2ae39a4a8e13d4049d442cf}{\index{splitter@{splitter}!splitter@{splitter}}
+\index{splitter@{splitter}!splitter@{splitter}}
+\subsubsection[{splitter}]{\setlength{\rightskip}{0pt plus 5cm}splitter\+::splitter (
+\begin{DoxyParamCaption}
+\item[{int}]{n\+\_\+classes}
+\end{DoxyParamCaption}
+)}}\label{classsplitter_aecf4cc04f2ae39a4a8e13d4049d442cf}
+right\mbox{[}j\mbox{]} refers to weighted frequency for class j \hypertarget{classsplitter_a221bcb6b6705bb240ef6eea0c95f841a}{\index{splitter@{splitter}!````~splitter@{$\sim$splitter}}
+\index{````~splitter@{$\sim$splitter}!splitter@{splitter}}
+\subsubsection[{$\sim$splitter}]{\setlength{\rightskip}{0pt plus 5cm}splitter\+::$\sim$splitter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classsplitter_a221bcb6b6705bb240ef6eea0c95f841a}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classsplitter_a5795eaf65be951d241ad697e20fb2120}{\index{splitter@{splitter}!split@{split}}
+\index{split@{split}!splitter@{splitter}}
+\subsubsection[{split}]{\setlength{\rightskip}{0pt plus 5cm}virtual void splitter\+::split (
+\begin{DoxyParamCaption}
+\item[{{\bf tree} $\ast$\&}]{t, }
+\item[{{\bf node} $\ast$\&}]{root, }
+\item[{{\bf dataset} $\ast$\&}]{d, }
+\item[{{\bf criterion} $\ast$\&}]{cr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}}\label{classsplitter_a5795eaf65be951d241ad697e20fb2120}
+
+
+Implemented in \hyperlink{classbest__splitter_ae090eae85590c1184bb172c7bcd56751}{best\+\_\+splitter}.
+
+\hypertarget{classsplitter_ab2ea956cc1a10ebb39422fa5ac450af2}{\index{splitter@{splitter}!update@{update}}
+\index{update@{update}!splitter@{splitter}}
+\subsubsection[{update}]{\setlength{\rightskip}{0pt plus 5cm}virtual void splitter\+::update (
+\begin{DoxyParamCaption}
+\item[{int}]{fea\+\_\+id, }
+\item[{float}]{threshold, }
+\item[{float $\ast$\&}]{left, }
+\item[{{\bf node} $\ast$\&}]{nd, }
+\item[{{\bf criterion} $\ast$\&}]{cr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}}\label{classsplitter_ab2ea956cc1a10ebb39422fa5ac450af2}
+
+
+Implemented in \hyperlink{classbest__splitter_a681ad1823db5207f3a5a6acd5c09b354}{best\+\_\+splitter}.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classsplitter_ad093754efc111ae9dcb00e844b91e979}{\index{splitter@{splitter}!fea\+\_\+id@{fea\+\_\+id}}
+\index{fea\+\_\+id@{fea\+\_\+id}!splitter@{splitter}}
+\subsubsection[{fea\+\_\+id}]{\setlength{\rightskip}{0pt plus 5cm}int splitter\+::fea\+\_\+id}}\label{classsplitter_ad093754efc111ae9dcb00e844b91e979}
+\hypertarget{classsplitter_ab0fe2776184243f87a291917dca78261}{\index{splitter@{splitter}!gain@{gain}}
+\index{gain@{gain}!splitter@{splitter}}
+\subsubsection[{gain}]{\setlength{\rightskip}{0pt plus 5cm}int splitter\+::gain}}\label{classsplitter_ab0fe2776184243f87a291917dca78261}
+split threshold \hypertarget{classsplitter_a0a1c53a640e3305eeb32a9586fea657b}{\index{splitter@{splitter}!left\+\_\+frequency@{left\+\_\+frequency}}
+\index{left\+\_\+frequency@{left\+\_\+frequency}!splitter@{splitter}}
+\subsubsection[{left\+\_\+frequency}]{\setlength{\rightskip}{0pt plus 5cm}float$\ast$ splitter\+::left\+\_\+frequency}}\label{classsplitter_a0a1c53a640e3305eeb32a9586fea657b}
+different classes when split \hypertarget{classsplitter_abfc53538ed65c0afd50aedbf46dff458}{\index{splitter@{splitter}!n\+\_\+classes@{n\+\_\+classes}}
+\index{n\+\_\+classes@{n\+\_\+classes}!splitter@{splitter}}
+\subsubsection[{n\+\_\+classes}]{\setlength{\rightskip}{0pt plus 5cm}int splitter\+::n\+\_\+classes}}\label{classsplitter_abfc53538ed65c0afd50aedbf46dff458}
+heuristc measure (e.\+g. information gain or gini index) improvement after split \hypertarget{classsplitter_a8e1727de05ad39513dab201d6657aeed}{\index{splitter@{splitter}!right\+\_\+frequency@{right\+\_\+frequency}}
+\index{right\+\_\+frequency@{right\+\_\+frequency}!splitter@{splitter}}
+\subsubsection[{right\+\_\+frequency}]{\setlength{\rightskip}{0pt plus 5cm}float$\ast$ splitter\+::right\+\_\+frequency}}\label{classsplitter_a8e1727de05ad39513dab201d6657aeed}
+left\mbox{[}j\mbox{]} refers to weighted frequency for class j \hypertarget{classsplitter_af40121f8411ad94f3f1968b1d50905ed}{\index{splitter@{splitter}!threshold@{threshold}}
+\index{threshold@{threshold}!splitter@{splitter}}
+\subsubsection[{threshold}]{\setlength{\rightskip}{0pt plus 5cm}float splitter\+::threshold}}\label{classsplitter_af40121f8411ad94f3f1968b1d50905ed}
+split feature id 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{tree_8h}{tree.\+h}\item 
+\hyperlink{tree_8cpp}{tree.\+cpp}\end{DoxyCompactItemize}

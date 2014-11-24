@@ -5,9 +5,12 @@
 {\ttfamily \#include $<$cstdlib$>$}\\*
 {\ttfamily \#include $<$cmath$>$}\\*
 {\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
 {\ttfamily \#include $<$algorithm$>$}\\*
 {\ttfamily \#include $<$string$>$}\\*
 {\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$stack$>$}\\*
+{\ttfamily \#include $<$iomanip$>$}\\*
 {\ttfamily \#include \char`\"{}dataset.\+h\char`\"{}}\\*
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
@@ -22,18 +25,17 @@ class \hyperlink{classtree}{tree}
 \item 
 class \hyperlink{classdecision__tree}{decision\+\_\+tree}
 \item 
-class \hyperlink{classsplit__t}{split\+\_\+t}
+class \hyperlink{classonline__tree}{online\+\_\+tree}
 \item 
-class \hyperlink{classbest__split}{best\+\_\+split}
+class \hyperlink{classsplitter}{splitter}
 \item 
-class \hyperlink{classrandom__split}{random\+\_\+split}
-\end{DoxyCompactItemize}
-\subsection*{Variables}
-\begin{DoxyCompactItemize}
+class \hyperlink{classbest__splitter}{best\+\_\+splitter}
 \item 
-static const float \hyperlink{tree_8h_aa9fed5ddb819fc4e29d9320e1dad977d}{eps} = 1e-\/6
+class \hyperlink{classrandom__splitter}{random\+\_\+splitter}
 \item 
-\hyperlink{classdecision__tree}{decision\+\_\+tree} \hyperlink{tree_8h_a9445608f4937e12807ac769a52f53b9a}{tree\+\_\+t}
+class \hyperlink{classcriterion}{criterion}
+\item 
+class \hyperlink{classgini}{gini}
 \end{DoxyCompactItemize}
 
 
@@ -47,12 +49,3 @@ Zhu Fangzhou, \href{mailto:zhu.ark@gmail.com}{\tt zhu.\+ark@gmail.\+com}
 \begin{DoxyDate}{Date}
 2014-\/11-\/19 
 \end{DoxyDate}
-
-
-\subsection{Variable Documentation}
-\hypertarget{tree_8h_aa9fed5ddb819fc4e29d9320e1dad977d}{\index{tree.\+h@{tree.\+h}!eps@{eps}}
-\index{eps@{eps}!tree.\+h@{tree.\+h}}
-\subsubsection[{eps}]{\setlength{\rightskip}{0pt plus 5cm}const float eps = 1e-\/6\hspace{0.3cm}{\ttfamily [static]}}}\label{tree_8h_aa9fed5ddb819fc4e29d9320e1dad977d}
-\hypertarget{tree_8h_a9445608f4937e12807ac769a52f53b9a}{\index{tree.\+h@{tree.\+h}!tree\+\_\+t@{tree\+\_\+t}}
-\index{tree\+\_\+t@{tree\+\_\+t}!tree.\+h@{tree.\+h}}
-\subsubsection[{tree\+\_\+t}]{\setlength{\rightskip}{0pt plus 5cm} {\bf decision\+\_\+tree} tree\+\_\+t}}\label{tree_8h_a9445608f4937e12807ac769a52f53b9a}

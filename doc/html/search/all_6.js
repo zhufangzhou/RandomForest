@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['ifs',['ifs',['../class_data_reader.html#abbfd55937610f3cca1d34f21bcbcda0d',1,'DataReader']]],
-  ['init',['init',['../class_dataset.html#ad6cbe13045c7cc5c5b54905ce359ea21',1,'Dataset::init()'],['../class_base_forest.html#acbd8fb7a63430c5f07633cc5c4e43a3d',1,'BaseForest::init()'],['../class_random_forest_classifier.html#a0a8a6b33668d878c0fc6772fc63c5ebf',1,'RandomForestClassifier::init()'],['../classtree.html#a1160f63037df412b4b3f4ad9d736bb85',1,'tree::init()']]],
-  ['is_5fcate',['is_cate',['../class_dataset.html#ac766c1e1b1879d5c95c6aaff1c8bb0ba',1,'Dataset::is_cate()'],['../classnode.html#a67c3c0be5001ace8494a6292e8079001',1,'node::is_cate()']]],
-  ['is_5finit',['is_init',['../class_dataset.html#ac6a2aa62c298e4b39fb90339c7658f7c',1,'Dataset']]],
-  ['isort',['isort',['../class_dataset.html#a4dc9b552f1e57a40fa4424b664b68190',1,'Dataset']]]
+  ['ifs',['ifs',['../classdata__reader.html#a1a39328bde93e7f132a1ca7eb6642311',1,'data_reader']]],
+  ['init',['init',['../classdataset.html#a53d6ced8ba17a1ff4771ab53ffda85ef',1,'dataset::init()'],['../class_base_forest.html#acbd8fb7a63430c5f07633cc5c4e43a3d',1,'BaseForest::init()'],['../class_random_forest_classifier.html#a0a8a6b33668d878c0fc6772fc63c5ebf',1,'RandomForestClassifier::init()'],['../classtree.html#a03aebcb3102b4f6503b5bc69288297e8',1,'tree::init()']]],
+  ['is_5fcate',['is_cate',['../classdataset.html#ab856d84d4bced1ccde106badfab229d8',1,'dataset::is_cate()'],['../classnode.html#a67c3c0be5001ace8494a6292e8079001',1,'node::is_cate()']]],
+  ['is_5finit',['is_init',['../classdataset.html#ab5381427833c91ee35913ca1c1d4e73b',1,'dataset::is_init()'],['../classcriterion.html#a5f3c4708d9e6a9120ec8b8d98c73ff47',1,'criterion::is_init()']]],
+  ['isort',['isort',['../classdataset.html#a0a5e275e95d935b8d864b35e2dfd3933',1,'dataset']]]
 ];

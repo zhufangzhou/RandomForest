@@ -1,6 +1,9 @@
 var searchData=
 [
-  ['ifs',['ifs',['../class_data_reader.html#abbfd55937610f3cca1d34f21bcbcda0d',1,'DataReader']]],
-  ['is_5fcate',['is_cate',['../class_dataset.html#ac766c1e1b1879d5c95c6aaff1c8bb0ba',1,'Dataset::is_cate()'],['../classnode.html#a67c3c0be5001ace8494a6292e8079001',1,'node::is_cate()']]],
-  ['is_5finit',['is_init',['../class_dataset.html#ac6a2aa62c298e4b39fb90339c7658f7c',1,'Dataset']]]
+  ['fea_5fid',['fea_id',['../classexample__t.html#a48940c5caff1e78969f1e2c2e7049532',1,'example_t::fea_id()'],['../classsplitter.html#ad093754efc111ae9dcb00e844b91e979',1,'splitter::fea_id()']]],
+  ['fea_5fimp',['fea_imp',['../classtree.html#ad335e57b2f4f2326825694311bcc69e7',1,'tree']]],
+  ['fea_5fvalue',['fea_value',['../structev__pair__t.html#ab029b4bacf7dc6db2fee53091f5f8063',1,'ev_pair_t::fea_value()'],['../classexample__t.html#acac894d54d087a9a5f27f063003d5b72',1,'example_t::fea_value()']]],
+  ['feature_5fid',['feature_id',['../classnode.html#ad65aefa2c967c82cd88e6870085d7f3e',1,'node']]],
+  ['feature_5frule',['feature_rule',['../classtree.html#a5aba3b77a347165517a20d5fab94382d',1,'tree']]],
+  ['forest',['forest',['../class_base_forest.html#a1a271bf9403c4181aff21e54d1a5e255',1,'BaseForest']]]
 ];

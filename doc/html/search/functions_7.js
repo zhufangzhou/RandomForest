@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['load',['load',['../classtree.html#a9d6d8200465e95e4573ab36941008b2a',1,'tree']]],
-  ['load_5fdata',['load_data',['../class_dataset.html#a0346757c6fef588ad2c4e7e10fd1475d',1,'Dataset']]],
-  ['load_5fdata_5fmeta',['load_data_meta',['../class_dataset.html#aef15478d96284ded081a69978cfa6264',1,'Dataset']]]
+  ['load',['load',['../classtree.html#a680d0cc993c3a3d3ef10c891de69960f',1,'tree']]],
+  ['load_5fdata',['load_data',['../classdataset.html#a0bf2fba4da731ca757f0cb2bd95fe172',1,'dataset']]],
+  ['load_5fdata_5fmeta',['load_data_meta',['../classdataset.html#aeab51be94fab1f62e901555c82a016ae',1,'dataset']]]
 ];

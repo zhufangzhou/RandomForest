@@ -1,0 +1,108 @@
+\hypertarget{classcriterion}{\section{criterion Class Reference}
+\label{classcriterion}\index{criterion@{criterion}}
+}
+
+
+{\ttfamily \#include $<$tree.\+h$>$}
+
+Inheritance diagram for criterion\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classcriterion}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classcriterion_a5047629e45833624bc6955cc0dd106b8}{criterion} ()
+\item 
+\hyperlink{classcriterion_acf80c0b2acf9fb6f2b8369868cafdbff}{criterion} (float $\ast$\&frequency, int n\+\_\+classes)
+\item 
+void \hyperlink{classcriterion_a043c2105b2cfc256cb530c55b65156f2}{set\+\_\+current} (float $\ast$\&frequency, int n\+\_\+classes)
+\item 
+float \hyperlink{classcriterion_a8d42878c94bae5a72475b568bcbbddfa}{gain} (float $\ast$\&left\+\_\+frequency, float $\ast$\&right\+\_\+frequency, int n\+\_\+classes)
+\item 
+virtual float \hyperlink{classcriterion_a1fbda0723578acd5ac612248a54ba71d}{measure} (float $\ast$\&frequency, int n\+\_\+classes)=0
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+float \hyperlink{classcriterion_ac226599a3e6e160614d3698193053368}{tot\+\_\+frequency}
+\item 
+float \hyperlink{classcriterion_af8e6efc16000b83cffb9e0864bf68561}{cur\+\_\+measure}
+\item 
+float \hyperlink{classcriterion_aa89bec3e37cd874b3590887038712c54}{cur\+\_\+tot}
+\item 
+bool \hyperlink{classcriterion_a5f3c4708d9e6a9120ec8b8d98c73ff47}{is\+\_\+init}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classcriterion_a5047629e45833624bc6955cc0dd106b8}{\index{criterion@{criterion}!criterion@{criterion}}
+\index{criterion@{criterion}!criterion@{criterion}}
+\subsubsection[{criterion}]{\setlength{\rightskip}{0pt plus 5cm}criterion\+::criterion (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classcriterion_a5047629e45833624bc6955cc0dd106b8}
+has set the current node measure \hypertarget{classcriterion_acf80c0b2acf9fb6f2b8369868cafdbff}{\index{criterion@{criterion}!criterion@{criterion}}
+\index{criterion@{criterion}!criterion@{criterion}}
+\subsubsection[{criterion}]{\setlength{\rightskip}{0pt plus 5cm}criterion\+::criterion (
+\begin{DoxyParamCaption}
+\item[{float $\ast$\&}]{frequency, }
+\item[{int}]{n\+\_\+classes}
+\end{DoxyParamCaption}
+)}}\label{classcriterion_acf80c0b2acf9fb6f2b8369868cafdbff}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classcriterion_a8d42878c94bae5a72475b568bcbbddfa}{\index{criterion@{criterion}!gain@{gain}}
+\index{gain@{gain}!criterion@{criterion}}
+\subsubsection[{gain}]{\setlength{\rightskip}{0pt plus 5cm}float criterion\+::gain (
+\begin{DoxyParamCaption}
+\item[{float $\ast$\&}]{left\+\_\+frequency, }
+\item[{float $\ast$\&}]{right\+\_\+frequency, }
+\item[{int}]{n\+\_\+classes}
+\end{DoxyParamCaption}
+)}}\label{classcriterion_a8d42878c94bae5a72475b568bcbbddfa}
+\hypertarget{classcriterion_a1fbda0723578acd5ac612248a54ba71d}{\index{criterion@{criterion}!measure@{measure}}
+\index{measure@{measure}!criterion@{criterion}}
+\subsubsection[{measure}]{\setlength{\rightskip}{0pt plus 5cm}virtual float criterion\+::measure (
+\begin{DoxyParamCaption}
+\item[{float $\ast$\&}]{frequency, }
+\item[{int}]{n\+\_\+classes}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}}\label{classcriterion_a1fbda0723578acd5ac612248a54ba71d}
+
+
+Implemented in \hyperlink{classgini_a5f232df1155fe182eee9b26cde0e8339}{gini}.
+
+\hypertarget{classcriterion_a043c2105b2cfc256cb530c55b65156f2}{\index{criterion@{criterion}!set\+\_\+current@{set\+\_\+current}}
+\index{set\+\_\+current@{set\+\_\+current}!criterion@{criterion}}
+\subsubsection[{set\+\_\+current}]{\setlength{\rightskip}{0pt plus 5cm}void criterion\+::set\+\_\+current (
+\begin{DoxyParamCaption}
+\item[{float $\ast$\&}]{frequency, }
+\item[{int}]{n\+\_\+classes}
+\end{DoxyParamCaption}
+)}}\label{classcriterion_a043c2105b2cfc256cb530c55b65156f2}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classcriterion_af8e6efc16000b83cffb9e0864bf68561}{\index{criterion@{criterion}!cur\+\_\+measure@{cur\+\_\+measure}}
+\index{cur\+\_\+measure@{cur\+\_\+measure}!criterion@{criterion}}
+\subsubsection[{cur\+\_\+measure}]{\setlength{\rightskip}{0pt plus 5cm}float criterion\+::cur\+\_\+measure\hspace{0.3cm}{\ttfamily [protected]}}}\label{classcriterion_af8e6efc16000b83cffb9e0864bf68561}
+temporary variable store {\ttfamily tot\+\_\+frequency} after calling {\ttfamily measure} function \hypertarget{classcriterion_aa89bec3e37cd874b3590887038712c54}{\index{criterion@{criterion}!cur\+\_\+tot@{cur\+\_\+tot}}
+\index{cur\+\_\+tot@{cur\+\_\+tot}!criterion@{criterion}}
+\subsubsection[{cur\+\_\+tot}]{\setlength{\rightskip}{0pt plus 5cm}float criterion\+::cur\+\_\+tot\hspace{0.3cm}{\ttfamily [protected]}}}\label{classcriterion_aa89bec3e37cd874b3590887038712c54}
+current node heuristic measure value \hypertarget{classcriterion_a5f3c4708d9e6a9120ec8b8d98c73ff47}{\index{criterion@{criterion}!is\+\_\+init@{is\+\_\+init}}
+\index{is\+\_\+init@{is\+\_\+init}!criterion@{criterion}}
+\subsubsection[{is\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}bool criterion\+::is\+\_\+init\hspace{0.3cm}{\ttfamily [protected]}}}\label{classcriterion_a5f3c4708d9e6a9120ec8b8d98c73ff47}
+current node total frequency \hypertarget{classcriterion_ac226599a3e6e160614d3698193053368}{\index{criterion@{criterion}!tot\+\_\+frequency@{tot\+\_\+frequency}}
+\index{tot\+\_\+frequency@{tot\+\_\+frequency}!criterion@{criterion}}
+\subsubsection[{tot\+\_\+frequency}]{\setlength{\rightskip}{0pt plus 5cm}float criterion\+::tot\+\_\+frequency\hspace{0.3cm}{\ttfamily [protected]}}}\label{classcriterion_ac226599a3e6e160614d3698193053368}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{tree_8h}{tree.\+h}\item 
+\hyperlink{tree_8cpp}{tree.\+cpp}\end{DoxyCompactItemize}
