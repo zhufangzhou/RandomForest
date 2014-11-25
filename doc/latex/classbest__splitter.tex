@@ -14,27 +14,42 @@ Inheritance diagram for best\+\_\+splitter\+:\begin{figure}[H]
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \hyperlink{classbest__splitter_ae090eae85590c1184bb172c7bcd56751}{split} (\hyperlink{classtree}{tree} $\ast$\&t, \hyperlink{classnode}{node} $\ast$\&root, \hyperlink{classdataset}{dataset} $\ast$\&d, \hyperlink{classcriterion}{criterion} $\ast$\&cr)
+\hyperlink{classbest__splitter_a40d856f885a1ed21fa840063b8d49164}{best\+\_\+splitter} (int \hyperlink{classsplitter_abfc53538ed65c0afd50aedbf46dff458}{n\+\_\+classes})
+\item 
+void \hyperlink{classbest__splitter_a1ff1e766bfa4fb6d41c23121d6dd3dbb}{split} (\hyperlink{classtree}{tree} $\ast$t, \hyperlink{classnode}{node} $\ast$\&root, \hyperlink{classdataset}{dataset} $\ast$\&d, \hyperlink{classcriterion}{criterion} $\ast$\&cr)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
 \item 
 void \hyperlink{classbest__splitter_a681ad1823db5207f3a5a6acd5c09b354}{update} (int \hyperlink{classsplitter_ad093754efc111ae9dcb00e844b91e979}{fea\+\_\+id}, float \hyperlink{classsplitter_af40121f8411ad94f3f1968b1d50905ed}{threshold}, float $\ast$\&left, \hyperlink{classnode}{node} $\ast$\&nd, \hyperlink{classcriterion}{criterion} $\ast$\&cr)
 \end{DoxyCompactItemize}
 \subsection*{Additional Inherited Members}
 
 
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classbest__splitter_a40d856f885a1ed21fa840063b8d49164}{\index{best\+\_\+splitter@{best\+\_\+splitter}!best\+\_\+splitter@{best\+\_\+splitter}}
+\index{best\+\_\+splitter@{best\+\_\+splitter}!best\+\_\+splitter@{best\+\_\+splitter}}
+\subsubsection[{best\+\_\+splitter}]{\setlength{\rightskip}{0pt plus 5cm}best\+\_\+splitter\+::best\+\_\+splitter (
+\begin{DoxyParamCaption}
+\item[{int}]{n\+\_\+classes}
+\end{DoxyParamCaption}
+)}}\label{classbest__splitter_a40d856f885a1ed21fa840063b8d49164}
+
+
 \subsection{Member Function Documentation}
-\hypertarget{classbest__splitter_ae090eae85590c1184bb172c7bcd56751}{\index{best\+\_\+splitter@{best\+\_\+splitter}!split@{split}}
+\hypertarget{classbest__splitter_a1ff1e766bfa4fb6d41c23121d6dd3dbb}{\index{best\+\_\+splitter@{best\+\_\+splitter}!split@{split}}
 \index{split@{split}!best\+\_\+splitter@{best\+\_\+splitter}}
 \subsubsection[{split}]{\setlength{\rightskip}{0pt plus 5cm}void best\+\_\+splitter\+::split (
 \begin{DoxyParamCaption}
-\item[{{\bf tree} $\ast$\&}]{t, }
+\item[{{\bf tree} $\ast$}]{t, }
 \item[{{\bf node} $\ast$\&}]{root, }
 \item[{{\bf dataset} $\ast$\&}]{d, }
 \item[{{\bf criterion} $\ast$\&}]{cr}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classbest__splitter_ae090eae85590c1184bb172c7bcd56751}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classbest__splitter_a1ff1e766bfa4fb6d41c23121d6dd3dbb}
 
 
-Implements \hyperlink{classsplitter_a5795eaf65be951d241ad697e20fb2120}{splitter}.
+Implements \hyperlink{classsplitter_af592533ea2d8d16337fa6c8a9a0a6b36}{splitter}.
 
 \hypertarget{classbest__splitter_a681ad1823db5207f3a5a6acd5c09b354}{\index{best\+\_\+splitter@{best\+\_\+splitter}!update@{update}}
 \index{update@{update}!best\+\_\+splitter@{best\+\_\+splitter}}
@@ -46,7 +61,7 @@ Implements \hyperlink{classsplitter_a5795eaf65be951d241ad697e20fb2120}{splitter}
 \item[{{\bf node} $\ast$\&}]{nd, }
 \item[{{\bf criterion} $\ast$\&}]{cr}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classbest__splitter_a681ad1823db5207f3a5a6acd5c09b354}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}}\label{classbest__splitter_a681ad1823db5207f3a5a6acd5c09b354}
 
 
 Implements \hyperlink{classsplitter_ab2ea956cc1a10ebb39422fa5ac450af2}{splitter}.

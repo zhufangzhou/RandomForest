@@ -138,6 +138,7 @@ void dataset::init(int n_classes, int n_features, float* weight) {
 	this->y = nullptr;
 	this->size = new int[this->n_features]();
 	/* copy weight vector to dataset */
+	this->weight = new float[this->n_classes];
 	memcpy(this->weight, weight, sizeof(float)*this->n_classes);
 
 	this->is_cate = new bool[this->n_features];
@@ -264,6 +265,10 @@ int dataset::get_nclasses() {
 
 int dataset::get_nexamples() {
 	return this->n_examples;
+}
+
+int dataset::get_nfeatures() {
+	return this->n_features;
 }
 
 void dataset::debug() {

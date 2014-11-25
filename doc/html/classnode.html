@@ -125,10 +125,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:ad65aefa2c967c82cd88e6870085d7f3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3774a77cb58d1554f63f34cbcb737a0c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="dataset_8h.html#ac2e4791c62a663377be91b0922cede72">feature_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnode.html#a3774a77cb58d1554f63f34cbcb737a0c">threshold</a></td></tr>
 <tr class="separator:a3774a77cb58d1554f63f34cbcb737a0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c9943d5494f9418b72f2a212b06938c"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnode.html#a3c9943d5494f9418b72f2a212b06938c">measure</a></td></tr>
-<tr class="separator:a3c9943d5494f9418b72f2a212b06938c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae848f75fd8729aa74bd6718189387758"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnode.html#ae848f75fd8729aa74bd6718189387758">n_examples</a></td></tr>
-<tr class="separator:ae848f75fd8729aa74bd6718189387758"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7154054210920a77711f8ddb0cf45941"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnode.html#a7154054210920a77711f8ddb0cf45941">gain</a></td></tr>
+<tr class="separator:a7154054210920a77711f8ddb0cf45941"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae4125b554711d8ad9d6726ffd69e0b77"><td class="memItemLeft" align="right" valign="top">float *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnode.html#ae4125b554711d8ad9d6726ffd69e0b77">cur_frequency</a></td></tr>
 <tr class="separator:ae4125b554711d8ad9d6726ffd69e0b77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c4864582cb3fe15e84e7908d0965150"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnode.html#a8c4864582cb3fe15e84e7908d0965150">n_classes</a></td></tr>
@@ -216,7 +214,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>number of examples in this node </p>
+<p>heuristic measure(e.g. gini index or information gain) </p>
 
 </div>
 </div>
@@ -230,6 +228,19 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>is the split feature categorical </p>
+
+</div>
+</div>
+<a class="anchor" id="a7154054210920a77711f8ddb0cf45941"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float node::gain</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>for categorical attribute is the chosen feature value for left child node, for continous attribute is the threshold to determine left or right </p>
 
 </div>
 </div>
@@ -271,19 +282,6 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a3c9943d5494f9418b72f2a212b06938c"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float node::measure</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>for categorical attribute is the chosen feature value for left child node, for continous attribute is the threshold to determine left or right </p>
-
-</div>
-</div>
 <a class="anchor" id="a8c4864582cb3fe15e84e7908d0965150"></a>
 <div class="memitem">
 <div class="memproto">
@@ -294,19 +292,6 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>size should be <code>n_classes</code>, means the weighted frequency for each class </p>
-
-</div>
-</div>
-<a class="anchor" id="ae848f75fd8729aa74bd6718189387758"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int node::n_examples</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>heuristic measure(e.g. gini index or information gain) </p>
 
 </div>
 </div>
@@ -343,7 +328,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Nov 24 2014 15:46:56 for Random Forest by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Nov 25 2014 18:21:01 for Random Forest by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

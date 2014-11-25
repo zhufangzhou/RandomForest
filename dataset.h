@@ -127,12 +127,18 @@ class dataset {
 		 */
 		void sort(ev_pair_t* a, int* f, int len);
 	public:
+		/*==================================================
+		 * 				member variables 
+		 * ================================================*/
 		ev_pair_t** x; 		/** each row is an attribute */	
 		int* size; 			/** number of examples with non-zero feature values for each attribute */
 		target_t* y; 		/** label for each example */
 		float* weight; 		/** weight for each class */
 		bool* is_cate; 		/** is the ith attribute categorical */
 
+		/*==================================================
+		 * 				member functions 
+		 * ================================================*/
 		/**
 		 * @brief dataset constructor
 		 */
@@ -176,5 +182,6 @@ class dataset {
 		void debug();
 		int get_nclasses();
 		int get_nexamples();
+		int get_nfeatures();
 };
 

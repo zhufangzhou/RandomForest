@@ -5,7 +5,7 @@ var searchData=
   ['max_5fdepth',['max_depth',['../class_base_forest.html#a85cf2e2e202c6e82bf684057181138f6',1,'BaseForest::max_depth()'],['../classtree.html#a0a9f968fac827d3239be67488c34fb21',1,'tree::max_depth()']]],
   ['max_5ffeature',['max_feature',['../class_base_forest.html#a07e8b0ed27405f469198f2c4875786c9',1,'BaseForest::max_feature()'],['../classtree.html#a6f4304318f8f091f7d783ac1ec7d2775',1,'tree::max_feature()']]],
   ['max_5ffeature_5fcriterion',['max_feature_criterion',['../class_base_forest.html#a5c651ace1f9d5177cdff38a0ae4048f7',1,'BaseForest']]],
-  ['measure',['measure',['../classnode.html#a3c9943d5494f9418b72f2a212b06938c',1,'node::measure()'],['../classcriterion.html#a1fbda0723578acd5ac612248a54ba71d',1,'criterion::measure()'],['../classgini.html#a5f232df1155fe182eee9b26cde0e8339',1,'gini::measure()']]],
+  ['measure',['measure',['../classcriterion.html#a1fbda0723578acd5ac612248a54ba71d',1,'criterion::measure()'],['../classgini.html#a5f232df1155fe182eee9b26cde0e8339',1,'gini::measure()']]],
   ['metrics',['Metrics',['../namespace_metrics.html',1,'']]],
   ['metrics_2ecpp',['metrics.cpp',['../metrics_8cpp.html',1,'']]],
   ['metrics_2eh',['metrics.h',['../metrics_8h.html',1,'']]],

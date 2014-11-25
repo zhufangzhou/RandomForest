@@ -41,8 +41,7 @@ class node {
 		bool is_cate; /** is the split feature categorical */
 		int feature_id; /** split feature id */
 		feature_t threshold; /** for categorical attribute is the chosen feature value for left child node, for continous attribute is the threshold to determine left or right */
-		float measure; /** heuristic measure(e.g. gini index or information gain) */
-		int n_examples; /** number of examples in this node */
+		float gain; /** heuristic measure(e.g. gini index or information gain) */
 
 		float* cur_frequency; /** size should be `n_classes`, means the weighted frequency for each class */
 		int n_classes; /** number of different class in the node */
@@ -99,10 +98,11 @@ class tree {
 		void export_dotfile(const std::string& filename);
 
 		int get_max_feature();
-		int* get_valid();
 };
 
 class decision_tree : public tree {
+	private:
+		void build_rec(node*& root, dataset*& d, int depth);
 	public:
 		void build(dataset*& d);
 };
@@ -112,6 +112,8 @@ class online_tree : public tree {
 };
 
 class splitter {
+	protected:
+		virtual void update(int fea_id, float threshold, float*& left, node*& nd, criterion*& cr) = 0;
 	public:
 		int fea_id;					/** split feature id */
 		float threshold;			/** split threshold */
@@ -124,15 +126,15 @@ class splitter {
 
 		splitter(int n_classes);
 		~splitter();
-		virtual void split(tree*& t, node*& root, dataset*& d, criterion*& cr) = 0;
-		virtual void update(int fea_id, float threshold, float*& left, node*& nd, criterion*& cr) = 0;
+		virtual void split(tree* t, node*& root, dataset*& d, criterion*& cr) = 0;
 };
 
 class best_splitter : public splitter {
-
-	public: 
-		void split(tree*& t, node*& root, dataset*& d, criterion*& cr);	
+	protected:
 		void update(int fea_id, float threshold, float*& left, node*& nd, criterion*& cr);
+	public: 
+		best_splitter(int n_classes);
+		void split(tree* t, node*& root, dataset*& d, criterion*& cr);	
 };
 
 class random_splitter : public splitter {
@@ -158,5 +160,6 @@ class criterion {
 
 class gini : public criterion {
 	public:
+		gini(float*& frequency, int n_classes);
 		float measure(float*& frequency, int n_classes);
 };

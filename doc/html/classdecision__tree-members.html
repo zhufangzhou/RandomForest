@@ -93,14 +93,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>This is the complete list of members for <a class="el" href="classdecision__tree.html">decision_tree</a>, including all inherited members.</p>
 <table class="directory">
   <tr class="even"><td class="entry"><a class="el" href="classdecision__tree.html#ad3286ad0d5361f3f19ddac966477b14a">build</a>(dataset *&amp;d)</td><td class="entry"><a class="el" href="classdecision__tree.html">decision_tree</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classtree.html#ae03f6dd2597846c65c1c037728b06bcd">compute_importance</a>(bool re_compute=false)</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classtree.html#a634ee04f1f89801a9f295e11cc5ce149">dump</a>(const std::string &amp;filename)</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classtree.html#abc6048c70de7490eabf2433d46067b7b">export_dotfile</a>(const std::string &amp;filename)</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classtree.html#ad335e57b2f4f2326825694311bcc69e7">fea_imp</a></td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="classtree.html#a5aba3b77a347165517a20d5fab94382d">feature_rule</a></td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classtree.html#a4ca3902b09e854a76f1fb56bb71599f6">free_tree</a>(node *&amp;nd)</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classtree.html#a8042d0897915fdfeeca4b4d75515b96c">get_max_feature</a>()</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classtree.html#a1c1b61f1cc803d0a48d294fd1c49d1cd">get_valid</a>()</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classdecision__tree.html#affee9d32ce17c6102083d809da55a847">build_rec</a>(node *&amp;root, dataset *&amp;d, int depth)</td><td class="entry"><a class="el" href="classdecision__tree.html">decision_tree</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classtree.html#ae03f6dd2597846c65c1c037728b06bcd">compute_importance</a>(bool re_compute=false)</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classtree.html#a634ee04f1f89801a9f295e11cc5ce149">dump</a>(const std::string &amp;filename)</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classtree.html#abc6048c70de7490eabf2433d46067b7b">export_dotfile</a>(const std::string &amp;filename)</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classtree.html#ad335e57b2f4f2326825694311bcc69e7">fea_imp</a></td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classtree.html#a5aba3b77a347165517a20d5fab94382d">feature_rule</a></td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classtree.html#a4ca3902b09e854a76f1fb56bb71599f6">free_tree</a>(node *&amp;nd)</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classtree.html#a8042d0897915fdfeeca4b4d75515b96c">get_max_feature</a>()</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classtree.html#a03aebcb3102b4f6503b5bc69288297e8">init</a>(const std::string feature_rule, int max_depth, int min_split)</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classtree.html#ac697cf1868c26ac26f005e6ee8be9d43">leaf_pt</a></td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr><td class="entry"><a class="el" href="classtree.html#a551919e1402a700821694297623017fc">leaf_size</a></td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
@@ -117,7 +117,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Nov 24 2014 15:46:56 for Random Forest by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Nov 25 2014 18:21:01 for Random Forest by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

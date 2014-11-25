@@ -4,8 +4,8 @@
 
 #include "dataset.h"
 
-void debug_DataReader() {
-	DataReader* dr = new DataReader("data/train.dat", 10, TRAIN);
+void debug_data_reader() {
+	data_reader* dr = new data_reader("data/train.dat", 10, TRAIN);
 	example_t* single;
 	std::vector<example_t*> ex_vec;
 
@@ -15,15 +15,17 @@ void debug_DataReader() {
 		(*it)->debug();
 }
 
-void debug_Dataset() {
-	Dataset* dd = new Dataset(2, 6);
+void debug_dataset() {
+	float* weight = new float[2]();
+	weight[0] = weight[1] = 1.0;
+	dataset* dd = new dataset(2, 6, weight);
 	//dd->load_data("data/predict.dat", PREDICT);	
 	dd->load_data("data/train.dat", TRAIN);	
 	dd->debug();
 }
 
 int main(int argc, char** argv) {
-	//debug_DataReader();
-	debug_Dataset();
+	//debug_data_reader();
+	debug_dataset();
 	return 0;
 }

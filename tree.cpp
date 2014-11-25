@@ -11,6 +11,7 @@ node::node(int n_classes) {
 	this->is_cate = false;
 	this->feature_id = -1;
 	this->threshold = (feature_t)0.0;
+	this->gain = 0.0;
 	this->n_classes = n_classes;
 
 	this->cur_frequency = new float[n_classes]();	
@@ -90,12 +91,10 @@ float* tree::compute_importance(bool re_compute) {
 			c_node = st.top();
 			st.pop();
 
-			if (c_node->leaf_idx != -1) {
+			if (c_node->leaf_idx == -1) {
 				l_node = c_node->left;
 				r_node = c_node->right;
-				fea_imp[c_node->feature_id] += c_node->measure
-						- 1.0*l_node->n_examples/c_node->n_examples*l_node->measure
-						- 1.0*r_node->n_examples/c_node->n_examples*r_node->measure;
+				fea_imp[c_node->feature_id] += c_node->gain;
 				st.push(r_node);
 				st.push(l_node);
 			}
@@ -137,8 +136,8 @@ void tree::export_dotfile(const std::string& filename) {
 
 		/* write node info */
         if (c_node->leaf_idx != -1) { /* leaf node */
-            ofs << node_idx << " [label=\"gini = " 
-				<< std::setprecision(3) << c_node->measure << "\\npositive proba = [ ";
+            ofs << node_idx << " [label=\"gain= " 
+				<< std::setprecision(3) << c_node->gain<< "\\npositive proba = [ ";
 			tot_frequency = 0.0;
 			for (int i = 0; i < c_node->n_classes; i++) tot_frequency += c_node->cur_frequency[i];
 			for (int i = 0; i < c_node->n_classes; i++) {
@@ -151,8 +150,8 @@ void tree::export_dotfile(const std::string& filename) {
             } else {
                 ofs << node_idx << " [label=\"X[" << c_node->feature_id << "] <= ";
             }
-			ofs	<< std::setprecision(3) << c_node->threshold << "\\ngini = "
-				<< std::setprecision(3) << c_node->measure << "\", shape=\"box\"];\n"
+			ofs	<< std::setprecision(3) << c_node->threshold << "\\ngain= "
+				<< std::setprecision(3) << c_node->gain<< "\", shape=\"box\"];\n"
 				<< std::endl;
 			/* push left node and right node to stack */
 			st.push(c_node->right);
@@ -171,31 +170,123 @@ int tree::get_max_feature() {
 	return this->max_feature;
 }
 
-int* tree::get_valid() {
-	return this->valid;
-}
-
 void decision_tree::build(dataset*& d) {
 	target_t c; /* temporary variable to indicate current class */
-	std::stack<node*> st;
 	node* c_node;
-	int n_classes = d->get_nclasses(), n_examples = d->get_nexamples();
+	int n_classes = d->get_nclasses(), n_examples = d->get_nexamples(), n_features = d->get_nfeatures();
+	int ex_id;
+	float nf_t;
 
+	/* determine `max_feature` */
+	if (feature_rule == "sqrt") {
+		this->max_feature = (int)sqrt((double)n_features);
+	} else if (feature_rule == "log") {
+		this->max_feature == (int)log((double)n_features);
+	} else {
+		nf_t = atof(feature_rule.c_str());	
+		if (nf_t > 0.0 && nf_t <= 1) {
+			this->max_feature = (int)(nf_t*n_features);
+		} else if (nf_t > 1) {
+			this->max_feature = std::min((int)nf_t, n_features);
+		} else {
+			std::cerr << "bad value of `feature_rule`: " << feature_rule << std::endl;
+		}
+	}
 
 	/* allocate space to root node */	
 	root = new batch_node(n_classes);
 	for (int i = 0; i < n_examples; i++) {
-		c = d->y[i];
-		root->cur_frequency[c] += d->weight[i];
+		/* TODO: Can add bootstrap here*/
+		ex_id = i;
+
+		c = d->y[ex_id];
+		root->cur_frequency[c] += d->weight[c];
 	}
 
-	/* build tree */
-	st.push(root);
-	while (!st.empty()) {
-		c_node = st.top();
-		st.pop();
+	/* revursively build tree */
+	build_rec(this->root, d, 0);
+}
 
+void decision_tree::build_rec(node*& root, dataset*& d, int depth) {
+	int n_classes = d->get_nclasses(), n_examples = d->get_nexamples(), count, tot_ex, left_tot_ex, right_tot_ex;
+	splitter* s = new best_splitter(n_classes);			
+	ev_pair_t *p;	
+	node *first, *second;
+
+	/* 1. check if reach to leaf */
+	if (depth >= this->max_depth) return; /* check depth */
+	/* check purity and min split */
+	count = tot_ex = 0;
+	for (int c = 0; c < n_classes; c++) {
+		tot_ex += root->cur_frequency[c] / d->weight[c];
+		if (root->cur_frequency[c] >= 1e-5) {
+			count++;
+		}
 	}
+	if (count < 2 || tot_ex <= this->min_split) return;
+
+	/* 2. make a split */
+	criterion* cr = new gini(root->cur_frequency, n_classes);
+	s->split(this, root, d, cr);
+
+	root->feature_id = s->fea_id;
+	root->is_cate = d->is_cate[s->fea_id];
+	root->threshold = s->threshold;
+	root->gain = s->gain;
+	root->n_classes = n_classes;
+	root->leaf_idx = -1; /* indicate this node is not a leaf node */
+	root->left = new batch_node(n_classes);
+	root->right = new batch_node(n_classes);
+	
+	/* find the first example index in x[s->fea_id] which is large than threshold */
+	p = d->x[s->fea_id];
+	int l, k, u, m;
+	k = 0;
+	u = d->size[s->fea_id];
+	while (k < u) {
+		m = (k + u) / 2;	
+		if (p[m].fea_value > s->threshold)
+			u = m;
+		else 
+			k = m + 1;
+	}
+	/* build the node contains 0 examples first */
+	if (s->threshold > 0) { /* 0s are in left */
+		/* examples between l and u are in right */
+		l = k;
+		u = d->size[s->fea_id];
+		first = root->left;
+		second = root->right;
+	} else {				/* 0s are in right */
+		/* examples between l and u are in left */
+		l = 0;
+		u = k;
+		first = root->right;
+		second = root->left;
+	}
+
+	/* invalid second */
+	for (int i = l; i < u; i++) 
+		this->valid[p[i].ex_id] -= 1;	
+
+	/* 3. build first node */
+	build_rec(first, d, depth+1);	
+
+	/* valid second(add one more to be decrease in the next for loop */
+	for (int i = l; i < u; i++)
+		this->valid[p[i].ex_id] += 2;
+	/* all decrease 1 */
+	for (int i = 0; i < n_examples; i++) 
+		this->valid[i] -= 1;
+
+	/* 4. build second node */
+	build_rec(second, d, depth+1);
+	
+	/* restore valid */
+	for (int i = 0; i < n_examples; i++)
+		this->valid[i] += 1;
+	for (int i = l; i < u; i++)
+		this->valid[p[i].ex_id] -= 1;
 }
 
 splitter::splitter(int n_classes) {
@@ -208,12 +299,16 @@ splitter::~splitter() {
 	delete[] right_frequency;
 }
 
-void best_splitter::split(tree*& t, node*& root, dataset*& d, criterion*& cr) {
+best_splitter::best_splitter(int n_classes) : splitter(n_classes) {
+
+}
+
+void best_splitter::split(tree* t, node*& root, dataset*& d, criterion*& cr) {
 	ev_pair_t* x;
 	int f, j, fst_valid, cur_ex, prev, prev_ex;
 	float *zero_frequency, *nonzero_frequency; /* these two are for current node */
 	float *left_frequency, threshold;
-	int n_classes = d->get_nclasses(), max_feature = t->get_max_feature(), *valid = t->get_valid();
+	int n_classes = d->get_nclasses(), max_feature = t->get_max_feature(); 
 
 	/* the key idea of this sparse split is to determine where to put zero examples */
 	zero_frequency = new float[n_classes];
@@ -374,6 +469,10 @@ float criterion::gain(float*& left_frequency, float*& right_frequency, int n_cla
 	return this->cur_measure 
 		- (left_tot / this->cur_tot * left_measure)
 		- (right_tot / this->cur_tot * left_measure);
+}
+
+gini::gini(float*& frequency, int n_classes) : criterion(frequency, n_classes) {
+
 }
 
 float gini::measure(float*& frequency, int n_classes) {

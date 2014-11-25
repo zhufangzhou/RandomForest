@@ -88,6 +88,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="classsplitter-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">splitter Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
@@ -112,10 +113,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aecf4cc04f2ae39a4a8e13d4049d442cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a221bcb6b6705bb240ef6eea0c95f841a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsplitter.html#a221bcb6b6705bb240ef6eea0c95f841a">~splitter</a> ()</td></tr>
 <tr class="separator:a221bcb6b6705bb240ef6eea0c95f841a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5795eaf65be951d241ad697e20fb2120"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsplitter.html#a5795eaf65be951d241ad697e20fb2120">split</a> (<a class="el" href="classtree.html">tree</a> *&amp;t, <a class="el" href="classnode.html">node</a> *&amp;root, <a class="el" href="classdataset.html">dataset</a> *&amp;d, <a class="el" href="classcriterion.html">criterion</a> *&amp;cr)=0</td></tr>
-<tr class="separator:a5795eaf65be951d241ad697e20fb2120"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2ea956cc1a10ebb39422fa5ac450af2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsplitter.html#ab2ea956cc1a10ebb39422fa5ac450af2">update</a> (int <a class="el" href="classsplitter.html#ad093754efc111ae9dcb00e844b91e979">fea_id</a>, float <a class="el" href="classsplitter.html#af40121f8411ad94f3f1968b1d50905ed">threshold</a>, float *&amp;left, <a class="el" href="classnode.html">node</a> *&amp;nd, <a class="el" href="classcriterion.html">criterion</a> *&amp;cr)=0</td></tr>
-<tr class="separator:ab2ea956cc1a10ebb39422fa5ac450af2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af592533ea2d8d16337fa6c8a9a0a6b36"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsplitter.html#af592533ea2d8d16337fa6c8a9a0a6b36">split</a> (<a class="el" href="classtree.html">tree</a> *t, <a class="el" href="classnode.html">node</a> *&amp;root, <a class="el" href="classdataset.html">dataset</a> *&amp;d, <a class="el" href="classcriterion.html">criterion</a> *&amp;cr)=0</td></tr>
+<tr class="separator:af592533ea2d8d16337fa6c8a9a0a6b36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -131,6 +130,11 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a0a1c53a640e3305eeb32a9586fea657b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e1727de05ad39513dab201d6657aeed"><td class="memItemLeft" align="right" valign="top">float *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsplitter.html#a8e1727de05ad39513dab201d6657aeed">right_frequency</a></td></tr>
 <tr class="separator:a8e1727de05ad39513dab201d6657aeed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:ab2ea956cc1a10ebb39422fa5ac450af2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsplitter.html#ab2ea956cc1a10ebb39422fa5ac450af2">update</a> (int <a class="el" href="classsplitter.html#ad093754efc111ae9dcb00e844b91e979">fea_id</a>, float <a class="el" href="classsplitter.html#af40121f8411ad94f3f1968b1d50905ed">threshold</a>, float *&amp;left, <a class="el" href="classnode.html">node</a> *&amp;nd, <a class="el" href="classcriterion.html">criterion</a> *&amp;cr)=0</td></tr>
+<tr class="separator:ab2ea956cc1a10ebb39422fa5ac450af2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aecf4cc04f2ae39a4a8e13d4049d442cf"></a>
@@ -166,7 +170,7 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a5795eaf65be951d241ad697e20fb2120"></a>
+<a class="anchor" id="af592533ea2d8d16337fa6c8a9a0a6b36"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -176,7 +180,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">virtual void splitter::split </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classtree.html">tree</a> *&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classtree.html">tree</a> *&#160;</td>
           <td class="paramname"><em>t</em>, </td>
         </tr>
         <tr>
@@ -210,7 +214,7 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classbest__splitter.html#ae090eae85590c1184bb172c7bcd56751">best_splitter</a>.</p>
+<p>Implemented in <a class="el" href="classbest__splitter.html#a1ff1e766bfa4fb6d41c23121d6dd3dbb">best_splitter</a>.</p>
 
 </div>
 </div>
@@ -259,7 +263,7 @@ Public Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -353,7 +357,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Nov 24 2014 15:46:56 for Random Forest by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Nov 25 2014 18:21:02 for Random Forest by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>
