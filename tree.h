@@ -103,8 +103,11 @@ class tree {
 class decision_tree : public tree {
 	private:
 		void build_rec(node*& root, dataset*& d, int depth);
+		int verbose;
 	public:
+		decision_tree(const std::string feature_rule, int max_depth, int min_split);
 		void build(dataset*& d);
+		void debug(dataset*& d);
 };
 
 class online_tree : public tree {

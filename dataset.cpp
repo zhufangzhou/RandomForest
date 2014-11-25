@@ -125,10 +125,10 @@ dataset::dataset(int n_classes, int n_features, float* weight) {
 
 dataset::~dataset() {
 	delete[] x;
-	delete[] x[0];
 	delete[] size;
 	delete[] y;
 	delete[] is_cate;	
+	delete[] weight;
 }
 
 void dataset::init(int n_classes, int n_features, float* weight) {
@@ -162,7 +162,7 @@ void dataset::load_data(const std::string& filename, const learn_mode mode) {
 	}
 
 	/* read examples */
-	t->tic("Loading data from file"+filename+" ...");
+	t->tic("Loading data from file "+filename+" ...");
 	ex_vec = dr->read_examples();
 	n_examples = ex_vec.size();
 	t->toc("Done.");

@@ -170,6 +170,10 @@ int tree::get_max_feature() {
 	return this->max_feature;
 }
 
+decision_tree::decision_tree(const std::string feature_rule, int max_depth, int min_split) : tree(feature_rule, max_depth, min_split) {
+	this->verbose = 0;
+}
+
 void decision_tree::build(dataset*& d) {
 	target_t c; /* temporary variable to indicate current class */
 	node* c_node;
@@ -237,6 +241,26 @@ void decision_tree::build_rec(node*& root, dataset*& d, int depth) {
 	root->leaf_idx = -1; /* indicate this node is not a leaf node */
 	root->left = new batch_node(n_classes);
 	root->right = new batch_node(n_classes);
+
+	if (this->verbose > 0) {
+		std::cout << "=================================" << std::endl;
+		std::cout << "Depth: " << depth << std::endl;
+		std::cout << "Split Feature: " << s->fea_id << " "
+				  << "Threshold: " << s->threshold << std::endl;
+		std::cout << "Valid Example: " << std::endl;
+		for (int i = 0; i < n_examples; i++) {
+			if (this->valid[i] > 0) {
+				std::cout << "#" << i << " ";
+			}
+		}
+		std::cout << std::endl;
+		std::cout << "Nonzero Values: " << std::endl;	
+		for (int i = 0; i < d->size[s->fea_id]; i++) {
+			std::cout << d->x[s->fea_id][i].ex_id << ":"
+				<< d->x[s->fea_id][i].fea_value << " ";
+		}
+		std::cout << std::endl;
+	}
 	
 	/* find the first example index in x[s->fea_id] which is large than threshold */
 	p = d->x[s->fea_id];
@@ -287,6 +311,14 @@ void decision_tree::build_rec(node*& root, dataset*& d, int depth) {
 		this->valid[i] += 1;
 	for (int i = l; i < u; i++)
 		this->valid[p[i].ex_id] -= 1;
+
+	delete s;
+	delete cr;
+}
+
+void decision_tree::debug(dataset*& d) {
+	this->verbose = 1;
+	build(d);	
 }
 
 splitter::splitter(int n_classes) {
@@ -471,8 +503,8 @@ float criterion::gain(float*& left_frequency, float*& right_frequency, int n_cla
 		- (right_tot / this->cur_tot * left_measure);
 }
 
-gini::gini(float*& frequency, int n_classes) : criterion(frequency, n_classes) {
-
+gini::gini(float*& frequency, int n_classes) {
+	set_current(frequency, n_classes);
 }
 
 float gini::measure(float*& frequency, int n_classes) {
