@@ -112,10 +112,13 @@ Inheritance diagram for decision_tree:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ac90ebb549d50e49ec8322d6ee8335eb8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdecision__tree.html#ac90ebb549d50e49ec8322d6ee8335eb8">decision_tree</a> (const std::string <a class="el" href="classtree.html#a5aba3b77a347165517a20d5fab94382d">feature_rule</a>, int <a class="el" href="classtree.html#a0a9f968fac827d3239be67488c34fb21">max_depth</a>, int <a class="el" href="classtree.html#ae70cd626c0b50a0b8306a94a9e5e8fd7">min_split</a>)</td></tr>
+<tr class="memdesc:ac90ebb549d50e49ec8322d6ee8335eb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#ac90ebb549d50e49ec8322d6ee8335eb8">More...</a><br /></td></tr>
 <tr class="separator:ac90ebb549d50e49ec8322d6ee8335eb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad3286ad0d5361f3f19ddac966477b14a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdecision__tree.html#ad3286ad0d5361f3f19ddac966477b14a">build</a> (<a class="el" href="classdataset.html">dataset</a> *&amp;d)</td></tr>
+<tr class="memdesc:ad3286ad0d5361f3f19ddac966477b14a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build tree using the given dataset.  <a href="#ad3286ad0d5361f3f19ddac966477b14a">More...</a><br /></td></tr>
 <tr class="separator:ad3286ad0d5361f3f19ddac966477b14a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a738fa3b8ccbb86fea50d93acab273bde"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdecision__tree.html#a738fa3b8ccbb86fea50d93acab273bde">debug</a> (<a class="el" href="classdataset.html">dataset</a> *&amp;d)</td></tr>
+<tr class="memdesc:a738fa3b8ccbb86fea50d93acab273bde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debugging.  <a href="#a738fa3b8ccbb86fea50d93acab273bde">More...</a><br /></td></tr>
 <tr class="separator:a738fa3b8ccbb86fea50d93acab273bde"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classtree"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classtree')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classtree.html">tree</a></td></tr>
 <tr class="memitem:a9f2a566ac2710fafc31232456780e82d inherit pub_methods_classtree"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtree.html#a9f2a566ac2710fafc31232456780e82d">tree</a> ()</td></tr>
@@ -152,11 +155,13 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:affee9d32ce17c6102083d809da55a847"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdecision__tree.html#affee9d32ce17c6102083d809da55a847">build_rec</a> (<a class="el" href="classnode.html">node</a> *&amp;<a class="el" href="classtree.html#ad397d4906e47149b98f769b3e81473ee">root</a>, <a class="el" href="classdataset.html">dataset</a> *&amp;d, int depth)</td></tr>
+<tr class="memdesc:affee9d32ce17c6102083d809da55a847"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recursively build tree (choose the split and build left and right node)  <a href="#affee9d32ce17c6102083d809da55a847">More...</a><br /></td></tr>
 <tr class="separator:affee9d32ce17c6102083d809da55a847"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:adef4736597a44918d4e221acbfb3142b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdecision__tree.html#adef4736597a44918d4e221acbfb3142b">verbose</a></td></tr>
+<tr class="memdesc:adef4736597a44918d4e221acbfb3142b"><td class="mdescLeft">&#160;</td><td class="mdescRight">on/off the debug information  <a href="#adef4736597a44918d4e221acbfb3142b">More...</a><br /></td></tr>
 <tr class="separator:adef4736597a44918d4e221acbfb3142b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
@@ -171,6 +176,8 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:ac697cf1868c26ac26f005e6ee8be9d43 inherit pro_attribs_classtree"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a551919e1402a700821694297623017fc inherit pro_attribs_classtree"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtree.html#a551919e1402a700821694297623017fc">leaf_size</a></td></tr>
 <tr class="separator:a551919e1402a700821694297623017fc inherit pro_attribs_classtree"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f074099473facb464acf152157bf4d0 inherit pro_attribs_classtree"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtree.html#a3f074099473facb464acf152157bf4d0">n_classes</a></td></tr>
+<tr class="separator:a3f074099473facb464acf152157bf4d0 inherit pro_attribs_classtree"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48430ab4447259c35af5f22e894e1d6c inherit pro_attribs_classtree"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtree.html#a48430ab4447259c35af5f22e894e1d6c">n_features</a></td></tr>
 <tr class="separator:a48430ab4447259c35af5f22e894e1d6c inherit pro_attribs_classtree"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5aba3b77a347165517a20d5fab94382d inherit pro_attribs_classtree"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtree.html#a5aba3b77a347165517a20d5fab94382d">feature_rule</a></td></tr>
@@ -217,6 +224,16 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">feature_rule</td><td>number of feature to consider per node, avaiable values are 'sqrt' for square root of <code>n_features</code>, 'log' for logarithm of <code>n_features</code>, real number between 0 and 1 for percent of <code>n_features</code>, integer larger than 1 for fixed number features which should less than <code>n_features</code>. If the value is invalid, the program will take <code>sqrt</code> as default other than just exit. </td></tr>
+    <tr><td class="paramname">max_depth</td><td>the depth limitation of tree </td></tr>
+    <tr><td class="paramname">min_split</td><td>the minimum number of examples needed to make a split in a node </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -233,6 +250,14 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Build tree using the given dataset. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">d</td><td>training dataset </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -274,6 +299,16 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Recursively build tree (choose the split and build left and right node) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">root</td><td>root node to build </td></tr>
+    <tr><td class="paramname">d</td><td>input dataset </td></tr>
+    <tr><td class="paramname">depth</td><td>current depth in the whole tree </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a class="anchor" id="a738fa3b8ccbb86fea50d93acab273bde"></a>
@@ -289,6 +324,14 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Debugging. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">d</td><td>training dataset </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -311,6 +354,8 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>on/off the debug information </p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
@@ -320,7 +365,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 26 2014 14:05:59 for Random Forest by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 26 2014 20:02:29 for Random Forest by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

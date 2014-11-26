@@ -26,12 +26,33 @@ node::~node() {
 
 // ! TODO
 void node::dump(const std::string& filename) {
-
+	std::ofstream out(filename, std::ios::binary);
+	dump(out);
+	out.close();
 }
 
 // ! TODO
-void node::dump(std::ofstream& ofs) {
+void node::dump(std::ofstream& out) {
+	out.write((char*)&this->is_cate, sizeof(bool));
+	out.write((char*)&this->feature_id, sizeof(int));
+	out.write((char*)&this->threshold, sizeof(feature_t));
+	out.write((char*)&this->gain, sizeof(float));
+	out.write((char*)&this->n_classes, sizeof(int));
+	out.write((char*)&this->leaf_idx, sizeof(int));
+	out.write((char*)&this->cur_frequency, sizeof(float)*this->n_classes);
+}
 
+void node::print_info() {
+	std::cout << std::endl
+			  << "is_cate: " << std::boolalpha << this->is_cate << std::endl
+			  << "feature_id: " << this->feature_id << std::endl
+			  << "threshold: " << this->threshold << std::endl
+			  << "gain: " << this->gain << std::endl
+			  << "n_classes: " << this->n_classes << std::endl
+			  << "leaf_idx: " << this->leaf_idx << std::endl;
+	for (int c = 0; c < this->n_classes; c++)
+		std::cout << this->cur_frequency[c] << " ";
+	std::cout << std::endl << std::endl;
 }
 
 batch_node::batch_node(int n_classes) : node(n_classes) {
@@ -190,6 +211,10 @@ void decision_tree::build(dataset*& d) {
 	int ex_id;
 	float nf_t;
 	m_timer* ti = new m_timer();
+
+	/* set `n_features` and `n_classes` */
+	this->n_features = n_features;
+	this->n_classes = n_classes;
 
 	/* determine `max_feature` */
 	if (feature_rule == "sqrt") {
@@ -361,6 +386,22 @@ void decision_tree::debug(dataset*& d) {
 	this->verbose = 1;
 	build(d);	
 	export_dotfile("tree.dot");
+	std::cout << "Before dump" << std::endl;
+	this->root->print_info();
+	/* dump node */
+	this->root->dump("root.model");
+	std::ifstream in("root.model", std::ifstream::binary);
+	batch_node* n = new batch_node(this->n_classes);	
+	in.read((char*)&n->is_cate, sizeof(bool));
+	in.read((char*)&n->feature_id, sizeof(int));
+	in.read((char*)&n->threshold, sizeof(feature_t));
+	in.read((char*)&n->gain, sizeof(float));
+	in.read((char*)&n->n_classes, sizeof(int));
+	in.read((char*)&n->leaf_idx, sizeof(int));
+	in.read((char*)&n->cur_frequency, sizeof(float)*n->n_classes);
+	std::cout << "After dump" << std::endl;
+	n->print_info();
+	delete n;
 }
 
 splitter::splitter(int n_classes) {

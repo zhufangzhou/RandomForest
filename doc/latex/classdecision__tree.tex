@@ -20,21 +20,21 @@ Inheritance diagram for decision\+\_\+tree\+:\begin{figure}[H]
 \begin{DoxyCompactItemize}
 \item 
 \hyperlink{classdecision__tree_ac90ebb549d50e49ec8322d6ee8335eb8}{decision\+\_\+tree} (const std\+::string \hyperlink{classtree_a5aba3b77a347165517a20d5fab94382d}{feature\+\_\+rule}, int \hyperlink{classtree_a0a9f968fac827d3239be67488c34fb21}{max\+\_\+depth}, int \hyperlink{classtree_ae70cd626c0b50a0b8306a94a9e5e8fd7}{min\+\_\+split})
-\item 
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
 void \hyperlink{classdecision__tree_ad3286ad0d5361f3f19ddac966477b14a}{build} (\hyperlink{classdataset}{dataset} $\ast$\&d)
-\item 
+\begin{DoxyCompactList}\small\item\em Build tree using the given dataset. \end{DoxyCompactList}\item 
 void \hyperlink{classdecision__tree_a738fa3b8ccbb86fea50d93acab273bde}{debug} (\hyperlink{classdataset}{dataset} $\ast$\&d)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Debugging. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \hyperlink{classdecision__tree_affee9d32ce17c6102083d809da55a847}{build\+\_\+rec} (\hyperlink{classnode}{node} $\ast$\&\hyperlink{classtree_ad397d4906e47149b98f769b3e81473ee}{root}, \hyperlink{classdataset}{dataset} $\ast$\&d, int depth)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Recursively build tree (choose the split and build left and right node) \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
 int \hyperlink{classdecision__tree_adef4736597a44918d4e221acbfb3142b}{verbose}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em on/off the debug information \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Additional Inherited Members}
 
 
@@ -53,6 +53,19 @@ A Decision Tree Classifier which is for sparse dataset.
 )}}\label{classdecision__tree_ac90ebb549d50e49ec8322d6ee8335eb8}
 
 
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em feature\+\_\+rule} & number of feature to consider per node, avaiable values are 'sqrt' for square root of {\ttfamily n\+\_\+features}, 'log' for logarithm of {\ttfamily n\+\_\+features}, real number between 0 and 1 for percent of {\ttfamily n\+\_\+features}, integer larger than 1 for fixed number features which should less than {\ttfamily n\+\_\+features}. If the value is invalid, the program will take {\ttfamily sqrt} as default other than just exit. \\
+\hline
+{\em max\+\_\+depth} & the depth limitation of tree \\
+\hline
+{\em min\+\_\+split} & the minimum number of examples needed to make a split in a node \\
+\hline
+\end{DoxyParams}
+
+
 \subsection{Member Function Documentation}
 \hypertarget{classdecision__tree_ad3286ad0d5361f3f19ddac966477b14a}{\index{decision\+\_\+tree@{decision\+\_\+tree}!build@{build}}
 \index{build@{build}!decision\+\_\+tree@{decision\+\_\+tree}}
@@ -61,6 +74,15 @@ A Decision Tree Classifier which is for sparse dataset.
 \item[{{\bf dataset} $\ast$\&}]{d}
 \end{DoxyParamCaption}
 )}}\label{classdecision__tree_ad3286ad0d5361f3f19ddac966477b14a}
+
+
+Build tree using the given dataset. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em d} & training dataset \\
+\hline
+\end{DoxyParams}
 \hypertarget{classdecision__tree_affee9d32ce17c6102083d809da55a847}{\index{decision\+\_\+tree@{decision\+\_\+tree}!build\+\_\+rec@{build\+\_\+rec}}
 \index{build\+\_\+rec@{build\+\_\+rec}!decision\+\_\+tree@{decision\+\_\+tree}}
 \subsubsection[{build\+\_\+rec}]{\setlength{\rightskip}{0pt plus 5cm}void decision\+\_\+tree\+::build\+\_\+rec (
@@ -70,6 +92,19 @@ A Decision Tree Classifier which is for sparse dataset.
 \item[{int}]{depth}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [private]}}}\label{classdecision__tree_affee9d32ce17c6102083d809da55a847}
+
+
+Recursively build tree (choose the split and build left and right node) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em root} & root node to build \\
+\hline
+{\em d} & input dataset \\
+\hline
+{\em depth} & current depth in the whole tree \\
+\hline
+\end{DoxyParams}
 \hypertarget{classdecision__tree_a738fa3b8ccbb86fea50d93acab273bde}{\index{decision\+\_\+tree@{decision\+\_\+tree}!debug@{debug}}
 \index{debug@{debug}!decision\+\_\+tree@{decision\+\_\+tree}}
 \subsubsection[{debug}]{\setlength{\rightskip}{0pt plus 5cm}void decision\+\_\+tree\+::debug (
@@ -79,10 +114,23 @@ A Decision Tree Classifier which is for sparse dataset.
 )}}\label{classdecision__tree_a738fa3b8ccbb86fea50d93acab273bde}
 
 
+Debugging. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em d} & training dataset \\
+\hline
+\end{DoxyParams}
+
+
 \subsection{Member Data Documentation}
 \hypertarget{classdecision__tree_adef4736597a44918d4e221acbfb3142b}{\index{decision\+\_\+tree@{decision\+\_\+tree}!verbose@{verbose}}
 \index{verbose@{verbose}!decision\+\_\+tree@{decision\+\_\+tree}}
 \subsubsection[{verbose}]{\setlength{\rightskip}{0pt plus 5cm}int decision\+\_\+tree\+::verbose\hspace{0.3cm}{\ttfamily [private]}}}\label{classdecision__tree_adef4736597a44918d4e221acbfb3142b}
+
+
+on/off the debug information 
+
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

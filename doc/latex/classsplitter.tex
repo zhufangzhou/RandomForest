@@ -3,6 +3,11 @@
 }
 
 
+Abstract class which is used to split the node.  
+
+
+
+
 {\ttfamily \#include $<$tree.\+h$>$}
 
 Inheritance diagram for splitter\+:\begin{figure}[H]
@@ -15,11 +20,11 @@ Inheritance diagram for splitter\+:\begin{figure}[H]
 \begin{DoxyCompactItemize}
 \item 
 \hyperlink{classsplitter_aecf4cc04f2ae39a4a8e13d4049d442cf}{splitter} (int \hyperlink{classsplitter_abfc53538ed65c0afd50aedbf46dff458}{n\+\_\+classes})
-\item 
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
 \hyperlink{classsplitter_a221bcb6b6705bb240ef6eea0c95f841a}{$\sim$splitter} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
 virtual void \hyperlink{classsplitter_af592533ea2d8d16337fa6c8a9a0a6b36}{split} (\hyperlink{classtree}{tree} $\ast$t, \hyperlink{classnode}{node} $\ast$\&root, \hyperlink{classdataset}{dataset} $\ast$\&d, \hyperlink{classcriterion}{criterion} $\ast$\&cr)=0
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Choose a split. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -39,8 +44,11 @@ float $\ast$ \hyperlink{classsplitter_a8e1727de05ad39513dab201d6657aeed}{right\+
 \begin{DoxyCompactItemize}
 \item 
 virtual void \hyperlink{classsplitter_ab2ea956cc1a10ebb39422fa5ac450af2}{update} (int \hyperlink{classsplitter_ad093754efc111ae9dcb00e844b91e979}{fea\+\_\+id}, float \hyperlink{classsplitter_af40121f8411ad94f3f1968b1d50905ed}{threshold}, float $\ast$\&left, \hyperlink{classnode}{node} $\ast$\&nd, \hyperlink{classcriterion}{criterion} $\ast$\&cr)=0
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Update the split information (e.\+g. split feature id, threshold, gain, etc.) if this candidate split is better. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\subsection{Detailed Description}
+Abstract class which is used to split the node. 
 
 \subsection{Constructor \& Destructor Documentation}
 \hypertarget{classsplitter_aecf4cc04f2ae39a4a8e13d4049d442cf}{\index{splitter@{splitter}!splitter@{splitter}}
@@ -50,13 +58,26 @@ virtual void \hyperlink{classsplitter_ab2ea956cc1a10ebb39422fa5ac450af2}{update}
 \item[{int}]{n\+\_\+classes}
 \end{DoxyParamCaption}
 )}}\label{classsplitter_aecf4cc04f2ae39a4a8e13d4049d442cf}
-right\mbox{[}j\mbox{]} refers to weighted frequency for class j \hypertarget{classsplitter_a221bcb6b6705bb240ef6eea0c95f841a}{\index{splitter@{splitter}!````~splitter@{$\sim$splitter}}
+
+
+Constructor. 
+
+right\mbox{[}j\mbox{]} refers to weighted frequency for class j 
+\begin{DoxyParams}{Parameters}
+{\em n\+\_\+classes} & number of different classes \\
+\hline
+\end{DoxyParams}
+\hypertarget{classsplitter_a221bcb6b6705bb240ef6eea0c95f841a}{\index{splitter@{splitter}!````~splitter@{$\sim$splitter}}
 \index{````~splitter@{$\sim$splitter}!splitter@{splitter}}
 \subsubsection[{$\sim$splitter}]{\setlength{\rightskip}{0pt plus 5cm}splitter\+::$\sim$splitter (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}}\label{classsplitter_a221bcb6b6705bb240ef6eea0c95f841a}
+
+
+Destructor. 
+
 
 
 \subsection{Member Function Documentation}
@@ -72,6 +93,21 @@ right\mbox{[}j\mbox{]} refers to weighted frequency for class j \hypertarget{cla
 )\hspace{0.3cm}{\ttfamily [pure virtual]}}}\label{classsplitter_af592533ea2d8d16337fa6c8a9a0a6b36}
 
 
+Choose a split. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & tree object \\
+\hline
+{\em root} & one of the node in tree {\ttfamily t} which is to be splited \\
+\hline
+{\em d} & training dataset \\
+\hline
+{\em cr} & criterion to determine the better split (e.\+g. information gain, gini index) \\
+\hline
+\end{DoxyParams}
+
+
 Implemented in \hyperlink{classbest__splitter_a1ff1e766bfa4fb6d41c23121d6dd3dbb}{best\+\_\+splitter}.
 
 \hypertarget{classsplitter_ab2ea956cc1a10ebb39422fa5ac450af2}{\index{splitter@{splitter}!update@{update}}
@@ -85,6 +121,23 @@ Implemented in \hyperlink{classbest__splitter_a1ff1e766bfa4fb6d41c23121d6dd3dbb}
 \item[{{\bf criterion} $\ast$\&}]{cr}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}}\label{classsplitter_ab2ea956cc1a10ebb39422fa5ac450af2}
+
+
+Update the split information (e.\+g. split feature id, threshold, gain, etc.) if this candidate split is better. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fea\+\_\+id} & feature id to split \\
+\hline
+{\em threshold} & threshold of the split (less than {\ttfamily threshold} belong to left node) \\
+\hline
+{\em left} & pre-\/computed left node's frequency for each class after the split \\
+\hline
+{\em nd} & the node to split \\
+\hline
+{\em cr} & criterion to determine the better split (e.\+g. information gain, gini index) \\
+\hline
+\end{DoxyParams}
 
 
 Implemented in \hyperlink{classbest__splitter_a681ad1823db5207f3a5a6acd5c09b354}{best\+\_\+splitter}.

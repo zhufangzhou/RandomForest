@@ -3,6 +3,11 @@
 }
 
 
+Heuristic measure.  
+
+
+
+
 {\ttfamily \#include $<$tree.\+h$>$}
 
 Inheritance diagram for criterion\+:\begin{figure}[H]
@@ -15,15 +20,15 @@ Inheritance diagram for criterion\+:\begin{figure}[H]
 \begin{DoxyCompactItemize}
 \item 
 \hyperlink{classcriterion_a5047629e45833624bc6955cc0dd106b8}{criterion} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Constructor (need to call {\ttfamily set\+\_\+current} function manually) \end{DoxyCompactList}\item 
 \hyperlink{classcriterion_acf80c0b2acf9fb6f2b8369868cafdbff}{criterion} (float $\ast$\&frequency, int n\+\_\+classes)
-\item 
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
 void \hyperlink{classcriterion_a043c2105b2cfc256cb530c55b65156f2}{set\+\_\+current} (float $\ast$\&frequency, int n\+\_\+classes)
-\item 
+\begin{DoxyCompactList}\small\item\em Intialize the current node information because compute {\ttfamily gain} need the current node's heuristic measure (e.\+g. information gain, gini index) \end{DoxyCompactList}\item 
 float \hyperlink{classcriterion_a8d42878c94bae5a72475b568bcbbddfa}{gain} (float $\ast$\&left\+\_\+frequency, float $\ast$\&right\+\_\+frequency, int n\+\_\+classes)
-\item 
+\begin{DoxyCompactList}\small\item\em Heuristic measure value gain after the split. \end{DoxyCompactList}\item 
 virtual float \hyperlink{classcriterion_a1fbda0723578acd5ac612248a54ba71d}{measure} (float $\ast$\&frequency, int n\+\_\+classes)=0
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Heuristic measure value. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -37,6 +42,9 @@ bool \hyperlink{classcriterion_a5f3c4708d9e6a9120ec8b8d98c73ff47}{is\+\_\+init}
 \end{DoxyCompactItemize}
 
 
+\subsection{Detailed Description}
+Heuristic measure. 
+
 \subsection{Constructor \& Destructor Documentation}
 \hypertarget{classcriterion_a5047629e45833624bc6955cc0dd106b8}{\index{criterion@{criterion}!criterion@{criterion}}
 \index{criterion@{criterion}!criterion@{criterion}}
@@ -45,6 +53,10 @@ bool \hyperlink{classcriterion_a5f3c4708d9e6a9120ec8b8d98c73ff47}{is\+\_\+init}
 {}
 \end{DoxyParamCaption}
 )}}\label{classcriterion_a5047629e45833624bc6955cc0dd106b8}
+
+
+Constructor (need to call {\ttfamily set\+\_\+current} function manually) 
+
 has set the current node measure \hypertarget{classcriterion_acf80c0b2acf9fb6f2b8369868cafdbff}{\index{criterion@{criterion}!criterion@{criterion}}
 \index{criterion@{criterion}!criterion@{criterion}}
 \subsubsection[{criterion}]{\setlength{\rightskip}{0pt plus 5cm}criterion\+::criterion (
@@ -53,6 +65,17 @@ has set the current node measure \hypertarget{classcriterion_acf80c0b2acf9fb6f2b
 \item[{int}]{n\+\_\+classes}
 \end{DoxyParamCaption}
 )}}\label{classcriterion_acf80c0b2acf9fb6f2b8369868cafdbff}
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em frequency} & frequency for each class in parent node (sum of each example's weight) \\
+\hline
+{\em n\+\_\+classes} & number of different classes \\
+\hline
+\end{DoxyParams}
 
 
 \subsection{Member Function Documentation}
@@ -65,6 +88,22 @@ has set the current node measure \hypertarget{classcriterion_acf80c0b2acf9fb6f2b
 \item[{int}]{n\+\_\+classes}
 \end{DoxyParamCaption}
 )}}\label{classcriterion_a8d42878c94bae5a72475b568bcbbddfa}
+
+
+Heuristic measure value gain after the split. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em left\+\_\+frequency} & left node's frequency (frequency definition can be found in the constructor function) \\
+\hline
+{\em right\+\_\+frequency} & right node's frequency (frequency definition can be found in the constructor function) \\
+\hline
+{\em n\+\_\+classes} & number of different classes\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+heurist measure value gain 
+\end{DoxyReturn}
 \hypertarget{classcriterion_a1fbda0723578acd5ac612248a54ba71d}{\index{criterion@{criterion}!measure@{measure}}
 \index{measure@{measure}!criterion@{criterion}}
 \subsubsection[{measure}]{\setlength{\rightskip}{0pt plus 5cm}virtual float criterion\+::measure (
@@ -73,6 +112,20 @@ has set the current node measure \hypertarget{classcriterion_acf80c0b2acf9fb6f2b
 \item[{int}]{n\+\_\+classes}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [pure virtual]}}}\label{classcriterion_a1fbda0723578acd5ac612248a54ba71d}
+
+
+Heuristic measure value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em frequency} & frequency for each class in the node \\
+\hline
+{\em n\+\_\+classes} & number of different classes\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+heuristic measure value 
+\end{DoxyReturn}
 
 
 Implemented in \hyperlink{classgini_a5f232df1155fe182eee9b26cde0e8339}{gini}.
@@ -85,6 +138,17 @@ Implemented in \hyperlink{classgini_a5f232df1155fe182eee9b26cde0e8339}{gini}.
 \item[{int}]{n\+\_\+classes}
 \end{DoxyParamCaption}
 )}}\label{classcriterion_a043c2105b2cfc256cb530c55b65156f2}
+
+
+Intialize the current node information because compute {\ttfamily gain} need the current node's heuristic measure (e.\+g. information gain, gini index) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em frequency} & frequency for each class in parent node (sum of each example's weight) \\
+\hline
+{\em n\+\_\+classes} & number of different classes \\
+\hline
+\end{DoxyParams}
 
 
 \subsection{Member Data Documentation}

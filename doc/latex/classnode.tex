@@ -26,7 +26,9 @@ Inheritance diagram for node\+:\begin{figure}[H]
 void \hyperlink{classnode_a873438b420d0f6d2659a1b25875ed300}{dump} (const std\+::string \&filename)
 \begin{DoxyCompactList}\small\item\em Dump an single node to a binary file. \end{DoxyCompactList}\item 
 void \hyperlink{classnode_acab00fde3bcc5d44044c39a37313b4eb}{dump} (std\+::ofstream \&ofs)
-\begin{DoxyCompactList}\small\item\em Dump an single node to the output file stream. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Dump an single node to the output file stream. \end{DoxyCompactList}\item 
+void \hyperlink{classnode_a95d492b993f2bd1b59c2489e7eb20a13}{print\+\_\+info} ()
+\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -38,9 +40,9 @@ int \hyperlink{classnode_ad65aefa2c967c82cd88e6870085d7f3e}{feature\+\_\+id}
 \item 
 float \hyperlink{classnode_a7154054210920a77711f8ddb0cf45941}{gain}
 \item 
-float $\ast$ \hyperlink{classnode_ae4125b554711d8ad9d6726ffd69e0b77}{cur\+\_\+frequency}
-\item 
 int \hyperlink{classnode_a8c4864582cb3fe15e84e7908d0965150}{n\+\_\+classes}
+\item 
+float $\ast$ \hyperlink{classnode_ae4125b554711d8ad9d6726ffd69e0b77}{cur\+\_\+frequency}
 \item 
 int \hyperlink{classnode_abbd7d4174869fead5f901b042a2f9712}{leaf\+\_\+idx}
 \item 
@@ -116,13 +118,20 @@ Dump an single node to the output file stream.
 {\em ofs} & output file stream (should be open first, did not close in this function) \\
 \hline
 \end{DoxyParams}
+\hypertarget{classnode_a95d492b993f2bd1b59c2489e7eb20a13}{\index{node@{node}!print\+\_\+info@{print\+\_\+info}}
+\index{print\+\_\+info@{print\+\_\+info}!node@{node}}
+\subsubsection[{print\+\_\+info}]{\setlength{\rightskip}{0pt plus 5cm}void node\+::print\+\_\+info (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classnode_a95d492b993f2bd1b59c2489e7eb20a13}
 
 
 \subsection{Member Data Documentation}
 \hypertarget{classnode_ae4125b554711d8ad9d6726ffd69e0b77}{\index{node@{node}!cur\+\_\+frequency@{cur\+\_\+frequency}}
 \index{cur\+\_\+frequency@{cur\+\_\+frequency}!node@{node}}
 \subsubsection[{cur\+\_\+frequency}]{\setlength{\rightskip}{0pt plus 5cm}float$\ast$ node\+::cur\+\_\+frequency}}\label{classnode_ae4125b554711d8ad9d6726ffd69e0b77}
-heuristic measure(e.\+g. gini index or information gain) \hypertarget{classnode_ad65aefa2c967c82cd88e6870085d7f3e}{\index{node@{node}!feature\+\_\+id@{feature\+\_\+id}}
+number of different class in the node \hypertarget{classnode_ad65aefa2c967c82cd88e6870085d7f3e}{\index{node@{node}!feature\+\_\+id@{feature\+\_\+id}}
 \index{feature\+\_\+id@{feature\+\_\+id}!node@{node}}
 \subsubsection[{feature\+\_\+id}]{\setlength{\rightskip}{0pt plus 5cm}int node\+::feature\+\_\+id}}\label{classnode_ad65aefa2c967c82cd88e6870085d7f3e}
 is the split feature categorical \hypertarget{classnode_a7154054210920a77711f8ddb0cf45941}{\index{node@{node}!gain@{gain}}
@@ -134,13 +143,13 @@ for categorical attribute is the chosen feature value for left child node, for c
 \hypertarget{classnode_abbd7d4174869fead5f901b042a2f9712}{\index{node@{node}!leaf\+\_\+idx@{leaf\+\_\+idx}}
 \index{leaf\+\_\+idx@{leaf\+\_\+idx}!node@{node}}
 \subsubsection[{leaf\+\_\+idx}]{\setlength{\rightskip}{0pt plus 5cm}int node\+::leaf\+\_\+idx}}\label{classnode_abbd7d4174869fead5f901b042a2f9712}
-number of different class in the node \hypertarget{classnode_a7cbff55ff448f557223f79299056e9b1}{\index{node@{node}!left@{left}}
+size should be {\ttfamily n\+\_\+classes}, means the weighted frequency for each class \hypertarget{classnode_a7cbff55ff448f557223f79299056e9b1}{\index{node@{node}!left@{left}}
 \index{left@{left}!node@{node}}
 \subsubsection[{left}]{\setlength{\rightskip}{0pt plus 5cm}{\bf node}$\ast$ node\+::left}}\label{classnode_a7cbff55ff448f557223f79299056e9b1}
 -\/1 if this node is not leaf otherwise non-\/negtive integer \hypertarget{classnode_a8c4864582cb3fe15e84e7908d0965150}{\index{node@{node}!n\+\_\+classes@{n\+\_\+classes}}
 \index{n\+\_\+classes@{n\+\_\+classes}!node@{node}}
 \subsubsection[{n\+\_\+classes}]{\setlength{\rightskip}{0pt plus 5cm}int node\+::n\+\_\+classes}}\label{classnode_a8c4864582cb3fe15e84e7908d0965150}
-size should be {\ttfamily n\+\_\+classes}, means the weighted frequency for each class \hypertarget{classnode_abdc86d4c8604c481752953af3235fc47}{\index{node@{node}!right@{right}}
+heuristic measure(e.\+g. gini index or information gain) \hypertarget{classnode_abdc86d4c8604c481752953af3235fc47}{\index{node@{node}!right@{right}}
 \index{right@{right}!node@{node}}
 \subsubsection[{right}]{\setlength{\rightskip}{0pt plus 5cm}{\bf node}$\ast$ node\+::right}}\label{classnode_abdc86d4c8604c481752953af3235fc47}
 point to left node \hypertarget{classnode_a3774a77cb58d1554f63f34cbcb737a0c}{\index{node@{node}!threshold@{threshold}}

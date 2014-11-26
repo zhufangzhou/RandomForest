@@ -94,6 +94,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
+<p>Test all the possible threshold to choose a best split.  
+ <a href="classbest__splitter.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="tree_8h_source.html">tree.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for best_splitter:</div>
@@ -101,25 +104,30 @@ Inheritance diagram for best_splitter:</div>
  <div class="center">
   <img src="classbest__splitter.png" usemap="#best_splitter_map" alt=""/>
   <map id="best_splitter_map" name="best_splitter_map">
-<area href="classsplitter.html" alt="splitter" shape="rect" coords="0,0,79,24"/>
+<area href="classsplitter.html" title="Abstract class which is used to split the node. " alt="splitter" shape="rect" coords="0,0,79,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a40d856f885a1ed21fa840063b8d49164"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbest__splitter.html#a40d856f885a1ed21fa840063b8d49164">best_splitter</a> (int <a class="el" href="classsplitter.html#abfc53538ed65c0afd50aedbf46dff458">n_classes</a>)</td></tr>
+<tr class="memdesc:a40d856f885a1ed21fa840063b8d49164"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a40d856f885a1ed21fa840063b8d49164">More...</a><br /></td></tr>
 <tr class="separator:a40d856f885a1ed21fa840063b8d49164"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ff1e766bfa4fb6d41c23121d6dd3dbb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbest__splitter.html#a1ff1e766bfa4fb6d41c23121d6dd3dbb">split</a> (<a class="el" href="classtree.html">tree</a> *t, <a class="el" href="classnode.html">node</a> *&amp;root, <a class="el" href="classdataset.html">dataset</a> *&amp;d, <a class="el" href="classcriterion.html">criterion</a> *&amp;cr)</td></tr>
+<tr class="memdesc:a1ff1e766bfa4fb6d41c23121d6dd3dbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choose a split.  <a href="#a1ff1e766bfa4fb6d41c23121d6dd3dbb">More...</a><br /></td></tr>
 <tr class="separator:a1ff1e766bfa4fb6d41c23121d6dd3dbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classsplitter"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classsplitter')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classsplitter.html">splitter</a></td></tr>
 <tr class="memitem:aecf4cc04f2ae39a4a8e13d4049d442cf inherit pub_methods_classsplitter"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsplitter.html#aecf4cc04f2ae39a4a8e13d4049d442cf">splitter</a> (int <a class="el" href="classsplitter.html#abfc53538ed65c0afd50aedbf46dff458">n_classes</a>)</td></tr>
+<tr class="memdesc:aecf4cc04f2ae39a4a8e13d4049d442cf inherit pub_methods_classsplitter"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#aecf4cc04f2ae39a4a8e13d4049d442cf">More...</a><br /></td></tr>
 <tr class="separator:aecf4cc04f2ae39a4a8e13d4049d442cf inherit pub_methods_classsplitter"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a221bcb6b6705bb240ef6eea0c95f841a inherit pub_methods_classsplitter"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsplitter.html#a221bcb6b6705bb240ef6eea0c95f841a">~splitter</a> ()</td></tr>
+<tr class="memdesc:a221bcb6b6705bb240ef6eea0c95f841a inherit pub_methods_classsplitter"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#a221bcb6b6705bb240ef6eea0c95f841a">More...</a><br /></td></tr>
 <tr class="separator:a221bcb6b6705bb240ef6eea0c95f841a inherit pub_methods_classsplitter"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a681ad1823db5207f3a5a6acd5c09b354"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbest__splitter.html#a681ad1823db5207f3a5a6acd5c09b354">update</a> (int <a class="el" href="classsplitter.html#ad093754efc111ae9dcb00e844b91e979">fea_id</a>, float <a class="el" href="classsplitter.html#af40121f8411ad94f3f1968b1d50905ed">threshold</a>, float *&amp;left, <a class="el" href="classnode.html">node</a> *&amp;nd, <a class="el" href="classcriterion.html">criterion</a> *&amp;cr)</td></tr>
+<tr class="memdesc:a681ad1823db5207f3a5a6acd5c09b354"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the split information (e.g. split feature id, threshold, gain, etc.) if this candidate split is better.  <a href="#a681ad1823db5207f3a5a6acd5c09b354">More...</a><br /></td></tr>
 <tr class="separator:a681ad1823db5207f3a5a6acd5c09b354"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
@@ -138,7 +146,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a8e1727de05ad39513dab201d6657aeed inherit pub_attribs_classsplitter"><td class="memItemLeft" align="right" valign="top">float *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsplitter.html#a8e1727de05ad39513dab201d6657aeed">right_frequency</a></td></tr>
 <tr class="separator:a8e1727de05ad39513dab201d6657aeed inherit pub_attribs_classsplitter"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Test all the possible threshold to choose a best split. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a40d856f885a1ed21fa840063b8d49164"></a>
 <div class="memitem">
 <div class="memproto">
@@ -152,6 +162,14 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n_classes</td><td>different number of classes </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -199,6 +217,17 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Choose a split. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>tree object </td></tr>
+    <tr><td class="paramname">root</td><td>one of the node in tree <code>t</code> which is to be splited </td></tr>
+    <tr><td class="paramname">d</td><td>training dataset </td></tr>
+    <tr><td class="paramname">cr</td><td>criterion to determine the better split (e.g. information gain, gini index) </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implements <a class="el" href="classsplitter.html#af592533ea2d8d16337fa6c8a9a0a6b36">splitter</a>.</p>
 
@@ -254,6 +283,18 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Update the split information (e.g. split feature id, threshold, gain, etc.) if this candidate split is better. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fea_id</td><td>feature id to split </td></tr>
+    <tr><td class="paramname">threshold</td><td>threshold of the split (less than <code>threshold</code> belong to left node) </td></tr>
+    <tr><td class="paramname">left</td><td>pre-computed left node's frequency for each class after the split </td></tr>
+    <tr><td class="paramname">nd</td><td>the node to split </td></tr>
+    <tr><td class="paramname">cr</td><td>criterion to determine the better split (e.g. information gain, gini index) </td></tr>
+  </table>
+  </dd>
+</dl>
+
 <p>Implements <a class="el" href="classsplitter.html#ab2ea956cc1a10ebb39422fa5ac450af2">splitter</a>.</p>
 
 </div>
@@ -265,7 +306,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 26 2014 14:05:59 for Random Forest by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 26 2014 20:02:29 for Random Forest by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>
