@@ -10,5 +10,5 @@ var searchData=
   ['forest',['forest',['../class_base_forest.html#a1a271bf9403c4181aff21e54d1a5e255',1,'BaseForest']]],
   ['forest_2ecpp',['forest.cpp',['../forest_8cpp.html',1,'']]],
   ['forest_2eh',['forest.h',['../forest_8h.html',1,'']]],
-  ['free_5ftree',['free_tree',['../classtree.html#a4ca3902b09e854a76f1fb56bb71599f6',1,'tree']]]
+  ['free_5ftree',['free_tree',['../classtree.html#ae92bd57b719a2575d9fec46f514cbbe9',1,'tree']]]
 ];

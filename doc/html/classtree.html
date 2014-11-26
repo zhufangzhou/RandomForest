@@ -102,7 +102,7 @@ Inheritance diagram for tree:</div>
  <div class="center">
   <img src="classtree.png" usemap="#tree_map" alt=""/>
   <map id="tree_map" name="tree_map">
-<area href="classdecision__tree.html" alt="decision_tree" shape="rect" coords="0,56,88,80"/>
+<area href="classdecision__tree.html" title="A Decision Tree Classifier which is for sparse dataset. " alt="decision_tree" shape="rect" coords="0,56,88,80"/>
 <area href="classonline__tree.html" alt="online_tree" shape="rect" coords="98,56,186,80"/>
 </map>
  </div></div>
@@ -110,24 +110,34 @@ Inheritance diagram for tree:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a9f2a566ac2710fafc31232456780e82d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtree.html#a9f2a566ac2710fafc31232456780e82d">tree</a> ()</td></tr>
+<tr class="memdesc:a9f2a566ac2710fafc31232456780e82d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-parameter constructor (need to call <code>init</code> function maually if using this constructor.  <a href="#a9f2a566ac2710fafc31232456780e82d">More...</a><br /></td></tr>
 <tr class="separator:a9f2a566ac2710fafc31232456780e82d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a05f3faa3c9a8f6fed237e2d0f6172244"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtree.html#a05f3faa3c9a8f6fed237e2d0f6172244">~tree</a> ()</td></tr>
+<tr class="memdesc:a05f3faa3c9a8f6fed237e2d0f6172244"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#a05f3faa3c9a8f6fed237e2d0f6172244">More...</a><br /></td></tr>
 <tr class="separator:a05f3faa3c9a8f6fed237e2d0f6172244"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a356d6ebfe68b6e4ac466664c4f2d2581"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtree.html#a356d6ebfe68b6e4ac466664c4f2d2581">tree</a> (const std::string <a class="el" href="classtree.html#a5aba3b77a347165517a20d5fab94382d">feature_rule</a>, int <a class="el" href="classtree.html#a0a9f968fac827d3239be67488c34fb21">max_depth</a>, int <a class="el" href="classtree.html#ae70cd626c0b50a0b8306a94a9e5e8fd7">min_split</a>)</td></tr>
+<tr class="memdesc:a356d6ebfe68b6e4ac466664c4f2d2581"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor giving tree settings.  <a href="#a356d6ebfe68b6e4ac466664c4f2d2581">More...</a><br /></td></tr>
 <tr class="separator:a356d6ebfe68b6e4ac466664c4f2d2581"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03aebcb3102b4f6503b5bc69288297e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtree.html#a03aebcb3102b4f6503b5bc69288297e8">init</a> (const std::string <a class="el" href="classtree.html#a5aba3b77a347165517a20d5fab94382d">feature_rule</a>, int <a class="el" href="classtree.html#a0a9f968fac827d3239be67488c34fb21">max_depth</a>, int <a class="el" href="classtree.html#ae70cd626c0b50a0b8306a94a9e5e8fd7">min_split</a>)</td></tr>
+<tr class="memdesc:a03aebcb3102b4f6503b5bc69288297e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the tree(e.g. set some parameter and allocate memory to some variables)  <a href="#a03aebcb3102b4f6503b5bc69288297e8">More...</a><br /></td></tr>
 <tr class="separator:a03aebcb3102b4f6503b5bc69288297e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae03f6dd2597846c65c1c037728b06bcd"><td class="memItemLeft" align="right" valign="top">float *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtree.html#ae03f6dd2597846c65c1c037728b06bcd">compute_importance</a> (bool re_compute=false)</td></tr>
+<tr class="memdesc:ae03f6dd2597846c65c1c037728b06bcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute feature importance after building the tree (should call build first)  <a href="#ae03f6dd2597846c65c1c037728b06bcd">More...</a><br /></td></tr>
 <tr class="separator:ae03f6dd2597846c65c1c037728b06bcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ca3902b09e854a76f1fb56bb71599f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtree.html#a4ca3902b09e854a76f1fb56bb71599f6">free_tree</a> (<a class="el" href="classnode.html">node</a> *&amp;nd)</td></tr>
-<tr class="separator:a4ca3902b09e854a76f1fb56bb71599f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae92bd57b719a2575d9fec46f514cbbe9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtree.html#ae92bd57b719a2575d9fec46f514cbbe9">free_tree</a> (<a class="el" href="classnode.html">node</a> *&amp;<a class="el" href="classtree.html#ad397d4906e47149b98f769b3e81473ee">root</a>)</td></tr>
+<tr class="memdesc:ae92bd57b719a2575d9fec46f514cbbe9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free memory space of the tree which use <code>root</code> as root node (only the tree structure)  <a href="#ae92bd57b719a2575d9fec46f514cbbe9">More...</a><br /></td></tr>
+<tr class="separator:ae92bd57b719a2575d9fec46f514cbbe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a634ee04f1f89801a9f295e11cc5ce149"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtree.html#a634ee04f1f89801a9f295e11cc5ce149">dump</a> (const std::string &amp;filename)</td></tr>
+<tr class="memdesc:a634ee04f1f89801a9f295e11cc5ce149"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dump an single tree to an binary file.  <a href="#a634ee04f1f89801a9f295e11cc5ce149">More...</a><br /></td></tr>
 <tr class="separator:a634ee04f1f89801a9f295e11cc5ce149"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a680d0cc993c3a3d3ef10c891de69960f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtree.html#a680d0cc993c3a3d3ef10c891de69960f">load</a> (const std::string &amp;filename)</td></tr>
+<tr class="memdesc:a680d0cc993c3a3d3ef10c891de69960f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the tree from file.  <a href="#a680d0cc993c3a3d3ef10c891de69960f">More...</a><br /></td></tr>
 <tr class="separator:a680d0cc993c3a3d3ef10c891de69960f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc6048c70de7490eabf2433d46067b7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtree.html#abc6048c70de7490eabf2433d46067b7b">export_dotfile</a> (const std::string &amp;filename)</td></tr>
+<tr class="memdesc:abc6048c70de7490eabf2433d46067b7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Export the tree structure to a dot file, which can be used to generate a picture (dot -Tpng -o tree.png tree.dot)  <a href="#abc6048c70de7490eabf2433d46067b7b">More...</a><br /></td></tr>
 <tr class="separator:abc6048c70de7490eabf2433d46067b7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8042d0897915fdfeeca4b4d75515b96c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtree.html#a8042d0897915fdfeeca4b4d75515b96c">get_max_feature</a> ()</td></tr>
+<tr class="memdesc:a8042d0897915fdfeeca4b4d75515b96c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return private member <code>max_feature</code> value.  <a href="#a8042d0897915fdfeeca4b4d75515b96c">More...</a><br /></td></tr>
 <tr class="separator:a8042d0897915fdfeeca4b4d75515b96c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -169,6 +179,8 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Non-parameter constructor (need to call <code>init</code> function maually if using this constructor. </p>
 <p>is the example valid to consider when split </p>
 
 </div>
@@ -185,6 +197,8 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Destructor. </p>
 
 </div>
 </div>
@@ -218,6 +232,16 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Constructor giving tree settings. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">feature_rule</td><td>number of feature to consider per node, avaiable values are 'sqrt' for square root of <code>n_features</code>, 'log' for logarithm of <code>n_features</code>, real number between 0 and 1 for percent of <code>n_features</code>, integer larger than 1 for fixed number features which should less than <code>n_features</code>. If the value is invalid, the program will take <code>sqrt</code> as default other than just exit. </td></tr>
+    <tr><td class="paramname">max_depth</td><td>the depth limitation of tree </td></tr>
+    <tr><td class="paramname">min_split</td><td>the minimum number of examples needed to make a split in a node </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -235,6 +259,15 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Compute feature importance after building the tree (should call build first) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">re_compute</td><td>if <code>re_compute</code> set to true, then the importance will compulsively be re-computed. Otherwise, it will return the result computed before</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>an float vector (size is <code>n_features</code>), each entry represent the corresponding feature's importance when building the tree (ps. all entry sum to one) </dd></dl>
+
 </div>
 </div>
 <a class="anchor" id="a634ee04f1f89801a9f295e11cc5ce149"></a>
@@ -250,6 +283,14 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Dump an single tree to an binary file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>path to dumped </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -267,9 +308,17 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Export the tree structure to a dot file, which can be used to generate a picture (dot -Tpng -o tree.png tree.dot) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>path to the dot file </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
-<a class="anchor" id="a4ca3902b09e854a76f1fb56bb71599f6"></a>
+<a class="anchor" id="ae92bd57b719a2575d9fec46f514cbbe9"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -277,11 +326,19 @@ Protected Attributes</h2></td></tr>
           <td class="memname">void tree::free_tree </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classnode.html">node</a> *&amp;&#160;</td>
-          <td class="paramname"><em>nd</em></td><td>)</td>
+          <td class="paramname"><em>root</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Free memory space of the tree which use <code>root</code> as root node (only the tree structure) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">root</td><td>root node of the tree to be free </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -297,6 +354,9 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Return private member <code>max_feature</code> value. </p>
+<dl class="section return"><dt>Returns</dt><dd>max_feature computed according to <code>feature_rule</code> </dd></dl>
 
 </div>
 </div>
@@ -330,6 +390,16 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Initialize the tree(e.g. set some parameter and allocate memory to some variables) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">feature_rule</td><td>number of feature to consider per node, avaiable values are 'sqrt' for square root of <code>n_features</code>, 'log' for logarithm of <code>n_features</code>, real number between 0 and 1 for percent of <code>n_features</code>, integer larger than 1 for fixed number features which should less than <code>n_features</code>. If the value is invalid, the program will take <code>sqrt</code> as default other than just exit. </td></tr>
+    <tr><td class="paramname">max_depth</td><td>the depth limitation of tree </td></tr>
+    <tr><td class="paramname">min_split</td><td>the minimum number of examples needed to make a split in a node </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a class="anchor" id="a680d0cc993c3a3d3ef10c891de69960f"></a>
@@ -345,6 +415,14 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Load the tree from file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>path to load </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -557,7 +635,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 25 2014 18:21:02 for Random Forest by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 26 2014 14:05:59 for Random Forest by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

@@ -49,6 +49,7 @@ tree::tree(std::string feature_rule, int max_depth, int min_split) {
 tree::~tree() {
 	free_tree(this->root);	
 	delete[] leaf_pt;
+	delete[] valid;
 }
 
 void tree::init(std::string feature_rule, int max_depth, int min_split) {
@@ -57,24 +58,32 @@ void tree::init(std::string feature_rule, int max_depth, int min_split) {
 	this->min_split = min_split;
 	this->leaf_pt = new node*[1];
 	this->fea_imp = nullptr;
+	this->valid = nullptr;
 
-	/* initialize root node */
+	/* set root node to nullptr */
 	this->root = nullptr;
 }
 
-void tree::free_tree(node*& nd) {
-	if (nd->leaf_idx == -1) {
-		delete nd;
+void tree::free_tree(node*& root) {
+	if (root->leaf_idx == -1) {
+		delete root;
 	} else {
-		free_tree(nd->left);
-		free_tree(nd->right);
-		delete nd;
+		free_tree(root->left);
+		free_tree(root->right);
+		delete root;
 	}
 }
 
 float* tree::compute_importance(bool re_compute) {
 	std::stack<node*> st;
 	node *c_node, *l_node, *r_node;
+
+	/* check if the tree has been built */
+	if (this->root == nullptr) {
+		std::cerr << "You need to build the tree before call this function" << std::endl;
+		exit(EXIT_FAILURE);
+	}
+
 	if (fea_imp != nullptr && !re_compute) {
 		return fea_imp;
 	} else {
@@ -136,8 +145,8 @@ void tree::export_dotfile(const std::string& filename) {
 
 		/* write node info */
         if (c_node->leaf_idx != -1) { /* leaf node */
-            ofs << node_idx << " [label=\"gain= " 
-				<< std::setprecision(3) << c_node->gain<< "\\npositive proba = [ ";
+            ofs << node_idx << " [label=\"" 
+				<< "predict proba = [ ";
 			tot_frequency = 0.0;
 			for (int i = 0; i < c_node->n_classes; i++) tot_frequency += c_node->cur_frequency[i];
 			for (int i = 0; i < c_node->n_classes; i++) {
@@ -150,7 +159,7 @@ void tree::export_dotfile(const std::string& filename) {
             } else {
                 ofs << node_idx << " [label=\"X[" << c_node->feature_id << "] <= ";
             }
-			ofs	<< std::setprecision(3) << c_node->threshold << "\\ngain= "
+			ofs	<< std::fixed << std::setprecision(3) << c_node->threshold << "\\ngain= "
 				<< std::setprecision(3) << c_node->gain<< "\", shape=\"box\"];\n"
 				<< std::endl;
 			/* push left node and right node to stack */
@@ -180,6 +189,7 @@ void decision_tree::build(dataset*& d) {
 	int n_classes = d->get_nclasses(), n_examples = d->get_nexamples(), n_features = d->get_nfeatures();
 	int ex_id;
 	float nf_t;
+	m_timer* ti = new m_timer();
 
 	/* determine `max_feature` */
 	if (feature_rule == "sqrt") {
@@ -193,9 +203,13 @@ void decision_tree::build(dataset*& d) {
 		} else if (nf_t > 1) {
 			this->max_feature = std::min((int)nf_t, n_features);
 		} else {
-			std::cerr << "bad value of `feature_rule`: " << feature_rule << std::endl;
+			std::cerr << "bad value of `feature_rule`: " << feature_rule 
+				<< ", use `sqrt` as default" << std::endl;
+			this->max_feature = (int)sqrt((double)n_features);
 		}
 	}
+
+	this->valid = new int[n_examples];
 
 	/* allocate space to root node */	
 	root = new batch_node(n_classes);
@@ -205,10 +219,17 @@ void decision_tree::build(dataset*& d) {
 
 		c = d->y[ex_id];
 		root->cur_frequency[c] += d->weight[c];
+
+		/* set the chosen to be valid */
+		this->valid[ex_id] = 1; 
 	}
+
+	ti->tic("Start build tree");	
 
 	/* revursively build tree */
 	build_rec(this->root, d, 0);
+
+	ti->toc("Build tree done.");
 }
 
 void decision_tree::build_rec(node*& root, dataset*& d, int depth) {
@@ -218,7 +239,7 @@ void decision_tree::build_rec(node*& root, dataset*& d, int depth) {
 	node *first, *second;
 
 	/* 1. check if reach to leaf */
-	if (depth >= this->max_depth) return; /* check depth */
+	//if (depth >= this->max_depth) return; /* check depth */
 	/* check purity and min split */
 	count = tot_ex = 0;
 	for (int c = 0; c < n_classes; c++) {
@@ -227,7 +248,24 @@ void decision_tree::build_rec(node*& root, dataset*& d, int depth) {
 			count++;
 		}
 	}
-	if (count < 2 || tot_ex <= this->min_split) return;
+	if (depth >= this->max_depth || count < 2 || tot_ex <= this->min_split) {
+		if (this->verbose > 0) {
+			std::cout << "********************************" << std::endl;
+			std::cout << "Depth: " << depth << std::endl;
+			std::cout << "Different Class: " << count << std::endl;
+			std::cout << "Total Example: " << tot_ex << std::endl;
+			std::cout << "Valid Example: " << std::endl;
+			for (int i = 0; i < n_examples; i++) {
+				if (this->valid[i] > 0) {
+					std::cout << "#" << i << ":" << d->y[i] << " ";
+				}	
+			}
+			std::cout << std::endl << std::endl;
+		}
+		
+		root->leaf_idx = 0;
+		return;
+	}
 
 	/* 2. make a split */
 	criterion* cr = new gini(root->cur_frequency, n_classes);
@@ -240,7 +278,9 @@ void decision_tree::build_rec(node*& root, dataset*& d, int depth) {
 	root->n_classes = n_classes;
 	root->leaf_idx = -1; /* indicate this node is not a leaf node */
 	root->left = new batch_node(n_classes);
+	memcpy(root->left->cur_frequency, s->left_frequency, sizeof(float)*n_classes);
 	root->right = new batch_node(n_classes);
+	memcpy(root->right->cur_frequency, s->right_frequency, sizeof(float)*n_classes);
 
 	if (this->verbose > 0) {
 		std::cout << "=================================" << std::endl;
@@ -250,16 +290,17 @@ void decision_tree::build_rec(node*& root, dataset*& d, int depth) {
 		std::cout << "Valid Example: " << std::endl;
 		for (int i = 0; i < n_examples; i++) {
 			if (this->valid[i] > 0) {
-				std::cout << "#" << i << " ";
+				std::cout << "#" << i << ":" << d->y[i] << " ";
 			}
 		}
 		std::cout << std::endl;
 		std::cout << "Nonzero Values: " << std::endl;	
 		for (int i = 0; i < d->size[s->fea_id]; i++) {
-			std::cout << d->x[s->fea_id][i].ex_id << ":"
-				<< d->x[s->fea_id][i].fea_value << " ";
+			if (this->valid[d->x[s->fea_id][i].ex_id] > 0)
+				std::cout << d->x[s->fea_id][i].ex_id << ":"
+					<< d->x[s->fea_id][i].fea_value << " ";
 		}
-		std::cout << std::endl;
+		std::cout << std::endl << std::endl;
 	}
 	
 	/* find the first example index in x[s->fea_id] which is large than threshold */
@@ -319,11 +360,16 @@ void decision_tree::build_rec(node*& root, dataset*& d, int depth) {
 void decision_tree::debug(dataset*& d) {
 	this->verbose = 1;
 	build(d);	
+	export_dotfile("tree.dot");
 }
 
 splitter::splitter(int n_classes) {
 	left_frequency = new float[n_classes]();
 	right_frequency = new float[n_classes]();
+	this->gain = 0.0;
+	this->fea_id = -1;
+	this->threshold = 0.0;
+	this->n_classes = n_classes;
 }
 
 splitter::~splitter() {
@@ -373,14 +419,14 @@ void best_splitter::split(tree* t, node*& root, dataset*& d, criterion*& cr) {
 
 			/* Here we get two vector (`n_classes` dimensional), `zero_frequency` and `nonzero_frequency` */
 			/* 1.get the frequency of nonzero examples */
+			/* reset `nonzero_frequency` */
+			memset(nonzero_frequency, 0, sizeof(float)*n_classes);
 			for (j = prev; j < d->size[f]; j++) {
 				cur_ex = x[j].ex_id;
 				/* find all the valid example */
 				if (t->valid[cur_ex] <= 0) continue;
 
-				/* reset `nonzero_frequency` */
-				memset(nonzero_frequency, 0, sizeof(float)*n_classes);
-				nonzero_frequency[d->y[cur_ex]] += d->weight[cur_ex];
+				nonzero_frequency[d->y[cur_ex]] += d->weight[d->y[cur_ex]];
 			}
 
 			/* 2.except nonzero is zero */
@@ -408,7 +454,7 @@ void best_splitter::split(tree* t, node*& root, dataset*& d, criterion*& cr) {
 				if (t->valid[cur_ex] <= 0) continue;
 
 				/* add current example to left */
-				left_frequency[d->y[prev_ex]] += d->weight[prev_ex];
+				left_frequency[d->y[prev_ex]] += d->weight[d->y[prev_ex]];
 
 				/* x[prev].fea_value        0        x[cur].fea_value */
 				/*                     ^        ^                     */
@@ -448,18 +494,18 @@ void best_splitter::split(tree* t, node*& root, dataset*& d, criterion*& cr) {
 	delete[] left_frequency;
 }
 
-void best_splitter::update(int fea_id, float threshold, float*& left, node*& nd, criterion*& cr) {
+void best_splitter::update(int t_fea_id, float threshold, float*& left, node*& nd, criterion*& cr) {
 	float* right = new float[n_classes]();
 	for (int c = 0; c < n_classes; c++) 
 		right[c] = nd->cur_frequency[c] - left[c];
 
-	float gain;
+	float t_gain;
 
-	gain = cr->gain(left, right, n_classes);
+	t_gain = cr->gain(left, right, n_classes);
 
-	if (gain > this->gain) {
-		this->gain = gain;
-		this->fea_id = fea_id;
+	if (t_gain > this->gain) {
+		this->gain = t_gain;
+		this->fea_id = t_fea_id;
 		this->threshold = threshold;
 		memcpy(this->left_frequency, left, sizeof(float)*n_classes);
 		memcpy(this->right_frequency, right, sizeof(float)*n_classes);

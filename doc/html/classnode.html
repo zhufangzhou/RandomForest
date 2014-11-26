@@ -94,6 +94,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
+<p>An abstract class for node in the tree.  
+ <a href="classnode.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="tree_8h_source.html">tree.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for node:</div>
@@ -101,20 +104,24 @@ Inheritance diagram for node:</div>
  <div class="center">
   <img src="classnode.png" usemap="#node_map" alt=""/>
   <map id="node_map" name="node_map">
-<area href="classbatch__node.html" alt="batch_node" shape="rect" coords="0,56,81,80"/>
-<area href="classonline__node.html" alt="online_node" shape="rect" coords="91,56,172,80"/>
+<area href="classbatch__node.html" title="Specify for batch tree algorithm (e.g. decision tree) " alt="batch_node" shape="rect" coords="0,56,81,80"/>
+<area href="classonline__node.html" title="Specify for online tree algorithm. " alt="online_node" shape="rect" coords="91,56,172,80"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a7e5f4a2e917fe20d91d75faf2e9ba5de"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnode.html#a7e5f4a2e917fe20d91d75faf2e9ba5de">node</a> (int <a class="el" href="classnode.html#a8c4864582cb3fe15e84e7908d0965150">n_classes</a>)</td></tr>
+<tr class="memdesc:a7e5f4a2e917fe20d91d75faf2e9ba5de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a7e5f4a2e917fe20d91d75faf2e9ba5de">More...</a><br /></td></tr>
 <tr class="separator:a7e5f4a2e917fe20d91d75faf2e9ba5de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a482f83436a89f09d289b26144d817adf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnode.html#a482f83436a89f09d289b26144d817adf">~node</a> ()</td></tr>
+<tr class="memdesc:a482f83436a89f09d289b26144d817adf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#a482f83436a89f09d289b26144d817adf">More...</a><br /></td></tr>
 <tr class="separator:a482f83436a89f09d289b26144d817adf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a873438b420d0f6d2659a1b25875ed300"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnode.html#a873438b420d0f6d2659a1b25875ed300">dump</a> (const std::string &amp;filename)</td></tr>
+<tr class="memdesc:a873438b420d0f6d2659a1b25875ed300"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dump an single node to a binary file.  <a href="#a873438b420d0f6d2659a1b25875ed300">More...</a><br /></td></tr>
 <tr class="separator:a873438b420d0f6d2659a1b25875ed300"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acab00fde3bcc5d44044c39a37313b4eb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnode.html#acab00fde3bcc5d44044c39a37313b4eb">dump</a> (std::ofstream &amp;ofs)</td></tr>
+<tr class="memdesc:acab00fde3bcc5d44044c39a37313b4eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dump an single node to the output file stream.  <a href="#acab00fde3bcc5d44044c39a37313b4eb">More...</a><br /></td></tr>
 <tr class="separator:acab00fde3bcc5d44044c39a37313b4eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -138,7 +145,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:abdc86d4c8604c481752953af3235fc47"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnode.html">node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnode.html#abdc86d4c8604c481752953af3235fc47">right</a></td></tr>
 <tr class="separator:abdc86d4c8604c481752953af3235fc47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>An abstract class for node in the tree. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a7e5f4a2e917fe20d91d75faf2e9ba5de"></a>
 <div class="memitem">
 <div class="memproto">
@@ -152,7 +161,14 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>point to right node </p>
+
+<p>Constructor. </p>
+<p>point to right node </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n_classes</td><td>number of different class </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -168,6 +184,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Destructor. </p>
 
 </div>
 </div>
@@ -186,6 +204,14 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Dump an single node to a binary file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>path to dump </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a class="anchor" id="acab00fde3bcc5d44044c39a37313b4eb"></a>
@@ -201,6 +227,14 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Dump an single node to the output file stream. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ofs</td><td>output file stream (should be open first, did not close in this function) </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -328,7 +362,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 25 2014 18:21:01 for Random Forest by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 26 2014 14:05:59 for Random Forest by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

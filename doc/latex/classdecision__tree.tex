@@ -3,6 +3,11 @@
 }
 
 
+A Decision Tree Classifier which is for sparse dataset.  
+
+
+
+
 {\ttfamily \#include $<$tree.\+h$>$}
 
 Inheritance diagram for decision\+\_\+tree\+:\begin{figure}[H]
@@ -14,14 +19,38 @@ Inheritance diagram for decision\+\_\+tree\+:\begin{figure}[H]
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\hyperlink{classdecision__tree_ac90ebb549d50e49ec8322d6ee8335eb8}{decision\+\_\+tree} (const std\+::string \hyperlink{classtree_a5aba3b77a347165517a20d5fab94382d}{feature\+\_\+rule}, int \hyperlink{classtree_a0a9f968fac827d3239be67488c34fb21}{max\+\_\+depth}, int \hyperlink{classtree_ae70cd626c0b50a0b8306a94a9e5e8fd7}{min\+\_\+split})
+\item 
 void \hyperlink{classdecision__tree_ad3286ad0d5361f3f19ddac966477b14a}{build} (\hyperlink{classdataset}{dataset} $\ast$\&d)
+\item 
+void \hyperlink{classdecision__tree_a738fa3b8ccbb86fea50d93acab273bde}{debug} (\hyperlink{classdataset}{dataset} $\ast$\&d)
 \end{DoxyCompactItemize}
 \subsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \hyperlink{classdecision__tree_affee9d32ce17c6102083d809da55a847}{build\+\_\+rec} (\hyperlink{classnode}{node} $\ast$\&\hyperlink{classtree_ad397d4906e47149b98f769b3e81473ee}{root}, \hyperlink{classdataset}{dataset} $\ast$\&d, int depth)
 \end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{classdecision__tree_adef4736597a44918d4e221acbfb3142b}{verbose}
+\end{DoxyCompactItemize}
 \subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+A Decision Tree Classifier which is for sparse dataset. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classdecision__tree_ac90ebb549d50e49ec8322d6ee8335eb8}{\index{decision\+\_\+tree@{decision\+\_\+tree}!decision\+\_\+tree@{decision\+\_\+tree}}
+\index{decision\+\_\+tree@{decision\+\_\+tree}!decision\+\_\+tree@{decision\+\_\+tree}}
+\subsubsection[{decision\+\_\+tree}]{\setlength{\rightskip}{0pt plus 5cm}decision\+\_\+tree\+::decision\+\_\+tree (
+\begin{DoxyParamCaption}
+\item[{const std\+::string}]{feature\+\_\+rule, }
+\item[{int}]{max\+\_\+depth, }
+\item[{int}]{min\+\_\+split}
+\end{DoxyParamCaption}
+)}}\label{classdecision__tree_ac90ebb549d50e49ec8322d6ee8335eb8}
 
 
 \subsection{Member Function Documentation}
@@ -41,6 +70,19 @@ void \hyperlink{classdecision__tree_affee9d32ce17c6102083d809da55a847}{build\+\_
 \item[{int}]{depth}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [private]}}}\label{classdecision__tree_affee9d32ce17c6102083d809da55a847}
+\hypertarget{classdecision__tree_a738fa3b8ccbb86fea50d93acab273bde}{\index{decision\+\_\+tree@{decision\+\_\+tree}!debug@{debug}}
+\index{debug@{debug}!decision\+\_\+tree@{decision\+\_\+tree}}
+\subsubsection[{debug}]{\setlength{\rightskip}{0pt plus 5cm}void decision\+\_\+tree\+::debug (
+\begin{DoxyParamCaption}
+\item[{{\bf dataset} $\ast$\&}]{d}
+\end{DoxyParamCaption}
+)}}\label{classdecision__tree_a738fa3b8ccbb86fea50d93acab273bde}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classdecision__tree_adef4736597a44918d4e221acbfb3142b}{\index{decision\+\_\+tree@{decision\+\_\+tree}!verbose@{verbose}}
+\index{verbose@{verbose}!decision\+\_\+tree@{decision\+\_\+tree}}
+\subsubsection[{verbose}]{\setlength{\rightskip}{0pt plus 5cm}int decision\+\_\+tree\+::verbose\hspace{0.3cm}{\ttfamily [private]}}}\label{classdecision__tree_adef4736597a44918d4e221acbfb3142b}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

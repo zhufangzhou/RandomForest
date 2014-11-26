@@ -34,3 +34,9 @@
 *.exe
 *.out
 *.app
+
+# Dot file
+*.dot
+
+# Picture file
+*.png

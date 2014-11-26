@@ -34,7 +34,7 @@ void debug_decision_tree() {
 
 	d->load_data("./data/train.dat", TRAIN);
 	d->debug();
-	decision_tree* t = new decision_tree("sqrt", 10, 1);
+	decision_tree* t = new decision_tree("6", 10, 1);
 	t->debug(d);
 
 }

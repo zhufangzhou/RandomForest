@@ -15,25 +15,25 @@ Inheritance diagram for tree\+:\begin{figure}[H]
 \begin{DoxyCompactItemize}
 \item 
 \hyperlink{classtree_a9f2a566ac2710fafc31232456780e82d}{tree} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Non-\/parameter constructor (need to call {\ttfamily init} function maually if using this constructor. \end{DoxyCompactList}\item 
 \hyperlink{classtree_a05f3faa3c9a8f6fed237e2d0f6172244}{$\sim$tree} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
 \hyperlink{classtree_a356d6ebfe68b6e4ac466664c4f2d2581}{tree} (const std\+::string \hyperlink{classtree_a5aba3b77a347165517a20d5fab94382d}{feature\+\_\+rule}, int \hyperlink{classtree_a0a9f968fac827d3239be67488c34fb21}{max\+\_\+depth}, int \hyperlink{classtree_ae70cd626c0b50a0b8306a94a9e5e8fd7}{min\+\_\+split})
-\item 
+\begin{DoxyCompactList}\small\item\em Constructor giving tree settings. \end{DoxyCompactList}\item 
 void \hyperlink{classtree_a03aebcb3102b4f6503b5bc69288297e8}{init} (const std\+::string \hyperlink{classtree_a5aba3b77a347165517a20d5fab94382d}{feature\+\_\+rule}, int \hyperlink{classtree_a0a9f968fac827d3239be67488c34fb21}{max\+\_\+depth}, int \hyperlink{classtree_ae70cd626c0b50a0b8306a94a9e5e8fd7}{min\+\_\+split})
-\item 
+\begin{DoxyCompactList}\small\item\em Initialize the tree(e.\+g. set some parameter and allocate memory to some variables) \end{DoxyCompactList}\item 
 float $\ast$ \hyperlink{classtree_ae03f6dd2597846c65c1c037728b06bcd}{compute\+\_\+importance} (bool re\+\_\+compute=false)
-\item 
-void \hyperlink{classtree_a4ca3902b09e854a76f1fb56bb71599f6}{free\+\_\+tree} (\hyperlink{classnode}{node} $\ast$\&nd)
-\item 
+\begin{DoxyCompactList}\small\item\em Compute feature importance after building the tree (should call build first) \end{DoxyCompactList}\item 
+void \hyperlink{classtree_ae92bd57b719a2575d9fec46f514cbbe9}{free\+\_\+tree} (\hyperlink{classnode}{node} $\ast$\&\hyperlink{classtree_ad397d4906e47149b98f769b3e81473ee}{root})
+\begin{DoxyCompactList}\small\item\em Free memory space of the tree which use {\ttfamily root} as root node (only the tree structure) \end{DoxyCompactList}\item 
 void \hyperlink{classtree_a634ee04f1f89801a9f295e11cc5ce149}{dump} (const std\+::string \&filename)
-\item 
+\begin{DoxyCompactList}\small\item\em Dump an single tree to an binary file. \end{DoxyCompactList}\item 
 void \hyperlink{classtree_a680d0cc993c3a3d3ef10c891de69960f}{load} (const std\+::string \&filename)
-\item 
+\begin{DoxyCompactList}\small\item\em Load the tree from file. \end{DoxyCompactList}\item 
 void \hyperlink{classtree_abc6048c70de7490eabf2433d46067b7b}{export\+\_\+dotfile} (const std\+::string \&filename)
-\item 
+\begin{DoxyCompactList}\small\item\em Export the tree structure to a dot file, which can be used to generate a picture (dot -\/\+Tpng -\/o tree.\+png tree.\+dot) \end{DoxyCompactList}\item 
 int \hyperlink{classtree_a8042d0897915fdfeeca4b4d75515b96c}{get\+\_\+max\+\_\+feature} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Return private member {\ttfamily max\+\_\+feature} value. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -70,6 +70,10 @@ float $\ast$ \hyperlink{classtree_ad335e57b2f4f2326825694311bcc69e7}{fea\+\_\+im
 {}
 \end{DoxyParamCaption}
 )}}\label{classtree_a9f2a566ac2710fafc31232456780e82d}
+
+
+Non-\/parameter constructor (need to call {\ttfamily init} function maually if using this constructor. 
+
 is the example valid to consider when split \hypertarget{classtree_a05f3faa3c9a8f6fed237e2d0f6172244}{\index{tree@{tree}!````~tree@{$\sim$tree}}
 \index{````~tree@{$\sim$tree}!tree@{tree}}
 \subsubsection[{$\sim$tree}]{\setlength{\rightskip}{0pt plus 5cm}tree\+::$\sim$tree (
@@ -77,6 +81,10 @@ is the example valid to consider when split \hypertarget{classtree_a05f3faa3c9a8
 {}
 \end{DoxyParamCaption}
 )}}\label{classtree_a05f3faa3c9a8f6fed237e2d0f6172244}
+
+
+Destructor. 
+
 \hypertarget{classtree_a356d6ebfe68b6e4ac466664c4f2d2581}{\index{tree@{tree}!tree@{tree}}
 \index{tree@{tree}!tree@{tree}}
 \subsubsection[{tree}]{\setlength{\rightskip}{0pt plus 5cm}tree\+::tree (
@@ -88,6 +96,19 @@ is the example valid to consider when split \hypertarget{classtree_a05f3faa3c9a8
 )}}\label{classtree_a356d6ebfe68b6e4ac466664c4f2d2581}
 
 
+Constructor giving tree settings. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em feature\+\_\+rule} & number of feature to consider per node, avaiable values are 'sqrt' for square root of {\ttfamily n\+\_\+features}, 'log' for logarithm of {\ttfamily n\+\_\+features}, real number between 0 and 1 for percent of {\ttfamily n\+\_\+features}, integer larger than 1 for fixed number features which should less than {\ttfamily n\+\_\+features}. If the value is invalid, the program will take {\ttfamily sqrt} as default other than just exit. \\
+\hline
+{\em max\+\_\+depth} & the depth limitation of tree \\
+\hline
+{\em min\+\_\+split} & the minimum number of examples needed to make a split in a node \\
+\hline
+\end{DoxyParams}
+
+
 \subsection{Member Function Documentation}
 \hypertarget{classtree_ae03f6dd2597846c65c1c037728b06bcd}{\index{tree@{tree}!compute\+\_\+importance@{compute\+\_\+importance}}
 \index{compute\+\_\+importance@{compute\+\_\+importance}!tree@{tree}}
@@ -96,6 +117,18 @@ is the example valid to consider when split \hypertarget{classtree_a05f3faa3c9a8
 \item[{bool}]{re\+\_\+compute = {\ttfamily false}}
 \end{DoxyParamCaption}
 )}}\label{classtree_ae03f6dd2597846c65c1c037728b06bcd}
+
+
+Compute feature importance after building the tree (should call build first) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em re\+\_\+compute} & if {\ttfamily re\+\_\+compute} set to true, then the importance will compulsively be re-\/computed. Otherwise, it will return the result computed before\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+an float vector (size is {\ttfamily n\+\_\+features}), each entry represent the corresponding feature's importance when building the tree (ps. all entry sum to one) 
+\end{DoxyReturn}
 \hypertarget{classtree_a634ee04f1f89801a9f295e11cc5ce149}{\index{tree@{tree}!dump@{dump}}
 \index{dump@{dump}!tree@{tree}}
 \subsubsection[{dump}]{\setlength{\rightskip}{0pt plus 5cm}void tree\+::dump (
@@ -103,6 +136,15 @@ is the example valid to consider when split \hypertarget{classtree_a05f3faa3c9a8
 \item[{const std\+::string \&}]{filename}
 \end{DoxyParamCaption}
 )}}\label{classtree_a634ee04f1f89801a9f295e11cc5ce149}
+
+
+Dump an single tree to an binary file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & path to dumped \\
+\hline
+\end{DoxyParams}
 \hypertarget{classtree_abc6048c70de7490eabf2433d46067b7b}{\index{tree@{tree}!export\+\_\+dotfile@{export\+\_\+dotfile}}
 \index{export\+\_\+dotfile@{export\+\_\+dotfile}!tree@{tree}}
 \subsubsection[{export\+\_\+dotfile}]{\setlength{\rightskip}{0pt plus 5cm}void tree\+::export\+\_\+dotfile (
@@ -110,13 +152,31 @@ is the example valid to consider when split \hypertarget{classtree_a05f3faa3c9a8
 \item[{const std\+::string \&}]{filename}
 \end{DoxyParamCaption}
 )}}\label{classtree_abc6048c70de7490eabf2433d46067b7b}
-\hypertarget{classtree_a4ca3902b09e854a76f1fb56bb71599f6}{\index{tree@{tree}!free\+\_\+tree@{free\+\_\+tree}}
+
+
+Export the tree structure to a dot file, which can be used to generate a picture (dot -\/\+Tpng -\/o tree.\+png tree.\+dot) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & path to the dot file \\
+\hline
+\end{DoxyParams}
+\hypertarget{classtree_ae92bd57b719a2575d9fec46f514cbbe9}{\index{tree@{tree}!free\+\_\+tree@{free\+\_\+tree}}
 \index{free\+\_\+tree@{free\+\_\+tree}!tree@{tree}}
 \subsubsection[{free\+\_\+tree}]{\setlength{\rightskip}{0pt plus 5cm}void tree\+::free\+\_\+tree (
 \begin{DoxyParamCaption}
-\item[{{\bf node} $\ast$\&}]{nd}
+\item[{{\bf node} $\ast$\&}]{root}
 \end{DoxyParamCaption}
-)}}\label{classtree_a4ca3902b09e854a76f1fb56bb71599f6}
+)}}\label{classtree_ae92bd57b719a2575d9fec46f514cbbe9}
+
+
+Free memory space of the tree which use {\ttfamily root} as root node (only the tree structure) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em root} & root node of the tree to be free \\
+\hline
+\end{DoxyParams}
 \hypertarget{classtree_a8042d0897915fdfeeca4b4d75515b96c}{\index{tree@{tree}!get\+\_\+max\+\_\+feature@{get\+\_\+max\+\_\+feature}}
 \index{get\+\_\+max\+\_\+feature@{get\+\_\+max\+\_\+feature}!tree@{tree}}
 \subsubsection[{get\+\_\+max\+\_\+feature}]{\setlength{\rightskip}{0pt plus 5cm}int tree\+::get\+\_\+max\+\_\+feature (
@@ -124,6 +184,13 @@ is the example valid to consider when split \hypertarget{classtree_a05f3faa3c9a8
 {}
 \end{DoxyParamCaption}
 )}}\label{classtree_a8042d0897915fdfeeca4b4d75515b96c}
+
+
+Return private member {\ttfamily max\+\_\+feature} value. 
+
+\begin{DoxyReturn}{Returns}
+max\+\_\+feature computed according to {\ttfamily feature\+\_\+rule} 
+\end{DoxyReturn}
 \hypertarget{classtree_a03aebcb3102b4f6503b5bc69288297e8}{\index{tree@{tree}!init@{init}}
 \index{init@{init}!tree@{tree}}
 \subsubsection[{init}]{\setlength{\rightskip}{0pt plus 5cm}void tree\+::init (
@@ -133,6 +200,19 @@ is the example valid to consider when split \hypertarget{classtree_a05f3faa3c9a8
 \item[{int}]{min\+\_\+split}
 \end{DoxyParamCaption}
 )}}\label{classtree_a03aebcb3102b4f6503b5bc69288297e8}
+
+
+Initialize the tree(e.\+g. set some parameter and allocate memory to some variables) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em feature\+\_\+rule} & number of feature to consider per node, avaiable values are 'sqrt' for square root of {\ttfamily n\+\_\+features}, 'log' for logarithm of {\ttfamily n\+\_\+features}, real number between 0 and 1 for percent of {\ttfamily n\+\_\+features}, integer larger than 1 for fixed number features which should less than {\ttfamily n\+\_\+features}. If the value is invalid, the program will take {\ttfamily sqrt} as default other than just exit. \\
+\hline
+{\em max\+\_\+depth} & the depth limitation of tree \\
+\hline
+{\em min\+\_\+split} & the minimum number of examples needed to make a split in a node \\
+\hline
+\end{DoxyParams}
 \hypertarget{classtree_a680d0cc993c3a3d3ef10c891de69960f}{\index{tree@{tree}!load@{load}}
 \index{load@{load}!tree@{tree}}
 \subsubsection[{load}]{\setlength{\rightskip}{0pt plus 5cm}void tree\+::load (
@@ -140,6 +220,15 @@ is the example valid to consider when split \hypertarget{classtree_a05f3faa3c9a8
 \item[{const std\+::string \&}]{filename}
 \end{DoxyParamCaption}
 )}}\label{classtree_a680d0cc993c3a3d3ef10c891de69960f}
+
+
+Load the tree from file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & path to load \\
+\hline
+\end{DoxyParams}
 
 
 \subsection{Member Data Documentation}

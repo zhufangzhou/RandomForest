@@ -21,6 +21,7 @@
 #include <iomanip>
 /* my header file */
 #include "dataset.h"
+#include "utils.h"
 
 /* declaration */
 class node;
@@ -36,6 +37,9 @@ class criterion;
 class gini;
 
 
+/**
+ * @brief An abstract class for node in the tree
+ */
 class node {
 	public:
 		bool is_cate; /** is the split feature categorical */
@@ -50,18 +54,42 @@ class node {
 		node* left; /** point to left node */
 		node* right; /** point to right node */
 
+		/**
+		 * @brief Constructor
+		 *
+		 * @param n_classes number of different class
+		 */
 		node(int n_classes);
+		/**
+		 * @brief Destructor
+		 */
 		~node();
+		/**
+		 * @brief Dump an single node to a binary file
+		 *
+		 * @param filename path to dump
+		 */
 		void dump(const std::string& filename);
+		/**
+		 * @brief Dump an single node to the output file stream
+		 *
+		 * @param ofs output file stream (should be open first, did not close in this function)
+		 */
 		void dump(std::ofstream& ofs);
 };
 
+/**
+ * @brief Specify for batch tree algorithm (e.g. decision tree)
+ */
 class batch_node : public node {
 	public:
 		batch_node(int n_classes);
 
 };
 
+/**
+ * @brief Specify for online tree algorithm 
+ */
 class online_node : public node {
 	public:
 };
@@ -86,20 +114,75 @@ class tree {
 	public:
 		int* valid; 		/** is the example valid to consider when split */
 
+		/**
+		 * @brief Non-parameter constructor (need to call `init` function maually if using this constructor
+		 */
 		tree();
+		/**
+		 * @brief Destructor
+		 */
 		~tree();
+		/**
+		 * @brief Constructor giving tree settings
+		 *
+		 * @param feature_rule number of feature to consider per node, avaiable values are 'sqrt' for square root of `n_features`, 'log' for logarithm of `n_features`, real number between 0 and 1 for percent of `n_features`, integer larger than 1 for fixed number features which should less than `n_features`. If the value is invalid, the program will take `sqrt` as default other than just exit.
+		 * @param max_depth the depth limitation of tree 
+		 * @param min_split the minimum number of examples needed to make a split in a node
+		 */
 		tree(const std::string feature_rule, int max_depth, int min_split);
+		/**
+		 * @brief Initialize the tree(e.g. set some parameter and allocate memory to some variables)
+		 *
+		 * @param feature_rule number of feature to consider per node, avaiable values are 'sqrt' for square root of `n_features`, 'log' for logarithm of `n_features`, real number between 0 and 1 for percent of `n_features`, integer larger than 1 for fixed number features which should less than `n_features`. If the value is invalid, the program will take `sqrt` as default other than just exit.
+		 * @param max_depth the depth limitation of tree 
+		 * @param min_split the minimum number of examples needed to make a split in a node
+		 */
 		void init(const std::string feature_rule, int max_depth, int min_split);
+		/**
+		 * @brief Compute feature importance after building the tree (should call build first)
+		 *
+		 * @param re_compute if `re_compute` set to true, then the importance will compulsively be re-computed. Otherwise, it will return the result computed before
+		 *
+		 * @return an float vector (size is `n_features`), each entry represent the corresponding feature's importance when building the tree (ps. all entry sum to one)
+		 */
 		float* compute_importance(bool re_compute = false);
 
-		void free_tree(node*& nd);
+		/**
+		 * @brief Free memory space of the tree which use `root` as root node (only the tree structure)
+		 *
+		 * @param root root node of the tree to be free 
+		 */
+		void free_tree(node*& root);
+		/**
+		 * @brief Dump an single tree to an binary file
+		 *
+		 * @param filename path to dumped
+		 */
 		void dump(const std::string& filename);		
+		/**
+		 * @brief Load the tree from file
+		 *
+		 * @param filename path to load 
+		 */
 		void load(const std::string& filename);
+		/**
+		 * @brief Export the tree structure to a dot file, which can be used to generate a picture (dot -Tpng -o tree.png tree.dot)
+		 *
+		 * @param filename path to the dot file 
+		 */
 		void export_dotfile(const std::string& filename);
 
+		/**
+		 * @brief Return private member `max_feature` value
+		 *
+		 * @return max_feature computed according to `feature_rule`
+		 */
 		int get_max_feature();
 };
 
+/**
+ * @brief A Decision Tree Classifier which is for sparse dataset
+ */
 class decision_tree : public tree {
 	private:
 		void build_rec(node*& root, dataset*& d, int depth);
@@ -121,7 +204,7 @@ class splitter {
 		int fea_id;					/** split feature id */
 		float threshold;			/** split threshold */
 
-		int gain;					/** heuristc measure (e.g. information gain or gini index) improvement after split */
+		float gain;					/** heuristc measure (e.g. information gain or gini index) improvement after split */
 		
 		int n_classes; 				/** different classes when split */
 		float* left_frequency; 		/** left[j] refers to weighted frequency for class j */
