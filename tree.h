@@ -76,6 +76,22 @@ class node {
 		 * @param ofs output file stream (should be open first, did not close in this function)
 		 */
 		void dump(std::ofstream& ofs);
+		/**
+		 * @brief load Load an single node from a binary file
+		 *
+		 * @param filename path to load
+		 *
+		 * @return a node
+		 */
+		void load(const std::string& filename);
+		/**
+		 * @brief load Load an single node from the input file stream
+		 *
+		 * @param ifs input file stream (should be open first, did not close in this function)
+		 *
+		 * @return a node
+		 */
+		void load(std::ifstream& ifs);
 		void print_info();
 };
 
@@ -113,6 +129,15 @@ class tree {
 		int min_split; 		/** the minimum examples needed to split */
 
 		float* fea_imp; 	/** feature importance */
+
+		/**
+		 * @brief add_leaf attach a new leaf to `leaf_pt`
+		 *
+		 * @param leaf leaf node pointer
+		 *
+		 * @return 
+		 */
+		int add_leaf(node *leaf); 	
 	public:
 		int* valid; 		/** is the example valid to consider when split */
 
@@ -263,7 +288,7 @@ class splitter {
 		/**
 		 * @brief Destructor
 		 */
-		~splitter();
+		virtual ~splitter();
 		/**
 		 * @brief Choose a split
 		 *
@@ -297,6 +322,10 @@ class best_splitter : public splitter {
 		 * @param n_classes different number of classes
 		 */
 		best_splitter(int n_classes);
+		/**
+		 * @brief ~best_splitter Destructor
+		 */
+		~best_splitter();
 		/**
 		 * @brief Choose a split
 		 *
@@ -337,6 +366,10 @@ class criterion {
 		 * @param n_classes number of different classes
 		 */
 		criterion(float*& frequency, int n_classes);
+		/**
+		 * @brief ~criterion destructor
+		 */
+		virtual ~criterion();
 
 		/**
 		 * @brief Intialize the current node information because compute `gain` need the current node's heuristic measure (e.g. information gain, gini index)
@@ -379,6 +412,10 @@ class gini : public criterion {
 		 * @param n_classes number of different classes
 		 */
 		gini(float*& frequency, int n_classes);
+		/**
+		 * @brief ~gini Destructor
+		 */
+		~gini();
 		/**
 		 * @brief Heuristic measure value
 		 *

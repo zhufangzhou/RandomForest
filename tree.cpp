@@ -24,35 +24,66 @@ node::~node() {
 	delete[] cur_frequency;
 }
 
-// ! TODO
 void node::dump(const std::string& filename) {
 	std::ofstream out(filename, std::ios::binary);
 	dump(out);
 	out.close();
 }
 
-// ! TODO
 void node::dump(std::ofstream& out) {
-	out.write((char*)&this->is_cate, sizeof(bool));
-	out.write((char*)&this->feature_id, sizeof(int));
-	out.write((char*)&this->threshold, sizeof(feature_t));
-	out.write((char*)&this->gain, sizeof(float));
-	out.write((char*)&this->n_classes, sizeof(int));
 	out.write((char*)&this->leaf_idx, sizeof(int));
-	out.write((char*)&this->cur_frequency, sizeof(float)*this->n_classes);
+	if (this->leaf_idx == -1) {
+		out.write((char*)&this->is_cate, sizeof(bool));
+		out.write((char*)&this->feature_id, sizeof(int));
+		out.write((char*)&this->threshold, sizeof(feature_t));
+		out.write((char*)&this->gain, sizeof(float));
+		out.write((char*)&this->n_classes, sizeof(int));
+	} else {
+		out.write((char*)&this->n_classes, sizeof(int));
+		out.write((char*)&this->cur_frequency, sizeof(float)*this->n_classes);
+	}
+}
+
+void node::load(const std::string& filename) {
+	std::ifstream in(filename, std::ios::binary);
+	load(in);
+	in.close();
+}
+
+void node::load(std::ifstream& in) {
+	in.read((char*)&this->leaf_idx, sizeof(int));
+	if (this->leaf_idx == -1) {
+		in.read((char*)&this->is_cate, sizeof(bool));
+		in.read((char*)&this->feature_id, sizeof(int));
+		in.read((char*)&this->threshold, sizeof(feature_t));
+		in.read((char*)&this->gain, sizeof(float));
+		in.read((char*)&this->n_classes, sizeof(int));
+	} else {
+		in.read((char*)&this->n_classes, sizeof(int));
+		in.read((char*)&this->cur_frequency, sizeof(float)*this->n_classes);
+	}
 }
 
 void node::print_info() {
-	std::cout << std::endl
-			  << "is_cate: " << std::boolalpha << this->is_cate << std::endl
-			  << "feature_id: " << this->feature_id << std::endl
-			  << "threshold: " << this->threshold << std::endl
-			  << "gain: " << this->gain << std::endl
-			  << "n_classes: " << this->n_classes << std::endl
-			  << "leaf_idx: " << this->leaf_idx << std::endl;
-	for (int c = 0; c < this->n_classes; c++)
-		std::cout << this->cur_frequency[c] << " ";
-	std::cout << std::endl << std::endl;
+	float tot_frequency = 0.0;
+	if (leaf_idx == -1) {
+		std::cout << std::endl
+				  << "*** Internal Node ***" << std::endl
+				  << "is_cate: " << std::boolalpha << this->is_cate << std::endl
+				  << "feature_id: " << this->feature_id << std::endl
+				  << "threshold: " << this->threshold << std::endl
+				  << "gain: " << this->gain << std::endl
+				  << "n_classes: " << this->n_classes << std::endl
+				  << "leaf_idx: " << this->leaf_idx << std::endl;
+	} else {
+		std::cout << std::endl
+				  << "*** Leaf Node ***" << std::endl
+				  << "n_classes: " << this->n_classes << std::endl;
+		for (int c = 0; c < this->n_classes; c++) tot_frequency += this->cur_frequency[c];
+		std::cout << "[ ";
+		for (int c = 0; c < this->n_classes; c++) std::cout << this->cur_frequency[c] / tot_frequency << " ";
+		std::cout << "]" << std::endl;
+	}
 }
 
 batch_node::batch_node(int n_classes) : node(n_classes) {
@@ -78,6 +109,7 @@ void tree::init(std::string feature_rule, int max_depth, int min_split) {
 	this->max_depth = max_depth;
 	this->min_split = min_split;
 	this->leaf_pt = new node*[1];
+	this->leaf_size = 0;
 	this->fea_imp = nullptr;
 	this->valid = nullptr;
 
@@ -196,6 +228,14 @@ void tree::export_dotfile(const std::string& filename) {
 	ofs.close();
 }
 
+int tree::add_leaf(node *leaf) {
+	leaf_pt = (node**)realloc(this->leaf_pt, sizeof(node*)*(this->leaf_size+1));	
+	leaf_pt[this->leaf_size] = leaf;
+	this->leaf_size++;
+
+	return this->leaf_size-1;
+}
+
 int tree::get_max_feature() {
 	return this->max_feature;
 }
@@ -220,7 +260,7 @@ void decision_tree::build(dataset*& d) {
 	if (feature_rule == "sqrt") {
 		this->max_feature = (int)sqrt((double)n_features);
 	} else if (feature_rule == "log") {
-		this->max_feature == (int)log((double)n_features);
+		this->max_feature = (int)log((double)n_features);
 	} else {
 		nf_t = atof(feature_rule.c_str());	
 		if (nf_t > 0.0 && nf_t <= 1) {
@@ -288,7 +328,7 @@ void decision_tree::build_rec(node*& root, dataset*& d, int depth) {
 			std::cout << std::endl << std::endl;
 		}
 		
-		root->leaf_idx = 0;
+		root->leaf_idx = add_leaf(root);
 		return;
 	}
 
@@ -392,13 +432,7 @@ void decision_tree::debug(dataset*& d) {
 	this->root->dump("root.model");
 	std::ifstream in("root.model", std::ifstream::binary);
 	batch_node* n = new batch_node(this->n_classes);	
-	in.read((char*)&n->is_cate, sizeof(bool));
-	in.read((char*)&n->feature_id, sizeof(int));
-	in.read((char*)&n->threshold, sizeof(feature_t));
-	in.read((char*)&n->gain, sizeof(float));
-	in.read((char*)&n->n_classes, sizeof(int));
-	in.read((char*)&n->leaf_idx, sizeof(int));
-	in.read((char*)&n->cur_frequency, sizeof(float)*n->n_classes);
+	n->load("root.model");
 	std::cout << "After dump" << std::endl;
 	n->print_info();
 	delete n;
@@ -419,6 +453,10 @@ splitter::~splitter() {
 }
 
 best_splitter::best_splitter(int n_classes) : splitter(n_classes) {
+
+}
+
+best_splitter::~best_splitter() {
 
 }
 
@@ -563,6 +601,10 @@ criterion::criterion(float*& frequency, int n_classes) {
 	set_current(frequency, n_classes);
 }
 
+criterion::~criterion() {
+
+}
+
 void criterion::set_current(float*& frequency, int n_classes) {
 	this->cur_measure = measure(frequency, n_classes);
 	this->cur_tot = this->tot_frequency;
@@ -592,6 +634,10 @@ float criterion::gain(float*& left_frequency, float*& right_frequency, int n_cla
 
 gini::gini(float*& frequency, int n_classes) {
 	set_current(frequency, n_classes);
+}
+
+gini::~gini() {
+
 }
 
 float gini::measure(float*& frequency, int n_classes) {
