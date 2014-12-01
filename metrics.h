@@ -1,5 +1,11 @@
-#ifndef __METRICS
-#define __METRICS
+/**
+ * @file metrics.h
+ * @brief a lot of measures to measure performance
+ * @author Zhu Fangzhou, zhu.ark@gmail.com
+ * @version 1.0
+ * @date 2014-12-01
+ */
+#pragma once
 
 #include <iostream>
 
@@ -22,4 +28,3 @@ namespace Metrics {
 	double f1_score(int* y_pred, int* y_true, int size);
 };
 
-#endif

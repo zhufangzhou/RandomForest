@@ -1,14 +1,24 @@
+/**
+ * @file metrics.h
+ * @brief a lot of measures to measure performance
+ * @author Zhu Fangzhou, zhu.ark@gmail.com
+ * @version 1.0
+ * @date 2014-12-01
+ */
 #include "metrics.h"
 #include "utils.h"
 
 int* Metrics::gen_label(double* proba, int size, double threshold) {
 	int *label = new int[size];
 	if (threshold > 1 || threshold < 0) {
-		throw "metrics.cpp::gen_label-->\n\tThe `threshold` which is used to generate label must between 0 and 1";
+		std::cerr << "metrics.cpp::gen_label-->\n\tThe `threshold` which is used to generate label must between 0 and 1" << std::endl;
+		exit(EXIT_FAILURE);
+
 	}
 	for (int i = 0; i < size; i++) {
 		if (proba[i] > 1 || proba[i] < 0) {
-			throw "metrics.cpp::gen_label-->\n\tThe `proba` which is used generate label must between 0 and 1";
+			std::cerr << "metrics.cpp::gen_label-->\n\tThe `proba` which is used generate label must between 0 and 1" << std::endl;
+			exit(EXIT_FAILURE);
 		} else if (proba[i] >= threshold) {
 			label[i] = 1;
 		} else {
