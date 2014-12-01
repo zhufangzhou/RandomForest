@@ -127,15 +127,103 @@ void tree::free_tree(node*& root) {
 	}
 }
 
+void tree::check_build() {
+	if (this->root == nullptr) {
+		std::cerr << "You need to build the tree first!" << std::endl;
+		exit(EXIT_FAILURE);
+	}
+}
+
+int* tree::apply(example_t* examples, int size) {
+	feature_t *feature_vec;
+	example_t *ex;
+	int* ret;
+	node* cur_node;
+	
+
+	check_build();
+
+	feature_vec = new feature_t[this->n_features]();
+	ret = new int[size];
+
+	for (int i = 0; i < size; i++) {
+		ex = examples+i;
+		for (int j = 0; j < ex->nnz; j++) feature_vec[ex->fea_id[j]] = ex->fea_value[j];
+		cur_node = this->root;	
+		/* go down the tree */
+		while (cur_node->leaf_idx == -1) {
+			if (cur_node->is_cate) { // split feature is categorical
+				if (feature_vec[cur_node->feature_id] == cur_node->threshold) {
+					cur_node = cur_node->left;
+				} else {
+					cur_node = cur_node->right;
+				}
+			} else { // split feature is continuous
+				if (feature_vec[cur_node->feature_id] <= cur_node->threshold) {
+					cur_node = cur_node->left;
+				} else {
+					cur_node = cur_node->right;
+				}
+			}
+		}
+		ret[i] = cur_node->leaf_idx;
+
+		/* modify back */
+		for (int j = 0; j < ex->nnz; j++) feature_vec[ex->fea_id[j]] = 0.0;
+	}
+
+	delete feature_vec;
+	return ret;
+}
+
+int* tree::predict_label(example_t* examples, int size) {
+	int *predict_leaf_idx, label, *ret;
+	node* leaf_node;
+	float max_proba;
+
+	/* let all the examples go down the tree */
+	predict_leaf_idx = apply(examples, size);
+
+	ret = new int[size];
+	for (int i = 0; i < size; i++) {
+		leaf_node = this->leaf_pt[predict_leaf_idx[i]];
+		max_proba = 0.0;
+		for (int c = 0; c < this->n_classes; c++) {
+			if (leaf_node->cur_frequency[c] > max_proba) {
+				max_proba = leaf_node->cur_frequency[c];
+				label = c;
+			}
+		}
+		ret[i] = label;
+	}
+	return ret;
+}
+
+float** tree::predict_proba(example_t* examples, int size) {
+	int *predict_leaf_idx;
+	node* leaf_node;
+	float** ret;
+
+	/* let all the examples go down the tree */	
+	predict_leaf_idx = apply(examples, size);
+
+	ret = new float*[size];
+	ret[0] = new float[size*this->n_classes];
+	for (int i = 1; i < size; i++) ret[i] = ret[0] + i*this->n_classes;
+	
+	for (int i = 0; i < size; i++) {
+		leaf_node = this->leaf_pt[predict_leaf_idx[i]];
+		memcpy(ret[i], leaf_node->cur_frequency, sizeof(float)*this->n_classes);
+	}
+	return ret;
+}
+
 float* tree::compute_importance(bool re_compute) {
 	std::stack<node*> st;
 	node *c_node, *l_node, *r_node;
 
 	/* check if the tree has been built */
-	if (this->root == nullptr) {
-		std::cerr << "You need to build the tree before call this function" << std::endl;
-		exit(EXIT_FAILURE);
-	}
+	check_build();
 
 	if (fea_imp != nullptr && !re_compute) {
 		return fea_imp;
@@ -181,6 +269,9 @@ void tree::export_dotfile(const std::string& filename) {
 		exit(EXIT_FAILURE);
 	}
 
+	/* check the tree */
+	check_build();
+
 	// push root node to stack
 	st.push(root);
 	st_idx.push(-1);
@@ -213,7 +304,7 @@ void tree::export_dotfile(const std::string& filename) {
                 ofs << node_idx << " [label=\"X[" << c_node->feature_id << "] <= ";
             }
 			ofs	<< std::fixed << std::setprecision(3) << c_node->threshold << "\\ngain= "
-				<< std::setprecision(3) << c_node->gain<< "\", shape=\"box\"];\n"
+				<< std::setprecision(3) << c_node->gain<< "\", shape=\"box\"];"
 				<< std::endl;
 			/* push left node and right node to stack */
 			st.push(c_node->right);
@@ -238,6 +329,84 @@ int tree::add_leaf(node *leaf) {
 
 int tree::get_max_feature() {
 	return this->max_feature;
+}
+
+decision_tree::decision_tree() {
+
+}
+
+// TODO
+void decision_tree::dump(const std::string& filename) {
+	std::stack<node*> st;
+	std::ofstream out(filename, std::ofstream::binary);	
+	node *cur_node, *left_node, *right_node;
+
+	out.write((char*)&this->n_classes, sizeof(int));
+	out.write((char*)&this->n_features, sizeof(int));
+	out.write((char*)&this->leaf_size, sizeof(int));
+
+	if (this->root != nullptr) {
+		this->root->dump(out);
+		/* if has child, then push to stack */
+		if (this->root->leaf_idx == -1)
+			st.push(this->root);
+	}
+
+	while (!st.empty()){
+		cur_node = st.top();
+		st.pop();
+		left_node = cur_node->left;
+		right_node = cur_node->right;
+
+		/* dump left node and right node */
+		left_node->dump(out);
+		right_node->dump(out);
+
+		if (right_node->leaf_idx == -1) st.push(cur_node->right);
+		if (left_node->leaf_idx == -1) st.push(cur_node->left);
+	}
+
+	out.close();
+}
+
+// TODO
+void decision_tree::load(const std::string& filename) {
+	std::stack<node*> st;
+	std::ifstream in(filename, std::ifstream::binary);
+	node *cur_node, *left_node, *right_node;
+	
+	in.read((char*)&this->n_classes, sizeof(int));
+	in.read((char*)&this->n_features, sizeof(int));
+	in.read((char*)&this->leaf_size, sizeof(int));
+
+	delete[] this->leaf_pt;
+	this->leaf_pt = new node*[this->leaf_size];
+
+	this->root = new batch_node(this->n_classes);
+	this->root->load(in);
+	if (this->root->leaf_idx == -1) st.push(this->root);
+
+	while (!st.empty()) {
+		cur_node = st.top();
+		st.pop();
+
+		if (cur_node->leaf_idx == -1) {
+			left_node = new batch_node(this->n_classes);
+			left_node->load(in);
+			right_node = new batch_node(this->n_classes);
+			right_node->load(in);
+			cur_node->left = left_node;
+			cur_node->right = right_node;	
+
+			/* push into stack */
+			st.push(right_node);
+			st.push(left_node);
+		} else {
+			/* rebuild `leaf_pt` */
+			this->leaf_pt[cur_node->leaf_idx] = cur_node;
+		}
+	}
+	in.clear();
 }
 
 decision_tree::decision_tree(const std::string feature_rule, int max_depth, int min_split) : tree(feature_rule, max_depth, min_split) {
@@ -328,6 +497,12 @@ void decision_tree::build_rec(node*& root, dataset*& d, int depth) {
 			std::cout << std::endl << std::endl;
 		}
 		
+		/* normalize */
+		float tot_frequency = 0.0;
+		for (int c = 0; c < root->n_classes; c++) tot_frequency += root->cur_frequency[c];
+		for (int c = 0; c < root->n_classes; c++) root->cur_frequency[c] /= tot_frequency;
+
+		/* attach this node to leaf node group */
 		root->leaf_idx = add_leaf(root);
 		return;
 	}
@@ -422,20 +597,18 @@ void decision_tree::build_rec(node*& root, dataset*& d, int depth) {
 	delete cr;
 }
 
+
 void decision_tree::debug(dataset*& d) {
 	this->verbose = 1;
 	build(d);	
 	export_dotfile("tree.dot");
-	std::cout << "Before dump" << std::endl;
-	this->root->print_info();
-	/* dump node */
-	this->root->dump("root.model");
-	std::ifstream in("root.model", std::ifstream::binary);
-	batch_node* n = new batch_node(this->n_classes);	
-	n->load("root.model");
-	std::cout << "After dump" << std::endl;
-	n->print_info();
-	delete n;
+	/* dump tree */
+	dump("tree.model");
+
+	/* load tree */
+	decision_tree *t2 = new decision_tree();
+	t2->load("tree.model");
+	t2->export_dotfile("after.dot");
 }
 
 splitter::splitter(int n_classes) {

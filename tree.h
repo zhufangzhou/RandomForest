@@ -138,6 +138,10 @@ class tree {
 		 * @return 
 		 */
 		int add_leaf(node *leaf); 	
+		/**
+		 * @brief check_build check whether the true has been built
+		 */
+		void check_build();
 	public:
 		int* valid; 		/** is the example valid to consider when split */
 
@@ -175,23 +179,38 @@ class tree {
 		float* compute_importance(bool re_compute = false);
 
 		/**
+		 * @brief apply put examples to its corresponding leaves
+		 *
+		 * @param  examples input datasets
+		 * @param  size number of exmaples to apply 
+		 *
+		 * @return a vector denotes leaf index in `leaf_pt`
+		 */
+		int* apply(example_t* examples, int size);
+		/**
+		 * @brief predict_proba predict the probabilities of belonging to each class (i.e. choose the class with largest frequency as label)
+		 *
+		 * @param examples input examples
+		 * @param size size of the input
+		 *
+		 * @return N*K matrix, N denotes the size of the examples and K is the number of different classes. Assume the matrix is P, you need to call 'delete[] P[0];delete[] P;' to free space
+		 */
+		float** predict_proba(example_t* examples, int size);
+		/**
+		 * @brief predict_label predict the label 
+		 *
+		 * @param examples input examples
+		 * @param size size of the input
+		 *
+		 * @return N dimensional vector, each one is the predicted label
+		 */
+		int* predict_label(example_t* examples, int size);
+		/**
 		 * @brief Free memory space of the tree which use `root` as root node (only the tree structure)
 		 *
 		 * @param root root node of the tree to be free 
 		 */
 		void free_tree(node*& root);
-		/**
-		 * @brief Dump an single tree to an binary file
-		 *
-		 * @param filename path to dumped
-		 */
-		void dump(const std::string& filename);		
-		/**
-		 * @brief Load the tree from file
-		 *
-		 * @param filename path to load 
-		 */
-		void load(const std::string& filename);
 		/**
 		 * @brief Export the tree structure to a dot file, which can be used to generate a picture (dot -Tpng -o tree.png tree.dot)
 		 *
@@ -220,10 +239,7 @@ class decision_tree : public tree {
 		 * @param depth current depth in the whole tree
 		 */
 		void build_rec(node*& root, dataset*& d, int depth);
-		/**
-		 * @brief on/off the debug information
-		 */
-		int verbose;
+		int verbose; 		/** on/off the debug information */
 	public:
 		/**
 		 * @brief Constructor
@@ -234,11 +250,31 @@ class decision_tree : public tree {
 		 */
 		decision_tree(const std::string feature_rule, int max_depth, int min_split);
 		/**
+		 * @brief decision_tree Default constructor
+		 */
+		decision_tree();
+		/**
 		 * @brief Build tree using the given dataset
 		 *
 		 * @param d training dataset
 		 */
 		void build(dataset*& d);
+		/**
+		 * @brief print_info print the true structure
+		 */
+		void print_info();
+		/**
+		 * @brief Dump an single tree to an binary file
+		 *
+		 * @param filename path to dumped
+		 */
+		void dump(const std::string& filename);		
+		/**
+		 * @brief Load the tree from file
+		 *
+		 * @param filename path to load 
+		 */
+		void load(const std::string& filename);
 		/**
 		 * @brief Debugging
 		 *

@@ -13,4 +13,4 @@ utils.o: ../utils/src/utils.cpp
 %.o: %.cpp
 	g++ -g -std=c++0x -c $< -o $@ -I../utils/include
 clean:
-	rm -f main $(ALL_OBJ)
+	rm -f main $(ALL_OBJ) debug
