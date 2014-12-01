@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['x',['x',['../classdataset.html#af7977ae76ce8f573f349e63f6500a8f8',1,'dataset']]]
+  ['weight',['weight',['../classdataset.html#ac6690ca832182b7cfa64da93a6ccd6ab',1,'dataset']]]
 ];

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['valid',['valid',['../classtree.html#afa8e539406e1f8b373b147682e3a8196',1,'tree']]],
-  ['verbose',['verbose',['../classdecision__tree.html#adef4736597a44918d4e221acbfb3142b',1,'decision_tree']]]
+  ['update',['update',['../classsplitter.html#ab2ea956cc1a10ebb39422fa5ac450af2',1,'splitter::update()'],['../classbest__splitter.html#a681ad1823db5207f3a5a6acd5c09b354',1,'best_splitter::update()']]]
 ];

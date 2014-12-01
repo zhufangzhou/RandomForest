@@ -112,6 +112,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6b55cd25f78692dd2c7f29f28c6217be"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgini.html#a6b55cd25f78692dd2c7f29f28c6217be">gini</a> (float *&amp;frequency, int n_classes)</td></tr>
 <tr class="memdesc:a6b55cd25f78692dd2c7f29f28c6217be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a6b55cd25f78692dd2c7f29f28c6217be">More...</a><br /></td></tr>
 <tr class="separator:a6b55cd25f78692dd2c7f29f28c6217be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9bb0e64623a6bf233365bcde20585b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgini.html#ab9bb0e64623a6bf233365bcde20585b0">~gini</a> ()</td></tr>
+<tr class="memdesc:ab9bb0e64623a6bf233365bcde20585b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">~gini Destructor  <a href="#ab9bb0e64623a6bf233365bcde20585b0">More...</a><br /></td></tr>
+<tr class="separator:ab9bb0e64623a6bf233365bcde20585b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f232df1155fe182eee9b26cde0e8339"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgini.html#a5f232df1155fe182eee9b26cde0e8339">measure</a> (float *&amp;frequency, int n_classes)</td></tr>
 <tr class="memdesc:a5f232df1155fe182eee9b26cde0e8339"><td class="mdescLeft">&#160;</td><td class="mdescRight">Heuristic measure value.  <a href="#a5f232df1155fe182eee9b26cde0e8339">More...</a><br /></td></tr>
 <tr class="separator:a5f232df1155fe182eee9b26cde0e8339"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -122,6 +125,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acf80c0b2acf9fb6f2b8369868cafdbff inherit pub_methods_classcriterion"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcriterion.html#acf80c0b2acf9fb6f2b8369868cafdbff">criterion</a> (float *&amp;frequency, int n_classes)</td></tr>
 <tr class="memdesc:acf80c0b2acf9fb6f2b8369868cafdbff inherit pub_methods_classcriterion"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#acf80c0b2acf9fb6f2b8369868cafdbff">More...</a><br /></td></tr>
 <tr class="separator:acf80c0b2acf9fb6f2b8369868cafdbff inherit pub_methods_classcriterion"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab29d10fad28cb5eeb5d3e212ecb5656 inherit pub_methods_classcriterion"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcriterion.html#aab29d10fad28cb5eeb5d3e212ecb5656">~criterion</a> ()</td></tr>
+<tr class="memdesc:aab29d10fad28cb5eeb5d3e212ecb5656 inherit pub_methods_classcriterion"><td class="mdescLeft">&#160;</td><td class="mdescRight">~criterion destructor  <a href="#aab29d10fad28cb5eeb5d3e212ecb5656">More...</a><br /></td></tr>
+<tr class="separator:aab29d10fad28cb5eeb5d3e212ecb5656 inherit pub_methods_classcriterion"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a043c2105b2cfc256cb530c55b65156f2 inherit pub_methods_classcriterion"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcriterion.html#a043c2105b2cfc256cb530c55b65156f2">set_current</a> (float *&amp;frequency, int n_classes)</td></tr>
 <tr class="memdesc:a043c2105b2cfc256cb530c55b65156f2 inherit pub_methods_classcriterion"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intialize the current node information because compute <code>gain</code> need the current node's heuristic measure (e.g. information gain, gini index)  <a href="#a043c2105b2cfc256cb530c55b65156f2">More...</a><br /></td></tr>
 <tr class="separator:a043c2105b2cfc256cb530c55b65156f2 inherit pub_methods_classcriterion"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -179,6 +185,23 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ab9bb0e64623a6bf233365bcde20585b0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gini::~gini </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>~gini Destructor </p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a5f232df1155fe182eee9b26cde0e8339"></a>
 <div class="memitem">
@@ -233,7 +256,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 26 2014 20:02:29 for Random Forest by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Dec 1 2014 19:57:34 for Random Forest by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

@@ -123,6 +123,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acab00fde3bcc5d44044c39a37313b4eb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnode.html#acab00fde3bcc5d44044c39a37313b4eb">dump</a> (std::ofstream &amp;ofs)</td></tr>
 <tr class="memdesc:acab00fde3bcc5d44044c39a37313b4eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dump an single node to the output file stream.  <a href="#acab00fde3bcc5d44044c39a37313b4eb">More...</a><br /></td></tr>
 <tr class="separator:acab00fde3bcc5d44044c39a37313b4eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a92c412ae9336cc7ca5f4575a6384c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnode.html#a6a92c412ae9336cc7ca5f4575a6384c8">load</a> (const std::string &amp;filename)</td></tr>
+<tr class="memdesc:a6a92c412ae9336cc7ca5f4575a6384c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">load Load an single node from a binary file  <a href="#a6a92c412ae9336cc7ca5f4575a6384c8">More...</a><br /></td></tr>
+<tr class="separator:a6a92c412ae9336cc7ca5f4575a6384c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a25c31eb4c3e8c05d5b70b6bd06adff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnode.html#a6a25c31eb4c3e8c05d5b70b6bd06adff">load</a> (std::ifstream &amp;ifs)</td></tr>
+<tr class="memdesc:a6a25c31eb4c3e8c05d5b70b6bd06adff"><td class="mdescLeft">&#160;</td><td class="mdescRight">load Load an single node from the input file stream  <a href="#a6a25c31eb4c3e8c05d5b70b6bd06adff">More...</a><br /></td></tr>
+<tr class="separator:a6a25c31eb4c3e8c05d5b70b6bd06adff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95d492b993f2bd1b59c2489e7eb20a13"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnode.html#a95d492b993f2bd1b59c2489e7eb20a13">print_info</a> ()</td></tr>
 <tr class="separator:a95d492b993f2bd1b59c2489e7eb20a13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -237,6 +243,56 @@ Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="a6a92c412ae9336cc7ca5f4575a6384c8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void node::load </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>load Load an single node from a binary file </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>path to load</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a node </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a6a25c31eb4c3e8c05d5b70b6bd06adff"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void node::load </td>
+          <td>(</td>
+          <td class="paramtype">std::ifstream &amp;&#160;</td>
+          <td class="paramname"><em>ifs</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>load Load an single node from the input file stream </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ifs</td><td>input file stream (should be open first, did not close in this function)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a node </dd></dl>
 
 </div>
 </div>
@@ -379,7 +435,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 26 2014 20:02:29 for Random Forest by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Dec 1 2014 19:57:34 for Random Forest by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

@@ -24,12 +24,14 @@ void \hyperlink{classtree_a03aebcb3102b4f6503b5bc69288297e8}{init} (const std\+:
 \begin{DoxyCompactList}\small\item\em Initialize the tree(e.\+g. set some parameter and allocate memory to some variables) \end{DoxyCompactList}\item 
 float $\ast$ \hyperlink{classtree_ae03f6dd2597846c65c1c037728b06bcd}{compute\+\_\+importance} (bool re\+\_\+compute=false)
 \begin{DoxyCompactList}\small\item\em Compute feature importance after building the tree (should call build first) \end{DoxyCompactList}\item 
+int $\ast$ \hyperlink{classtree_a362a7d5706211843e3bfc4b962df5a34}{apply} (\hyperlink{classexample__t}{example\+\_\+t} $\ast$examples, int size)
+\begin{DoxyCompactList}\small\item\em apply put examples to its corresponding leaves \end{DoxyCompactList}\item 
+float $\ast$$\ast$ \hyperlink{classtree_ab240deb992061738a7d9dff311f7f0c9}{predict\+\_\+proba} (\hyperlink{classexample__t}{example\+\_\+t} $\ast$examples, int size)
+\begin{DoxyCompactList}\small\item\em predict\+\_\+proba predict the probabilities of belonging to each class (i.\+e. choose the class with largest frequency as label) \end{DoxyCompactList}\item 
+int $\ast$ \hyperlink{classtree_af1031209a57f82b1010fa70c6ec4bd84}{predict\+\_\+label} (\hyperlink{classexample__t}{example\+\_\+t} $\ast$examples, int size)
+\begin{DoxyCompactList}\small\item\em predict\+\_\+label predict the label \end{DoxyCompactList}\item 
 void \hyperlink{classtree_ae92bd57b719a2575d9fec46f514cbbe9}{free\+\_\+tree} (\hyperlink{classnode}{node} $\ast$\&\hyperlink{classtree_ad397d4906e47149b98f769b3e81473ee}{root})
 \begin{DoxyCompactList}\small\item\em Free memory space of the tree which use {\ttfamily root} as root node (only the tree structure) \end{DoxyCompactList}\item 
-void \hyperlink{classtree_a634ee04f1f89801a9f295e11cc5ce149}{dump} (const std\+::string \&filename)
-\begin{DoxyCompactList}\small\item\em Dump an single tree to an binary file. \end{DoxyCompactList}\item 
-void \hyperlink{classtree_a680d0cc993c3a3d3ef10c891de69960f}{load} (const std\+::string \&filename)
-\begin{DoxyCompactList}\small\item\em Load the tree from file. \end{DoxyCompactList}\item 
 void \hyperlink{classtree_abc6048c70de7490eabf2433d46067b7b}{export\+\_\+dotfile} (const std\+::string \&filename)
 \begin{DoxyCompactList}\small\item\em Export the tree structure to a dot file, which can be used to generate a picture (dot -\/\+Tpng -\/o tree.\+png tree.\+dot) \end{DoxyCompactList}\item 
 int \hyperlink{classtree_a8042d0897915fdfeeca4b4d75515b96c}{get\+\_\+max\+\_\+feature} ()
@@ -39,6 +41,13 @@ int \hyperlink{classtree_a8042d0897915fdfeeca4b4d75515b96c}{get\+\_\+max\+\_\+fe
 \item 
 int $\ast$ \hyperlink{classtree_afa8e539406e1f8b373b147682e3a8196}{valid}
 \end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{classtree_a9055d00c2b5d3925c75991c5bb7b0b8a}{add\+\_\+leaf} (\hyperlink{classnode}{node} $\ast$leaf)
+\begin{DoxyCompactList}\small\item\em add\+\_\+leaf attach a new leaf to {\ttfamily leaf\+\_\+pt} \end{DoxyCompactList}\item 
+void \hyperlink{classtree_a1d5e50aae649ad79d312cef8177d700a}{check\+\_\+build} ()
+\begin{DoxyCompactList}\small\item\em check\+\_\+build check whether the true has been built \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -112,6 +121,58 @@ Constructor giving tree settings.
 
 
 \subsection{Member Function Documentation}
+\hypertarget{classtree_a9055d00c2b5d3925c75991c5bb7b0b8a}{\index{tree@{tree}!add\+\_\+leaf@{add\+\_\+leaf}}
+\index{add\+\_\+leaf@{add\+\_\+leaf}!tree@{tree}}
+\subsubsection[{add\+\_\+leaf}]{\setlength{\rightskip}{0pt plus 5cm}int tree\+::add\+\_\+leaf (
+\begin{DoxyParamCaption}
+\item[{{\bf node} $\ast$}]{leaf}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classtree_a9055d00c2b5d3925c75991c5bb7b0b8a}
+
+
+add\+\_\+leaf attach a new leaf to {\ttfamily leaf\+\_\+pt} 
+
+feature importance 
+\begin{DoxyParams}{Parameters}
+{\em leaf} & leaf node pointer\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classtree_a362a7d5706211843e3bfc4b962df5a34}{\index{tree@{tree}!apply@{apply}}
+\index{apply@{apply}!tree@{tree}}
+\subsubsection[{apply}]{\setlength{\rightskip}{0pt plus 5cm}int $\ast$ tree\+::apply (
+\begin{DoxyParamCaption}
+\item[{{\bf example\+\_\+t} $\ast$}]{examples, }
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)}}\label{classtree_a362a7d5706211843e3bfc4b962df5a34}
+
+
+apply put examples to its corresponding leaves 
+
+
+\begin{DoxyParams}{Parameters}
+{\em examples} & input datasets \\
+\hline
+{\em size} & number of exmaples to apply\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a vector denotes leaf index in {\ttfamily leaf\+\_\+pt} 
+\end{DoxyReturn}
+\hypertarget{classtree_a1d5e50aae649ad79d312cef8177d700a}{\index{tree@{tree}!check\+\_\+build@{check\+\_\+build}}
+\index{check\+\_\+build@{check\+\_\+build}!tree@{tree}}
+\subsubsection[{check\+\_\+build}]{\setlength{\rightskip}{0pt plus 5cm}void tree\+::check\+\_\+build (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classtree_a1d5e50aae649ad79d312cef8177d700a}
+
+
+check\+\_\+build check whether the true has been built 
+
 \hypertarget{classtree_ae03f6dd2597846c65c1c037728b06bcd}{\index{tree@{tree}!compute\+\_\+importance@{compute\+\_\+importance}}
 \index{compute\+\_\+importance@{compute\+\_\+importance}!tree@{tree}}
 \subsubsection[{compute\+\_\+importance}]{\setlength{\rightskip}{0pt plus 5cm}float $\ast$ tree\+::compute\+\_\+importance (
@@ -131,22 +192,6 @@ Compute feature importance after building the tree (should call build first)
 \begin{DoxyReturn}{Returns}
 an float vector (size is {\ttfamily n\+\_\+features}), each entry represent the corresponding feature's importance when building the tree (ps. all entry sum to one) 
 \end{DoxyReturn}
-\hypertarget{classtree_a634ee04f1f89801a9f295e11cc5ce149}{\index{tree@{tree}!dump@{dump}}
-\index{dump@{dump}!tree@{tree}}
-\subsubsection[{dump}]{\setlength{\rightskip}{0pt plus 5cm}void tree\+::dump (
-\begin{DoxyParamCaption}
-\item[{const std\+::string \&}]{filename}
-\end{DoxyParamCaption}
-)}}\label{classtree_a634ee04f1f89801a9f295e11cc5ce149}
-
-
-Dump an single tree to an binary file. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em filename} & path to dumped \\
-\hline
-\end{DoxyParams}
 \hypertarget{classtree_abc6048c70de7490eabf2433d46067b7b}{\index{tree@{tree}!export\+\_\+dotfile@{export\+\_\+dotfile}}
 \index{export\+\_\+dotfile@{export\+\_\+dotfile}!tree@{tree}}
 \subsubsection[{export\+\_\+dotfile}]{\setlength{\rightskip}{0pt plus 5cm}void tree\+::export\+\_\+dotfile (
@@ -215,22 +260,50 @@ Initialize the tree(e.\+g. set some parameter and allocate memory to some variab
 {\em min\+\_\+split} & the minimum number of examples needed to make a split in a node \\
 \hline
 \end{DoxyParams}
-\hypertarget{classtree_a680d0cc993c3a3d3ef10c891de69960f}{\index{tree@{tree}!load@{load}}
-\index{load@{load}!tree@{tree}}
-\subsubsection[{load}]{\setlength{\rightskip}{0pt plus 5cm}void tree\+::load (
+\hypertarget{classtree_af1031209a57f82b1010fa70c6ec4bd84}{\index{tree@{tree}!predict\+\_\+label@{predict\+\_\+label}}
+\index{predict\+\_\+label@{predict\+\_\+label}!tree@{tree}}
+\subsubsection[{predict\+\_\+label}]{\setlength{\rightskip}{0pt plus 5cm}int $\ast$ tree\+::predict\+\_\+label (
 \begin{DoxyParamCaption}
-\item[{const std\+::string \&}]{filename}
+\item[{{\bf example\+\_\+t} $\ast$}]{examples, }
+\item[{int}]{size}
 \end{DoxyParamCaption}
-)}}\label{classtree_a680d0cc993c3a3d3ef10c891de69960f}
+)}}\label{classtree_af1031209a57f82b1010fa70c6ec4bd84}
 
 
-Load the tree from file. 
+predict\+\_\+label predict the label 
 
 
 \begin{DoxyParams}{Parameters}
-{\em filename} & path to load \\
+{\em examples} & input examples \\
+\hline
+{\em size} & size of the input\\
 \hline
 \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N dimensional vector, each one is the predicted label 
+\end{DoxyReturn}
+\hypertarget{classtree_ab240deb992061738a7d9dff311f7f0c9}{\index{tree@{tree}!predict\+\_\+proba@{predict\+\_\+proba}}
+\index{predict\+\_\+proba@{predict\+\_\+proba}!tree@{tree}}
+\subsubsection[{predict\+\_\+proba}]{\setlength{\rightskip}{0pt plus 5cm}float $\ast$$\ast$ tree\+::predict\+\_\+proba (
+\begin{DoxyParamCaption}
+\item[{{\bf example\+\_\+t} $\ast$}]{examples, }
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)}}\label{classtree_ab240deb992061738a7d9dff311f7f0c9}
+
+
+predict\+\_\+proba predict the probabilities of belonging to each class (i.\+e. choose the class with largest frequency as label) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em examples} & input examples \\
+\hline
+{\em size} & size of the input\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N$\ast$\+K matrix, N denotes the size of the examples and K is the number of different classes. Assume the matrix is P, you need to call 'delete\mbox{[}\mbox{]} P\mbox{[}0\mbox{]};delete\mbox{[}\mbox{]} P;' to free space 
+\end{DoxyReturn}
 
 
 \subsection{Member Data Documentation}
@@ -267,7 +340,7 @@ number of different classes \hypertarget{classtree_ad397d4906e47149b98f769b3e814
 \hypertarget{classtree_afa8e539406e1f8b373b147682e3a8196}{\index{tree@{tree}!valid@{valid}}
 \index{valid@{valid}!tree@{tree}}
 \subsubsection[{valid}]{\setlength{\rightskip}{0pt plus 5cm}int$\ast$ tree\+::valid}}\label{classtree_afa8e539406e1f8b373b147682e3a8196}
-feature importance 
+
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

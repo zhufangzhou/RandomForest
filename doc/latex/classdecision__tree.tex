@@ -21,8 +21,16 @@ Inheritance diagram for decision\+\_\+tree\+:\begin{figure}[H]
 \item 
 \hyperlink{classdecision__tree_ac90ebb549d50e49ec8322d6ee8335eb8}{decision\+\_\+tree} (const std\+::string \hyperlink{classtree_a5aba3b77a347165517a20d5fab94382d}{feature\+\_\+rule}, int \hyperlink{classtree_a0a9f968fac827d3239be67488c34fb21}{max\+\_\+depth}, int \hyperlink{classtree_ae70cd626c0b50a0b8306a94a9e5e8fd7}{min\+\_\+split})
 \begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\hyperlink{classdecision__tree_a37aab24549db438a742bd4952765757b}{decision\+\_\+tree} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classdecision__tree}{decision\+\_\+tree} Default constructor \end{DoxyCompactList}\item 
 void \hyperlink{classdecision__tree_ad3286ad0d5361f3f19ddac966477b14a}{build} (\hyperlink{classdataset}{dataset} $\ast$\&d)
 \begin{DoxyCompactList}\small\item\em Build tree using the given dataset. \end{DoxyCompactList}\item 
+void \hyperlink{classdecision__tree_a14bf007c208bdbfe8488b0f568150c7b}{print\+\_\+info} ()
+\begin{DoxyCompactList}\small\item\em print\+\_\+info print the true structure \end{DoxyCompactList}\item 
+void \hyperlink{classdecision__tree_aafb34b6fe56b8cdcab7114f84dbbc01d}{dump} (const std\+::string \&filename)
+\begin{DoxyCompactList}\small\item\em Dump an single tree to an binary file. \end{DoxyCompactList}\item 
+void \hyperlink{classdecision__tree_aadf8e156057ff556a29316d537e2e8e9}{load} (const std\+::string \&filename)
+\begin{DoxyCompactList}\small\item\em Load the tree from file. \end{DoxyCompactList}\item 
 void \hyperlink{classdecision__tree_a738fa3b8ccbb86fea50d93acab273bde}{debug} (\hyperlink{classdataset}{dataset} $\ast$\&d)
 \begin{DoxyCompactList}\small\item\em Debugging. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Private Member Functions}
@@ -34,7 +42,7 @@ void \hyperlink{classdecision__tree_affee9d32ce17c6102083d809da55a847}{build\+\_
 \begin{DoxyCompactItemize}
 \item 
 int \hyperlink{classdecision__tree_adef4736597a44918d4e221acbfb3142b}{verbose}
-\begin{DoxyCompactList}\small\item\em on/off the debug information \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{DoxyCompactItemize}
 \subsection*{Additional Inherited Members}
 
 
@@ -55,7 +63,7 @@ A Decision Tree Classifier which is for sparse dataset.
 
 Constructor. 
 
-
+on/off the debug information 
 \begin{DoxyParams}{Parameters}
 {\em feature\+\_\+rule} & number of feature to consider per node, avaiable values are 'sqrt' for square root of {\ttfamily n\+\_\+features}, 'log' for logarithm of {\ttfamily n\+\_\+features}, real number between 0 and 1 for percent of {\ttfamily n\+\_\+features}, integer larger than 1 for fixed number features which should less than {\ttfamily n\+\_\+features}. If the value is invalid, the program will take {\ttfamily sqrt} as default other than just exit. \\
 \hline
@@ -64,6 +72,17 @@ Constructor.
 {\em min\+\_\+split} & the minimum number of examples needed to make a split in a node \\
 \hline
 \end{DoxyParams}
+\hypertarget{classdecision__tree_a37aab24549db438a742bd4952765757b}{\index{decision\+\_\+tree@{decision\+\_\+tree}!decision\+\_\+tree@{decision\+\_\+tree}}
+\index{decision\+\_\+tree@{decision\+\_\+tree}!decision\+\_\+tree@{decision\+\_\+tree}}
+\subsubsection[{decision\+\_\+tree}]{\setlength{\rightskip}{0pt plus 5cm}decision\+\_\+tree\+::decision\+\_\+tree (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdecision__tree_a37aab24549db438a742bd4952765757b}
+
+
+\hyperlink{classdecision__tree}{decision\+\_\+tree} Default constructor 
+
 
 
 \subsection{Member Function Documentation}
@@ -121,16 +140,55 @@ Debugging.
 {\em d} & training dataset \\
 \hline
 \end{DoxyParams}
+\hypertarget{classdecision__tree_aafb34b6fe56b8cdcab7114f84dbbc01d}{\index{decision\+\_\+tree@{decision\+\_\+tree}!dump@{dump}}
+\index{dump@{dump}!decision\+\_\+tree@{decision\+\_\+tree}}
+\subsubsection[{dump}]{\setlength{\rightskip}{0pt plus 5cm}void decision\+\_\+tree\+::dump (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{filename}
+\end{DoxyParamCaption}
+)}}\label{classdecision__tree_aafb34b6fe56b8cdcab7114f84dbbc01d}
+
+
+Dump an single tree to an binary file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & path to dumped \\
+\hline
+\end{DoxyParams}
+\hypertarget{classdecision__tree_aadf8e156057ff556a29316d537e2e8e9}{\index{decision\+\_\+tree@{decision\+\_\+tree}!load@{load}}
+\index{load@{load}!decision\+\_\+tree@{decision\+\_\+tree}}
+\subsubsection[{load}]{\setlength{\rightskip}{0pt plus 5cm}void decision\+\_\+tree\+::load (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{filename}
+\end{DoxyParamCaption}
+)}}\label{classdecision__tree_aadf8e156057ff556a29316d537e2e8e9}
+
+
+Load the tree from file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & path to load \\
+\hline
+\end{DoxyParams}
+\hypertarget{classdecision__tree_a14bf007c208bdbfe8488b0f568150c7b}{\index{decision\+\_\+tree@{decision\+\_\+tree}!print\+\_\+info@{print\+\_\+info}}
+\index{print\+\_\+info@{print\+\_\+info}!decision\+\_\+tree@{decision\+\_\+tree}}
+\subsubsection[{print\+\_\+info}]{\setlength{\rightskip}{0pt plus 5cm}void decision\+\_\+tree\+::print\+\_\+info (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdecision__tree_a14bf007c208bdbfe8488b0f568150c7b}
+
+
+print\+\_\+info print the true structure 
+
 
 
 \subsection{Member Data Documentation}
 \hypertarget{classdecision__tree_adef4736597a44918d4e221acbfb3142b}{\index{decision\+\_\+tree@{decision\+\_\+tree}!verbose@{verbose}}
 \index{verbose@{verbose}!decision\+\_\+tree@{decision\+\_\+tree}}
 \subsubsection[{verbose}]{\setlength{\rightskip}{0pt plus 5cm}int decision\+\_\+tree\+::verbose\hspace{0.3cm}{\ttfamily [private]}}}\label{classdecision__tree_adef4736597a44918d4e221acbfb3142b}
-
-
-on/off the debug information 
-
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

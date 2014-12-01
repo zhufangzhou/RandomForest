@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['weight',['weight',['../classdataset.html#ac6690ca832182b7cfa64da93a6ccd6ab',1,'dataset']]]
+  ['valid',['valid',['../classtree.html#afa8e539406e1f8b373b147682e3a8196',1,'tree']]],
+  ['verbose',['verbose',['../classdecision__tree.html#adef4736597a44918d4e221acbfb3142b',1,'decision_tree']]]
 ];

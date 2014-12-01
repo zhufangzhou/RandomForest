@@ -92,8 +92,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p>This is the complete list of members for <a class="el" href="classtree.html">tree</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="classtree.html#ae03f6dd2597846c65c1c037728b06bcd">compute_importance</a>(bool re_compute=false)</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classtree.html#a634ee04f1f89801a9f295e11cc5ce149">dump</a>(const std::string &amp;filename)</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classtree.html#a9055d00c2b5d3925c75991c5bb7b0b8a">add_leaf</a>(node *leaf)</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classtree.html#a362a7d5706211843e3bfc4b962df5a34">apply</a>(example_t *examples, int size)</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classtree.html#a1d5e50aae649ad79d312cef8177d700a">check_build</a>()</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classtree.html#ae03f6dd2597846c65c1c037728b06bcd">compute_importance</a>(bool re_compute=false)</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classtree.html#abc6048c70de7490eabf2433d46067b7b">export_dotfile</a>(const std::string &amp;filename)</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classtree.html#ad335e57b2f4f2326825694311bcc69e7">fea_imp</a></td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classtree.html#a5aba3b77a347165517a20d5fab94382d">feature_rule</a></td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
@@ -102,21 +104,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <tr><td class="entry"><a class="el" href="classtree.html#a03aebcb3102b4f6503b5bc69288297e8">init</a>(const std::string feature_rule, int max_depth, int min_split)</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classtree.html#ac697cf1868c26ac26f005e6ee8be9d43">leaf_pt</a></td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr><td class="entry"><a class="el" href="classtree.html#a551919e1402a700821694297623017fc">leaf_size</a></td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classtree.html#a680d0cc993c3a3d3ef10c891de69960f">load</a>(const std::string &amp;filename)</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classtree.html#a0a9f968fac827d3239be67488c34fb21">max_depth</a></td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classtree.html#a6f4304318f8f091f7d783ac1ec7d2775">max_feature</a></td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="classtree.html#ae70cd626c0b50a0b8306a94a9e5e8fd7">min_split</a></td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classtree.html#a3f074099473facb464acf152157bf4d0">n_classes</a></td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="classtree.html#a48430ab4447259c35af5f22e894e1d6c">n_features</a></td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classtree.html#ad397d4906e47149b98f769b3e81473ee">root</a></td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="classtree.html#a9f2a566ac2710fafc31232456780e82d">tree</a>()</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classtree.html#a356d6ebfe68b6e4ac466664c4f2d2581">tree</a>(const std::string feature_rule, int max_depth, int min_split)</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classtree.html#afa8e539406e1f8b373b147682e3a8196">valid</a></td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classtree.html#a05f3faa3c9a8f6fed237e2d0f6172244">~tree</a>()</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classtree.html#a0a9f968fac827d3239be67488c34fb21">max_depth</a></td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classtree.html#a6f4304318f8f091f7d783ac1ec7d2775">max_feature</a></td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classtree.html#ae70cd626c0b50a0b8306a94a9e5e8fd7">min_split</a></td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classtree.html#a3f074099473facb464acf152157bf4d0">n_classes</a></td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classtree.html#a48430ab4447259c35af5f22e894e1d6c">n_features</a></td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classtree.html#af1031209a57f82b1010fa70c6ec4bd84">predict_label</a>(example_t *examples, int size)</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classtree.html#ab240deb992061738a7d9dff311f7f0c9">predict_proba</a>(example_t *examples, int size)</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classtree.html#ad397d4906e47149b98f769b3e81473ee">root</a></td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classtree.html#a9f2a566ac2710fafc31232456780e82d">tree</a>()</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classtree.html#a356d6ebfe68b6e4ac466664c4f2d2581">tree</a>(const std::string feature_rule, int max_depth, int min_split)</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classtree.html#afa8e539406e1f8b373b147682e3a8196">valid</a></td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classtree.html#a05f3faa3c9a8f6fed237e2d0f6172244">~tree</a>()</td><td class="entry"><a class="el" href="classtree.html">tree</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 26 2014 20:02:29 for Random Forest by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Dec 1 2014 19:57:35 for Random Forest by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

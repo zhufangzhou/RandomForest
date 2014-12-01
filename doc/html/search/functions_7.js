@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['load',['load',['../classtree.html#a680d0cc993c3a3d3ef10c891de69960f',1,'tree']]],
-  ['load_5fdata',['load_data',['../classdataset.html#a0bf2fba4da731ca757f0cb2bd95fe172',1,'dataset']]],
-  ['load_5fdata_5fmeta',['load_data_meta',['../classdataset.html#aeab51be94fab1f62e901555c82a016ae',1,'dataset']]]
+  ['init',['init',['../classdataset.html#a53d6ced8ba17a1ff4771ab53ffda85ef',1,'dataset::init()'],['../class_base_forest.html#acbd8fb7a63430c5f07633cc5c4e43a3d',1,'BaseForest::init()'],['../class_random_forest_classifier.html#a0a8a6b33668d878c0fc6772fc63c5ebf',1,'RandomForestClassifier::init()'],['../classtree.html#a03aebcb3102b4f6503b5bc69288297e8',1,'tree::init()']]],
+  ['isort',['isort',['../classdataset.html#a0a5e275e95d935b8d864b35e2dfd3933',1,'dataset']]]
 ];

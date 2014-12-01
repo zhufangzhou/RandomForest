@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['main',['main',['../debug_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;debug.cpp'],['../main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;main.cpp']]],
-  ['measure',['measure',['../classcriterion.html#a1fbda0723578acd5ac612248a54ba71d',1,'criterion::measure()'],['../classgini.html#a5f232df1155fe182eee9b26cde0e8339',1,'gini::measure()']]]
+  ['load',['load',['../classnode.html#a6a92c412ae9336cc7ca5f4575a6384c8',1,'node::load(const std::string &amp;filename)'],['../classnode.html#a6a25c31eb4c3e8c05d5b70b6bd06adff',1,'node::load(std::ifstream &amp;ifs)'],['../classdecision__tree.html#aadf8e156057ff556a29316d537e2e8e9',1,'decision_tree::load()']]],
+  ['load_5fdata',['load_data',['../classdataset.html#a0bf2fba4da731ca757f0cb2bd95fe172',1,'dataset']]],
+  ['load_5fdata_5fmeta',['load_data_meta',['../classdataset.html#aeab51be94fab1f62e901555c82a016ae',1,'dataset']]]
 ];

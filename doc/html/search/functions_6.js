@@ -1,5 +1,10 @@
 var searchData=
 [
-  ['init',['init',['../classdataset.html#a53d6ced8ba17a1ff4771ab53ffda85ef',1,'dataset::init()'],['../class_base_forest.html#acbd8fb7a63430c5f07633cc5c4e43a3d',1,'BaseForest::init()'],['../class_random_forest_classifier.html#a0a8a6b33668d878c0fc6772fc63c5ebf',1,'RandomForestClassifier::init()'],['../classtree.html#a03aebcb3102b4f6503b5bc69288297e8',1,'tree::init()']]],
-  ['isort',['isort',['../classdataset.html#a0a5e275e95d935b8d864b35e2dfd3933',1,'dataset']]]
+  ['gain',['gain',['../classcriterion.html#a8d42878c94bae5a72475b568bcbbddfa',1,'criterion']]],
+  ['gen_5flabel',['gen_label',['../namespace_metrics.html#a9b8065c1e0adb089751090c8a94e3ae6',1,'Metrics']]],
+  ['get_5fmax_5ffeature',['get_max_feature',['../classtree.html#a8042d0897915fdfeeca4b4d75515b96c',1,'tree']]],
+  ['get_5fnclasses',['get_nclasses',['../classdataset.html#a35b101f3d8aecd5d87820982718f1534',1,'dataset']]],
+  ['get_5fnexamples',['get_nexamples',['../classdataset.html#acd3afb9c245b9e11a6ed53ea293257a9',1,'dataset']]],
+  ['get_5fnfeatures',['get_nfeatures',['../classdataset.html#a956095a460089726c8f39b3de8d4173d',1,'dataset']]],
+  ['gini',['gini',['../classgini.html#a6b55cd25f78692dd2c7f29f28c6217be',1,'gini']]]
 ];

@@ -27,6 +27,10 @@ void \hyperlink{classnode_a873438b420d0f6d2659a1b25875ed300}{dump} (const std\+:
 \begin{DoxyCompactList}\small\item\em Dump an single node to a binary file. \end{DoxyCompactList}\item 
 void \hyperlink{classnode_acab00fde3bcc5d44044c39a37313b4eb}{dump} (std\+::ofstream \&ofs)
 \begin{DoxyCompactList}\small\item\em Dump an single node to the output file stream. \end{DoxyCompactList}\item 
+void \hyperlink{classnode_a6a92c412ae9336cc7ca5f4575a6384c8}{load} (const std\+::string \&filename)
+\begin{DoxyCompactList}\small\item\em load Load an single node from a binary file \end{DoxyCompactList}\item 
+void \hyperlink{classnode_a6a25c31eb4c3e8c05d5b70b6bd06adff}{load} (std\+::ifstream \&ifs)
+\begin{DoxyCompactList}\small\item\em load Load an single node from the input file stream \end{DoxyCompactList}\item 
 void \hyperlink{classnode_a95d492b993f2bd1b59c2489e7eb20a13}{print\+\_\+info} ()
 \end{DoxyCompactItemize}
 \subsection*{Public Attributes}
@@ -118,6 +122,44 @@ Dump an single node to the output file stream.
 {\em ofs} & output file stream (should be open first, did not close in this function) \\
 \hline
 \end{DoxyParams}
+\hypertarget{classnode_a6a92c412ae9336cc7ca5f4575a6384c8}{\index{node@{node}!load@{load}}
+\index{load@{load}!node@{node}}
+\subsubsection[{load}]{\setlength{\rightskip}{0pt plus 5cm}void node\+::load (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{filename}
+\end{DoxyParamCaption}
+)}}\label{classnode_a6a92c412ae9336cc7ca5f4575a6384c8}
+
+
+load Load an single node from a binary file 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & path to load\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a node 
+\end{DoxyReturn}
+\hypertarget{classnode_a6a25c31eb4c3e8c05d5b70b6bd06adff}{\index{node@{node}!load@{load}}
+\index{load@{load}!node@{node}}
+\subsubsection[{load}]{\setlength{\rightskip}{0pt plus 5cm}void node\+::load (
+\begin{DoxyParamCaption}
+\item[{std\+::ifstream \&}]{ifs}
+\end{DoxyParamCaption}
+)}}\label{classnode_a6a25c31eb4c3e8c05d5b70b6bd06adff}
+
+
+load Load an single node from the input file stream 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ifs} & input file stream (should be open first, did not close in this function)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a node 
+\end{DoxyReturn}
 \hypertarget{classnode_a95d492b993f2bd1b59c2489e7eb20a13}{\index{node@{node}!print\+\_\+info@{print\+\_\+info}}
 \index{print\+\_\+info@{print\+\_\+info}!node@{node}}
 \subsubsection[{print\+\_\+info}]{\setlength{\rightskip}{0pt plus 5cm}void node\+::print\+\_\+info (

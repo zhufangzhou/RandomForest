@@ -1,12 +1,8 @@
 var searchData=
 [
-  ['leaf_5fidx',['leaf_idx',['../classnode.html#abbd7d4174869fead5f901b042a2f9712',1,'node']]],
-  ['leaf_5fpt',['leaf_pt',['../classtree.html#ac697cf1868c26ac26f005e6ee8be9d43',1,'tree']]],
-  ['leaf_5fsize',['leaf_size',['../classtree.html#a551919e1402a700821694297623017fc',1,'tree']]],
-  ['learn_5fmode',['learn_mode',['../dataset_8h.html#a87dfee910993320c6720931fb701cc41',1,'dataset.h']]],
-  ['left',['left',['../classnode.html#a7cbff55ff448f557223f79299056e9b1',1,'node']]],
-  ['left_5ffrequency',['left_frequency',['../classsplitter.html#a0a1c53a640e3305eeb32a9586fea657b',1,'splitter']]],
-  ['load',['load',['../classtree.html#a680d0cc993c3a3d3ef10c891de69960f',1,'tree']]],
-  ['load_5fdata',['load_data',['../classdataset.html#a0bf2fba4da731ca757f0cb2bd95fe172',1,'dataset']]],
-  ['load_5fdata_5fmeta',['load_data_meta',['../classdataset.html#aeab51be94fab1f62e901555c82a016ae',1,'dataset']]]
+  ['ifs',['ifs',['../classdata__reader.html#a1a39328bde93e7f132a1ca7eb6642311',1,'data_reader']]],
+  ['init',['init',['../classdataset.html#a53d6ced8ba17a1ff4771ab53ffda85ef',1,'dataset::init()'],['../class_base_forest.html#acbd8fb7a63430c5f07633cc5c4e43a3d',1,'BaseForest::init()'],['../class_random_forest_classifier.html#a0a8a6b33668d878c0fc6772fc63c5ebf',1,'RandomForestClassifier::init()'],['../classtree.html#a03aebcb3102b4f6503b5bc69288297e8',1,'tree::init()']]],
+  ['is_5fcate',['is_cate',['../classdataset.html#ab856d84d4bced1ccde106badfab229d8',1,'dataset::is_cate()'],['../classnode.html#a67c3c0be5001ace8494a6292e8079001',1,'node::is_cate()']]],
+  ['is_5finit',['is_init',['../classdataset.html#ab5381427833c91ee35913ca1c1d4e73b',1,'dataset::is_init()'],['../classcriterion.html#a5f3c4708d9e6a9120ec8b8d98c73ff47',1,'criterion::is_init()']]],
+  ['isort',['isort',['../classdataset.html#a0a5e275e95d935b8d864b35e2dfd3933',1,'dataset']]]
 ];
