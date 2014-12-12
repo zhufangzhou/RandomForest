@@ -8,6 +8,7 @@
 #pragma once
 
 #include <iostream>
+#include "utils.h"
 
 namespace Metrics {
 	int* gen_label(double* proba, int size, double threshold);
@@ -26,5 +27,9 @@ namespace Metrics {
 	double f1_score(double* y_pred, int* y_true, int size, double threshold = 0.5);
 	double f1_score(int* y_pred, double* y_true, int size);
 	double f1_score(int* y_pred, int* y_true, int size);
+
+	double roc_auc_score(double* y_pred, int* y_true, int size);
+	double pr_auc_score(double* y_pred, int* y_true, int size);
+	double auc(double* x, double* y, int size);
 };
 

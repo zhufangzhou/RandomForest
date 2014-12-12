@@ -95,3 +95,89 @@ double Metrics::recall(int *y_pred, int *y_true, int size) {
 	}
 	return (double)TP / (TP + TN);
 }
+
+double Metrics::roc_auc_score(double* y_pred, int* y_true, int size) {
+	int *idx, n_pos = 0, n_neg = 0;
+	double ret_auc = 0.0;
+	// sort the `y_pred`
+	idx = argsort(y_pred, size, DESC);
+
+	for (int i = 0; i < size; i++) {
+		if (y_pred[idx[i]] > 1 || y_pred[idx[i]] < 0 || y_true[idx[i]] > 1 || y_true[idx[i]] < 0) {
+			std::cerr << "y_true must be 0 or 1 and y_pred must be real number between 0 and 1" << std::endl;
+			exit(EXIT_FAILURE);
+		}
+		
+		// count number of positive examples and negtive examples and their ranks.
+		if (y_true[idx[i]] == 1) {
+			n_pos++;
+			ret_auc += size - i;
+		} else {
+			n_neg++;
+		}
+	}
+
+	ret_auc = (ret_auc - n_pos*(n_pos+1)/2) / (n_pos+n_neg);
+	delete[] idx;
+	return ret_auc;
+}
+
+double Metrics::pr_auc_score(double* y_pred, int* y_true, int size) {
+	int TP = 0, FP = 0, TN = 0, FN = 0;
+	int *idx;
+	double *x, *y, ret_auc;
+
+	idx = argsort(y_pred, size, DESC);
+
+	// predict all the example to negtive
+	for (int i = 0; i < size; i++) {
+		if (y_true[idx[i]] == 1) FN++;
+		else TN++;
+	}
+
+	x = new double[size];
+	y = new double[size];
+	// add each example to positive group in turn
+	for (int i = 0; i < size; i++) {
+		if (y_true[idx[i]] == 1) {
+			FN--;
+			TP++;
+		} else {
+			TN--;
+			FP++;
+		}
+		x[i] = 1.0 * TP / (TP+FN);
+		y[i] = 1.0 * TP / (TP+FP);
+	}
+
+	// calculate the area under curve given the points
+	ret_auc = auc(x, y, size);
+
+	delete[] x;
+	delete[] y;
+	delete[] idx;
+
+	return ret_auc;
+}
+
+double Metrics::auc(double* x, double* y, int size) {
+	int *idx;
+	double last_x = 0.0, ret_auc = 0.0;
+	
+	idx = argsort(x, size, ASC);
+
+	for (int i = 0; i < size; i++) {
+		if (x[idx[i]] > 1 || x[idx[i]] < 0 || y[idx[i]] > 1 || y[idx[i]] < 0) {
+			std::cerr << "the 2-d cordinate must satisfy 0<=x,y<=1" << std::endl;
+			exit(EXIT_FAILURE);
+		}
+	
+		// accumulate the areas of triangles
+		ret_auc += (x[idx[i]] - last_x) * y[idx[i]];
+		
+		last_x = x[idx[i]];
+	}
+	// free space 
+	delete[] idx;
+	return ret_auc;
+}
