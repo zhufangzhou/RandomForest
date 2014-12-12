@@ -15,8 +15,14 @@ example_t::example_t() {
 }
 
 example_t::~example_t() {
-	delete[] fea_id;
-	delete[] fea_value;
+	if (fea_id != nullptr) {
+		delete[] fea_id;
+		fea_id = nullptr;
+	}
+	if (fea_value != nullptr) {
+		delete[] fea_value;
+		fea_value = nullptr;
+	}
 }
 
 void example_t::push_back(int id, feature_t value) {
@@ -70,6 +76,7 @@ example_t* data_reader::read_an_example() {
 	
 	if (mode != PREDICT) {
 		ifs >> ret->y;
+		ret->y--;
 		p_pos = 0; getline(ifs, line);
 		c_pos = line.find(' ', 0);
 	} else {
@@ -82,8 +89,10 @@ example_t* data_reader::read_an_example() {
 	while (p_pos <= c_pos) {
 		p_pos = c_pos + 1;
 		c_pos = line.find(':', p_pos);
+		if (c_pos == -1) break;
 		t_str = line.substr(p_pos, c_pos - p_pos);
-		feature_id = atoi(t_str.c_str());
+		// libsvm format `feature_id` start from 1, we set it to start with 0
+		feature_id = atoi(t_str.c_str()) - 1;
 
 		p_pos = c_pos + 1;
 		c_pos = line.find(' ', p_pos);
@@ -124,11 +133,26 @@ dataset::dataset(int n_classes, int n_features, float* weight) {
 }
 
 dataset::~dataset() {
-	delete[] x;
-	delete[] size;
-	delete[] y;
-	delete[] is_cate;	
-	delete[] weight;
+	if (x != nullptr) {
+		delete[] x;
+		x = nullptr;
+	}
+	if (size != nullptr) {
+		delete[] size;
+		size = nullptr;
+	}
+	if (y != nullptr) {
+		delete[] y;
+		y = nullptr;
+	}
+	if (is_cate != nullptr) {
+		delete[] is_cate;	
+		is_cate = nullptr;
+	}
+	if (weight != nullptr) {
+		delete[] weight;
+		weight = nullptr;
+	}
 }
 
 void dataset::init(int n_classes, int n_features, float* weight) {
@@ -210,7 +234,10 @@ void dataset::load_data(const std::string& filename, const learn_mode mode) {
 	t->toc("Done.");
 
 	/* free space */
-	delete[] tf;
+	if (tf != nullptr) {
+		delete[] tf;
+		tf = nullptr;
+	}
 }
 
 void dataset::isort(ev_pair_t* a, int* f, int n){

@@ -21,7 +21,10 @@ node::node(int n_classes) {
 }
 
 node::~node() {
-	delete[] cur_frequency;
+	if (cur_frequency != nullptr) {
+		delete[] cur_frequency;
+		cur_frequency = nullptr;
+	}
 }
 
 void node::dump(const std::string& filename) {
@@ -100,8 +103,14 @@ tree::tree(std::string feature_rule, int max_depth, int min_split) {
 
 tree::~tree() {
 	free_tree(this->root);	
-	delete[] leaf_pt;
-	delete[] valid;
+	if (leaf_pt != nullptr) {
+		delete[] leaf_pt;
+		leaf_pt = nullptr;
+	}
+	if (valid != nullptr) {
+		delete[] valid;
+		valid = nullptr;
+	}
 }
 
 void tree::init(std::string feature_rule, int max_depth, int min_split) {
@@ -119,11 +128,17 @@ void tree::init(std::string feature_rule, int max_depth, int min_split) {
 
 void tree::free_tree(node*& root) {
 	if (root->leaf_idx == -1) {
-		delete root;
+		if (root != nullptr) {
+			delete root;
+			root = nullptr;
+		}
 	} else {
 		free_tree(root->left);
 		free_tree(root->right);
-		delete root;
+		if (root != nullptr) {
+			delete root;
+			root = nullptr;
+		}
 	}
 }
 
@@ -172,7 +187,10 @@ int* tree::apply(example_t* examples, int size) {
 		for (int j = 0; j < ex->nnz; j++) feature_vec[ex->fea_id[j]] = 0.0;
 	}
 
-	delete feature_vec;
+	if (feature_vec != nullptr) {
+		delete feature_vec;
+		feature_vec = nullptr;
+	}
 	return ret;
 }
 
@@ -379,7 +397,10 @@ void decision_tree::load(const std::string& filename) {
 	in.read((char*)&this->n_features, sizeof(int));
 	in.read((char*)&this->leaf_size, sizeof(int));
 
-	delete[] this->leaf_pt;
+	if (this->leaf_pt != nullptr) {
+		delete[] this->leaf_pt;
+		this->leaf_pt = nullptr;
+	}
 	this->leaf_pt = new node*[this->leaf_size];
 
 	this->root = new batch_node(this->n_classes);
@@ -510,6 +531,36 @@ void decision_tree::build_rec(node*& root, dataset*& d, int depth) {
 	/* 2. make a split */
 	criterion* cr = new gini(root->cur_frequency, n_classes);
 	s->split(this, root, d, cr);
+	
+	// can't split any more
+	if (s->fea_id == -1) {
+		if (this->verbose > 0) {
+			std::cout << "********************************" << std::endl;
+			std::cout << "Depth: " << depth << std::endl;
+			std::cout << "Different Class: " << count << std::endl;
+			std::cout << "Total Example: " << tot_ex << std::endl;
+			std::cout << "Valid Example: " << std::endl;
+			for (int i = 0; i < n_examples; i++) {
+				if (this->valid[i] > 0) {
+					std::cout << "#" << i << ":" << d->y[i] << " ";
+				}	
+			}
+			std::cout << std::endl << std::endl;
+		}
+		
+		/* normalize */
+		float tot_frequency = 0.0;
+		for (int c = 0; c < root->n_classes; c++) tot_frequency += root->cur_frequency[c];
+		for (int c = 0; c < root->n_classes; c++) root->cur_frequency[c] /= tot_frequency;
+
+		/* attach this node to leaf node group */
+		root->leaf_idx = add_leaf(root);
+		if (cr != nullptr) {
+			delete cr;
+			cr = nullptr;
+		}
+		return;
+	}
 
 	root->feature_id = s->fea_id;
 	root->is_cate = d->is_cate[s->fea_id];
@@ -525,6 +576,7 @@ void decision_tree::build_rec(node*& root, dataset*& d, int depth) {
 	if (this->verbose > 0) {
 		std::cout << "=================================" << std::endl;
 		std::cout << "Depth: " << depth << std::endl;
+		std::cout << "Total Examples: " << tot_ex << std::endl;
 		std::cout << "Split Feature: " << s->fea_id << " "
 				  << "Threshold: " << s->threshold << std::endl;
 		std::cout << "Valid Example: " << std::endl;
@@ -593,8 +645,14 @@ void decision_tree::build_rec(node*& root, dataset*& d, int depth) {
 	for (int i = l; i < u; i++)
 		this->valid[p[i].ex_id] -= 1;
 
-	delete s;
-	delete cr;
+	if (s != nullptr) {
+		delete s;
+		s = nullptr;
+	}
+	if (cr != nullptr) {
+		delete cr;
+		cr = nullptr;
+	}
 }
 
 
@@ -606,9 +664,10 @@ void decision_tree::debug(dataset*& d) {
 	dump("tree.model");
 
 	/* load tree */
-	decision_tree *t2 = new decision_tree();
-	t2->load("tree.model");
-	t2->export_dotfile("after.dot");
+	//decision_tree *t2 = new decision_tree();
+	//t2->load("tree.model");
+	//t2->export_dotfile("after.dot");
+	//delete t2;
 }
 
 splitter::splitter(int n_classes) {
@@ -621,8 +680,14 @@ splitter::splitter(int n_classes) {
 }
 
 splitter::~splitter() {
-	delete[] left_frequency;
-	delete[] right_frequency;
+	if (left_frequency != nullptr) {
+		delete[] left_frequency;
+		left_frequency = nullptr;
+	}
+	if (right_frequency != nullptr) {
+		delete[] right_frequency;
+		right_frequency = nullptr;
+	}
 }
 
 best_splitter::best_splitter(int n_classes) : splitter(n_classes) {
@@ -741,9 +806,18 @@ void best_splitter::split(tree* t, node*& root, dataset*& d, criterion*& cr) {
 		}
 	}
 
-	delete[] zero_frequency;
-	delete[] nonzero_frequency;
-	delete[] left_frequency;
+	if (zero_frequency != nullptr) {
+		delete[] zero_frequency;
+		zero_frequency = nullptr;
+	}
+	if (nonzero_frequency != nullptr) {
+		delete[] nonzero_frequency;
+		nonzero_frequency = nullptr;
+	}
+	if (left_frequency != nullptr) {
+		delete[] left_frequency;
+		left_frequency = nullptr;
+	}
 }
 
 void best_splitter::update(int t_fea_id, float threshold, float*& left, node*& nd, criterion*& cr) {
@@ -763,7 +837,10 @@ void best_splitter::update(int t_fea_id, float threshold, float*& left, node*& n
 		memcpy(this->right_frequency, right, sizeof(float)*n_classes);
 	}
 
-	delete[] right;
+	if (right != nullptr) {
+		delete[] right;
+		right = nullptr;
+	}
 }
 
 criterion::criterion() {

@@ -39,9 +39,24 @@ void debug_decision_tree() {
 
 }
 
+void test_decision_tree() {
+	float* weight = new float[2];
+	weight[0] = weight[1] = 1.0;
+	dataset* d = new dataset(2, 112, weight);
+	d->load_data("./data/mushrooms", TRAIN);
+	d->debug();
+	decision_tree* t = new decision_tree("100", 10000, 1);
+	t->debug(d);
+
+	delete[] weight;
+	delete t;
+	delete d;
+}
+
 int main(int argc, char** argv) {
 	//debug_data_reader();
 	//debug_dataset();
-	debug_decision_tree();
+	//debug_decision_tree();
+	test_decision_tree();
 	return 0;
 }
