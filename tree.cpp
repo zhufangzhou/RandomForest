@@ -149,10 +149,11 @@ void tree::check_build() {
 	}
 }
 
-int* tree::apply(example_t* examples, int size) {
+//int* tree::apply(example_t* examples, int size) {
+int* tree::apply(std::vector<example_t*> &examples) {
 	feature_t *feature_vec;
 	example_t *ex;
-	int* ret;
+	int* ret, size = examples.size();
 	node* cur_node;
 	
 
@@ -162,7 +163,7 @@ int* tree::apply(example_t* examples, int size) {
 	ret = new int[size];
 
 	for (int i = 0; i < size; i++) {
-		ex = examples+i;
+		ex = examples[i];
 		for (int j = 0; j < ex->nnz; j++) feature_vec[ex->fea_id[j]] = ex->fea_value[j];
 		cur_node = this->root;	
 		/* go down the tree */
@@ -194,13 +195,14 @@ int* tree::apply(example_t* examples, int size) {
 	return ret;
 }
 
-int* tree::predict_label(example_t* examples, int size) {
-	int *predict_leaf_idx, label, *ret;
+//int* tree::predict_label(example_t* examples, int size) {
+int* tree::predict_label(std::vector<example_t*> &examples) {
+	int *predict_leaf_idx, label, *ret, size = examples.size();
 	node* leaf_node;
 	float max_proba;
 
 	/* let all the examples go down the tree */
-	predict_leaf_idx = apply(examples, size);
+	predict_leaf_idx = apply(examples);
 
 	ret = new int[size];
 	for (int i = 0; i < size; i++) {
@@ -217,21 +219,24 @@ int* tree::predict_label(example_t* examples, int size) {
 	return ret;
 }
 
-float** tree::predict_proba(example_t* examples, int size) {
-	int *predict_leaf_idx;
+//float** tree::predict_proba(example_t* examples, int size) {
+float* tree::predict_proba(std::vector<example_t*> &examples) {
+	int *predict_leaf_idx, size = examples.size();
 	node* leaf_node;
-	float** ret;
+	float* ret;
 
 	/* let all the examples go down the tree */	
-	predict_leaf_idx = apply(examples, size);
+	predict_leaf_idx = apply(examples);
 
-	ret = new float*[size];
-	ret[0] = new float[size*this->n_classes];
+	ret = new float[size*this->n_classes];
 	for (int i = 1; i < size; i++) ret[i] = ret[0] + i*this->n_classes;
 	
 	for (int i = 0; i < size; i++) {
 		leaf_node = this->leaf_pt[predict_leaf_idx[i]];
-		memcpy(ret[i], leaf_node->cur_frequency, sizeof(float)*this->n_classes);
+		for (int c = 0; c < this->n_classes; c++) {
+			ret[i+size*c] = leaf_node->cur_frequency[c];
+		}
+		//memcpy(ret[i], leaf_node->cur_frequency, sizeof(float)*this->n_classes);
 	}
 	return ret;
 }
@@ -347,6 +352,10 @@ int tree::add_leaf(node *leaf) {
 
 int tree::get_max_feature() {
 	return this->max_feature;
+}
+
+int tree::get_n_features() {
+	return this->n_features;
 }
 
 decision_tree::decision_tree() {
@@ -703,7 +712,7 @@ void best_splitter::split(tree* t, node*& root, dataset*& d, criterion*& cr) {
 	int f, j, fst_valid, cur_ex, prev, prev_ex;
 	float *zero_frequency, *nonzero_frequency; /* these two are for current node */
 	float *left_frequency, threshold;
-	int n_classes = d->get_nclasses(), max_feature = t->get_max_feature(); 
+	int n_classes = d->get_nclasses(), max_feature = t->get_max_feature(), n_features = t->get_n_features(); 
 
 	/* the key idea of this sparse split is to determine where to put zero examples */
 	zero_frequency = new float[n_classes];
@@ -715,8 +724,17 @@ void best_splitter::split(tree* t, node*& root, dataset*& d, criterion*& cr) {
 	/* reset `criterion` class */
 	cr->set_current(root->cur_frequency, n_classes);
 
+	int* candidate_feature = new int[n_features], c_idx, tmp;
+	for (int i = 0; i < n_features; i++) candidate_feature[i] = i;
 	for (int i = 0; i < max_feature; i++) {
-		f = i;		/* choose a feature to test */	
+		c_idx = m_random::getInstance().next_int(i, n_features);
+		tmp = candidate_feature[i]; 
+		candidate_feature[i] = candidate_feature[c_idx]; 
+		candidate_feature[c_idx] = tmp;
+	}
+
+	for (int i = 0; i < max_feature; i++) {
+		f = candidate_feature[i];		/* choose a feature to test */	
 		x = d->x[f];
 		if (!d->is_cate[f]) { /* if the feature is continuous */
 			/* find the first valid example index */
@@ -817,6 +835,10 @@ void best_splitter::split(tree* t, node*& root, dataset*& d, criterion*& cr) {
 	if (left_frequency != nullptr) {
 		delete[] left_frequency;
 		left_frequency = nullptr;
+	}
+	if (candidate_feature != nullptr) {
+		delete candidate_feature;
+		candidate_feature = nullptr;
 	}
 }
 

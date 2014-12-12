@@ -22,6 +22,7 @@
 /* my header file */
 #include "dataset.h"
 #include "utils.h"
+#include "random.h"
 
 /* declaration */
 class node;
@@ -186,16 +187,16 @@ class tree {
 		 *
 		 * @return a vector denotes leaf index in `leaf_pt`
 		 */
-		int* apply(example_t* examples, int size);
+		int* apply(std::vector<example_t*> &examples);
 		/**
 		 * @brief predict_proba predict the probabilities of belonging to each class (i.e. choose the class with largest frequency as label)
 		 *
 		 * @param examples input examples
 		 * @param size size of the input
 		 *
-		 * @return N*K matrix, N denotes the size of the examples and K is the number of different classes. Assume the matrix is P, you need to call 'delete[] P[0];delete[] P;' to free space
+		 * @return N*K vector, N denotes the size of the examples and K is the number of different classes, first N mean the probability exmaples belongs #1 class. 
 		 */
-		float** predict_proba(example_t* examples, int size);
+		float* predict_proba(std::vector<example_t*> &examples);
 		/**
 		 * @brief predict_label predict the label 
 		 *
@@ -204,7 +205,7 @@ class tree {
 		 *
 		 * @return N dimensional vector, each one is the predicted label
 		 */
-		int* predict_label(example_t* examples, int size);
+		int* predict_label(std::vector<example_t*> &examples);
 		/**
 		 * @brief Free memory space of the tree which use `root` as root node (only the tree structure)
 		 *
@@ -224,6 +225,12 @@ class tree {
 		 * @return max_feature computed according to `feature_rule`
 		 */
 		int get_max_feature();
+		/**
+		 * @brief get_n_features Return private member `n_feature` value
+		 *
+		 * @return n_features
+		 */
+		int get_n_features();
 };
 
 /**
