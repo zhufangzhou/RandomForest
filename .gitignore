@@ -40,3 +40,7 @@
 
 # Picture file
 *.png
+
+# These two directory do not upload
+data
+model

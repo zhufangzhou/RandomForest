@@ -57,11 +57,12 @@ void test_decision_tree() {
 	float* y_pred = y_pred_zero + n_test;
 	int* y_true = new int[n_test];
 	for (int i = 0; i < n_test; i++) y_true[i] = test_data[i]->y;
-	std::cout << "Precision = " << Metrics::precision(y_pred, y_true, n_test) << std::endl;
-	std::cout << "Recall = " << Metrics::recall(y_pred, y_true, n_test) << std::endl;
-	std::cout << "F1-score = " << Metrics::f1_score(y_pred, y_true, n_test) << std::endl;
-	std::cout << "AUC = " << Metrics::roc_auc_score(y_pred, y_true, n_test) << std::endl;
-	std::cout << "Precision-Recall AUC = " << Metrics::pr_auc_score(y_pred, y_true, n_test) << std::endl;
+	std::string color_info = "yellow", color_value = "red";
+	std::cout << color_msg("Precision = ", color_info ) << color_msg(Metrics::precision(y_pred, y_true, n_test), color_value) << std::endl;
+	std::cout << color_msg("Recall = ", color_info) << color_msg(Metrics::recall(y_pred, y_true, n_test), color_value) << std::endl;
+	std::cout << color_msg("F1-score = ", color_info) << color_msg(Metrics::f1_score(y_pred, y_true, n_test), color_value) << std::endl;
+	std::cout << color_msg("AUC = ", color_info) << color_msg(Metrics::roc_auc_score(y_pred, y_true, n_test), color_value) << std::endl;
+	std::cout << color_msg("Precision-Recall AUC = ", color_info) << color_msg(Metrics::pr_auc_score(y_pred, y_true, n_test), color_value) << std::endl;
 
 	delete dr;
 	delete[] weight;
