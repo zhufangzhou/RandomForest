@@ -140,7 +140,7 @@ class tree {
 		 */
 		int add_leaf(node *leaf); 	
 		/**
-		 * @brief check_build check whether the true has been built
+		 * @brief check_build check whether the tree has been built
 		 */
 		void check_build();
 	public:

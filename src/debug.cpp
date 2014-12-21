@@ -64,6 +64,13 @@ void test_decision_tree() {
 	std::cout << color_msg("AUC = ", color_info) << color_msg(Metrics::roc_auc_score(y_pred, y_true, n_test), color_value) << std::endl;
 	std::cout << color_msg("Precision-Recall AUC = ", color_info) << color_msg(Metrics::pr_auc_score(y_pred, y_true, n_test), color_value) << std::endl;
 
+	int n_features = d->get_nfeatures();
+	float *imp = t->compute_importance();
+	for (int i = 0; i < n_features; i++)
+		std::cout << i+1 << ":" << imp[i] << " ";
+	std::cout << std::endl;
+
+
 	delete dr;
 	delete[] weight;
 	delete t;

@@ -1,5 +1,6 @@
 BIN_DIR := ../bin/
 BUILD_DIR := ../build/
+MODEL_DIR := ../model/
 INCLUDE_DIR := ../include/
 UTILS_DIR := ../../utils/
 
@@ -25,7 +26,7 @@ ${BUILD_DIR}%.o: %.cpp
 
 .PHONY: create_dir
 create_dir:
-	@mkdir -p ${BIN_DIR} ${BUILD_DIR}
+	@mkdir -p ${BIN_DIR} ${BUILD_DIR} ${MODEL_DIR}
 
 .PHONY: clean
 clean:

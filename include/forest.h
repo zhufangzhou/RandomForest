@@ -1,55 +1,61 @@
-#ifndef __FOREST_H
-#define __FOREST_H
+/**
+ * @file forest.h
+ * @brief 
+ * @author Zhu Fangzhou, zhu.ark@gmail.com
+ * @version 1.0
+ * @date 2014-12-21
+ */
+#pragma once
 
 #include "tree.h"
 #include "dataset.h"
 #include <vector>
 #include <string>
+#include <thread>
 
-class BaseForest {
-	private:
-		void init(int n_trees, int n_threads, std::string max_feature_criterion, int max_depth, int min_leaf_samples);
-		void check_param(int n_tree, int n_threads, std::string max_feature, int max_depth, int min_leaf_samples);
+/* declaration */
+class forest;
+class random_forest_classifier;
+
+class forest {
 	protected:
-		// default values for this model
-		static const int DEFAULT_N_THREADS = 1;
-		static const int DEFAULT_N_TREES = 10;
-		static const int DEFAULT_MAX_DEPTH = -1;
-		static const int DEFAULT_MIN_LEAF_SAMPLES = 1;
-		static const std::string DEFAULT_MAX_FEATURE_CRITERION;
+		vector<tree*> trees;
 
-		/* these settings are forest settings */
-		int n_threads; 								// number of threads to use when build forest
-		int n_trees;								// the forest size
-		std::string max_feature_criterion; 			// rule to comput max feature number
-		int max_feature; 							// the max features to choose when conduct a split	
+		int n_trees;
+		int n_threads;
+		int n_classes;
+		int n_features;
+		const std::string feature_rule;
 
-		/* these settings are tree settings */
-		int n_classes; 								// number of different classes
-		int max_depth; 								// maximum depth for each tree estimator
-		int min_leaf_samples; 						// minimum samples in each leaf
+		int max_feature;
+		int max_depth;
+		int min_split;
 
-		Dataset *ds; 								
-		std::vector<BaseTree*> forest;
-	public:
-		BaseForest();
-		BaseForest(int n_trees, int n_threads = DEFAULT_N_THREADS, std::string max_feature_criterion = "sqrt", int max_depth = DEFAULT_MAX_DEPTH, int min_leaf_samples = DEFAULT_MIN_LEAF_SAMPLES);
+		float* fea_imp;
 		
-		~BaseForest();
+		void check_build();
+	public:
+		forest();
+		~forest();
+		void init();
+		float* compute_importance(bool re_compute = false);
+		int* apply(std::vector<example_t*> &examples);
+		float* predict_proba(std::vector<example_t*> &examples);
+		int* predict_label(std::vector<example_t*> &examples);
+		void free_forest();
+		int get_max_feature();
+		int get_n_features();
 };
 
-class RandomForestClassifier : public BaseForest {
-	private: 
-		void init(int n_trees, int n_threads, int max_depth, int min_leaf_samples);
-		int compute_max_feature(int feature_size);
-		void parallel_build_forest(int tree_start, int tree_end, double* class_weight);
-		void build_forest(double* class_weight);
+class random_forest_classifier : forest {
+	protected:
+
 	public:
-		RandomForestClassifier();
-		RandomForestClassifier(int n_trees, int n_threads = DEFAULT_N_THREADS, std::string max_feature_criterion = "sqrt", int max_depth = DEFAULT_MAX_DEPTH, int min_leaf_samples = DEFAULT_MIN_LEAF_SAMPLES);
-		void train(std::string filename, int feature_size, bool is_text, 
-				int* discrete_idx = NULL, int discrete_size = 0, double* class_weight = NULL);
-		void train(std::string feature_filename, std::string label_filename, int feature_size, int max_feature,
-				int* discrete_idx = NULL, int discrete_size = 0, double* class_weight = NULL);
+		random_forest_classifier(const std::string feature_rule, int max_depth, int min_split);
+
+		void build(dataset*& d);
+		print_info();
+		void dump(const std::string& filename);
+		void load(const std::string& filename);
+		void debug(dataset*& d);
 };
-#endif
