@@ -237,6 +237,8 @@ class tree {
 		 * @return leaf_size
 		 */
 		int get_leaf_size();
+		virtual void dump(const std::string &filename) const = 0;
+		virtual void load(const std::string &filename) = 0;
 };
 
 /**
@@ -281,7 +283,7 @@ class decision_tree : public tree {
 		 *
 		 * @param filename path to dumped
 		 */
-		void dump(const std::string& filename);		
+		void dump(const std::string& filename) const;		
 		/**
 		 * @brief Load the tree from file
 		 *

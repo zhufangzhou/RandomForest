@@ -8,19 +8,34 @@
 #include "forest.h"
 
 forest::forest() {
-
+	is_build = false;
 }
 
 forest::~forest() {
-	free_forest();
-}
+	/* free trees */
+	for (int t = 0; t < this->n_trees; t++) {
+		delete this->trees[t];
+		this->trees[t] = nullptr;
+	}
+	this->trees.clear();
 
-void forest::free_forest() {
-
+	/* free feature importance vector */
+	if (fea_imp != nullptr) {
+		delete[] fea_imp;
+		fea_imp = nullptr;
+	}
 }
 
 float* forest::compute_importance(bool re_compute) {
 	float *tot_importance, *sub_importance;
+	/* if has been computed before, just return */
+	if (re_compute == false && this->fea_imp != nullptr) return this->fea_imp;
+
+	if (this->fea_imp != nullptr) {
+		delete[] this->fea_imp;
+		this->fea_imp = nullptr;
+	}
+
 	tot_importance = new float[this->n_features]();
 	
 	for (auto t = this->trees.begin(); t != this->trees.end(); t++){
@@ -170,6 +185,10 @@ int* forest::apply(std::vector<example_t*> &examples) {
 int* forest::get_leaf_counts() {
 	int* ret;
 	tree* c_tree;
+	if (!check_build()) {
+		std::cerr << "Please build the forest before getting `leaf_counts`" << std::endl;
+		exit(EXIT_FAILURE);
+	}
 
 	ret = new int[this->n_trees];
 	// collect leaf size for all trees
@@ -180,6 +199,88 @@ int* forest::get_leaf_counts() {
 	return ret;
 }
 
-random_forest_classifier::random_forest_classifier(const std::string feature_rule, int max_depth, int min_split) {
+int forest::get_max_feature() {
+	if (!check_build()) {
+		std::cerr << "Please build the forest before getting `max_feature`" << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	return this->max_feature;
+}
 
+int forest::get_n_features() {
+	if (!check_build()) {
+		std::cerr << "Please build the forest before getting `n_features`" << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	return this->n_features;
+}
+
+bool check_build() {
+	return is_build;
+}
+
+random_forest_classifier::random_forest_classifier(const std::string feature_rule, int max_depth, int min_split) {
+	this->feature_rule = feature_rule;
+	this->max_depth = max_depth;
+	this->min_split = min_split;
+}
+
+void random_forest_classifier::dump(const std::string& filename) const {
+	std::string save_file_name;
+	std::stringstream ss;
+	tree* c_tree;
+
+	/* dump forest */
+	std::ofstream out(filename+"0", std::ofstream::binary);
+	// TODO: CAN ADD DUMP LEVEL HERE TO DECIDE HOW MUCH TO DUMP
+
+	/* dump some parameters */
+	out.write((char*)&this->n_trees, sizeof(int));
+	out.write((char*)&this->n_threads, sizeof(int));
+	out.write((char*)&this->n_classes, sizeof(int));
+	out.write((char*)&this->n_features, sizeof(int));
+
+	/* close file */
+	out.close();
+
+	/* dump trees separately */
+	for (int t = 0; t < this->n_trees; t++) {
+		/* tree suffix is start from 1, 0 is for forest */
+		ss << filename << (t+1);
+		ss >> save_file_name;
+		c_tree = this->trees[t];
+		c_tree->dump(save_file_name);	
+	}
+}
+
+void random_forest_classifier::load(const std::string& filename) {
+	std::string load_file_name;
+	std::stringstream ss;
+
+	/* load forest */
+	std::ifstream in(filename+"0", std::ifstream::binary);
+	
+	/* load forest level parameters */
+	in.read((char*)&this->n_trees, sizeof(int));
+	in.read((char*)&this->n_threads, sizeof(int));
+	in.read((char*)&this->n_classes, sizeof(int));
+	in.read((char*)&this->n_features, sizeof(int));
+
+	/* close file */
+	in.close();
+
+	/* allocate space for trees */
+	this->trees.reserve(this->n_trees); 
+	/* load trees separately */
+	for (int t = 0; t < this->n_trees; t++) {
+		/* tree suffix is start from 1, 0 is for forest */
+		ss << filename << (t+1);
+		ss >> load_file_name;
+		/* allocate space to each `tree` in the forest */
+		this->trees[t] = new decision_tree();
+		this->trees[t]->load(load_file_name);
+	}
+
+	/* set the `is_build` to true */
+	this->is_build = true;
 }

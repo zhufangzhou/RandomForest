@@ -376,7 +376,7 @@ decision_tree::decision_tree() {
 }
 
 // TODO
-void decision_tree::dump(const std::string& filename) {
+void decision_tree::dump(const std::string& filename) const {
 	std::stack<node*> st;
 	std::ofstream out(filename, std::ofstream::binary);	
 	node *cur_node, *left_node, *right_node;
@@ -409,7 +409,6 @@ void decision_tree::dump(const std::string& filename) {
 	out.close();
 }
 
-// TODO
 void decision_tree::load(const std::string& filename) {
 	std::stack<node*> st;
 	std::ifstream in(filename, std::ifstream::binary);
@@ -423,6 +422,7 @@ void decision_tree::load(const std::string& filename) {
 		delete[] this->leaf_pt;
 		this->leaf_pt = nullptr;
 	}
+	// restore `leaf_pt`
 	this->leaf_pt = new node*[this->leaf_size];
 
 	this->root = new batch_node(this->n_classes);
