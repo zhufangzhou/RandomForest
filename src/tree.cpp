@@ -219,7 +219,16 @@ int* tree::predict_label(std::vector<example_t*> &examples) {
 	return ret;
 }
 
-//float** tree::predict_proba(example_t* examples, int size) {
+/*
+ * Return Vector Format Example:
+ *
+ * assume is a binary-classification
+ * 				example1 		example2 		example3
+ * class 0 		   0.8 			   0.9  		   0.3
+ * class 1 		   0.2 			   0.1 			   0.7
+ *
+ * return [0.8, 0.9, 0.3, 0.2, 0.1, 0.7]
+ */
 float* tree::predict_proba(std::vector<example_t*> &examples) {
 	int *predict_leaf_idx, size = examples.size();
 	node* leaf_node;
@@ -229,7 +238,7 @@ float* tree::predict_proba(std::vector<example_t*> &examples) {
 	predict_leaf_idx = apply(examples);
 
 	ret = new float[size*this->n_classes];
-	for (int i = 1; i < size; i++) ret[i] = ret[0] + i*this->n_classes;
+	//for (int i = 1; i < size; i++) ret[i] = ret[0] + i*this->n_classes;
 	
 	for (int i = 0; i < size; i++) {
 		leaf_node = this->leaf_pt[predict_leaf_idx[i]];
@@ -356,6 +365,10 @@ int tree::get_max_feature() {
 
 int tree::get_n_features() {
 	return this->n_features;
+}
+
+int tree::get_leaf_size() {
+	return this->leaf_size;
 }
 
 decision_tree::decision_tree() {

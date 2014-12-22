@@ -7,11 +7,14 @@
  */
 #pragma once
 
-#include "tree.h"
-#include "dataset.h"
+// C++ header file
 #include <vector>
 #include <string>
 #include <thread>
+// my header file
+#include "tree.h"
+#include "dataset.h"
+#include "parallel.h"
 
 /* declaration */
 class forest;
@@ -19,7 +22,7 @@ class random_forest_classifier;
 
 class forest {
 	protected:
-		vector<tree*> trees;
+		std::vector<tree*> trees;
 
 		int n_trees;
 		int n_threads;
@@ -34,6 +37,9 @@ class forest {
 		float* fea_imp;
 		
 		void check_build();
+
+		void parallel_predict_proba(int tree_begin, int tree_end, std::vector<example_t*> &examples, float* ret);
+		void parallel_apply(int tree_begin, int tree_end, std::vector<example_t*> &examples, int* ret);
 	public:
 		forest();
 		~forest();
@@ -43,6 +49,7 @@ class forest {
 		float* predict_proba(std::vector<example_t*> &examples);
 		int* predict_label(std::vector<example_t*> &examples);
 		void free_forest();
+		int* get_leaf_counts();
 		int get_max_feature();
 		int get_n_features();
 };
@@ -54,7 +61,7 @@ class random_forest_classifier : forest {
 		random_forest_classifier(const std::string feature_rule, int max_depth, int min_split);
 
 		void build(dataset*& d);
-		print_info();
+		void print_info();
 		void dump(const std::string& filename);
 		void load(const std::string& filename);
 		void debug(dataset*& d);

@@ -231,6 +231,12 @@ class tree {
 		 * @return n_features
 		 */
 		int get_n_features();
+		/**
+		 * @brief get_leaf_size Return private member `leaf_size` value
+		 *
+		 * @return leaf_size
+		 */
+		int get_leaf_size();
 };
 
 /**
