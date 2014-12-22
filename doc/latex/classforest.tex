@@ -1,0 +1,219 @@
+\hypertarget{classforest}{\section{forest Class Reference}
+\label{classforest}\index{forest@{forest}}
+}
+
+
+{\ttfamily \#include $<$forest.\+h$>$}
+
+Inheritance diagram for forest\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classforest}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classforest_a2fddb96b4eeb3ecbc3e5423583072329}{forest} ()
+\item 
+\hyperlink{classforest_ab7475fa2436dfc805b4e77288a899605}{$\sim$forest} ()
+\item 
+void \hyperlink{classforest_a9b0546d1f12a2d85fe91f0bd6b8af893}{init} ()
+\item 
+float $\ast$ \hyperlink{classforest_a28e189dcda3707e936bedbf286c54218}{compute\+\_\+importance} (bool re\+\_\+compute=false)
+\item 
+int $\ast$ \hyperlink{classforest_ad829c40a94c7d32178d834dabefa7538}{apply} (std\+::vector$<$ \hyperlink{classexample__t}{example\+\_\+t} $\ast$ $>$ \&examples)
+\item 
+float $\ast$ \hyperlink{classforest_add5aac99e45d27ed52dac2d32bf3b915}{predict\+\_\+proba} (std\+::vector$<$ \hyperlink{classexample__t}{example\+\_\+t} $\ast$ $>$ \&examples)
+\item 
+int $\ast$ \hyperlink{classforest_a8583a5a1d8ac8ad8bcfa8f17dce3b1bd}{predict\+\_\+label} (std\+::vector$<$ \hyperlink{classexample__t}{example\+\_\+t} $\ast$ $>$ \&examples)
+\item 
+void \hyperlink{classforest_a164df87ebd89bb34592e4d25fdaf4faf}{free\+\_\+forest} ()
+\item 
+int $\ast$ \hyperlink{classforest_aaebdd60868d43b35e99dbd46b4dafd52}{get\+\_\+leaf\+\_\+counts} ()
+\item 
+int \hyperlink{classforest_a31b9d3946488765c7d4d1ddb9ed8595e}{get\+\_\+max\+\_\+feature} ()
+\item 
+int \hyperlink{classforest_a089d5d8a5db74c4ba6298774308dc7ae}{get\+\_\+n\+\_\+features} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classforest_a6d3de328bb42e043aa5d927782b46c9f}{check\+\_\+build} ()
+\item 
+void \hyperlink{classforest_a26e2ddcd79b84bbf8ba5cb7f5b290555}{parallel\+\_\+predict\+\_\+proba} (int tree\+\_\+begin, int tree\+\_\+end, std\+::vector$<$ \hyperlink{classexample__t}{example\+\_\+t} $\ast$ $>$ \&examples, float $\ast$ret)
+\item 
+void \hyperlink{classforest_a42a632c9230cdc805ce5688bffd1e224}{parallel\+\_\+apply} (int tree\+\_\+begin, int tree\+\_\+end, std\+::vector$<$ \hyperlink{classexample__t}{example\+\_\+t} $\ast$ $>$ \&examples, int $\ast$ret)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \hyperlink{classtree}{tree} $\ast$ $>$ \hyperlink{classforest_a4645ed80361bfa95d2135a816f67344a}{trees}
+\item 
+int \hyperlink{classforest_ad1cb197d16e4895d196a4981f55d73ef}{n\+\_\+trees}
+\item 
+int \hyperlink{classforest_aad86b5a13d5e997c9ecdbc1f7f7403a5}{n\+\_\+threads}
+\item 
+int \hyperlink{classforest_a9a590d3e77b865dbe24fd2139a774efc}{n\+\_\+classes}
+\item 
+int \hyperlink{classforest_aad957ae462b977de8cd4ff3068bd1c7b}{n\+\_\+features}
+\item 
+const std\+::string \hyperlink{classforest_ab0e48cb7addef717515b7e50d8448215}{feature\+\_\+rule}
+\item 
+int \hyperlink{classforest_a9a36ad3c46bc93d915017bce1fe907e9}{max\+\_\+feature}
+\item 
+int \hyperlink{classforest_a97477164b075fe86ee3e7b410d848df3}{max\+\_\+depth}
+\item 
+int \hyperlink{classforest_adb7bee85249f613b64e82e2f855c2a39}{min\+\_\+split}
+\item 
+float $\ast$ \hyperlink{classforest_a0db5d386945b32abfd695573cc91db89}{fea\+\_\+imp}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classforest_a2fddb96b4eeb3ecbc3e5423583072329}{\index{forest@{forest}!forest@{forest}}
+\index{forest@{forest}!forest@{forest}}
+\subsubsection[{forest}]{\setlength{\rightskip}{0pt plus 5cm}forest\+::forest (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classforest_a2fddb96b4eeb3ecbc3e5423583072329}
+\hypertarget{classforest_ab7475fa2436dfc805b4e77288a899605}{\index{forest@{forest}!````~forest@{$\sim$forest}}
+\index{````~forest@{$\sim$forest}!forest@{forest}}
+\subsubsection[{$\sim$forest}]{\setlength{\rightskip}{0pt plus 5cm}forest\+::$\sim$forest (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classforest_ab7475fa2436dfc805b4e77288a899605}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classforest_ad829c40a94c7d32178d834dabefa7538}{\index{forest@{forest}!apply@{apply}}
+\index{apply@{apply}!forest@{forest}}
+\subsubsection[{apply}]{\setlength{\rightskip}{0pt plus 5cm}int $\ast$ forest\+::apply (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ {\bf example\+\_\+t} $\ast$ $>$ \&}]{examples}
+\end{DoxyParamCaption}
+)}}\label{classforest_ad829c40a94c7d32178d834dabefa7538}
+\hypertarget{classforest_a6d3de328bb42e043aa5d927782b46c9f}{\index{forest@{forest}!check\+\_\+build@{check\+\_\+build}}
+\index{check\+\_\+build@{check\+\_\+build}!forest@{forest}}
+\subsubsection[{check\+\_\+build}]{\setlength{\rightskip}{0pt plus 5cm}void forest\+::check\+\_\+build (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classforest_a6d3de328bb42e043aa5d927782b46c9f}
+\hypertarget{classforest_a28e189dcda3707e936bedbf286c54218}{\index{forest@{forest}!compute\+\_\+importance@{compute\+\_\+importance}}
+\index{compute\+\_\+importance@{compute\+\_\+importance}!forest@{forest}}
+\subsubsection[{compute\+\_\+importance}]{\setlength{\rightskip}{0pt plus 5cm}float $\ast$ forest\+::compute\+\_\+importance (
+\begin{DoxyParamCaption}
+\item[{bool}]{re\+\_\+compute = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}\label{classforest_a28e189dcda3707e936bedbf286c54218}
+\hypertarget{classforest_a164df87ebd89bb34592e4d25fdaf4faf}{\index{forest@{forest}!free\+\_\+forest@{free\+\_\+forest}}
+\index{free\+\_\+forest@{free\+\_\+forest}!forest@{forest}}
+\subsubsection[{free\+\_\+forest}]{\setlength{\rightskip}{0pt plus 5cm}void forest\+::free\+\_\+forest (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classforest_a164df87ebd89bb34592e4d25fdaf4faf}
+\hypertarget{classforest_aaebdd60868d43b35e99dbd46b4dafd52}{\index{forest@{forest}!get\+\_\+leaf\+\_\+counts@{get\+\_\+leaf\+\_\+counts}}
+\index{get\+\_\+leaf\+\_\+counts@{get\+\_\+leaf\+\_\+counts}!forest@{forest}}
+\subsubsection[{get\+\_\+leaf\+\_\+counts}]{\setlength{\rightskip}{0pt plus 5cm}int $\ast$ forest\+::get\+\_\+leaf\+\_\+counts (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classforest_aaebdd60868d43b35e99dbd46b4dafd52}
+\hypertarget{classforest_a31b9d3946488765c7d4d1ddb9ed8595e}{\index{forest@{forest}!get\+\_\+max\+\_\+feature@{get\+\_\+max\+\_\+feature}}
+\index{get\+\_\+max\+\_\+feature@{get\+\_\+max\+\_\+feature}!forest@{forest}}
+\subsubsection[{get\+\_\+max\+\_\+feature}]{\setlength{\rightskip}{0pt plus 5cm}int forest\+::get\+\_\+max\+\_\+feature (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classforest_a31b9d3946488765c7d4d1ddb9ed8595e}
+\hypertarget{classforest_a089d5d8a5db74c4ba6298774308dc7ae}{\index{forest@{forest}!get\+\_\+n\+\_\+features@{get\+\_\+n\+\_\+features}}
+\index{get\+\_\+n\+\_\+features@{get\+\_\+n\+\_\+features}!forest@{forest}}
+\subsubsection[{get\+\_\+n\+\_\+features}]{\setlength{\rightskip}{0pt plus 5cm}int forest\+::get\+\_\+n\+\_\+features (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classforest_a089d5d8a5db74c4ba6298774308dc7ae}
+\hypertarget{classforest_a9b0546d1f12a2d85fe91f0bd6b8af893}{\index{forest@{forest}!init@{init}}
+\index{init@{init}!forest@{forest}}
+\subsubsection[{init}]{\setlength{\rightskip}{0pt plus 5cm}void forest\+::init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classforest_a9b0546d1f12a2d85fe91f0bd6b8af893}
+\hypertarget{classforest_a42a632c9230cdc805ce5688bffd1e224}{\index{forest@{forest}!parallel\+\_\+apply@{parallel\+\_\+apply}}
+\index{parallel\+\_\+apply@{parallel\+\_\+apply}!forest@{forest}}
+\subsubsection[{parallel\+\_\+apply}]{\setlength{\rightskip}{0pt plus 5cm}void forest\+::parallel\+\_\+apply (
+\begin{DoxyParamCaption}
+\item[{int}]{tree\+\_\+begin, }
+\item[{int}]{tree\+\_\+end, }
+\item[{std\+::vector$<$ {\bf example\+\_\+t} $\ast$ $>$ \&}]{examples, }
+\item[{int $\ast$}]{ret}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classforest_a42a632c9230cdc805ce5688bffd1e224}
+\hypertarget{classforest_a26e2ddcd79b84bbf8ba5cb7f5b290555}{\index{forest@{forest}!parallel\+\_\+predict\+\_\+proba@{parallel\+\_\+predict\+\_\+proba}}
+\index{parallel\+\_\+predict\+\_\+proba@{parallel\+\_\+predict\+\_\+proba}!forest@{forest}}
+\subsubsection[{parallel\+\_\+predict\+\_\+proba}]{\setlength{\rightskip}{0pt plus 5cm}void forest\+::parallel\+\_\+predict\+\_\+proba (
+\begin{DoxyParamCaption}
+\item[{int}]{tree\+\_\+begin, }
+\item[{int}]{tree\+\_\+end, }
+\item[{std\+::vector$<$ {\bf example\+\_\+t} $\ast$ $>$ \&}]{examples, }
+\item[{float $\ast$}]{ret}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classforest_a26e2ddcd79b84bbf8ba5cb7f5b290555}
+\hypertarget{classforest_a8583a5a1d8ac8ad8bcfa8f17dce3b1bd}{\index{forest@{forest}!predict\+\_\+label@{predict\+\_\+label}}
+\index{predict\+\_\+label@{predict\+\_\+label}!forest@{forest}}
+\subsubsection[{predict\+\_\+label}]{\setlength{\rightskip}{0pt plus 5cm}int $\ast$ forest\+::predict\+\_\+label (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ {\bf example\+\_\+t} $\ast$ $>$ \&}]{examples}
+\end{DoxyParamCaption}
+)}}\label{classforest_a8583a5a1d8ac8ad8bcfa8f17dce3b1bd}
+\hypertarget{classforest_add5aac99e45d27ed52dac2d32bf3b915}{\index{forest@{forest}!predict\+\_\+proba@{predict\+\_\+proba}}
+\index{predict\+\_\+proba@{predict\+\_\+proba}!forest@{forest}}
+\subsubsection[{predict\+\_\+proba}]{\setlength{\rightskip}{0pt plus 5cm}float $\ast$ forest\+::predict\+\_\+proba (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ {\bf example\+\_\+t} $\ast$ $>$ \&}]{examples}
+\end{DoxyParamCaption}
+)}}\label{classforest_add5aac99e45d27ed52dac2d32bf3b915}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classforest_a0db5d386945b32abfd695573cc91db89}{\index{forest@{forest}!fea\+\_\+imp@{fea\+\_\+imp}}
+\index{fea\+\_\+imp@{fea\+\_\+imp}!forest@{forest}}
+\subsubsection[{fea\+\_\+imp}]{\setlength{\rightskip}{0pt plus 5cm}float$\ast$ forest\+::fea\+\_\+imp\hspace{0.3cm}{\ttfamily [protected]}}}\label{classforest_a0db5d386945b32abfd695573cc91db89}
+\hypertarget{classforest_ab0e48cb7addef717515b7e50d8448215}{\index{forest@{forest}!feature\+\_\+rule@{feature\+\_\+rule}}
+\index{feature\+\_\+rule@{feature\+\_\+rule}!forest@{forest}}
+\subsubsection[{feature\+\_\+rule}]{\setlength{\rightskip}{0pt plus 5cm}const std\+::string forest\+::feature\+\_\+rule\hspace{0.3cm}{\ttfamily [protected]}}}\label{classforest_ab0e48cb7addef717515b7e50d8448215}
+\hypertarget{classforest_a97477164b075fe86ee3e7b410d848df3}{\index{forest@{forest}!max\+\_\+depth@{max\+\_\+depth}}
+\index{max\+\_\+depth@{max\+\_\+depth}!forest@{forest}}
+\subsubsection[{max\+\_\+depth}]{\setlength{\rightskip}{0pt plus 5cm}int forest\+::max\+\_\+depth\hspace{0.3cm}{\ttfamily [protected]}}}\label{classforest_a97477164b075fe86ee3e7b410d848df3}
+\hypertarget{classforest_a9a36ad3c46bc93d915017bce1fe907e9}{\index{forest@{forest}!max\+\_\+feature@{max\+\_\+feature}}
+\index{max\+\_\+feature@{max\+\_\+feature}!forest@{forest}}
+\subsubsection[{max\+\_\+feature}]{\setlength{\rightskip}{0pt plus 5cm}int forest\+::max\+\_\+feature\hspace{0.3cm}{\ttfamily [protected]}}}\label{classforest_a9a36ad3c46bc93d915017bce1fe907e9}
+\hypertarget{classforest_adb7bee85249f613b64e82e2f855c2a39}{\index{forest@{forest}!min\+\_\+split@{min\+\_\+split}}
+\index{min\+\_\+split@{min\+\_\+split}!forest@{forest}}
+\subsubsection[{min\+\_\+split}]{\setlength{\rightskip}{0pt plus 5cm}int forest\+::min\+\_\+split\hspace{0.3cm}{\ttfamily [protected]}}}\label{classforest_adb7bee85249f613b64e82e2f855c2a39}
+\hypertarget{classforest_a9a590d3e77b865dbe24fd2139a774efc}{\index{forest@{forest}!n\+\_\+classes@{n\+\_\+classes}}
+\index{n\+\_\+classes@{n\+\_\+classes}!forest@{forest}}
+\subsubsection[{n\+\_\+classes}]{\setlength{\rightskip}{0pt plus 5cm}int forest\+::n\+\_\+classes\hspace{0.3cm}{\ttfamily [protected]}}}\label{classforest_a9a590d3e77b865dbe24fd2139a774efc}
+\hypertarget{classforest_aad957ae462b977de8cd4ff3068bd1c7b}{\index{forest@{forest}!n\+\_\+features@{n\+\_\+features}}
+\index{n\+\_\+features@{n\+\_\+features}!forest@{forest}}
+\subsubsection[{n\+\_\+features}]{\setlength{\rightskip}{0pt plus 5cm}int forest\+::n\+\_\+features\hspace{0.3cm}{\ttfamily [protected]}}}\label{classforest_aad957ae462b977de8cd4ff3068bd1c7b}
+\hypertarget{classforest_aad86b5a13d5e997c9ecdbc1f7f7403a5}{\index{forest@{forest}!n\+\_\+threads@{n\+\_\+threads}}
+\index{n\+\_\+threads@{n\+\_\+threads}!forest@{forest}}
+\subsubsection[{n\+\_\+threads}]{\setlength{\rightskip}{0pt plus 5cm}int forest\+::n\+\_\+threads\hspace{0.3cm}{\ttfamily [protected]}}}\label{classforest_aad86b5a13d5e997c9ecdbc1f7f7403a5}
+\hypertarget{classforest_ad1cb197d16e4895d196a4981f55d73ef}{\index{forest@{forest}!n\+\_\+trees@{n\+\_\+trees}}
+\index{n\+\_\+trees@{n\+\_\+trees}!forest@{forest}}
+\subsubsection[{n\+\_\+trees}]{\setlength{\rightskip}{0pt plus 5cm}int forest\+::n\+\_\+trees\hspace{0.3cm}{\ttfamily [protected]}}}\label{classforest_ad1cb197d16e4895d196a4981f55d73ef}
+\hypertarget{classforest_a4645ed80361bfa95d2135a816f67344a}{\index{forest@{forest}!trees@{trees}}
+\index{trees@{trees}!forest@{forest}}
+\subsubsection[{trees}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<${\bf tree}$\ast$$>$ forest\+::trees\hspace{0.3cm}{\ttfamily [protected]}}}\label{classforest_a4645ed80361bfa95d2135a816f67344a}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{forest_8h}{forest.\+h}\item 
+src/\hyperlink{forest_8cpp}{forest.\+cpp}\end{DoxyCompactItemize}

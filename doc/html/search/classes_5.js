@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['node',['node',['../classnode.html',1,'']]]
+  ['gini',['gini',['../classgini.html',1,'']]]
 ];

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['random_5fsplitter',['random_splitter',['../classrandom__splitter.html',1,'']]],
-  ['randomforestclassifier',['RandomForestClassifier',['../class_random_forest_classifier.html',1,'']]]
+  ['online_5fnode',['online_node',['../classonline__node.html',1,'']]],
+  ['online_5ftree',['online_tree',['../classonline__tree.html',1,'']]]
 ];

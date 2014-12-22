@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['max_5fdepth',['max_depth',['../class_base_forest.html#a85cf2e2e202c6e82bf684057181138f6',1,'BaseForest::max_depth()'],['../classtree.html#a0a9f968fac827d3239be67488c34fb21',1,'tree::max_depth()']]],
-  ['max_5ffeature',['max_feature',['../class_base_forest.html#a07e8b0ed27405f469198f2c4875786c9',1,'BaseForest::max_feature()'],['../classtree.html#a6f4304318f8f091f7d783ac1ec7d2775',1,'tree::max_feature()']]],
-  ['max_5ffeature_5fcriterion',['max_feature_criterion',['../class_base_forest.html#a5c651ace1f9d5177cdff38a0ae4048f7',1,'BaseForest']]],
-  ['min_5fleaf_5fsamples',['min_leaf_samples',['../class_base_forest.html#a15e0407f3c0fbc4c25e0796c781ff059',1,'BaseForest']]],
-  ['min_5fsplit',['min_split',['../classtree.html#ae70cd626c0b50a0b8306a94a9e5e8fd7',1,'tree']]],
-  ['mode',['mode',['../classdata__reader.html#a4132a7abcf03cca64e2eb204e70fffd3',1,'data_reader::mode()'],['../classdataset.html#a47d44ca9cd02a4dc98ff80e0616a5aa9',1,'dataset::mode()']]]
+  ['n_5fclasses',['n_classes',['../classdataset.html#aa33a77fd21cbed4019bfb5ed82e30c6b',1,'dataset::n_classes()'],['../classforest.html#a9a590d3e77b865dbe24fd2139a774efc',1,'forest::n_classes()'],['../classnode.html#a8c4864582cb3fe15e84e7908d0965150',1,'node::n_classes()'],['../classtree.html#a3f074099473facb464acf152157bf4d0',1,'tree::n_classes()'],['../classsplitter.html#abfc53538ed65c0afd50aedbf46dff458',1,'splitter::n_classes()']]],
+  ['n_5fexamples',['n_examples',['../classdataset.html#ad7186a7fc9e74633c3b3fcddcf241ad4',1,'dataset']]],
+  ['n_5ffeatures',['n_features',['../classdata__reader.html#ab77f1bebd79be09216119e127b463434',1,'data_reader::n_features()'],['../classdataset.html#a5469ac8f1b5d64d836821e5056599b54',1,'dataset::n_features()'],['../classforest.html#aad957ae462b977de8cd4ff3068bd1c7b',1,'forest::n_features()'],['../classtree.html#a48430ab4447259c35af5f22e894e1d6c',1,'tree::n_features()']]],
+  ['n_5fthreads',['n_threads',['../classforest.html#aad86b5a13d5e997c9ecdbc1f7f7403a5',1,'forest']]],
+  ['n_5ftrees',['n_trees',['../classforest.html#ad1cb197d16e4895d196a4981f55d73ef',1,'forest']]],
+  ['nnz',['nnz',['../classexample__t.html#a6501a26509c4d186310a5f51c7a9ddf8',1,'example_t']]]
 ];

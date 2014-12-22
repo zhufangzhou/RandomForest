@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['ifs',['ifs',['../classdata__reader.html#a1a39328bde93e7f132a1ca7eb6642311',1,'data_reader']]],
-  ['is_5fcate',['is_cate',['../classdataset.html#ab856d84d4bced1ccde106badfab229d8',1,'dataset::is_cate()'],['../classnode.html#a67c3c0be5001ace8494a6292e8079001',1,'node::is_cate()']]],
-  ['is_5finit',['is_init',['../classdataset.html#ab5381427833c91ee35913ca1c1d4e73b',1,'dataset::is_init()'],['../classcriterion.html#a5f3c4708d9e6a9120ec8b8d98c73ff47',1,'criterion::is_init()']]]
+  ['leaf_5fidx',['leaf_idx',['../classnode.html#abbd7d4174869fead5f901b042a2f9712',1,'node']]],
+  ['leaf_5fpt',['leaf_pt',['../classtree.html#ac697cf1868c26ac26f005e6ee8be9d43',1,'tree']]],
+  ['leaf_5fsize',['leaf_size',['../classtree.html#a551919e1402a700821694297623017fc',1,'tree']]],
+  ['left',['left',['../classnode.html#a7cbff55ff448f557223f79299056e9b1',1,'node']]],
+  ['left_5ffrequency',['left_frequency',['../classsplitter.html#a0a1c53a640e3305eeb32a9586fea657b',1,'splitter']]]
 ];

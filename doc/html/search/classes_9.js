@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['tree',['tree',['../classtree.html',1,'']]]
+  ['splitter',['splitter',['../classsplitter.html',1,'']]]
 ];
