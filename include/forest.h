@@ -1,6 +1,6 @@
 /**
  * @file forest.h
- * @brief 
+ * @brief header file of forest, including random forest
  * @author Zhu Fangzhou, zhu.ark@gmail.com
  * @version 1.0
  * @date 2014-12-21
@@ -17,6 +17,7 @@
 #include <string>
 #include <thread>
 /* my header file */
+#include "parameter.h"
 #include "tree.h"
 #include "dataset.h"
 #include "parallel.h"
@@ -45,11 +46,13 @@ class forest {
 		
 		bool check_build();
 
+		void free_forest();
 		void parallel_predict_proba(int tree_begin, int tree_end, std::vector<example_t*> &examples, float* ret);
 		void parallel_apply(int tree_begin, int tree_end, std::vector<example_t*> &examples, int* ret);
 	public:
 		forest();
-		~forest();
+		forest(const std::string feature_rule, int max_depth, int min_split, int n_trees, int n_threads);
+		virtual ~forest();
 		float* compute_importance(bool re_compute = false);
 		int* apply(std::vector<example_t*> &examples);
 		float* predict_proba(std::vector<example_t*> &examples);
@@ -57,13 +60,15 @@ class forest {
 		int* get_leaf_counts();
 		int get_max_feature();
 		int get_n_features();
+		virtual void dump(const std::string& filename) const = 0;
+		virtual void load(const std::string& filename) = 0;
 };
 
 class random_forest_classifier : forest {
-	protected:
-
+	private:
+		void parallel_build(int tree_begin, int tree_end, dataset*& d);
 	public:
-		random_forest_classifier(const std::string feature_rule, int max_depth, int min_split);
+		random_forest_classifier(const std::string feature_rule, int max_depth, int min_split, int n_trees, int n_threads);
 		random_forest_classifier();
 		~random_forest_classifier();
 

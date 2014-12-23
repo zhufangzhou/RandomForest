@@ -13,10 +13,12 @@ all: create_dir main
 main: $(ALL_OBJ)
 	$(CC) $(CXXFLAGS) $(ALL_OBJ) -o main
 
-debug: ${BUILD_DIR}debug.o ${BUILD_DIR}dataset.o ${BUILD_DIR}utils.o ${BUILD_DIR}tree.o ${BUILD_DIR}metrics.o ${BUILD_DIR}random.o
+debug: ${BUILD_DIR}debug.o ${BUILD_DIR}dataset.o ${BUILD_DIR}utils.o ${BUILD_DIR}tree.o ${BUILD_DIR}metrics.o ${BUILD_DIR}random.o ${BUILD_DIR}forest.o ${BUILD_DIR}parallel.o
 	g++ $^ -o ${BIN_DIR}$@
 
 ${BUILD_DIR}utils.o: ${UTILS_DIR}src/utils.cpp
+	g++ -g -std=c++0x -c $^ -o $@ -I${UTILS_DIR}include
+${BUILD_DIR}parallel.o: ${UTILS_DIR}src/parallel.cpp
 	g++ -g -std=c++0x -c $^ -o $@ -I${UTILS_DIR}include
 ${BUILD_DIR}random.o: ${UTILS_DIR}src/random.cpp
 	g++ -g -std=c++0x -c $^ -o $@ -I${UTILS_DIR}include

@@ -2,9 +2,20 @@
 #include <vector> 
 #include <string>
 
+#include "forest.h"
 #include "dataset.h"
 #include "tree.h"
 #include "metrics.h"
+
+dataset* mushroom() {
+	float* weight = new float[2];
+	weight[0] = weight[1] = 1.0;
+	dataset* d = new dataset(2, 112, weight);
+	d->load_data("./data/mushrooms", TRAIN);
+	delete[] weight;
+	return d;
+}
+
 void debug_data_reader() {
 	data_reader* dr = new data_reader("data/train.dat", 10, TRAIN);
 	example_t* single;
@@ -41,15 +52,13 @@ void debug_decision_tree() {
 }
 
 void test_decision_tree() {
-	float* weight = new float[2];
-	weight[0] = weight[1] = 1.0;
-	dataset* d = new dataset(2, 112, weight);
-	d->load_data("./data/mushrooms", TRAIN);
+	dataset *d = mushroom();
 //	d->debug();
 	decision_tree* t = new decision_tree("sqrt", 10000, 1);
 	//t->debug(d);
 	// train the model
 	t->build(d);
+	t->export_dotfile("./display/tree.dot");
 	data_reader* dr = new data_reader("./data/mushrooms", 112, TRAIN);
 	std::vector<example_t*> test_data = dr->read_examples();	
 	int n_test = test_data.size();
@@ -64,7 +73,7 @@ void test_decision_tree() {
 	std::cout << color_msg("AUC = ", color_info) << color_msg(Metrics::roc_auc_score(y_pred, y_true, n_test), color_value) << std::endl;
 	std::cout << color_msg("Precision-Recall AUC = ", color_info) << color_msg(Metrics::pr_auc_score(y_pred, y_true, n_test), color_value) << std::endl;
 
-	int n_features = d->get_nfeatures();
+	int n_features = d->get_n_features();
 	float *imp = t->compute_importance();
 	for (int i = 0; i < n_features; i++)
 		std::cout << i+1 << ":" << imp[i] << " ";
@@ -72,17 +81,27 @@ void test_decision_tree() {
 
 
 	delete dr;
-	delete[] weight;
 	delete t;
 	delete d;
 	delete y_true;
 	delete y_pred_zero;
 }
 
+void test_random_forest() {
+	dataset* d = mushroom();
+
+	random_forest_classifier* rf = new random_forest_classifier("sqrt", -1, 1, 10, -1);
+	rf->build(d);
+
+	delete d;
+	delete rf;
+}
+
 int main(int argc, char** argv) {
 	//debug_data_reader();
 	//debug_dataset();
 	//debug_decision_tree();
-	test_decision_tree();
+	//test_decision_tree();
+	test_random_forest();
 	return 0;
 }

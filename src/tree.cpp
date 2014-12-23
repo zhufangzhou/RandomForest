@@ -459,7 +459,7 @@ decision_tree::decision_tree(const std::string feature_rule, int max_depth, int 
 void decision_tree::build(dataset*& d) {
 	target_t c; /* temporary variable to indicate current class */
 	node* c_node;
-	int n_classes = d->get_nclasses(), n_examples = d->get_nexamples(), n_features = d->get_nfeatures();
+	int n_classes = d->get_n_classes(), n_examples = d->get_n_examples(), n_features = d->get_n_features();
 	int ex_id;
 	float nf_t;
 	m_timer* ti = new m_timer();
@@ -510,7 +510,7 @@ void decision_tree::build(dataset*& d) {
 }
 
 void decision_tree::build_rec(node*& root, dataset*& d, int depth) {
-	int n_classes = d->get_nclasses(), n_examples = d->get_nexamples(), count, tot_ex, left_tot_ex, right_tot_ex;
+	int n_classes = d->get_n_classes(), n_examples = d->get_n_examples(), count, tot_ex, left_tot_ex, right_tot_ex;
 	splitter* s = new best_splitter(n_classes);			
 	ev_pair_t *p;	
 	node *first, *second;
@@ -525,7 +525,7 @@ void decision_tree::build_rec(node*& root, dataset*& d, int depth) {
 			count++;
 		}
 	}
-	if (depth >= this->max_depth || count < 2 || tot_ex <= this->min_split) {
+	if ((this->max_depth > 0 && depth >= this->max_depth) || count < 2 || tot_ex <= this->min_split) {
 		if (this->verbose > 0) {
 			std::cout << "********************************" << std::endl;
 			std::cout << "Depth: " << depth << std::endl;
@@ -725,7 +725,7 @@ void best_splitter::split(tree* t, node*& root, dataset*& d, criterion*& cr) {
 	int f, j, fst_valid, cur_ex, prev, prev_ex;
 	float *zero_frequency, *nonzero_frequency; /* these two are for current node */
 	float *left_frequency, threshold;
-	int n_classes = d->get_nclasses(), max_feature = t->get_max_feature(), n_features = t->get_n_features(); 
+	int n_classes = d->get_n_classes(), max_feature = t->get_max_feature(), n_features = t->get_n_features(); 
 
 	/* the key idea of this sparse split is to determine where to put zero examples */
 	zero_frequency = new float[n_classes];

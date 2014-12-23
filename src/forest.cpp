@@ -8,13 +8,38 @@
 #include "forest.h"
 
 forest::forest() {
+	this->feature_rule = "sqrt";
+	this->max_depth = -1;
+	this->min_split = 1;
+	this->n_trees = 10;
+	this->n_threads = 1;
+
+	fea_imp = nullptr;
+
+	is_build = false;
+}
+
+forest::forest(const std::string feature_rule, int max_depth, int min_split, int n_trees, int n_threads) {
+	this->feature_rule = feature_rule;
+	this->max_depth  = max_depth;
+	this->min_split = min_split;
+	this->n_trees = n_trees;
+	this->n_threads = n_threads;
+
+	fea_imp = nullptr;
+
 	is_build = false;
 }
 
 forest::~forest() {
+	free_forest();
+}
+
+void forest::free_forest() {
 	/* free trees */
-	for (int t = 0; t < this->n_trees; t++) {
-		delete this->trees[t];
+	for (int t = 0; t < this->trees.size(); t++) {
+		if (this->trees[t] != nullptr)
+			delete this->trees[t];
 		this->trees[t] = nullptr;
 	}
 	this->trees.clear();
@@ -215,14 +240,59 @@ int forest::get_n_features() {
 	return this->n_features;
 }
 
-bool check_build() {
+bool forest::check_build() {
 	return is_build;
 }
 
-random_forest_classifier::random_forest_classifier(const std::string feature_rule, int max_depth, int min_split) {
-	this->feature_rule = feature_rule;
-	this->max_depth = max_depth;
-	this->min_split = min_split;
+random_forest_classifier::random_forest_classifier(const std::string feature_rule, int max_depth, int min_split, int n_trees, int n_threads) : 
+	forest(feature_rule, max_depth, min_split, n_trees, n_threads) {
+
+}
+
+random_forest_classifier::~random_forest_classifier() {
+	free_forest();
+}
+
+void random_forest_classifier::parallel_build(int tree_begin, int tree_end, dataset*&d) {
+	for (int t = tree_begin; t < tree_end; t++) {
+		this->trees[t] = new decision_tree(this->feature_rule, this->max_depth, this->min_split);
+		this->trees[t]->build(d);	
+	}
+}
+
+void random_forest_classifier::build(dataset*& d) {
+	int tree_begin, tree_end;
+
+	/* collect information from dataset */
+	this->n_classes = d->get_n_classes();
+	this->n_features = d->get_n_features();
+
+	/* initialize trees */
+	free_forest();
+	this->trees.reserve(this->n_trees);
+
+	/* parallel build tree */
+	parallel_unit pu = init_block(this->n_trees, this->n_threads);
+	std::vector<std::thread> threads(pu.num_threads - 1);
+
+	tree_begin = 0;
+	for (int i = 0; i < pu.num_threads - 1; i++) {
+		tree_end = tree_begin + pu.block_size;
+		threads[i] = std::thread([&, tree_begin, tree_end]() {
+			parallel_build(tree_begin, tree_end, d);
+		});
+		tree_begin = tree_end;
+	}
+	parallel_build(tree_begin, this->n_trees, d);
+
+	/* join all the threads */
+	std::for_each(threads.begin(), threads.end(), std::mem_fn(&std::thread::join));
+
+	/* collect max_feature after build */
+//	this->max_feature = this->trees[0]->get_max_feature();
+
+	/* set the flag is_build to true */
+	is_build = true;
 }
 
 void random_forest_classifier::dump(const std::string& filename) const {
@@ -283,4 +353,8 @@ void random_forest_classifier::load(const std::string& filename) {
 
 	/* set the `is_build` to true */
 	this->is_build = true;
+}
+
+void random_forest_classifier::debug(dataset*& d) {
+	
 }

@@ -153,11 +153,16 @@ class tree {
 		/**
 		 * @brief Destructor
 		 */
-		~tree();
+		virtual ~tree();
 		/**
 		 * @brief Constructor giving tree settings
 		 *
-		 * @param feature_rule number of feature to consider per node, avaiable values are 'sqrt' for square root of `n_features`, 'log' for logarithm of `n_features`, real number between 0 and 1 for percent of `n_features`, integer larger than 1 for fixed number features which should less than `n_features`. If the value is invalid, the program will take `sqrt` as default other than just exit.
+		 * @param feature_rule number of feature to consider per node, avaiable values are 
+		 * 1. 'sqrt' for square root of `n_features`, 
+		 * 2. 'log' for logarithm of `n_features`, 
+		 * 3. real number between 0 and 1 for percent of `n_features`, 
+		 * 4. integer larger than 1 for fixed number features which should less than `n_features`. 
+		 * If the value is invalid, the program will take `sqrt` as default other than just exit.
 		 * @param max_depth the depth limitation of tree 
 		 * @param min_split the minimum number of examples needed to make a split in a node
 		 */
@@ -165,7 +170,12 @@ class tree {
 		/**
 		 * @brief Initialize the tree(e.g. set some parameter and allocate memory to some variables)
 		 *
-		 * @param feature_rule number of feature to consider per node, avaiable values are 'sqrt' for square root of `n_features`, 'log' for logarithm of `n_features`, real number between 0 and 1 for percent of `n_features`, integer larger than 1 for fixed number features which should less than `n_features`. If the value is invalid, the program will take `sqrt` as default other than just exit.
+		 * @param feature_rule number of feature to consider per node, avaiable values are 
+		 * 1. 'sqrt' for square root of `n_features`, 
+		 * 2. 'log' for logarithm of `n_features`, 
+		 * 3. real number between 0 and 1 for percent of `n_features`, 
+		 * 4. integer larger than 1 for fixed number features which should less than `n_features`. 
+		 * If the value is invalid, the program will take `sqrt` as default other than just exit.
 		 * @param max_depth the depth limitation of tree 
 		 * @param min_split the minimum number of examples needed to make a split in a node
 		 */
@@ -237,8 +247,24 @@ class tree {
 		 * @return leaf_size
 		 */
 		int get_leaf_size();
+		/**
+		 * @brief dump Interface of dump function
+		 *
+		 * @param filename file path to dump model
+		 */
 		virtual void dump(const std::string &filename) const = 0;
+		/**
+		 * @brief load Interface of load function
+		 *
+		 * @param filename file path to load model
+		 */
 		virtual void load(const std::string &filename) = 0;
+		/**
+		 * @brief build Interface of build tree using the given dataset
+		 *
+		 * @param d training dataset
+		 */
+		virtual void build(dataset*& d) = 0;
 };
 
 /**
@@ -259,7 +285,12 @@ class decision_tree : public tree {
 		/**
 		 * @brief Constructor
 		 *
-		 * @param feature_rule number of feature to consider per node, avaiable values are 'sqrt' for square root of `n_features`, 'log' for logarithm of `n_features`, real number between 0 and 1 for percent of `n_features`, integer larger than 1 for fixed number features which should less than `n_features`. If the value is invalid, the program will take `sqrt` as default other than just exit.
+		 * @param feature_rule number of feature to consider per node, avaiable values are 
+		 * 1. 'sqrt' for square root of `n_features`, 
+		 * 2. 'log' for logarithm of `n_features`, 
+		 * 3. real number between 0 and 1 for percent of `n_features`, 
+		 * 4. integer larger than 1 for fixed number features which should less than `n_features`. 
+		 * If the value is invalid, the program will take `sqrt` as default other than just exit.
 		 * @param max_depth the depth limitation of tree 
 		 * @param min_split the minimum number of examples needed to make a split in a node
 		 */

@@ -44,3 +44,4 @@
 # These two directory do not upload
 data
 model
+bin

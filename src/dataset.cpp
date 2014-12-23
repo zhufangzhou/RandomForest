@@ -286,15 +286,15 @@ void dataset::sort(ev_pair_t* a, int* f, int len){
     isort(a,f,len);
 }
 
-int dataset::get_nclasses() {
+int dataset::get_n_classes() {
 	return this->n_classes;
 }
 
-int dataset::get_nexamples() {
+int dataset::get_n_examples() {
 	return this->n_examples;
 }
 
-int dataset::get_nfeatures() {
+int dataset::get_n_features() {
 	return this->n_features;
 }
 

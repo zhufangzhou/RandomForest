@@ -180,8 +180,23 @@ class dataset {
 		 * @brief debug print some information for debugging
 		 */
 		void debug();
-		int get_nclasses();
-		int get_nexamples();
-		int get_nfeatures();
+		/**
+		 * @brief get_n_classes get private member variable `n_classes`
+		 *
+		 * @return n_classes
+		 */
+		int get_n_classes();
+		/**
+		 * @brief get_n_examples get private member variable `n_examples`
+		 *
+		 * @return n_examples
+		 */
+		int get_n_examples();
+		/**
+		 * @brief get_n_features get private member variable `n_features`
+		 *
+		 * @return n_features
+		 */
+		int get_n_features();
 };
 
