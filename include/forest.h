@@ -40,6 +40,8 @@ class forest {
 		int max_depth;
 		int min_split;
 
+		int verbose;
+
 		float* fea_imp;
 
 		bool is_build;
@@ -51,12 +53,13 @@ class forest {
 		void parallel_apply(int tree_begin, int tree_end, std::vector<example_t*> &examples, int* ret);
 	public:
 		forest();
-		forest(const std::string feature_rule, int max_depth, int min_split, int n_trees, int n_threads);
+		forest(const std::string feature_rule, int max_depth, int min_split, int n_trees, int n_threads, int verbose = 1);
 		virtual ~forest();
 		float* compute_importance(bool re_compute = false);
 		int* apply(std::vector<example_t*> &examples);
 		float* predict_proba(std::vector<example_t*> &examples);
 		int* predict_label(std::vector<example_t*> &examples);
+		void export_dotfile(const std::string& filename, dotfile_mode dm = SEPARATE_TREES);
 		int* get_leaf_counts();
 		int get_max_feature();
 		int get_n_features();
@@ -64,11 +67,11 @@ class forest {
 		virtual void load(const std::string& filename) = 0;
 };
 
-class random_forest_classifier : forest {
+class random_forest_classifier : public forest {
 	private:
 		void parallel_build(int tree_begin, int tree_end, dataset*& d);
 	public:
-		random_forest_classifier(const std::string feature_rule, int max_depth, int min_split, int n_trees, int n_threads);
+		random_forest_classifier(const std::string feature_rule, int max_depth, int min_split, int n_trees, int n_threads, int verbose = 1);
 		random_forest_classifier();
 		~random_forest_classifier();
 

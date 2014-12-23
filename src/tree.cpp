@@ -97,8 +97,8 @@ tree::tree() {
 			
 }
 
-tree::tree(std::string feature_rule, int max_depth, int min_split) {
-	init(feature_rule, max_depth, min_split);
+tree::tree(std::string feature_rule, int max_depth, int min_split, int verbose) {
+	init(feature_rule, max_depth, min_split, verbose);
 }
 
 tree::~tree() {
@@ -113,7 +113,7 @@ tree::~tree() {
 	}
 }
 
-void tree::init(std::string feature_rule, int max_depth, int min_split) {
+void tree::init(std::string feature_rule, int max_depth, int min_split, int verbose) {
 	this->feature_rule = feature_rule;
 	this->max_depth = max_depth;
 	this->min_split = min_split;
@@ -121,6 +121,7 @@ void tree::init(std::string feature_rule, int max_depth, int min_split) {
 	this->leaf_size = 0;
 	this->fea_imp = nullptr;
 	this->valid = nullptr;
+	this->verbose = verbose;
 
 	/* set root node to nullptr */
 	this->root = nullptr;
@@ -195,7 +196,6 @@ int* tree::apply(std::vector<example_t*> &examples) {
 	return ret;
 }
 
-//int* tree::predict_label(example_t* examples, int size) {
 int* tree::predict_label(std::vector<example_t*> &examples) {
 	int *predict_leaf_idx, label, *ret, size = examples.size();
 	node* leaf_node;
@@ -290,14 +290,28 @@ float* tree::compute_importance(bool re_compute) {
 
 void tree::export_dotfile(const std::string& filename) {
 	std::ofstream ofs(filename.c_str());
+	int node_idx = 0;
+
+	if (!ofs.is_open()) {
+		std::cerr << "Cannot open file " << filename << std::endl;
+		exit(EXIT_FAILURE);
+	}
+
+	export_dotfile(ofs, node_idx, true);
+
+	/* close output stream */
+	ofs.close();
+}
+
+void tree::export_dotfile(std::ofstream& ofs, int& node_idx, bool need_header_footer) {
     node* c_node;
-	int node_idx = 0, pa_idx;
+	int pa_idx;
 	std::stack<node*> st;
 	std::stack<int> st_idx;
 	float tot_frequency;
 
 	if (!ofs.is_open()) {
-		std::cerr << "Cannot open file " << filename << std::endl;
+		std::cerr << "You need to open the output stream first" << std::endl;
 		exit(EXIT_FAILURE);
 	}
 
@@ -307,7 +321,8 @@ void tree::export_dotfile(const std::string& filename) {
 	// push root node to stack
 	st.push(root);
 	st_idx.push(-1);
-	ofs << "digraph Tree {" << std::endl;
+	if (need_header_footer)
+		ofs << "digraph Tree {" << std::endl;
 	while (!st.empty()) {
 		/* pop from stack */
         c_node = st.top();
@@ -347,8 +362,8 @@ void tree::export_dotfile(const std::string& filename) {
 		node_idx++;
     }
 
-	ofs << "}" << std::endl;
-	ofs.close();
+	if (need_header_footer)
+		ofs << "}" << std::endl;
 }
 
 int tree::add_leaf(node *leaf) {
@@ -452,8 +467,8 @@ void decision_tree::load(const std::string& filename) {
 	in.clear();
 }
 
-decision_tree::decision_tree(const std::string feature_rule, int max_depth, int min_split) : tree(feature_rule, max_depth, min_split) {
-	this->verbose = 0;
+decision_tree::decision_tree(const std::string feature_rule, int max_depth, int min_split, int verbose) : tree(feature_rule, max_depth, min_split, verbose) {
+
 }
 
 void decision_tree::build(dataset*& d) {
@@ -501,12 +516,14 @@ void decision_tree::build(dataset*& d) {
 		this->valid[ex_id] = 1; 
 	}
 
-	ti->tic("Start build tree");	
+	if (verbose >= 1)
+		ti->tic("Start build tree");	
 
 	/* revursively build tree */
 	build_rec(this->root, d, 0);
 
-	ti->toc("Build tree done.");
+	if (verbose >= 1)
+		ti->toc("Build tree done.");
 }
 
 void decision_tree::build_rec(node*& root, dataset*& d, int depth) {
@@ -526,7 +543,7 @@ void decision_tree::build_rec(node*& root, dataset*& d, int depth) {
 		}
 	}
 	if ((this->max_depth > 0 && depth >= this->max_depth) || count < 2 || tot_ex <= this->min_split) {
-		if (this->verbose > 0) {
+		if (this->verbose >= 2) {
 			std::cout << "********************************" << std::endl;
 			std::cout << "Depth: " << depth << std::endl;
 			std::cout << "Different Class: " << count << std::endl;
@@ -556,7 +573,7 @@ void decision_tree::build_rec(node*& root, dataset*& d, int depth) {
 	
 	// can't split any more
 	if (s->fea_id == -1) {
-		if (this->verbose > 0) {
+		if (this->verbose >= 2) {
 			std::cout << "********************************" << std::endl;
 			std::cout << "Depth: " << depth << std::endl;
 			std::cout << "Different Class: " << count << std::endl;
@@ -595,7 +612,7 @@ void decision_tree::build_rec(node*& root, dataset*& d, int depth) {
 	root->right = new batch_node(n_classes);
 	memcpy(root->right->cur_frequency, s->right_frequency, sizeof(float)*n_classes);
 
-	if (this->verbose > 0) {
+	if (this->verbose >= 2) {
 		std::cout << "=================================" << std::endl;
 		std::cout << "Depth: " << depth << std::endl;
 		std::cout << "Total Examples: " << tot_ex << std::endl;

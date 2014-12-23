@@ -130,6 +130,7 @@ class tree {
 		int min_split; 		/** the minimum examples needed to split */
 
 		float* fea_imp; 	/** feature importance */
+		int verbose; 		/** the debug information level, 0 is nothing, default 1 */
 
 		/**
 		 * @brief add_leaf attach a new leaf to `leaf_pt`
@@ -166,7 +167,7 @@ class tree {
 		 * @param max_depth the depth limitation of tree 
 		 * @param min_split the minimum number of examples needed to make a split in a node
 		 */
-		tree(const std::string feature_rule, int max_depth, int min_split);
+		tree(const std::string feature_rule, int max_depth, int min_split, int verbose = 1);
 		/**
 		 * @brief Initialize the tree(e.g. set some parameter and allocate memory to some variables)
 		 *
@@ -178,8 +179,9 @@ class tree {
 		 * If the value is invalid, the program will take `sqrt` as default other than just exit.
 		 * @param max_depth the depth limitation of tree 
 		 * @param min_split the minimum number of examples needed to make a split in a node
+		 * @param verbose print log level
 		 */
-		void init(const std::string feature_rule, int max_depth, int min_split);
+		void init(const std::string feature_rule, int max_depth, int min_split, int verbose);
 		/**
 		 * @brief Compute feature importance after building the tree (should call build first)
 		 *
@@ -223,11 +225,19 @@ class tree {
 		 */
 		void free_tree(node*& root);
 		/**
-		 * @brief Export the tree structure to a dot file, which can be used to generate a picture (dot -Tpng -o tree.png tree.dot)
+		 * @brief export_dotfile Export the tree structure to a dot file, which can be used to generate a picture (dot -Tpng -o tree.png tree.dot)
 		 *
 		 * @param filename path to the dot file 
 		 */
 		void export_dotfile(const std::string& filename);
+		/**
+		 * @brief export_dotfile Export the tree structure to a dot file, which can be used to generate a picture (dot -Tpng -o tree.png tree.dot)
+		 *
+		 * @param ofs output stream
+		 * @param node_idx node index to begin
+		 * @param need_header_footer whether need header and footer
+		 */
+		void export_dotfile(std::ofstream& ofs, int& node_idx, bool need_header_footer = true);
 
 		/**
 		 * @brief Return private member `max_feature` value
@@ -280,7 +290,6 @@ class decision_tree : public tree {
 		 * @param depth current depth in the whole tree
 		 */
 		void build_rec(node*& root, dataset*& d, int depth);
-		int verbose; 		/** on/off the debug information */
 	public:
 		/**
 		 * @brief Constructor
@@ -293,8 +302,9 @@ class decision_tree : public tree {
 		 * If the value is invalid, the program will take `sqrt` as default other than just exit.
 		 * @param max_depth the depth limitation of tree 
 		 * @param min_split the minimum number of examples needed to make a split in a node
+		 * @param verbose the debug information level
 		 */
-		decision_tree(const std::string feature_rule, int max_depth, int min_split);
+		decision_tree(const std::string feature_rule, int max_depth, int min_split, int verbose);
 		/**
 		 * @brief decision_tree Default constructor
 		 */

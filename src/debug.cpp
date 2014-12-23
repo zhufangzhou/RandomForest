@@ -46,7 +46,7 @@ void debug_decision_tree() {
 
 	d->load_data("./data/train.dat", TRAIN);
 	d->debug();
-	decision_tree* t = new decision_tree("6", 10, 1);
+	decision_tree* t = new decision_tree("6", 10, 1, 1);
 	t->debug(d);
 
 }
@@ -54,7 +54,7 @@ void debug_decision_tree() {
 void test_decision_tree() {
 	dataset *d = mushroom();
 //	d->debug();
-	decision_tree* t = new decision_tree("sqrt", 10000, 1);
+	decision_tree* t = new decision_tree("sqrt", 10000, 1, 1);
 	//t->debug(d);
 	// train the model
 	t->build(d);
@@ -90,8 +90,10 @@ void test_decision_tree() {
 void test_random_forest() {
 	dataset* d = mushroom();
 
-	random_forest_classifier* rf = new random_forest_classifier("sqrt", -1, 1, 10, -1);
+	random_forest_classifier* rf = new random_forest_classifier("sqrt", 5, 1, 10, -1);
 	rf->build(d);
+	rf->export_dotfile("display/forest.dot", WHOLE_FOREST);
+	rf->dump("model/forest.model");
 
 	delete d;
 	delete rf;

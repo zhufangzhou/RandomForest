@@ -19,12 +19,13 @@ forest::forest() {
 	is_build = false;
 }
 
-forest::forest(const std::string feature_rule, int max_depth, int min_split, int n_trees, int n_threads) {
+forest::forest(const std::string feature_rule, int max_depth, int min_split, int n_trees, int n_threads, int verbose) {
 	this->feature_rule = feature_rule;
 	this->max_depth  = max_depth;
 	this->min_split = min_split;
 	this->n_trees = n_trees;
 	this->n_threads = n_threads;
+	this->verbose = verbose;
 
 	fea_imp = nullptr;
 
@@ -207,6 +208,40 @@ int* forest::apply(std::vector<example_t*> &examples) {
 	return ret;
 }
 
+void forest::export_dotfile(const std::string& filename, dotfile_mode dm) {
+
+	if (!check_build()) {
+		std::cerr << "Please build tree before call `export_dotfile`." << std::endl;
+		exit(EXIT_FAILURE);
+	}
+
+	if (dm == SEPARATE_TREES) {
+		std::stringstream ss;
+		std::string save_file_name;
+		ss.str("");
+		for (int t = 0; t < this->n_trees; t++) {
+			ss << filename << (t+1);
+			save_file_name = ss.str();
+			this->trees[t]->export_dotfile(save_file_name);
+			ss.str("");
+		}
+	} else {
+		std::ofstream ofs(filename);
+		if (!ofs.is_open()) {
+			std::cerr << "Cannot open file " << filename << std::endl;
+			exit(EXIT_FAILURE);
+		}
+		ofs << "digraph Forest {" << std::endl;
+		int node_idx = 0;
+		for (int t = 0; t < this->n_trees; t++) {
+			this->trees[t]->export_dotfile(ofs, node_idx, false);
+		}
+		ofs << "}" << std::endl;
+
+		ofs.clear();
+	}
+}
+
 int* forest::get_leaf_counts() {
 	int* ret;
 	tree* c_tree;
@@ -244,8 +279,8 @@ bool forest::check_build() {
 	return is_build;
 }
 
-random_forest_classifier::random_forest_classifier(const std::string feature_rule, int max_depth, int min_split, int n_trees, int n_threads) : 
-	forest(feature_rule, max_depth, min_split, n_trees, n_threads) {
+random_forest_classifier::random_forest_classifier(const std::string feature_rule, int max_depth, int min_split, int n_trees, int n_threads, int verbose) : 
+	forest(feature_rule, max_depth, min_split, n_trees, n_threads, verbose) {
 
 }
 
@@ -255,13 +290,18 @@ random_forest_classifier::~random_forest_classifier() {
 
 void random_forest_classifier::parallel_build(int tree_begin, int tree_end, dataset*&d) {
 	for (int t = tree_begin; t < tree_end; t++) {
-		this->trees[t] = new decision_tree(this->feature_rule, this->max_depth, this->min_split);
+		/* do not need any debug information to print during building process */
+		this->trees[t] = new decision_tree(this->feature_rule, this->max_depth, this->min_split, 0);
 		this->trees[t]->build(d);	
 	}
 }
 
 void random_forest_classifier::build(dataset*& d) {
 	int tree_begin, tree_end;
+	m_timer* ti = new m_timer();
+
+	if (verbose >= 1) 
+		ti->tic("Start build forest ...");	
 
 	/* collect information from dataset */
 	this->n_classes = d->get_n_classes();
@@ -289,7 +329,10 @@ void random_forest_classifier::build(dataset*& d) {
 	std::for_each(threads.begin(), threads.end(), std::mem_fn(&std::thread::join));
 
 	/* collect max_feature after build */
-//	this->max_feature = this->trees[0]->get_max_feature();
+	this->max_feature = this->trees[0]->get_max_feature();
+
+	if (verbose >= 1)
+		ti->toc("Build forest done.");
 
 	/* set the flag is_build to true */
 	is_build = true;
@@ -317,9 +360,10 @@ void random_forest_classifier::dump(const std::string& filename) const {
 	for (int t = 0; t < this->n_trees; t++) {
 		/* tree suffix is start from 1, 0 is for forest */
 		ss << filename << (t+1);
-		ss >> save_file_name;
+		save_file_name = ss.str();
 		c_tree = this->trees[t];
 		c_tree->dump(save_file_name);	
+		ss.str("");
 	}
 }
 
@@ -345,10 +389,11 @@ void random_forest_classifier::load(const std::string& filename) {
 	for (int t = 0; t < this->n_trees; t++) {
 		/* tree suffix is start from 1, 0 is for forest */
 		ss << filename << (t+1);
-		ss >> load_file_name;
+		load_file_name = ss.str();
 		/* allocate space to each `tree` in the forest */
 		this->trees[t] = new decision_tree();
 		this->trees[t]->load(load_file_name);
+		ss.str("");
 	}
 
 	/* set the `is_build` to true */
