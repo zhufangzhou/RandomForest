@@ -17,7 +17,7 @@
 #include <string>
 #include <thread>
 /* my header file */
-#include "parameter.h"
+#include "constant.h"
 #include "tree.h"
 #include "dataset.h"
 #include "parallel.h"

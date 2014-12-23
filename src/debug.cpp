@@ -83,20 +83,41 @@ void test_decision_tree() {
 	delete dr;
 	delete t;
 	delete d;
-	delete y_true;
-	delete y_pred_zero;
+	delete[] y_true;
+	delete[] y_pred_zero;
 }
 
 void test_random_forest() {
 	dataset* d = mushroom();
 
-	random_forest_classifier* rf = new random_forest_classifier("sqrt", 5, 1, 10, -1);
+	random_forest_classifier* rf = new random_forest_classifier("sqrt", -1, 1, 100, -1);
 	rf->build(d);
-	rf->export_dotfile("display/forest.dot", WHOLE_FOREST);
-	rf->dump("model/forest.model");
+//	rf->export_dotfile("display/forest.dot", WHOLE_FOREST);
+	//rf->dump("model/forest.model");
+	data_reader* dr = new data_reader("./data/mushrooms", 112, TRAIN);
+	std::vector<example_t*> test_data = dr->read_examples();	
+	int n_test = test_data.size();
+	float* y_pred_zero = rf->predict_proba(test_data);	
+	float* y_pred = y_pred_zero + n_test;
+	int* y_true = new int[n_test];
+	for (int i = 0; i < n_test; i++) y_true[i] = test_data[i]->y;
+	std::string color_info = "yellow", color_value = "red";
+	std::cout << color_msg("Precision = ", color_info ) << color_msg(Metrics::precision(y_pred, y_true, n_test), color_value) << std::endl;
+	std::cout << color_msg("Recall = ", color_info) << color_msg(Metrics::recall(y_pred, y_true, n_test), color_value) << std::endl;
+	std::cout << color_msg("F1-score = ", color_info) << color_msg(Metrics::f1_score(y_pred, y_true, n_test), color_value) << std::endl;
+	std::cout << color_msg("AUC = ", color_info) << color_msg(Metrics::roc_auc_score(y_pred, y_true, n_test), color_value) << std::endl;
+	std::cout << color_msg("Precision-Recall AUC = ", color_info) << color_msg(Metrics::pr_auc_score(y_pred, y_true, n_test), color_value) << std::endl;
 
+	int n_features = d->get_n_features();
+	float *imp = rf->compute_importance();
+	for (int i = 0; i < n_features; i++)
+		std::cout << i+1 << ":" << imp[i] << " ";
+	std::cout << std::endl;
+	
 	delete d;
 	delete rf;
+	delete[] y_pred_zero;
+	delete[] y_true;
 }
 
 int main(int argc, char** argv) {

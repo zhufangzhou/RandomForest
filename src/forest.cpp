@@ -64,9 +64,9 @@ float* forest::compute_importance(bool re_compute) {
 
 	tot_importance = new float[this->n_features]();
 	
-	for (auto t = this->trees.begin(); t != this->trees.end(); t++){
+	for (int t = 0; t < this->n_trees; t++){
 		/* compute feature importance of each tree estimator */
-		sub_importance = (*t)->compute_importance();
+		sub_importance = this->trees[t]->compute_importance();
 		for (int i = 0; i < this->n_features; i++) {
 			tot_importance[i] += sub_importance[i] / this->n_trees;
 		}
@@ -301,7 +301,7 @@ void random_forest_classifier::build(dataset*& d) {
 	m_timer* ti = new m_timer();
 
 	if (verbose >= 1) 
-		ti->tic("Start build forest ...");	
+		ti->tic("Starting build forest ...");	
 
 	/* collect information from dataset */
 	this->n_classes = d->get_n_classes();
@@ -332,7 +332,7 @@ void random_forest_classifier::build(dataset*& d) {
 	this->max_feature = this->trees[0]->get_max_feature();
 
 	if (verbose >= 1)
-		ti->toc("Build forest done.");
+		ti->toc("Done.");
 
 	/* set the flag is_build to true */
 	is_build = true;
