@@ -117,7 +117,7 @@ float* forest::predict_proba(std::vector<example_t*> &examples) {
 	for (int i = 0; i < pu.num_threads - 1; i++) {
 		// calculate the tree_begin and tree_end
 		tree_end = tree_begin + pu.block_size;
-		threads[i] = std::thread([&]() {
+		threads[i] = std::thread([&, tree_begin, tree_end, ret]() {
 				parallel_predict_proba(tree_begin, tree_end, examples, ret);
 		});
 		tree_begin = tree_end;
@@ -194,7 +194,7 @@ int* forest::apply(std::vector<example_t*> &examples) {
 	tree_begin = 0;
 	for (int i = 0; i < pu.num_threads - 1; i++) {
 		tree_end = tree_begin + pu.block_size;
-		threads[i] = std::thread([&]() {
+		threads[i] = std::thread([&, tree_begin, tree_end, ret]() {
 			parallel_apply(tree_begin, tree_end, examples, ret);		
 		});
 		tree_begin = tree_end;

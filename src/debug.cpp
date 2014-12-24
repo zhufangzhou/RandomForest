@@ -54,7 +54,7 @@ void debug_decision_tree() {
 void test_decision_tree() {
 	dataset *d = mushroom();
 //	d->debug();
-	decision_tree* t = new decision_tree("sqrt", 10000, 1, 1);
+	decision_tree* t = new decision_tree("112", -1, 1, 1);
 	//t->debug(d);
 	// train the model
 	t->build(d);
@@ -66,6 +66,7 @@ void test_decision_tree() {
 	float* y_pred = y_pred_zero + n_test;
 	int* y_true = new int[n_test];
 	for (int i = 0; i < n_test; i++) y_true[i] = test_data[i]->y;
+	for (int i = 0; i < 100; i++) std::cout << y_pred[i] << " ";
 	std::string color_info = "yellow", color_value = "red";
 	std::cout << color_msg("Precision = ", color_info ) << color_msg(Metrics::precision(y_pred, y_true, n_test), color_value) << std::endl;
 	std::cout << color_msg("Recall = ", color_info) << color_msg(Metrics::recall(y_pred, y_true, n_test), color_value) << std::endl;
@@ -92,19 +93,19 @@ void test_random_forest() {
 
 	random_forest_classifier* rf = new random_forest_classifier("sqrt", -1, 1, 100, -1);
 	rf->build(d);
-//	rf->export_dotfile("display/forest.dot", WHOLE_FOREST);
+	rf->export_dotfile("display/forest.dot", WHOLE_FOREST);
 	//rf->dump("model/forest.model");
 	data_reader* dr = new data_reader("./data/mushrooms", 112, TRAIN);
-	std::vector<example_t*> test_data = dr->read_examples();	
+	std::vector<example_t*> test_data = dr->read_examples();
 	int n_test = test_data.size();
 	float* y_pred_zero = rf->predict_proba(test_data);	
 	float* y_pred = y_pred_zero + n_test;
 	int* y_true = new int[n_test];
 	for (int i = 0; i < n_test; i++) y_true[i] = test_data[i]->y;
 	std::string color_info = "yellow", color_value = "red";
-	std::cout << color_msg("Precision = ", color_info ) << color_msg(Metrics::precision(y_pred, y_true, n_test), color_value) << std::endl;
-	std::cout << color_msg("Recall = ", color_info) << color_msg(Metrics::recall(y_pred, y_true, n_test), color_value) << std::endl;
-	std::cout << color_msg("F1-score = ", color_info) << color_msg(Metrics::f1_score(y_pred, y_true, n_test), color_value) << std::endl;
+	std::cout << color_msg("Precision = ", color_info ) << color_msg(Metrics::precision(y_pred, y_true, n_test, 0.4), color_value) << std::endl;
+	std::cout << color_msg("Recall = ", color_info) << color_msg(Metrics::recall(y_pred, y_true, n_test, 0.4), color_value) << std::endl;
+	std::cout << color_msg("F1-score = ", color_info) << color_msg(Metrics::f1_score(y_pred, y_true, n_test, 0.4), color_value) << std::endl;
 	std::cout << color_msg("AUC = ", color_info) << color_msg(Metrics::roc_auc_score(y_pred, y_true, n_test), color_value) << std::endl;
 	std::cout << color_msg("Precision-Recall AUC = ", color_info) << color_msg(Metrics::pr_auc_score(y_pred, y_true, n_test), color_value) << std::endl;
 

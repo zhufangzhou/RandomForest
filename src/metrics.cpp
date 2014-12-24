@@ -59,7 +59,8 @@ float Metrics::precision(int *y_pred, int *y_true, int size) {
 		if (val == 3) TP++;
 		if (val == 2) FP++;
 	}
-	return (float)TP / (TP + FP);
+	if (TP+FP == 0) return 0;
+	else return (float)TP / (TP + FP);
 }
 
 float Metrics::recall(float *y_pred, float *y_true, int size, float threshold) {
@@ -93,7 +94,8 @@ float Metrics::recall(int *y_pred, int *y_true, int size) {
 		if (val == 3) TP++;
 		if (val == 1) TN++;
 	}
-	return (float)TP / (TP + TN);
+	if (TP+TN == 0) return 0;
+	else return (float)TP / (TP + TN);
 }
 
 float Metrics::f1_score(float* y_pred, float *y_true, int size, float threshold) {
