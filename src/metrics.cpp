@@ -215,3 +215,16 @@ float Metrics::auc(float* x, float* y, int size) {
 	delete[] idx;
 	return ret_auc;
 }
+
+void Metrics::performance_report(float* y_pred, int* y_true, int n_test, float threshold) {
+	std::string color_info = "yellow", color_value = "red";
+	std::cout << "TestSet Size: " << n_test << std::endl;
+	std::cout << "Threshold: " << threshold << std::endl;
+
+	std::cout << color_msg("Precision = ", color_info ) << color_msg(Metrics::precision(y_pred, y_true, n_test, threshold), color_value) << std::endl;
+    std::cout << color_msg("Recall = ", color_info) << color_msg(Metrics::recall(y_pred, y_true, n_test, threshold), color_value) << std::endl;
+    std::cout << color_msg("F1-score = ", color_info) << color_msg(Metrics::f1_score(y_pred, y_true, n_test, threshold), color_value) << std::endl;
+    std::cout << color_msg("AUC = ", color_info) << color_msg(Metrics::roc_auc_score(y_pred, y_true, n_test), color_value) << std::endl;
+    std::cout << color_msg("Precision-Recall AUC = ", color_info) << color_msg(Metrics::pr_auc_score(y_pred, y_true, n_test), color_value) << std::endl;
+
+}

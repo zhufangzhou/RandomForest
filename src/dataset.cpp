@@ -76,7 +76,7 @@ example_t* data_reader::read_an_example() {
 	
 	if (mode != PREDICT) {
 		ifs >> ret->y;
-		ret->y--;
+		//ret->y--; //!!!!!!!!!!!!!!!!!!!!
 		p_pos = 0; getline(ifs, line);
 		c_pos = line.find(' ', 0);
 	} else {

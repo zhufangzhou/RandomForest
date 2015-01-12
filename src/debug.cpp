@@ -16,6 +16,15 @@ dataset* mushroom() {
 	return d;
 }
 
+dataset* gisette_scale_train() {
+	float* weight = new float[2];
+	weight[0] = weight[1] = 1.0;
+	dataset* d = new dataset(2, 5000, weight);
+	d->load_data("./data/gisette_scale", TRAIN);
+	delete[] weight;
+	return d;
+}
+
 void debug_data_reader() {
 	data_reader* dr = new data_reader("data/train.dat", 10, TRAIN);
 	example_t* single;
@@ -89,31 +98,37 @@ void test_decision_tree() {
 }
 
 void test_random_forest() {
-	dataset* d = mushroom();
+	//dataset* d = mushroom();
+	dataset* d = gisette_scale_train();
 
+	// (split feature size, max depth, min leaf, number of trees, number of threads)
 	random_forest_classifier* rf = new random_forest_classifier("sqrt", -1, 1, 100, -1);
 	rf->build(d);
 	rf->export_dotfile("display/forest.dot", WHOLE_FOREST);
+
 	//rf->dump("model/forest.model");
-	data_reader* dr = new data_reader("./data/mushrooms", 112, TRAIN);
+	data_reader* dr = new data_reader("./data/gisette_scale.t", 5000, TRAIN);
 	std::vector<example_t*> test_data = dr->read_examples();
 	int n_test = test_data.size();
 	float* y_pred_zero = rf->predict_proba(test_data);	
 	float* y_pred = y_pred_zero + n_test;
 	int* y_true = new int[n_test];
 	for (int i = 0; i < n_test; i++) y_true[i] = test_data[i]->y;
-	std::string color_info = "yellow", color_value = "red";
-	std::cout << color_msg("Precision = ", color_info ) << color_msg(Metrics::precision(y_pred, y_true, n_test, 0.4), color_value) << std::endl;
-	std::cout << color_msg("Recall = ", color_info) << color_msg(Metrics::recall(y_pred, y_true, n_test, 0.4), color_value) << std::endl;
-	std::cout << color_msg("F1-score = ", color_info) << color_msg(Metrics::f1_score(y_pred, y_true, n_test, 0.4), color_value) << std::endl;
-	std::cout << color_msg("AUC = ", color_info) << color_msg(Metrics::roc_auc_score(y_pred, y_true, n_test), color_value) << std::endl;
-	std::cout << color_msg("Precision-Recall AUC = ", color_info) << color_msg(Metrics::pr_auc_score(y_pred, y_true, n_test), color_value) << std::endl;
+	//std::string color_info = "yellow", color_value = "red";
+	float threshold = 0.5;
+	//std::cout << "Threshold: " << threshold << std::endl;
+	//std::cout << color_msg("Precision = ", color_info ) << color_msg(Metrics::precision(y_pred, y_true, n_test, threshold), color_value) << std::endl;
+	//std::cout << color_msg("Recall = ", color_info) << color_msg(Metrics::recall(y_pred, y_true, n_test, threshold), color_value) << std::endl;
+	//std::cout << color_msg("F1-score = ", color_info) << color_msg(Metrics::f1_score(y_pred, y_true, n_test, threshold), color_value) << std::endl;
+	//std::cout << color_msg("AUC = ", color_info) << color_msg(Metrics::roc_auc_score(y_pred, y_true, n_test), color_value) << std::endl;
+	//std::cout << color_msg("Precision-Recall AUC = ", color_info) << color_msg(Metrics::pr_auc_score(y_pred, y_true, n_test), color_value) << std::endl;
 
-	int n_features = d->get_n_features();
-	float *imp = rf->compute_importance();
-	for (int i = 0; i < n_features; i++)
-		std::cout << i+1 << ":" << imp[i] << " ";
-	std::cout << std::endl;
+	Metrics::performance_report(y_pred, y_true, n_test, threshold);
+	//int n_features = d->get_n_features();
+	//float *imp = rf->compute_importance();
+	//for (int i = 0; i < n_features; i++)
+		//std::cout << i+1 << ":" << imp[i] << " ";
+	//std::cout << std::endl;
 	
 	delete d;
 	delete rf;
