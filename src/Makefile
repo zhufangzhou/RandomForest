@@ -17,7 +17,7 @@ main: $(ALL_OBJ)
 	$(CC) -g $(ALL_OBJ) -o ${BIN_DIR}$@ 
 
 debug: ${BUILD_DIR}debug.o ${BUILD_DIR}dataset.o ${BUILD_DIR}utils.o ${BUILD_DIR}tree.o ${BUILD_DIR}metrics.o ${BUILD_DIR}random.o ${BUILD_DIR}forest.o ${BUILD_DIR}parallel.o
-	g++ $^ -o ${BIN_DIR}$@
+	g++ $^ -o ${BIN_DIR}$@ -std=c++11 -pthread
 
 ${BUILD_DIR}utils.o: ${UTILS_DIR}src/utils.cpp
 	g++ -c $^ -o $@ ${CXXFLAGS}
