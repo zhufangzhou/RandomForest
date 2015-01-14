@@ -43,7 +43,7 @@ void node::dump(std::ofstream& out) {
 		out.write((char*)&this->n_classes, sizeof(int));
 	} else {
 		out.write((char*)&this->n_classes, sizeof(int));
-		out.write((char*)&this->cur_frequency, sizeof(float)*this->n_classes);
+		out.write((char*)this->cur_frequency, sizeof(float)*this->n_classes);
 	}
 }
 
@@ -63,7 +63,7 @@ void node::load(std::ifstream& in) {
 		in.read((char*)&this->n_classes, sizeof(int));
 	} else {
 		in.read((char*)&this->n_classes, sizeof(int));
-		in.read((char*)&this->cur_frequency, sizeof(float)*this->n_classes);
+		in.read((char*)this->cur_frequency, sizeof(float)*this->n_classes);
 	}
 }
 
@@ -524,6 +524,9 @@ void decision_tree::build(dataset*& d) {
 
 	if (verbose >= 1)
 		ti->toc("Build tree done.");
+
+	/* print a dot on the screen */
+	std::cout << "." << std::endl;
 }
 
 void decision_tree::build_rec(node*& root, dataset*& d, int depth) {

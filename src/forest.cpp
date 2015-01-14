@@ -377,6 +377,7 @@ void random_forest_classifier::load(const std::string& filename) {
 	/* load forest level parameters */
 	in.read((char*)&this->n_trees, sizeof(int));
 	in.read((char*)&this->n_threads, sizeof(int));
+	this->n_threads = 1; // !!!!!!!!!!!!!!!!!!!!!! fixed for debug
 	in.read((char*)&this->n_classes, sizeof(int));
 	in.read((char*)&this->n_features, sizeof(int));
 
