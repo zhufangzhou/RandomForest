@@ -141,6 +141,10 @@ dataset::~dataset() {
 		delete[] size;
 		size = nullptr;
 	}
+	if (valid_features != nullptr) {
+		delete[] valid_features;
+		valid_features = nullptr;
+	}
 	if (y != nullptr) {
 		delete[] y;
 		y = nullptr;
@@ -161,6 +165,8 @@ void dataset::init(int n_classes, int n_features, float* weight) {
 	this->x = new ev_pair_t*[this->n_features];
 	this->y = nullptr;
 	this->size = new int[this->n_features]();
+	this->valid_features = new int[this->n_features]();
+	this->n_valid = 0;
 	/* copy weight vector to dataset */
 	this->weight = new float[this->n_classes];
 	memcpy(this->weight, weight, sizeof(float)*this->n_classes);
@@ -232,6 +238,13 @@ void dataset::load_data(const std::string& filename, const learn_mode mode) {
 		x[i] = x[0] + t_sum;	
 	}
 	t->toc("Done.");
+
+	/** find valid features **/
+	for (int i = 0; i < n_features; i++) {
+		if (this->size[i] > 0) {
+			this->valid_features[this->n_valid++] = i;
+		}
+	}
 
 	/* free space */
 	if (tf != nullptr) {

@@ -17,12 +17,18 @@ int main(int argc, char** argv) {
 	const std::string option_imp 		= cmd.registerOption("imp", "`stdout` means print the feature importance on the screen, `filename` means the filename to print importance. IN NO ASCENDING ORDER.");
 	const std::string option_imp_n 		= cmd.registerOption("imp_n", "how many top feature importance to print, print all if dont't have this option");	
 
+	/* check command line options */
 	cmd.checkOption();
 
+	/* show help information */
 	if (argc < 2 || cmd.hasOption(option_help)) {
 		cmd.displayOption();
 		exit(EXIT_SUCCESS);
 	}
 
+	if (cmd.hasOption("train") && cmd.hasOption("load")) {
+		std::cerr << color_msg("You can only choose `train` or `load` one at a time.", "red") << std::endl;
+		exit(EXIT_FAILURE);
+	}
 	return 0;
 }

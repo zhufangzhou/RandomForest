@@ -132,6 +132,8 @@ class dataset {
 		 * ================================================*/
 		ev_pair_t** x; 		/** each row is an attribute */	
 		int* size; 			/** number of examples with non-zero feature values for each attribute */
+		int* valid_features;/** list of features with at least one non-zero examples **/
+		int n_valid; 		/** size of the valid **/
 		target_t* y; 		/** label for each example */
 		float* weight; 		/** weight for each class */
 		bool* is_cate; 		/** is the ith attribute categorical */

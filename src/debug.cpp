@@ -25,6 +25,15 @@ dataset* gisette_scale_train() {
 	return d;
 }
 
+dataset* webspam() {
+	float* weight = new float[2];
+	weight[0] = weight[1] = 1.0;
+	dataset* d = new dataset(2, 254, weight);
+	d->load_data("./data/webspam_wc_normalized_unigram.svm", TRAIN);
+	delete[] weight;
+	return d;
+}
+
 void debug_data_reader() {
 	data_reader* dr = new data_reader("data/train.dat", 10, TRAIN);
 	example_t* single;
@@ -99,12 +108,15 @@ void test_decision_tree() {
 
 void test_random_forest() {
 	//dataset* d = mushroom();
-	dataset* d = gisette_scale_train();
+	//dataset* d = gisette_scale_train();
+	dataset* d = webspam();
 
 	// (split feature size, max depth, min leaf, number of trees, number of threads)
 	random_forest_classifier* rf = new random_forest_classifier("sqrt", -1, 1, 100, -1);
 	rf->build(d);
 	rf->export_dotfile("display/forest.dot", WHOLE_FOREST);
+
+	return ;
 
 	//rf->dump("model/forest.model");
 	data_reader* dr = new data_reader("./data/gisette_scale.t", 5000, TRAIN);

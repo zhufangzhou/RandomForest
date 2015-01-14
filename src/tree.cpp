@@ -757,7 +757,8 @@ void best_splitter::split(tree* t, node*& root, dataset*& d, criterion*& cr) {
 	int* candidate_feature = new int[n_features], c_idx, tmp;
 	for (int i = 0; i < n_features; i++) candidate_feature[i] = i;
 	for (int i = 0; i < max_feature; i++) {
-		c_idx = m_random::getInstance().next_int(i, n_features);
+		//c_idx = m_random::getInstance().next_int(i, n_features);
+		c_idx = d->valid_features[m_random::getInstance().next_int(i, d->n_valid)];
 		tmp = candidate_feature[i]; 
 		candidate_feature[i] = candidate_feature[c_idx]; 
 		candidate_feature[c_idx] = tmp;
