@@ -63,6 +63,7 @@ class forest {
 		int* get_leaf_counts();
 		int get_max_feature();
 		int get_n_features();
+		int get_n_classes();
 		virtual void dump(const std::string& filename) const = 0;
 		virtual void load(const std::string& filename) = 0;
 };

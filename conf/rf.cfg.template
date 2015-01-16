@@ -5,9 +5,10 @@ RandomForest:
 	n_threads = -1;
 	max_depth = -1;
 	min_sample_leaf = 1;
+	dot_file_path = "display/forest.dot"
 };
 
-Train_Dataset:
+Train:
 {
 	path = "data/webspam_wc_normalized_unigram.svm";
 	n_features = 10;
@@ -15,7 +16,20 @@ Train_Dataset:
 	weight = "1,1"
 };
 
+Validate:
+{
+	path = "data/webspam_wc_normalized_unigram.svm.t";
+	n_features = 10;
+	n_classes = 2;
+	report_path = "report/forest.txt"
+};
+
 Input_Model:
+{
+	path = "model/forest.model";
+};
+
+Output_Model:
 {
 	path = "model/forest.model";
 };

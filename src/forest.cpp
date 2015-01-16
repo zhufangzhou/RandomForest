@@ -275,6 +275,14 @@ int forest::get_n_features() {
 	return this->n_features;
 }
 
+int forest::get_n_classes() {
+	if (!check_build()) {
+		std::cerr << "Please build the forest before getting `n_classes`" << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	return this->n_classes;
+}
+
 bool forest::check_build() {
 	return is_build;
 }
