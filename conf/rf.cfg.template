@@ -1,0 +1,21 @@
+RandomForest:
+{
+	criterion = "sqrt";
+	n_trees = 10;
+	n_threads = -1;
+	max_depth = -1;
+	min_sample_leaf = 1;
+};
+
+Train_Dataset:
+{
+	path = "data/webspam_wc_normalized_unigram.svm";
+	n_features = 10;
+	n_classes = 2;
+	weight = "1,1"
+};
+
+Input_Model:
+{
+	path = "model/forest.model";
+};
