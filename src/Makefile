@@ -3,6 +3,7 @@ BUILD_DIR := ../build/
 MODEL_DIR := ../model/
 DISPLAY_DIR := ../display/
 REPORT_DIR := ../report/
+RESULT_DIR := ../result/
 LOG_DIR := ../log/
 INCLUDE_DIR := ../include/
 UTILS_DIR := ../../utils/
@@ -33,7 +34,7 @@ ${BUILD_DIR}%.o: %.cpp
 
 .PHONY: create_dir
 create_dir:
-	@mkdir -p ${BIN_DIR} ${BUILD_DIR} ${MODEL_DIR} ${DISPLAY_DIR} ${REPORT_DIR} ${LOG_DIR}
+	@mkdir -p ${BIN_DIR} ${BUILD_DIR} ${MODEL_DIR} ${DISPLAY_DIR} ${REPORT_DIR} ${LOG_DIR} ${RESULT_DIR}
 
 .PHONY: clean
 clean:

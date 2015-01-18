@@ -226,5 +226,25 @@ void Metrics::performance_report(float* y_pred, int* y_true, int n_test, float t
     std::cout << color_msg("F1-score = ", color_info) << color_msg(Metrics::f1_score(y_pred, y_true, n_test, threshold), color_value) << std::endl;
     std::cout << color_msg("AUC = ", color_info) << color_msg(Metrics::roc_auc_score(y_pred, y_true, n_test), color_value) << std::endl;
     std::cout << color_msg("Precision-Recall AUC = ", color_info) << color_msg(Metrics::pr_auc_score(y_pred, y_true, n_test), color_value) << std::endl;
+}
 
+void Metrics::performance_report(const std::string& filename, float* y_pred, int* y_true, int n_test, float threshold) {
+	std::ofstream out;
+	out.open(filename.c_str(), std::ios::out);
+	if (!out.is_open()) {
+		std::cerr << "Fail to open " << filename << std::endl;
+		exit(EXIT_FAILURE);
+	}
+
+	std::string color_info = "yellow", color_value = "red";
+	out << "TestSet Size\t" << n_test << std::endl;
+	out << "Threshold\t" << threshold << std::endl;
+
+	out << "Precision\t" << Metrics::precision(y_pred, y_true, n_test, threshold) << std::endl;
+    out << "Recall\t" << Metrics::recall(y_pred, y_true, n_test, threshold) << std::endl;
+    out << "F1-score\t" << Metrics::f1_score(y_pred, y_true, n_test, threshold) << std::endl;
+    out << "AUC\t" << Metrics::roc_auc_score(y_pred, y_true, n_test) << std::endl;
+    out << "Precision-Recall AUC\t" << Metrics::pr_auc_score(y_pred, y_true, n_test) << std::endl;
+
+	out.close();
 }

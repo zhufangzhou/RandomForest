@@ -74,7 +74,7 @@ example_t* data_reader::read_an_example() {
 
 	ret = new example_t();
 	
-	if (mode != PREDICT) {
+	if (mode != TEST) {
 		ifs >> ret->y;
 		//ret->y--; //!!!!!!!!!!!!!!!!!!!!
 		p_pos = 0; getline(ifs, line);
@@ -204,7 +204,7 @@ void dataset::load_data(const std::string& filename, const learn_mode mode) {
 	tot_size = 0;
 	int ex_id = 0;
 	/* predict mode does not need y arrary*/
-	if (mode != PREDICT) {
+	if (mode != TEST) {
 		y = new target_t[1];
 	}
 	for (auto it = ex_vec.begin(); it != ex_vec.end(); it++, ex_id++) {
@@ -212,7 +212,7 @@ void dataset::load_data(const std::string& filename, const learn_mode mode) {
 		te = (ev_pair_t*)realloc(te, sizeof(ev_pair_t)*(tot_size+(*it)->nnz));
 		tf = (int*)realloc(tf, sizeof(int)*(tot_size+(*it)->nnz));
 		/* predict mode does not has label */
-		if (mode != PREDICT) {
+		if (mode != TEST) {
 			y = (target_t*)realloc(y, sizeof(target_t)*(ex_id+1));
 			/* check `y` between 0 ~ n_classes-1 */
 			if ((*it)->y < 0 && (*it)->y >= n_classes) {
@@ -315,7 +315,7 @@ void dataset::debug() {
 	std::cout << "Class size: " << n_classes << std::endl;
 	std::cout << "Example size: " << n_examples << std::endl;
 	std::cout << "Feature size: " << n_features << std::endl;
-	if (mode != PREDICT) {
+	if (mode != TEST) {
 		std::cout << "Labels: " << std::endl;
 		for (int i = 0; i < n_examples; i++) {
 			std::cout << y[i] << " ";

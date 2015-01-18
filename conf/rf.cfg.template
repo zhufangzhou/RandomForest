@@ -11,7 +11,7 @@ RandomForest:
 Train:
 {
 	path = "data/webspam_wc_normalized_unigram.svm";
-	n_features = 10;
+	n_features = 254;
 	n_classes = 2;
 	weight = "1,1"
 };
@@ -19,9 +19,23 @@ Train:
 Validate:
 {
 	path = "data/webspam_wc_normalized_unigram.svm.t";
-	n_features = 10;
+	n_features = 254;
 	n_classes = 2;
+
 	report_path = "report/forest.txt"
+	threshold = 0.5;
+};
+
+Test:
+{
+	path = "data/webspam_wc_normalized_unigram.svm.t";
+	n_features = 254;
+	n_classes = 2;
+
+	result_path = "result/result.txt";
+	result_mode = "proba"; // valid value = "proba" and "label". If not set, use "proba" as default
+	threshold = 0.5; // this will be use only when result_mode="label"
+	sort = "asc"; // valid value = "asc" and "desc"
 };
 
 Input_Model:

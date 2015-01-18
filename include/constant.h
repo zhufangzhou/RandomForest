@@ -8,3 +8,6 @@ const int DEFAULT_N_THREADS = 1;
 
 /* forest export_dotfile parameter */
 enum dotfile_mode {SEPARATE_TREES, WHOLE_FOREST};
+
+/* dataset read mode */
+enum learn_mode {TRAIN, TEST};

@@ -15,10 +15,10 @@
 #include <cstring>
 
 #include "utils.h"
+#include "constant.h"
 
 typedef short target_t; 	/** label data type */
 typedef float feature_t; 	/** feature data type */
-enum learn_mode {TRAIN, PREDICT}; 	/** `train` mode or `predict` mode */
 
 typedef struct {
 	int ex_id;  /** example id */
@@ -169,7 +169,7 @@ class dataset {
 		 * @brief load_data generate the dataset from input file
 		 *
 		 * @param filename input file name
-		 * @param mode `TRAIN` or `PREDICT`
+		 * @param mode `TRAIN` or `TEST`
 		 */
 		void load_data(const std::string& filename, const learn_mode mode);
 		/**

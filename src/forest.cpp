@@ -292,6 +292,10 @@ random_forest_classifier::random_forest_classifier(const std::string feature_rul
 
 }
 
+random_forest_classifier::random_forest_classifier() : forest() {
+
+}
+
 random_forest_classifier::~random_forest_classifier() {
 	free_forest();
 }

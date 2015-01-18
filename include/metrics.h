@@ -8,6 +8,7 @@
 #pragma once
 
 #include <iostream>
+#include <fstream>
 #include <algorithm>
 #include "utils.h"
 
@@ -34,5 +35,6 @@ namespace Metrics {
 	float auc(float* x, float* y, int size);
 
 	void performance_report(float* y_pred, int* y_true, int size, float threshold = 0.5);
+	void performance_report(const std::string& filename, float* y_pred, int* y_true, int size, float threshold = 0.5);
 };
 

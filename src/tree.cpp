@@ -28,12 +28,21 @@ node::~node() {
 }
 
 void node::dump(const std::string& filename) {
-	std::ofstream out(filename, std::ios::binary);
+	std::ofstream out;
+	out.open(filename, std::ios::binary);
+	if (!out.is_open()) {
+		std::cerr << "Fail to open " << filename << std::endl;
+		exit(EXIT_FAILURE);
+	}
 	dump(out);
 	out.close();
 }
 
 void node::dump(std::ofstream& out) {
+	if (!out.is_open()) {
+		std::cerr << "Fail to dump to output stream." << std::endl;
+		exit(EXIT_FAILURE);
+	}
 	out.write((char*)&this->leaf_idx, sizeof(int));
 	if (this->leaf_idx == -1) {
 		out.write((char*)&this->is_cate, sizeof(bool));
@@ -48,12 +57,21 @@ void node::dump(std::ofstream& out) {
 }
 
 void node::load(const std::string& filename) {
-	std::ifstream in(filename, std::ios::binary);
+	std::ifstream in;
+	in.open(filename, std::ios::binary);
+	if (!in.is_open()) {
+		std::cerr << "Fail to open file " << filename << std::endl;
+		exit(EXIT_FAILURE);
+	}
 	load(in);
 	in.close();
 }
 
 void node::load(std::ifstream& in) {
+	if (!in.is_open()) {
+		std::cerr << "Fail to load from input stream." << std::endl;
+		exit(EXIT_FAILURE);
+	}
 	in.read((char*)&this->leaf_idx, sizeof(int));
 	if (this->leaf_idx == -1) {
 		in.read((char*)&this->is_cate, sizeof(bool));
