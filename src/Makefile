@@ -11,12 +11,12 @@ UTILS_DIR := ../../utils/
 CC := g++
 UTILS_OBJ := ${BUILD_DIR}utils.o ${BUILD_DIR}random.o ${BUILD_DIR}parallel.o
 #ALL_OBJ := $(patsubst %.cpp,${BUILD_DIR}%.o, $(wildcard *.cpp)) ${UTILS_OBJ}
-ALL_OBJ := ${BUILD_DIR}dataset.o ${BUILD_DIR}tree.o ${BUILD_DIR}forest.o ${BUILD_DIR}metrics.o ${UTILS_OBJ} ${BUILD_DIR}main.o
-CXXFLAGS := -g -std=c++11 -pthread -I${INCLUDE_DIR} -I${UTILS_DIR}include `pkg-config --cflags libconfig++` 
+ALL_OBJ := ${BUILD_DIR}dataset.o ${BUILD_DIR}tree.o ${BUILD_DIR}forest.o ${BUILD_DIR}metrics.o ${UTILS_OBJ} ${BUILD_DIR}rf.o
+CXXFLAGS := -O3 -std=c++11 -pthread -I${INCLUDE_DIR} -I${UTILS_DIR}include `pkg-config --cflags libconfig++` 
 
-all: create_dir main
+all: create_dir rf 
 
-main: $(ALL_OBJ)
+rf: $(ALL_OBJ)
 	$(CC) -g $(ALL_OBJ) -o ${BIN_DIR}$@ `pkg-config --libs libconfig++`
 
 debug: ${BUILD_DIR}debug.o ${BUILD_DIR}dataset.o ${BUILD_DIR}utils.o ${BUILD_DIR}tree.o ${BUILD_DIR}metrics.o ${BUILD_DIR}random.o ${BUILD_DIR}forest.o ${BUILD_DIR}parallel.o
@@ -38,4 +38,4 @@ create_dir:
 
 .PHONY: clean
 clean:
-	rm -f ${BUILD_DIR}main ${ALL_OBJ} ${BUILD_DIR}utils.o ${BUILD_DIR}parallel.o ${BUILD_DIR}random.o ${BUILD_DIR}debug.o ${BIN_DIR}debug 
+	rm -f ${BUILD_DIR}rf ${ALL_OBJ} ${BUILD_DIR}utils.o ${BUILD_DIR}parallel.o ${BUILD_DIR}random.o ${BUILD_DIR}debug.o ${BIN_DIR}debug 

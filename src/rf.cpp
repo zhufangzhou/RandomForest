@@ -1,9 +1,13 @@
+/* C++ header files */
 #include <iostream>
 #include <iomanip>
 #include <string>
 #include <sstream>
+
+/* libconfig header files */
 #include <libconfig.h++>
 
+/* my header files */
 #include "dataset.h"
 #include "tree.h"
 #include "forest.h"
@@ -33,9 +37,9 @@ int main(int argc, char** argv) {
 	const std::string option_train 		= cmd.registerOption("train", "add this option means train new model");
 	const std::string option_test 		= cmd.registerOption("test", "add this option means predict datasets and get labels");
 	const std::string option_validate 	= cmd.registerOption("validation", "add this option means measure the performance of the model");
-	const std::string option_dump 		= cmd.registerOption("dump", "directory path for forest model to dump"); 
-	const std::string option_load 		= cmd.registerOption("load", "directory path for forest model to load");
-	const std::string option_dot 		= cmd.registerOption("dot", "dot filename of the forest");
+	const std::string option_dump 		= cmd.registerOption("dump", "add this option means to dump trained model"); 
+	const std::string option_load 		= cmd.registerOption("load", "add this option means model is load from file");
+	const std::string option_dot 		= cmd.registerOption("dot", "add this option means to generate dot file");
 
 	/* check command line options */
 	cmd.checkOption();
@@ -69,7 +73,7 @@ int main(int argc, char** argv) {
 		} else {
 			/* model is from training */
 			if (cmd.hasOption(option_train)) {
-				const libconfig::Setting& random_forest_cfg = root["RandomForests"];
+				const libconfig::Setting& random_forest_cfg = root["RandomForest"];
 				/* read the hyperparameters, if do not appear in configure file then set the default values */
 				if (!random_forest_cfg.lookupValue("n_trees", n_trees)) n_trees = DEFAULT_N_TREES;
 				if (!random_forest_cfg.lookupValue("n_threads", n_threads)) n_threads = DEFAULT_N_THREADS;
@@ -200,7 +204,7 @@ int main(int argc, char** argv) {
 			/* validate model */
 			int n_validate = validate_data.size();	
 			float* proba_all = rf->predict_proba(validate_data);
-			float* proba = proba + n_validate;
+			float* proba = proba_all + n_validate;
 			int* label = new int[n_validate];
 			for (int i = 0; i < n_validate; i++) {
 				label[i] = validate_data[i]->y;
@@ -208,9 +212,12 @@ int main(int argc, char** argv) {
 			
 			/* output performance report */
 			std::string report_path;
-			int threshold = 0.5;
+			float threshold = 0.5;
 			if (!validate_cfg.lookupValue("report_path", report_path)) {
 				/* if do not set `report_path`, print report to screen */
+				std::cout << "===============================================" << std::endl;
+				std::cout << "=============  Performance Report =============" << std::endl;
+				std::cout << "===============================================" << std::endl;
 				Metrics::performance_report(proba, label, n_validate, threshold);
 			} else {
 				/* if set `report_path`, then print report to file */
@@ -260,7 +267,7 @@ int main(int argc, char** argv) {
 			}
 
 			/* read test data */
-			data_reader* dr = new data_reader(test_path, n_features_t, PREDICT);
+			data_reader* dr = new data_reader(test_path, n_features_t, TEST);
 			std::vector<example_t*> test_data = dr->read_examples();
 
 			/* validate model */
@@ -288,12 +295,24 @@ int main(int argc, char** argv) {
 
 			/* sort the result? */
 			std::string sort_mode;
+			int* idx = nullptr;
+			/* if do not set the sort option, then just skip this step and set idx to natural order */
 			if (test_cfg.lookupValue("sort", sort_mode)) {
 				/* check sort mode */
-				if (!sort_mode == "asc" && !sort_mode == "desc") {
-					
+				if (!(sort_mode == "asc") && !(sort_mode == "desc")) {
+					std::cerr << "Bad `sort_mode` value. Valid values are `asc` and `desc`." << std::endl;
+					exit(EXIT_FAILURE);
 				}
-			}
+				/* sort the result and return index in order */
+				if (sort_mode == "asc") {
+					idx = argsort(proba, n_test, ASC);		
+				} else {
+					idx = argsort(proba, n_test, DESC);
+				}
+			} else {
+				idx = new int[n_test];
+				for (int i = 0; i < n_test; i++) idx[i] = i;
+			} // end sort
 
 			std::ofstream out;
 			out.open(result_path);
@@ -305,20 +324,49 @@ int main(int argc, char** argv) {
 			if (result_mode == "proba") {
 				/* set format */
 				out << std::fixed << std::setprecision(3);
+				/* Output Format (assume sort the result descend):
+				 * id 	proba
+				 * 4 	0.987
+				 * 5 	0.932
+				 * 1 	0.875
+				 * 0 	0.352
+				 * 3 	0.298
+				 * 2 	0.256
+				 * */
 				for (int i = 0; i < n_test; i++) {
-					out << proba[i] << std::endl;
+					out << idx[i] << "\t" << proba[idx[i]] << std::endl;
 				}
-			} else {
+			} else { /* result_mode = "label" */
 				/* read threshold */	
-				int threshold;
+				float threshold;
 				if (!test_cfg.lookupValue("threshold", threshold)) {
+					/* if not set threshold in the configure file, then set `0.5` as default */
 					threshold = 0.5;
 				}
-			}
+				
+				/* set format */
+				out << std::fixed << std::setprecision(3);
+				for (int i = 0; i < n_test; i++) {
+					if (proba[idx[i]] >= threshold) {
+						out << idx[i] << "\t1" << std::endl;
+					} else {
+						out << idx[i] << "\t0" << std::endl;
+					}
+				}
+			} // end result_mode
 
+			/* close output stream */
+			if (out.is_open()) {
+				out.close();
+			}
+			/* free space */
+			if (idx != nullptr) {
+				delete[] idx;
+				idx = nullptr;
+			}
 		}
 		
-
+		/* free space */
 		if (weight != nullptr) {
 			delete[] weight;
 			weight = nullptr;

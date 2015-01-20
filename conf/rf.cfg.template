@@ -10,19 +10,19 @@ RandomForest:
 
 Train:
 {
-	path = "data/webspam_wc_normalized_unigram.svm";
-	n_features = 254;
+	path = "data/gisette_scale";
+	n_features = 5000;
 	n_classes = 2;
 	weight = "1,1"
 };
 
 Validate:
 {
-	path = "data/webspam_wc_normalized_unigram.svm.t";
-	n_features = 254;
+	path = "data/gisette_scale.t";
+	n_features = 5000;
 	n_classes = 2;
 
-	report_path = "report/forest.txt"
+//	report_path = "report/forest.txt"
 	threshold = 0.5;
 };
 

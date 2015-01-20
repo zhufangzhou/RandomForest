@@ -305,6 +305,8 @@ void random_forest_classifier::parallel_build(int tree_begin, int tree_end, data
 		/* do not need any debug information to print during building process */
 		this->trees[t] = new decision_tree(this->feature_rule, this->max_depth, this->min_split, 0);
 		this->trees[t]->build(d);	
+		/* print a dot on the screen after build a tree */
+		std::cout << ".";
 	}
 }
 
@@ -344,7 +346,7 @@ void random_forest_classifier::build(dataset*& d) {
 	this->max_feature = this->trees[0]->get_max_feature();
 
 	if (verbose >= 1)
-		ti->toc("Done.");
+		ti->toc("\nDone.");
 
 	/* set the flag is_build to true */
 	is_build = true;

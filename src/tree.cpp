@@ -541,10 +541,10 @@ void decision_tree::build(dataset*& d) {
 	build_rec(this->root, d, 0);
 
 	if (verbose >= 1)
-		ti->toc("Build tree done.");
+		ti->toc("\nBuild tree done.");
 
-	/* print a dot on the screen */
-	std::cout << "." << std::endl;
+	//[> print a dot on the screen <]
+	//std::cout << ".";
 }
 
 void decision_tree::build_rec(node*& root, dataset*& d, int depth) {

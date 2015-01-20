@@ -17,7 +17,7 @@ int* Metrics::gen_label(float* proba, int size, float threshold) {
 	}
 	for (int i = 0; i < size; i++) {
 		if (proba[i] > 1 || proba[i] < 0) {
-			std::cerr << "metrics.cpp::gen_label-->\n\tThe `proba` which is used generate label must between 0 and 1" << std::endl;
+			std::cerr << "metrics.cpp::gen_label-->\n\tThe `proba` which is used generate label must between 0 and 1. Here is #" << i << ": " << proba[i] << std::endl;
 			exit(EXIT_FAILURE);
 		} else if (proba[i] >= threshold) {
 			label[i] = 1;
@@ -29,22 +29,52 @@ int* Metrics::gen_label(float* proba, int size, float threshold) {
 }
 
 float Metrics::precision(float *y_pred, float *y_true, int size, float threshold) {
-	int *y_pred_i, *y_true_i;
+	int *y_pred_i = nullptr, *y_true_i = nullptr;
+	float ret_precision;
 	y_pred_i = Metrics::gen_label(y_pred, size, threshold);
 	y_true_i = float2int(y_true, size);
-	return Metrics::precision(y_pred_i, y_true_i, size);
+
+	ret_precision = Metrics::precision(y_pred_i, y_true_i, size);
+
+	if (y_pred_i != nullptr) {
+		delete[] y_pred_i;
+		y_pred_i = nullptr;
+	}
+	if (y_true_i != nullptr) {
+		delete[] y_true_i;
+		y_true_i = nullptr;
+	}
+
+	return ret_precision;
 }
 
 float Metrics::precision(float *y_pred, int *y_true, int size, float threshold) {
-	int *y_pred_i;
+	int *y_pred_i = nullptr;
+	float ret_precision;
 	y_pred_i = Metrics::gen_label(y_pred, size, threshold);
-	return Metrics::precision(y_pred_i, y_true, size);
+
+	ret_precision = Metrics::precision(y_pred_i, y_true, size);
+
+	if (y_pred_i != nullptr) {
+		delete[] y_pred_i;
+		y_pred_i = nullptr;
+	}
+	return ret_precision;
 }
 
 float Metrics::precision(int *y_pred, float *y_true, int size) {
-	int *y_true_i;
+	int *y_true_i = nullptr;
+	float ret_precision;
 	y_true_i = float2int(y_true, size);
-	return Metrics::precision(y_pred, y_true_i, size);
+
+	ret_precision = Metrics::precision(y_pred, y_true_i, size);
+
+	if (y_true_i != nullptr) {
+		delete[] y_true_i;
+		y_true_i = nullptr;
+	}
+
+	return ret_precision;
 }
 
 float Metrics::precision(int *y_pred, int *y_true, int size) {
@@ -61,6 +91,127 @@ float Metrics::precision(int *y_pred, int *y_true, int size) {
 	}
 	if (TP+FP == 0) return 0;
 	else return (float)TP / (TP + FP);
+}
+
+float Metrics::precision_multi(float* y_pred, float* y_true, int n_classes, int size) {
+	int *y_pred_i = nullptr, *y_true_i = nullptr, idx;
+	float max_proba, avg_precision;
+
+	/* find the class with maximum probability for each example */
+	y_pred_i = new int[size];
+	for (int i = 0; i < size; i++) {
+		max_proba = 0.0;
+		for (int c = 0; c < n_classes; c++) {
+			idx = i + c*size;
+			if (y_pred[idx] > max_proba) {
+				max_proba = y_pred[idx];
+				y_pred_i[i] = c;
+			}
+		}
+	}
+
+	y_true_i = float2int(y_true, size);
+	avg_precision = Metrics::precision_multi(y_pred_i, y_true_i, n_classes, size);
+
+	/* free space */
+	if (y_pred_i != nullptr) {
+		delete[] y_pred_i;
+		y_pred_i = nullptr;
+	}
+	if (y_true_i != nullptr) {
+		delete[] y_true_i;
+		y_true_i = nullptr;
+	}
+
+	return avg_precision;
+}
+
+float Metrics::precision_multi(float* y_pred, int* y_true, int n_classes, int size) {
+	int *y_pred_i = nullptr, idx;
+	float max_proba, avg_precision;
+
+	/* find the class with maximum probability for each example */
+	y_pred_i = new int[size];
+	for (int i = 0; i < size; i++) {
+		max_proba = 0.0;
+		for (int c = 0; c < n_classes; c++) {
+			idx = i + c*size;
+			if (y_pred[idx] > max_proba) {
+				max_proba = y_pred[idx];
+				y_pred_i[i] = c;
+			}
+		}
+	}
+
+	avg_precision = Metrics::precision_multi(y_pred_i, y_true, n_classes, size);
+
+	/* free space */
+	if (y_pred_i != nullptr) {
+		delete[] y_pred_i;
+		y_pred_i = nullptr;
+	}
+
+	return avg_precision;
+}
+
+float Metrics::precision_multi(int* y_pred, float* y_true, int n_classes, int size) {
+	int *y_true_i = nullptr;
+	float avg_precision;
+	y_true_i = float2int(y_true, size);
+
+	avg_precision = Metrics::precision_multi(y_pred, y_true_i, n_classes, size);
+
+	if (y_true_i != nullptr) {
+		delete[] y_true_i;
+		y_true_i = nullptr;
+	}
+
+	return avg_precision;
+}
+
+float Metrics::precision_multi(int* y_pred, int* y_true, int n_classes, int size) {
+	int *total_predicted = nullptr, *true_positive = nullptr;
+	/* check for `y_true` to determine all the elements are between 0 and n_classes */
+	for (int i = 0; i < size; i++) {
+		if (y_true[i] < 0 || y_true[i] >= n_classes) {
+			std::cerr << "ERROR:Metrics::precision_multi: #" << i << " element in `y_true` is " << y_true[i] << " which is not between 0 and n_classes." << std::endl;
+			exit(EXIT_FAILURE);
+		}
+		if (y_pred[i] < 0 || y_pred[i] >= n_classes) {
+			std::cerr << "ERROR:Metrics::precision_multi: #" << i << " element in `y_pred` is " << y_pred[i] << " which is not between 0 and n_classes." << std::endl;
+			exit(EXIT_FAILURE);
+		}
+	}
+
+	/* allocate space and initialize to zero */
+	true_positive = new int[n_classes]();
+	total_predicted = new int[n_classes]();
+
+	/* count true positive and total predicted for each class */
+	for (int i = 0; i < size; i++) {
+		if (y_pred[i] == y_true[i]) {
+			true_positive[y_pred[i]]++;
+		}
+		total_predicted[y_pred[i]]++;
+	}
+
+	float avg_precision = 0.0;
+	for (int c = 0; c < n_classes; c++) {
+		avg_precision += 1.0 * true_positive[c] / total_predicted[c];
+	}
+	avg_precision /= n_classes;
+
+	/* free space */
+	if (total_predicted != nullptr) {
+		delete[] total_predicted;
+		total_predicted = nullptr;
+	}
+	if (true_positive != nullptr) {
+		delete[] true_positive;
+		true_positive = nullptr;
+	}
+
+	return avg_precision;
 }
 
 float Metrics::recall(float *y_pred, float *y_true, int size, float threshold) {
@@ -98,6 +249,128 @@ float Metrics::recall(int *y_pred, int *y_true, int size) {
 	else return (float)TP / (TP + TN);
 }
 
+float Metrics::recall_multi(float* y_pred, float* y_true, int n_classes, int size) {
+	int *y_pred_i = nullptr, *y_true_i = nullptr, idx;
+	float max_proba, avg_recall;
+
+	/* find the class with maximum probability for each example */
+	y_pred_i = new int[size];
+	for (int i = 0; i < size; i++) {
+		max_proba = 0.0;
+		for (int c = 0; c < n_classes; c++) {
+			idx = i + c*size;
+			if (y_pred[idx] > max_proba) {
+				max_proba = y_pred[idx];
+				y_pred_i[i] = c;
+			}
+		}
+	}
+
+	y_true_i = float2int(y_true, size);
+	avg_recall= Metrics::recall_multi(y_pred_i, y_true_i, n_classes, size);
+
+	/* free space */
+	if (y_pred_i != nullptr) {
+		delete[] y_pred_i;
+		y_pred_i = nullptr;
+	}
+	if (y_true_i != nullptr) {
+		delete[] y_true_i;
+		y_true_i = nullptr;
+	}
+
+	return avg_recall;
+}
+
+float Metrics::recall_multi(float* y_pred, int* y_true, int n_classes, int size) {
+	int *y_pred_i = nullptr, idx;
+	float max_proba, avg_recall;
+
+	/* find the class with maximum probability for each example */
+	y_pred_i = new int[size];
+	for (int i = 0; i < size; i++) {
+		max_proba = 0.0;
+		for (int c = 0; c < n_classes; c++) {
+			idx = i + c*size;
+			if (y_pred[idx] > max_proba) {
+				max_proba = y_pred[idx];
+				y_pred_i[i] = c;
+			}
+		}
+	}
+
+	avg_recall = Metrics::recall_multi(y_pred_i, y_true, n_classes, size);
+
+	/* free space */
+	if (y_pred_i != nullptr) {
+		delete[] y_pred_i;
+		y_pred_i = nullptr;
+	}
+
+	return avg_recall;
+}
+
+float Metrics::recall_multi(int* y_pred, float* y_true, int n_classes, int size) {
+	int *y_true_i = nullptr;
+	float avg_recall;
+	y_true_i = float2int(y_true, size);
+
+	avg_recall = Metrics::recall_multi(y_pred, y_true_i, n_classes, size);
+
+	if (y_true_i != nullptr) {
+		delete[] y_true_i;
+		y_true_i = nullptr;
+	}
+
+	return avg_recall;
+}
+
+float Metrics::recall_multi(int* y_pred, int* y_true, int n_classes, int size) {
+	int *total_label = nullptr, *true_positive = nullptr;
+	/* check for `y_true` to determine all the elements are between 0 and n_classes */
+	for (int i = 0; i < size; i++) {
+		if (y_true[i] < 0 || y_true[i] >= n_classes) {
+			std::cerr << "ERROR:Metrics::precision_multi: #" << i << " element in `y_true` is " << y_true[i] << " which is not between 0 and n_classes." << std::endl;
+			exit(EXIT_FAILURE);
+		}
+		if (y_pred[i] < 0 || y_pred[i] >= n_classes) {
+			std::cerr << "ERROR:Metrics::precision_multi: #" << i << " element in `y_pred` is " << y_pred[i] << " which is not between 0 and n_classes." << std::endl;
+			exit(EXIT_FAILURE);
+		}
+	}
+
+	/* allocate space and initialize to zero */
+	true_positive = new int[n_classes]();
+	total_label = new int[n_classes]();
+
+	/* count true positive and total label for each class */
+	for (int i = 0; i < size; i++) {
+		if (y_pred[i] == y_true[i]) {
+			true_positive[y_pred[i]]++;
+		}
+		total_label[y_true[i]]++;
+	}
+
+	float avg_recall = 0.0;
+	for (int c = 0; c < n_classes; c++) {
+		avg_recall += 1.0 * true_positive[c] / total_label[c];
+	}
+	avg_recall /= n_classes;
+
+	/* free space */
+	if (total_label!= nullptr) {
+		delete[] total_label;
+		total_label= nullptr;
+	}
+	if (true_positive != nullptr) {
+		delete[] true_positive;
+		true_positive = nullptr;
+	}
+
+	return avg_recall;
+	
+}
+
 float Metrics::f1_score(float* y_pred, float *y_true, int size, float threshold) {
 	float precision, recall;	
 	precision = Metrics::precision(y_pred, y_true, size, threshold);
@@ -122,10 +395,42 @@ float Metrics::f1_score(int* y_pred, float* y_true, int size) {
 	return 2*precision*recall/(precision+recall);
 }
 
-float Metrics::f1_score(int* y_pred, int *y_true, int size) {
+float Metrics::f1_score(int* y_pred, int* y_true, int size) {
 	float precision, recall;	
 	precision = Metrics::precision(y_pred, y_true, size);
 	recall = Metrics::recall(y_pred, y_true, size);
+
+	return 2*precision*recall/(precision+recall);
+}
+
+float Metrics::f1_score_multi(int* y_pred, int* y_true, int n_classes, int size) {
+	float precision, recall;
+	precision = Metrics::precision_multi(y_pred, y_true, n_classes, size);
+	recall = Metrics::recall_multi(y_pred, y_true, n_classes, size);
+
+	return 2*precision*recall/(precision+recall);
+}
+
+float Metrics::f1_score_multi(float* y_pred, int* y_true, int n_classes, int size) {
+	float precision, recall;
+	precision = Metrics::precision_multi(y_pred, y_true, n_classes, size);
+	recall = Metrics::recall_multi(y_pred, y_true, n_classes, size);
+
+	return 2*precision*recall/(precision+recall);
+}
+
+float Metrics::f1_score_multi(int* y_pred, float* y_true, int n_classes, int size) {
+	float precision, recall;
+	precision = Metrics::precision_multi(y_pred, y_true, n_classes, size);
+	recall = Metrics::recall_multi(y_pred, y_true, n_classes, size);
+
+	return 2*precision*recall/(precision+recall);
+}
+
+float Metrics::f1_score_multi(float* y_pred, float* y_true, int n_classes, int size) {
+	float precision, recall;
+	precision = Metrics::precision_multi(y_pred, y_true, n_classes, size);
+	recall = Metrics::recall_multi(y_pred, y_true, n_classes, size);
 
 	return 2*precision*recall/(precision+recall);
 }

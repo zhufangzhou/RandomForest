@@ -75,6 +75,7 @@ example_t* data_reader::read_an_example() {
 	ret = new example_t();
 	
 	if (mode != TEST) {
+		/* read label */
 		ifs >> ret->y;
 		//ret->y--; //!!!!!!!!!!!!!!!!!!!!
 		p_pos = 0; getline(ifs, line);
@@ -203,7 +204,38 @@ void dataset::load_data(const std::string& filename, const learn_mode mode) {
 	tf = new int[1];
 	tot_size = 0;
 	int ex_id = 0;
-	/* predict mode does not need y arrary*/
+
+	/* change labels if they are not between 0 and n_classes-1 */
+	std::map<int, int> label_map;
+	bool *label_mask = new bool[n_classes];
+	int l;
+	/* initalize the label_mask to false */
+	for (int c = 0; c < n_classes; c++) label_mask[c] = false;
+	/* set label_mask entry to true it there exist y in datasets which is between 0 and n_classes-1 */
+	for (auto it = ex_vec.begin(); it != ex_vec.end(); it++) {
+		l = (*it)->y;
+		if (l < 0 && l >= n_classes) {
+			label_map[l] = -1; // -1 is no meaning just a place holder
+		} else {
+			label_mask[l] = true;
+		}
+	}
+	l = -1;
+	for (auto it = label_map.begin(); it != label_map.end(); it++) {
+		/* find an avaiable label value(between 0 and n_classes-1) */
+		while (label_mask[++l] == true);
+		label_mask[l] = true;
+		it->second = l;
+	}
+	/* change labels to between 0 and n_classes-1 */
+	for (int i = 0; i < ex_vec.size(); i++) {
+		example_t* p = ex_vec[i];	
+		if (p->y < 0 && p->y >= n_classes) {
+			p->y = label_map[p->y];
+		}
+	}
+	
+	/* test mode does not need y array*/
 	if (mode != TEST) {
 		y = new target_t[1];
 	}
@@ -211,7 +243,7 @@ void dataset::load_data(const std::string& filename, const learn_mode mode) {
 		/* allocate memory to variables */
 		te = (ev_pair_t*)realloc(te, sizeof(ev_pair_t)*(tot_size+(*it)->nnz));
 		tf = (int*)realloc(tf, sizeof(int)*(tot_size+(*it)->nnz));
-		/* predict mode does not has label */
+		/* test mode does not has label */
 		if (mode != TEST) {
 			y = (target_t*)realloc(y, sizeof(target_t)*(ex_id+1));
 			/* check `y` between 0 ~ n_classes-1 */
@@ -250,6 +282,10 @@ void dataset::load_data(const std::string& filename, const learn_mode mode) {
 	if (tf != nullptr) {
 		delete[] tf;
 		tf = nullptr;
+	}
+	if (label_mask != nullptr) {
+		delete[] label_mask;
+		label_mask = nullptr;
 	}
 }
 
