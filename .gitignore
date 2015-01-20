@@ -34,3 +34,14 @@
 *.exe
 *.out
 *.app
+
+# Dot file
+*.dot
+
+# Picture file
+*.png
+
+# These two directory do not upload
+data
+model
+bin

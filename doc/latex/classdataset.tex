@@ -1,0 +1,312 @@
+\hypertarget{classdataset}{\section{dataset Class Reference}
+\label{classdataset}\index{dataset@{dataset}}
+}
+
+
+{\ttfamily \#include $<$dataset.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classdataset_a7cb166d5282c5d6e66242764f9148a94}{dataset} ()
+\begin{DoxyCompactList}\small\item\em dataset constructor \end{DoxyCompactList}\item 
+\hyperlink{classdataset_acfaf71f71b7ddb95a77431e3663aa4a1}{dataset} (int \hyperlink{classdataset_aa33a77fd21cbed4019bfb5ed82e30c6b}{n\+\_\+classes}, int \hyperlink{classdataset_a5469ac8f1b5d64d836821e5056599b54}{n\+\_\+features}, float $\ast$\hyperlink{classdataset_ac6690ca832182b7cfa64da93a6ccd6ab}{weight})
+\begin{DoxyCompactList}\small\item\em dataset constructor \end{DoxyCompactList}\item 
+\hyperlink{classdataset_a770010cb1e1da07bea9ed9dd665a6d65}{$\sim$dataset} ()
+\begin{DoxyCompactList}\small\item\em $\sim$dataset destructor \end{DoxyCompactList}\item 
+void \hyperlink{classdataset_a53d6ced8ba17a1ff4771ab53ffda85ef}{init} (int \hyperlink{classdataset_aa33a77fd21cbed4019bfb5ed82e30c6b}{n\+\_\+classes}, int \hyperlink{classdataset_a5469ac8f1b5d64d836821e5056599b54}{n\+\_\+features}, float $\ast$\hyperlink{classdataset_ac6690ca832182b7cfa64da93a6ccd6ab}{weight})
+\begin{DoxyCompactList}\small\item\em init \end{DoxyCompactList}\item 
+void \hyperlink{classdataset_a0bf2fba4da731ca757f0cb2bd95fe172}{load\+\_\+data} (const std\+::string \&filename, const \hyperlink{dataset_8h_a87dfee910993320c6720931fb701cc41}{learn\+\_\+mode} \hyperlink{classdataset_a47d44ca9cd02a4dc98ff80e0616a5aa9}{mode})
+\begin{DoxyCompactList}\small\item\em load\+\_\+data generate the dataset from input file \end{DoxyCompactList}\item 
+void \hyperlink{classdataset_aeab51be94fab1f62e901555c82a016ae}{load\+\_\+data\+\_\+meta} (const std\+::string \&filename)
+\begin{DoxyCompactList}\small\item\em load\+\_\+data\+\_\+meta \end{DoxyCompactList}\item 
+void \hyperlink{classdataset_aeca876714406b8e391ab8cdeb31c9f3f}{debug} ()
+\begin{DoxyCompactList}\small\item\em debug print some information for debugging \end{DoxyCompactList}\item 
+int \hyperlink{classdataset_a35b101f3d8aecd5d87820982718f1534}{get\+\_\+nclasses} ()
+\item 
+int \hyperlink{classdataset_acd3afb9c245b9e11a6ed53ea293257a9}{get\+\_\+nexamples} ()
+\item 
+int \hyperlink{classdataset_a956095a460089726c8f39b3de8d4173d}{get\+\_\+nfeatures} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structev__pair__t}{ev\+\_\+pair\+\_\+t} $\ast$$\ast$ \hyperlink{classdataset_af7977ae76ce8f573f349e63f6500a8f8}{x}
+\item 
+int $\ast$ \hyperlink{classdataset_acc18732fc7fbc0fcdebffac620646eb9}{size}
+\item 
+\hyperlink{dataset_8h_a0f180d1f400ce1743488c55eb82a0a49}{target\+\_\+t} $\ast$ \hyperlink{classdataset_a146d2d2d0eaadeb342e76b9bb1004881}{y}
+\item 
+float $\ast$ \hyperlink{classdataset_ac6690ca832182b7cfa64da93a6ccd6ab}{weight}
+\item 
+bool $\ast$ \hyperlink{classdataset_ab856d84d4bced1ccde106badfab229d8}{is\+\_\+cate}
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classdataset_a0a5e275e95d935b8d864b35e2dfd3933}{isort} (\hyperlink{structev__pair__t}{ev\+\_\+pair\+\_\+t} $\ast$a, int $\ast$f, int n)
+\begin{DoxyCompactList}\small\item\em isort code comes from {\ttfamily fest package} \href{http://lowrank.net/nikos/fest/}{\tt http\+://lowrank.\+net/nikos/fest/} \end{DoxyCompactList}\item 
+void \hyperlink{classdataset_a8008be7b546cc9ec90005557ad0ee289}{qsortlazy} (\hyperlink{structev__pair__t}{ev\+\_\+pair\+\_\+t} $\ast$a, int $\ast$f, int l, int u)
+\begin{DoxyCompactList}\small\item\em qsortlazy code comes from {\ttfamily fest package} \href{http://lowrank.net/nikos/fest/}{\tt http\+://lowrank.\+net/nikos/fest/} \end{DoxyCompactList}\item 
+void \hyperlink{classdataset_a8d1c382f82b2365674a87de56dae9ac1}{sort} (\hyperlink{structev__pair__t}{ev\+\_\+pair\+\_\+t} $\ast$a, int $\ast$f, int len)
+\begin{DoxyCompactList}\small\item\em sort code comes from {\ttfamily fest package} \href{http://lowrank.net/nikos/fest/}{\tt http\+://lowrank.\+net/nikos/fest/} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{classdataset_aa33a77fd21cbed4019bfb5ed82e30c6b}{n\+\_\+classes}
+\item 
+int \hyperlink{classdataset_ad7186a7fc9e74633c3b3fcddcf241ad4}{n\+\_\+examples}
+\item 
+int \hyperlink{classdataset_a5469ac8f1b5d64d836821e5056599b54}{n\+\_\+features}
+\item 
+bool \hyperlink{classdataset_ab5381427833c91ee35913ca1c1d4e73b}{is\+\_\+init}
+\item 
+\hyperlink{dataset_8h_a87dfee910993320c6720931fb701cc41}{learn\+\_\+mode} \hyperlink{classdataset_a47d44ca9cd02a4dc98ff80e0616a5aa9}{mode}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classdataset_a7cb166d5282c5d6e66242764f9148a94}{\index{dataset@{dataset}!dataset@{dataset}}
+\index{dataset@{dataset}!dataset@{dataset}}
+\subsubsection[{dataset}]{\setlength{\rightskip}{0pt plus 5cm}dataset\+::dataset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdataset_a7cb166d5282c5d6e66242764f9148a94}
+
+
+dataset constructor 
+
+is the ith attribute categorical \hypertarget{classdataset_acfaf71f71b7ddb95a77431e3663aa4a1}{\index{dataset@{dataset}!dataset@{dataset}}
+\index{dataset@{dataset}!dataset@{dataset}}
+\subsubsection[{dataset}]{\setlength{\rightskip}{0pt plus 5cm}dataset\+::dataset (
+\begin{DoxyParamCaption}
+\item[{int}]{n\+\_\+classes, }
+\item[{int}]{n\+\_\+features, }
+\item[{float $\ast$}]{weight}
+\end{DoxyParamCaption}
+)}}\label{classdataset_acfaf71f71b7ddb95a77431e3663aa4a1}
+
+
+dataset constructor 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+\_\+classes} & number of classes in the training set \\
+\hline
+{\em n\+\_\+features} & number of features \\
+\hline
+{\em weight} & weight for each class \\
+\hline
+\end{DoxyParams}
+\hypertarget{classdataset_a770010cb1e1da07bea9ed9dd665a6d65}{\index{dataset@{dataset}!````~dataset@{$\sim$dataset}}
+\index{````~dataset@{$\sim$dataset}!dataset@{dataset}}
+\subsubsection[{$\sim$dataset}]{\setlength{\rightskip}{0pt plus 5cm}dataset\+::$\sim$dataset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdataset_a770010cb1e1da07bea9ed9dd665a6d65}
+
+
+$\sim$dataset destructor 
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classdataset_aeca876714406b8e391ab8cdeb31c9f3f}{\index{dataset@{dataset}!debug@{debug}}
+\index{debug@{debug}!dataset@{dataset}}
+\subsubsection[{debug}]{\setlength{\rightskip}{0pt plus 5cm}void dataset\+::debug (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdataset_aeca876714406b8e391ab8cdeb31c9f3f}
+
+
+debug print some information for debugging 
+
+\hypertarget{classdataset_a35b101f3d8aecd5d87820982718f1534}{\index{dataset@{dataset}!get\+\_\+nclasses@{get\+\_\+nclasses}}
+\index{get\+\_\+nclasses@{get\+\_\+nclasses}!dataset@{dataset}}
+\subsubsection[{get\+\_\+nclasses}]{\setlength{\rightskip}{0pt plus 5cm}int dataset\+::get\+\_\+nclasses (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdataset_a35b101f3d8aecd5d87820982718f1534}
+\hypertarget{classdataset_acd3afb9c245b9e11a6ed53ea293257a9}{\index{dataset@{dataset}!get\+\_\+nexamples@{get\+\_\+nexamples}}
+\index{get\+\_\+nexamples@{get\+\_\+nexamples}!dataset@{dataset}}
+\subsubsection[{get\+\_\+nexamples}]{\setlength{\rightskip}{0pt plus 5cm}int dataset\+::get\+\_\+nexamples (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdataset_acd3afb9c245b9e11a6ed53ea293257a9}
+\hypertarget{classdataset_a956095a460089726c8f39b3de8d4173d}{\index{dataset@{dataset}!get\+\_\+nfeatures@{get\+\_\+nfeatures}}
+\index{get\+\_\+nfeatures@{get\+\_\+nfeatures}!dataset@{dataset}}
+\subsubsection[{get\+\_\+nfeatures}]{\setlength{\rightskip}{0pt plus 5cm}int dataset\+::get\+\_\+nfeatures (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdataset_a956095a460089726c8f39b3de8d4173d}
+\hypertarget{classdataset_a53d6ced8ba17a1ff4771ab53ffda85ef}{\index{dataset@{dataset}!init@{init}}
+\index{init@{init}!dataset@{dataset}}
+\subsubsection[{init}]{\setlength{\rightskip}{0pt plus 5cm}void dataset\+::init (
+\begin{DoxyParamCaption}
+\item[{int}]{n\+\_\+classes, }
+\item[{int}]{n\+\_\+features, }
+\item[{float $\ast$}]{weight}
+\end{DoxyParamCaption}
+)}}\label{classdataset_a53d6ced8ba17a1ff4771ab53ffda85ef}
+
+
+init 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+\_\+classes} & number of classes in the training set \\
+\hline
+{\em n\+\_\+features} & number of features \\
+\hline
+{\em weight} & weight for each class \\
+\hline
+\end{DoxyParams}
+\hypertarget{classdataset_a0a5e275e95d935b8d864b35e2dfd3933}{\index{dataset@{dataset}!isort@{isort}}
+\index{isort@{isort}!dataset@{dataset}}
+\subsubsection[{isort}]{\setlength{\rightskip}{0pt plus 5cm}void dataset\+::isort (
+\begin{DoxyParamCaption}
+\item[{{\bf ev\+\_\+pair\+\_\+t} $\ast$}]{a, }
+\item[{int $\ast$}]{f, }
+\item[{int}]{n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{classdataset_a0a5e275e95d935b8d864b35e2dfd3933}
+
+
+isort code comes from {\ttfamily fest package} \href{http://lowrank.net/nikos/fest/}{\tt http\+://lowrank.\+net/nikos/fest/} 
+
+learn mode 
+\begin{DoxyParams}{Parameters}
+{\em a} & example\+\_\+id-\/feature\+\_\+value pair array \\
+\hline
+{\em f} & corresponding feature\+\_\+id in array {\ttfamily a} \\
+\hline
+{\em n} & array length \\
+\hline
+\end{DoxyParams}
+\hypertarget{classdataset_a0bf2fba4da731ca757f0cb2bd95fe172}{\index{dataset@{dataset}!load\+\_\+data@{load\+\_\+data}}
+\index{load\+\_\+data@{load\+\_\+data}!dataset@{dataset}}
+\subsubsection[{load\+\_\+data}]{\setlength{\rightskip}{0pt plus 5cm}void dataset\+::load\+\_\+data (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{filename, }
+\item[{const {\bf learn\+\_\+mode}}]{mode}
+\end{DoxyParamCaption}
+)}}\label{classdataset_a0bf2fba4da731ca757f0cb2bd95fe172}
+
+
+load\+\_\+data generate the dataset from input file 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & input file name \\
+\hline
+{\em mode} & {\ttfamily T\+R\+A\+I\+N} or {\ttfamily P\+R\+E\+D\+I\+C\+T} \\
+\hline
+\end{DoxyParams}
+\hypertarget{classdataset_aeab51be94fab1f62e901555c82a016ae}{\index{dataset@{dataset}!load\+\_\+data\+\_\+meta@{load\+\_\+data\+\_\+meta}}
+\index{load\+\_\+data\+\_\+meta@{load\+\_\+data\+\_\+meta}!dataset@{dataset}}
+\subsubsection[{load\+\_\+data\+\_\+meta}]{\setlength{\rightskip}{0pt plus 5cm}void dataset\+::load\+\_\+data\+\_\+meta (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{filename}
+\end{DoxyParamCaption}
+)}}\label{classdataset_aeab51be94fab1f62e901555c82a016ae}
+
+
+load\+\_\+data\+\_\+meta 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classdataset_a8008be7b546cc9ec90005557ad0ee289}{\index{dataset@{dataset}!qsortlazy@{qsortlazy}}
+\index{qsortlazy@{qsortlazy}!dataset@{dataset}}
+\subsubsection[{qsortlazy}]{\setlength{\rightskip}{0pt plus 5cm}void dataset\+::qsortlazy (
+\begin{DoxyParamCaption}
+\item[{{\bf ev\+\_\+pair\+\_\+t} $\ast$}]{a, }
+\item[{int $\ast$}]{f, }
+\item[{int}]{l, }
+\item[{int}]{u}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{classdataset_a8008be7b546cc9ec90005557ad0ee289}
+
+
+qsortlazy code comes from {\ttfamily fest package} \href{http://lowrank.net/nikos/fest/}{\tt http\+://lowrank.\+net/nikos/fest/} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & example\+\_\+id-\/feature\+\_\+value pair array \\
+\hline
+{\em f} & corresponding feature\+\_\+id in array {\ttfamily a} \\
+\hline
+{\em l} & begin index in array \\
+\hline
+{\em u} & end index in array \\
+\hline
+\end{DoxyParams}
+\hypertarget{classdataset_a8d1c382f82b2365674a87de56dae9ac1}{\index{dataset@{dataset}!sort@{sort}}
+\index{sort@{sort}!dataset@{dataset}}
+\subsubsection[{sort}]{\setlength{\rightskip}{0pt plus 5cm}void dataset\+::sort (
+\begin{DoxyParamCaption}
+\item[{{\bf ev\+\_\+pair\+\_\+t} $\ast$}]{a, }
+\item[{int $\ast$}]{f, }
+\item[{int}]{len}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{classdataset_a8d1c382f82b2365674a87de56dae9ac1}
+
+
+sort code comes from {\ttfamily fest package} \href{http://lowrank.net/nikos/fest/}{\tt http\+://lowrank.\+net/nikos/fest/} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & example\+\_\+id-\/feature\+\_\+value pair array \\
+\hline
+{\em f} & corresponding feature\+\_\+id in array {\ttfamily a} \\
+\hline
+{\em len} & array length \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classdataset_ab856d84d4bced1ccde106badfab229d8}{\index{dataset@{dataset}!is\+\_\+cate@{is\+\_\+cate}}
+\index{is\+\_\+cate@{is\+\_\+cate}!dataset@{dataset}}
+\subsubsection[{is\+\_\+cate}]{\setlength{\rightskip}{0pt plus 5cm}bool$\ast$ dataset\+::is\+\_\+cate}}\label{classdataset_ab856d84d4bced1ccde106badfab229d8}
+weight for each class \hypertarget{classdataset_ab5381427833c91ee35913ca1c1d4e73b}{\index{dataset@{dataset}!is\+\_\+init@{is\+\_\+init}}
+\index{is\+\_\+init@{is\+\_\+init}!dataset@{dataset}}
+\subsubsection[{is\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}bool dataset\+::is\+\_\+init\hspace{0.3cm}{\ttfamily [private]}}}\label{classdataset_ab5381427833c91ee35913ca1c1d4e73b}
+number of attributes \hypertarget{classdataset_a47d44ca9cd02a4dc98ff80e0616a5aa9}{\index{dataset@{dataset}!mode@{mode}}
+\index{mode@{mode}!dataset@{dataset}}
+\subsubsection[{mode}]{\setlength{\rightskip}{0pt plus 5cm}{\bf learn\+\_\+mode} dataset\+::mode\hspace{0.3cm}{\ttfamily [private]}}}\label{classdataset_a47d44ca9cd02a4dc98ff80e0616a5aa9}
+boolean variable to indicate whether dataset has been initialized \hypertarget{classdataset_aa33a77fd21cbed4019bfb5ed82e30c6b}{\index{dataset@{dataset}!n\+\_\+classes@{n\+\_\+classes}}
+\index{n\+\_\+classes@{n\+\_\+classes}!dataset@{dataset}}
+\subsubsection[{n\+\_\+classes}]{\setlength{\rightskip}{0pt plus 5cm}int dataset\+::n\+\_\+classes\hspace{0.3cm}{\ttfamily [private]}}}\label{classdataset_aa33a77fd21cbed4019bfb5ed82e30c6b}
+\hypertarget{classdataset_ad7186a7fc9e74633c3b3fcddcf241ad4}{\index{dataset@{dataset}!n\+\_\+examples@{n\+\_\+examples}}
+\index{n\+\_\+examples@{n\+\_\+examples}!dataset@{dataset}}
+\subsubsection[{n\+\_\+examples}]{\setlength{\rightskip}{0pt plus 5cm}int dataset\+::n\+\_\+examples\hspace{0.3cm}{\ttfamily [private]}}}\label{classdataset_ad7186a7fc9e74633c3b3fcddcf241ad4}
+number of classes \hypertarget{classdataset_a5469ac8f1b5d64d836821e5056599b54}{\index{dataset@{dataset}!n\+\_\+features@{n\+\_\+features}}
+\index{n\+\_\+features@{n\+\_\+features}!dataset@{dataset}}
+\subsubsection[{n\+\_\+features}]{\setlength{\rightskip}{0pt plus 5cm}int dataset\+::n\+\_\+features\hspace{0.3cm}{\ttfamily [private]}}}\label{classdataset_a5469ac8f1b5d64d836821e5056599b54}
+number of examples \hypertarget{classdataset_acc18732fc7fbc0fcdebffac620646eb9}{\index{dataset@{dataset}!size@{size}}
+\index{size@{size}!dataset@{dataset}}
+\subsubsection[{size}]{\setlength{\rightskip}{0pt plus 5cm}int$\ast$ dataset\+::size}}\label{classdataset_acc18732fc7fbc0fcdebffac620646eb9}
+each row is an attribute \hypertarget{classdataset_ac6690ca832182b7cfa64da93a6ccd6ab}{\index{dataset@{dataset}!weight@{weight}}
+\index{weight@{weight}!dataset@{dataset}}
+\subsubsection[{weight}]{\setlength{\rightskip}{0pt plus 5cm}float$\ast$ dataset\+::weight}}\label{classdataset_ac6690ca832182b7cfa64da93a6ccd6ab}
+label for each example \hypertarget{classdataset_af7977ae76ce8f573f349e63f6500a8f8}{\index{dataset@{dataset}!x@{x}}
+\index{x@{x}!dataset@{dataset}}
+\subsubsection[{x}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ev\+\_\+pair\+\_\+t}$\ast$$\ast$ dataset\+::x}}\label{classdataset_af7977ae76ce8f573f349e63f6500a8f8}
+\hypertarget{classdataset_a146d2d2d0eaadeb342e76b9bb1004881}{\index{dataset@{dataset}!y@{y}}
+\index{y@{y}!dataset@{dataset}}
+\subsubsection[{y}]{\setlength{\rightskip}{0pt plus 5cm}{\bf target\+\_\+t}$\ast$ dataset\+::y}}\label{classdataset_a146d2d2d0eaadeb342e76b9bb1004881}
+number of examples with non-\/zero feature values for each attribute 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{dataset_8h}{dataset.\+h}\item 
+src/\hyperlink{dataset_8cpp}{dataset.\+cpp}\end{DoxyCompactItemize}

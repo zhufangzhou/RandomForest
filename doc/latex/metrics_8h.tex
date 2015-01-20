@@ -1,0 +1,65 @@
+\hypertarget{metrics_8h}{\section{include/metrics.h File Reference}
+\label{metrics_8h}\index{include/metrics.\+h@{include/metrics.\+h}}
+}
+
+
+a lot of measures to measure performance  
+
+
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$algorithm$>$}\\*
+{\ttfamily \#include \char`\"{}utils.\+h\char`\"{}}\\*
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespace_metrics}{Metrics}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int $\ast$ \hyperlink{namespace_metrics_ac6e684b943095156e072649cb421452a}{Metrics\+::gen\+\_\+label} (float $\ast$proba, int size, float threshold)
+\item 
+float \hyperlink{namespace_metrics_af522960cbeb7b7dd0ac10c8a88d1be77}{Metrics\+::precision} (float $\ast$y\+\_\+pred, float $\ast$y\+\_\+true, int size, float threshold=0.\+5)
+\item 
+float \hyperlink{namespace_metrics_ac1a4db1d7c8e16295686c09cb535fbe4}{Metrics\+::precision} (float $\ast$y\+\_\+pred, int $\ast$y\+\_\+true, int size, float threshold=0.\+5)
+\item 
+float \hyperlink{namespace_metrics_aa2bcf1af5d12ef0ced8777383218306d}{Metrics\+::precision} (int $\ast$y\+\_\+pred, float $\ast$y\+\_\+true, int size)
+\item 
+float \hyperlink{namespace_metrics_a3025e6e67479b9b4786996ca36c670fb}{Metrics\+::precision} (int $\ast$y\+\_\+pred, int $\ast$y\+\_\+true, int size)
+\item 
+float \hyperlink{namespace_metrics_ae4ec18391e6582483ffe1a00f7407135}{Metrics\+::recall} (float $\ast$y\+\_\+pred, float $\ast$y\+\_\+true, int size, float threshold=0.\+5)
+\item 
+float \hyperlink{namespace_metrics_a77fd2905d5de2451d27838a2c4a7c368}{Metrics\+::recall} (float $\ast$y\+\_\+pred, int $\ast$y\+\_\+true, int size, float threshold=0.\+5)
+\item 
+float \hyperlink{namespace_metrics_a5275b85f6ff8498a9682d863cc711859}{Metrics\+::recall} (int $\ast$y\+\_\+pred, float $\ast$y\+\_\+true, int size)
+\item 
+float \hyperlink{namespace_metrics_a6e422b5f59fcead5d60b9bdad69f84d9}{Metrics\+::recall} (int $\ast$y\+\_\+pred, int $\ast$y\+\_\+true, int size)
+\item 
+float \hyperlink{namespace_metrics_afe6817752e96a79f98a7ba4d9dacbf1b}{Metrics\+::f1\+\_\+score} (float $\ast$y\+\_\+pred, float $\ast$y\+\_\+true, int size, float threshold=0.\+5)
+\item 
+float \hyperlink{namespace_metrics_ae6868a2cd1dceed83d6b50854cd8a19b}{Metrics\+::f1\+\_\+score} (float $\ast$y\+\_\+pred, int $\ast$y\+\_\+true, int size, float threshold=0.\+5)
+\item 
+float \hyperlink{namespace_metrics_a708722c37e939f76a4753c04808421ac}{Metrics\+::f1\+\_\+score} (int $\ast$y\+\_\+pred, float $\ast$y\+\_\+true, int size)
+\item 
+float \hyperlink{namespace_metrics_a48799d96327e74019f2afd1a584483a5}{Metrics\+::f1\+\_\+score} (int $\ast$y\+\_\+pred, int $\ast$y\+\_\+true, int size)
+\item 
+float \hyperlink{namespace_metrics_a1492644b42d26c2cc1af789df8bd588f}{Metrics\+::roc\+\_\+auc\+\_\+score} (float $\ast$y\+\_\+pred, int $\ast$y\+\_\+true, int size)
+\item 
+float \hyperlink{namespace_metrics_a2f6773b04903e1115c8ee7db0b97862c}{Metrics\+::pr\+\_\+auc\+\_\+score} (float $\ast$y\+\_\+pred, int $\ast$y\+\_\+true, int size)
+\item 
+float \hyperlink{namespace_metrics_ab0cb806dfe2f0e87809e776d5ff5027c}{Metrics\+::auc} (float $\ast$x, float $\ast$y, int size)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+a lot of measures to measure performance 
+
+\begin{DoxyAuthor}{Author}
+Zhu Fangzhou, \href{mailto:zhu.ark@gmail.com}{\tt zhu.\+ark@gmail.\+com} 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2014-\/12-\/01 
+\end{DoxyDate}

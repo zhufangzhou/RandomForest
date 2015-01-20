@@ -1,0 +1,120 @@
+\hypertarget{classdata__reader}{\section{data\+\_\+reader Class Reference}
+\label{classdata__reader}\index{data\+\_\+reader@{data\+\_\+reader}}
+}
+
+
+{\ttfamily \#include $<$dataset.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classdata__reader_abffe82f72b9ccfff618e3c3b0fff774e}{data\+\_\+reader} (const std\+::string \&filename, int \hyperlink{classdata__reader_ab77f1bebd79be09216119e127b463434}{n\+\_\+features}, const \hyperlink{dataset_8h_a87dfee910993320c6720931fb701cc41}{learn\+\_\+mode} \hyperlink{classdata__reader_a4132a7abcf03cca64e2eb204e70fffd3}{mode})
+\begin{DoxyCompactList}\small\item\em \hyperlink{classdata__reader}{data\+\_\+reader} constructor \end{DoxyCompactList}\item 
+\hyperlink{classdata__reader_afae224dd7295e44e0b4efefe3cb5efdf}{$\sim$data\+\_\+reader} ()
+\begin{DoxyCompactList}\small\item\em $\sim$data\+\_\+reader destructor \end{DoxyCompactList}\item 
+\hyperlink{classexample__t}{example\+\_\+t} $\ast$ \hyperlink{classdata__reader_ae2ff1315d03cb16c55861a77f08cd87b}{read\+\_\+an\+\_\+example} ()
+\begin{DoxyCompactList}\small\item\em read\+\_\+an\+\_\+example read an example \end{DoxyCompactList}\item 
+std\+::vector$<$ \hyperlink{classexample__t}{example\+\_\+t} $\ast$ $>$ \hyperlink{classdata__reader_a2fa952493f9f348861c6ba7a0c65a578}{read\+\_\+examples} ()
+\begin{DoxyCompactList}\small\item\em read\+\_\+examples read all the example \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{classdata__reader_ab77f1bebd79be09216119e127b463434}{n\+\_\+features}
+\item 
+std\+::ifstream \hyperlink{classdata__reader_a1a39328bde93e7f132a1ca7eb6642311}{ifs}
+\item 
+\hyperlink{dataset_8h_a87dfee910993320c6720931fb701cc41}{learn\+\_\+mode} \hyperlink{classdata__reader_a4132a7abcf03cca64e2eb204e70fffd3}{mode}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classdata__reader_abffe82f72b9ccfff618e3c3b0fff774e}{\index{data\+\_\+reader@{data\+\_\+reader}!data\+\_\+reader@{data\+\_\+reader}}
+\index{data\+\_\+reader@{data\+\_\+reader}!data\+\_\+reader@{data\+\_\+reader}}
+\subsubsection[{data\+\_\+reader}]{\setlength{\rightskip}{0pt plus 5cm}data\+\_\+reader\+::data\+\_\+reader (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{filename, }
+\item[{int}]{n\+\_\+features, }
+\item[{const {\bf learn\+\_\+mode}}]{mode}
+\end{DoxyParamCaption}
+)}}\label{classdata__reader_abffe82f72b9ccfff618e3c3b0fff774e}
+
+
+\hyperlink{classdata__reader}{data\+\_\+reader} constructor 
+
+learn mode 
+\begin{DoxyParams}{Parameters}
+{\em n\+\_\+features} & number of features \\
+\hline
+{\em mode} & train or predict \\
+\hline
+\end{DoxyParams}
+\hypertarget{classdata__reader_afae224dd7295e44e0b4efefe3cb5efdf}{\index{data\+\_\+reader@{data\+\_\+reader}!````~data\+\_\+reader@{$\sim$data\+\_\+reader}}
+\index{````~data\+\_\+reader@{$\sim$data\+\_\+reader}!data\+\_\+reader@{data\+\_\+reader}}
+\subsubsection[{$\sim$data\+\_\+reader}]{\setlength{\rightskip}{0pt plus 5cm}data\+\_\+reader\+::$\sim$data\+\_\+reader (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdata__reader_afae224dd7295e44e0b4efefe3cb5efdf}
+
+
+$\sim$data\+\_\+reader destructor 
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classdata__reader_ae2ff1315d03cb16c55861a77f08cd87b}{\index{data\+\_\+reader@{data\+\_\+reader}!read\+\_\+an\+\_\+example@{read\+\_\+an\+\_\+example}}
+\index{read\+\_\+an\+\_\+example@{read\+\_\+an\+\_\+example}!data\+\_\+reader@{data\+\_\+reader}}
+\subsubsection[{read\+\_\+an\+\_\+example}]{\setlength{\rightskip}{0pt plus 5cm}{\bf example\+\_\+t} $\ast$ data\+\_\+reader\+::read\+\_\+an\+\_\+example (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdata__reader_ae2ff1315d03cb16c55861a77f08cd87b}
+
+
+read\+\_\+an\+\_\+example read an example 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ifs} & input file stream to read example\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a single example's features 
+\end{DoxyReturn}
+\hypertarget{classdata__reader_a2fa952493f9f348861c6ba7a0c65a578}{\index{data\+\_\+reader@{data\+\_\+reader}!read\+\_\+examples@{read\+\_\+examples}}
+\index{read\+\_\+examples@{read\+\_\+examples}!data\+\_\+reader@{data\+\_\+reader}}
+\subsubsection[{read\+\_\+examples}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$ {\bf example\+\_\+t} $\ast$ $>$ data\+\_\+reader\+::read\+\_\+examples (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classdata__reader_a2fa952493f9f348861c6ba7a0c65a578}
+
+
+read\+\_\+examples read all the example 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a vector contains all examples' features 
+\end{DoxyReturn}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classdata__reader_a1a39328bde93e7f132a1ca7eb6642311}{\index{data\+\_\+reader@{data\+\_\+reader}!ifs@{ifs}}
+\index{ifs@{ifs}!data\+\_\+reader@{data\+\_\+reader}}
+\subsubsection[{ifs}]{\setlength{\rightskip}{0pt plus 5cm}std\+::ifstream data\+\_\+reader\+::ifs\hspace{0.3cm}{\ttfamily [private]}}}\label{classdata__reader_a1a39328bde93e7f132a1ca7eb6642311}
+number of features in the input file \hypertarget{classdata__reader_a4132a7abcf03cca64e2eb204e70fffd3}{\index{data\+\_\+reader@{data\+\_\+reader}!mode@{mode}}
+\index{mode@{mode}!data\+\_\+reader@{data\+\_\+reader}}
+\subsubsection[{mode}]{\setlength{\rightskip}{0pt plus 5cm}{\bf learn\+\_\+mode} data\+\_\+reader\+::mode\hspace{0.3cm}{\ttfamily [private]}}}\label{classdata__reader_a4132a7abcf03cca64e2eb204e70fffd3}
+input file stream related to the input file \hypertarget{classdata__reader_ab77f1bebd79be09216119e127b463434}{\index{data\+\_\+reader@{data\+\_\+reader}!n\+\_\+features@{n\+\_\+features}}
+\index{n\+\_\+features@{n\+\_\+features}!data\+\_\+reader@{data\+\_\+reader}}
+\subsubsection[{n\+\_\+features}]{\setlength{\rightskip}{0pt plus 5cm}int data\+\_\+reader\+::n\+\_\+features\hspace{0.3cm}{\ttfamily [private]}}}\label{classdata__reader_ab77f1bebd79be09216119e127b463434}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{dataset_8h}{dataset.\+h}\item 
+src/\hyperlink{dataset_8cpp}{dataset.\+cpp}\end{DoxyCompactItemize}

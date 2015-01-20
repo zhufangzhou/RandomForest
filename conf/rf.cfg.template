@@ -1,0 +1,49 @@
+RandomForest:
+{
+	criterion = "sqrt";
+	n_trees = 10;
+	n_threads = -1;
+	max_depth = -1;
+	min_sample_leaf = 1;
+	dot_file_path = "display/forest.dot"
+};
+
+Train:
+{
+	path = "data/gisette_scale";
+	n_features = 5000;
+	n_classes = 2;
+	weight = "1,1"
+};
+
+Validate:
+{
+	path = "data/gisette_scale.t";
+	n_features = 5000;
+	n_classes = 2;
+
+//	report_path = "report/forest.txt"
+	threshold = 0.5;
+};
+
+Test:
+{
+	path = "data/webspam_wc_normalized_unigram.svm.t";
+	n_features = 254;
+	n_classes = 2;
+
+	result_path = "result/result.txt";
+	result_mode = "proba"; // valid value = "proba" and "label". If not set, use "proba" as default
+	threshold = 0.5; // this will be use only when result_mode="label"
+	sort = "asc"; // valid value = "asc" and "desc"
+};
+
+Input_Model:
+{
+	path = "model/forest.model";
+};
+
+Output_Model:
+{
+	path = "model/forest.model";
+};

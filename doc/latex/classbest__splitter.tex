@@ -1,0 +1,136 @@
+\hypertarget{classbest__splitter}{\section{best\+\_\+splitter Class Reference}
+\label{classbest__splitter}\index{best\+\_\+splitter@{best\+\_\+splitter}}
+}
+
+
+Test all the possible threshold to choose a best split.  
+
+
+
+
+{\ttfamily \#include $<$tree.\+h$>$}
+
+Inheritance diagram for best\+\_\+splitter\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classbest__splitter}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classbest__splitter_a40d856f885a1ed21fa840063b8d49164}{best\+\_\+splitter} (int \hyperlink{classsplitter_abfc53538ed65c0afd50aedbf46dff458}{n\+\_\+classes})
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\hyperlink{classbest__splitter_aebb6c7381f0c3643b61c5cf060908655}{$\sim$best\+\_\+splitter} ()
+\begin{DoxyCompactList}\small\item\em $\sim$best\+\_\+splitter Destructor \end{DoxyCompactList}\item 
+void \hyperlink{classbest__splitter_a1ff1e766bfa4fb6d41c23121d6dd3dbb}{split} (\hyperlink{classtree}{tree} $\ast$t, \hyperlink{classnode}{node} $\ast$\&root, \hyperlink{classdataset}{dataset} $\ast$\&d, \hyperlink{classcriterion}{criterion} $\ast$\&cr)
+\begin{DoxyCompactList}\small\item\em Choose a split. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classbest__splitter_a681ad1823db5207f3a5a6acd5c09b354}{update} (int \hyperlink{classsplitter_ad093754efc111ae9dcb00e844b91e979}{fea\+\_\+id}, float \hyperlink{classsplitter_af40121f8411ad94f3f1968b1d50905ed}{threshold}, float $\ast$\&left, \hyperlink{classnode}{node} $\ast$\&nd, \hyperlink{classcriterion}{criterion} $\ast$\&cr)
+\begin{DoxyCompactList}\small\item\em Update the split information (e.\+g. split feature id, threshold, gain, etc.) if this candidate split is better. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Test all the possible threshold to choose a best split. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classbest__splitter_a40d856f885a1ed21fa840063b8d49164}{\index{best\+\_\+splitter@{best\+\_\+splitter}!best\+\_\+splitter@{best\+\_\+splitter}}
+\index{best\+\_\+splitter@{best\+\_\+splitter}!best\+\_\+splitter@{best\+\_\+splitter}}
+\subsubsection[{best\+\_\+splitter}]{\setlength{\rightskip}{0pt plus 5cm}best\+\_\+splitter\+::best\+\_\+splitter (
+\begin{DoxyParamCaption}
+\item[{int}]{n\+\_\+classes}
+\end{DoxyParamCaption}
+)}}\label{classbest__splitter_a40d856f885a1ed21fa840063b8d49164}
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+\_\+classes} & different number of classes \\
+\hline
+\end{DoxyParams}
+\hypertarget{classbest__splitter_aebb6c7381f0c3643b61c5cf060908655}{\index{best\+\_\+splitter@{best\+\_\+splitter}!````~best\+\_\+splitter@{$\sim$best\+\_\+splitter}}
+\index{````~best\+\_\+splitter@{$\sim$best\+\_\+splitter}!best\+\_\+splitter@{best\+\_\+splitter}}
+\subsubsection[{$\sim$best\+\_\+splitter}]{\setlength{\rightskip}{0pt plus 5cm}best\+\_\+splitter\+::$\sim$best\+\_\+splitter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classbest__splitter_aebb6c7381f0c3643b61c5cf060908655}
+
+
+$\sim$best\+\_\+splitter Destructor 
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classbest__splitter_a1ff1e766bfa4fb6d41c23121d6dd3dbb}{\index{best\+\_\+splitter@{best\+\_\+splitter}!split@{split}}
+\index{split@{split}!best\+\_\+splitter@{best\+\_\+splitter}}
+\subsubsection[{split}]{\setlength{\rightskip}{0pt plus 5cm}void best\+\_\+splitter\+::split (
+\begin{DoxyParamCaption}
+\item[{{\bf tree} $\ast$}]{t, }
+\item[{{\bf node} $\ast$\&}]{root, }
+\item[{{\bf dataset} $\ast$\&}]{d, }
+\item[{{\bf criterion} $\ast$\&}]{cr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classbest__splitter_a1ff1e766bfa4fb6d41c23121d6dd3dbb}
+
+
+Choose a split. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & tree object \\
+\hline
+{\em root} & one of the node in tree {\ttfamily t} which is to be splited \\
+\hline
+{\em d} & training dataset \\
+\hline
+{\em cr} & criterion to determine the better split (e.\+g. information gain, gini index) \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classsplitter_af592533ea2d8d16337fa6c8a9a0a6b36}{splitter}.
+
+\hypertarget{classbest__splitter_a681ad1823db5207f3a5a6acd5c09b354}{\index{best\+\_\+splitter@{best\+\_\+splitter}!update@{update}}
+\index{update@{update}!best\+\_\+splitter@{best\+\_\+splitter}}
+\subsubsection[{update}]{\setlength{\rightskip}{0pt plus 5cm}void best\+\_\+splitter\+::update (
+\begin{DoxyParamCaption}
+\item[{int}]{fea\+\_\+id, }
+\item[{float}]{threshold, }
+\item[{float $\ast$\&}]{left, }
+\item[{{\bf node} $\ast$\&}]{nd, }
+\item[{{\bf criterion} $\ast$\&}]{cr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}}\label{classbest__splitter_a681ad1823db5207f3a5a6acd5c09b354}
+
+
+Update the split information (e.\+g. split feature id, threshold, gain, etc.) if this candidate split is better. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fea\+\_\+id} & feature id to split \\
+\hline
+{\em threshold} & threshold of the split (less than {\ttfamily threshold} belong to left node) \\
+\hline
+{\em left} & pre-\/computed left node's frequency for each class after the split \\
+\hline
+{\em nd} & the node to split \\
+\hline
+{\em cr} & criterion to determine the better split (e.\+g. information gain, gini index) \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classsplitter_ab2ea956cc1a10ebb39422fa5ac450af2}{splitter}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{tree_8h}{tree.\+h}\item 
+src/\hyperlink{tree_8cpp}{tree.\+cpp}\end{DoxyCompactItemize}

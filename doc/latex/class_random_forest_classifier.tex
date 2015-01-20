@@ -1,0 +1,124 @@
+\hypertarget{class_random_forest_classifier}{\section{Random\+Forest\+Classifier Class Reference}
+\label{class_random_forest_classifier}\index{Random\+Forest\+Classifier@{Random\+Forest\+Classifier}}
+}
+
+
+{\ttfamily \#include $<$forest.\+h$>$}
+
+Inheritance diagram for Random\+Forest\+Classifier\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_random_forest_classifier}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_random_forest_classifier_af10e2093a8e33384ded4aa30b8cbe4e4}{Random\+Forest\+Classifier} ()
+\item 
+\hyperlink{class_random_forest_classifier_a18ef391e71da976b924013c5c26cbe44}{Random\+Forest\+Classifier} (int \hyperlink{class_base_forest_a2549a0057ec5419fe1de52ef198125ce}{n\+\_\+trees}, int \hyperlink{class_base_forest_a94fe86e1b426d149a11d100921cea3a4}{n\+\_\+threads}=\hyperlink{class_base_forest_a36733c1fadd0daadba8e694ee30fd1b6}{D\+E\+F\+A\+U\+L\+T\+\_\+\+N\+\_\+\+T\+H\+R\+E\+A\+D\+S}, std\+::string \hyperlink{class_base_forest_a5c651ace1f9d5177cdff38a0ae4048f7}{max\+\_\+feature\+\_\+criterion}=\char`\"{}sqrt\char`\"{}, int \hyperlink{class_base_forest_a85cf2e2e202c6e82bf684057181138f6}{max\+\_\+depth}=\hyperlink{class_base_forest_ac6df44eee4d7ee5913ad57d1d6c79692}{D\+E\+F\+A\+U\+L\+T\+\_\+\+M\+A\+X\+\_\+\+D\+E\+P\+T\+H}, int \hyperlink{class_base_forest_a15e0407f3c0fbc4c25e0796c781ff059}{min\+\_\+leaf\+\_\+samples}=\hyperlink{class_base_forest_a3d000d7f9e2410c73b41b70d8e2e58f8}{D\+E\+F\+A\+U\+L\+T\+\_\+\+M\+I\+N\+\_\+\+L\+E\+A\+F\+\_\+\+S\+A\+M\+P\+L\+E\+S})
+\item 
+void \hyperlink{class_random_forest_classifier_a07680b59615bb765843e3eec4139365e}{train} (std\+::string filename, int feature\+\_\+size, bool is\+\_\+text, int $\ast$discrete\+\_\+idx=N\+U\+L\+L, int discrete\+\_\+size=0, double $\ast$class\+\_\+weight=N\+U\+L\+L)
+\item 
+void \hyperlink{class_random_forest_classifier_a8a397b32e0f6ba43ecfb669ed9bc07e5}{train} (std\+::string feature\+\_\+filename, std\+::string label\+\_\+filename, int feature\+\_\+size, int \hyperlink{class_base_forest_a07e8b0ed27405f469198f2c4875786c9}{max\+\_\+feature}, int $\ast$discrete\+\_\+idx=N\+U\+L\+L, int discrete\+\_\+size=0, double $\ast$class\+\_\+weight=N\+U\+L\+L)
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_random_forest_classifier_a0a8a6b33668d878c0fc6772fc63c5ebf}{init} (int \hyperlink{class_base_forest_a2549a0057ec5419fe1de52ef198125ce}{n\+\_\+trees}, int \hyperlink{class_base_forest_a94fe86e1b426d149a11d100921cea3a4}{n\+\_\+threads}, int \hyperlink{class_base_forest_a85cf2e2e202c6e82bf684057181138f6}{max\+\_\+depth}, int \hyperlink{class_base_forest_a15e0407f3c0fbc4c25e0796c781ff059}{min\+\_\+leaf\+\_\+samples})
+\item 
+int \hyperlink{class_random_forest_classifier_a9fa7824a40995e37838c34e296538487}{compute\+\_\+max\+\_\+feature} (int feature\+\_\+size)
+\item 
+void \hyperlink{class_random_forest_classifier_a4298934ca4d0a44814c6d10f83aee2bf}{parallel\+\_\+build\+\_\+forest} (int tree\+\_\+start, int tree\+\_\+end, double $\ast$class\+\_\+weight)
+\item 
+void \hyperlink{class_random_forest_classifier_ae46a41b04945bd42658945769c5f4e24}{build\+\_\+forest} (double $\ast$class\+\_\+weight)
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_random_forest_classifier_af10e2093a8e33384ded4aa30b8cbe4e4}{\index{Random\+Forest\+Classifier@{Random\+Forest\+Classifier}!Random\+Forest\+Classifier@{Random\+Forest\+Classifier}}
+\index{Random\+Forest\+Classifier@{Random\+Forest\+Classifier}!Random\+Forest\+Classifier@{Random\+Forest\+Classifier}}
+\subsubsection[{Random\+Forest\+Classifier}]{\setlength{\rightskip}{0pt plus 5cm}Random\+Forest\+Classifier\+::\+Random\+Forest\+Classifier (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_random_forest_classifier_af10e2093a8e33384ded4aa30b8cbe4e4}
+\hypertarget{class_random_forest_classifier_a18ef391e71da976b924013c5c26cbe44}{\index{Random\+Forest\+Classifier@{Random\+Forest\+Classifier}!Random\+Forest\+Classifier@{Random\+Forest\+Classifier}}
+\index{Random\+Forest\+Classifier@{Random\+Forest\+Classifier}!Random\+Forest\+Classifier@{Random\+Forest\+Classifier}}
+\subsubsection[{Random\+Forest\+Classifier}]{\setlength{\rightskip}{0pt plus 5cm}Random\+Forest\+Classifier\+::\+Random\+Forest\+Classifier (
+\begin{DoxyParamCaption}
+\item[{int}]{n\+\_\+trees, }
+\item[{int}]{n\+\_\+threads = {\ttfamily {\bf D\+E\+F\+A\+U\+L\+T\+\_\+\+N\+\_\+\+T\+H\+R\+E\+A\+D\+S}}, }
+\item[{std\+::string}]{max\+\_\+feature\+\_\+criterion = {\ttfamily \char`\"{}sqrt\char`\"{}}, }
+\item[{int}]{max\+\_\+depth = {\ttfamily {\bf D\+E\+F\+A\+U\+L\+T\+\_\+\+M\+A\+X\+\_\+\+D\+E\+P\+T\+H}}, }
+\item[{int}]{min\+\_\+leaf\+\_\+samples = {\ttfamily {\bf D\+E\+F\+A\+U\+L\+T\+\_\+\+M\+I\+N\+\_\+\+L\+E\+A\+F\+\_\+\+S\+A\+M\+P\+L\+E\+S}}}
+\end{DoxyParamCaption}
+)}}\label{class_random_forest_classifier_a18ef391e71da976b924013c5c26cbe44}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_random_forest_classifier_ae46a41b04945bd42658945769c5f4e24}{\index{Random\+Forest\+Classifier@{Random\+Forest\+Classifier}!build\+\_\+forest@{build\+\_\+forest}}
+\index{build\+\_\+forest@{build\+\_\+forest}!Random\+Forest\+Classifier@{Random\+Forest\+Classifier}}
+\subsubsection[{build\+\_\+forest}]{\setlength{\rightskip}{0pt plus 5cm}void Random\+Forest\+Classifier\+::build\+\_\+forest (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{class\+\_\+weight}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_random_forest_classifier_ae46a41b04945bd42658945769c5f4e24}
+\hypertarget{class_random_forest_classifier_a9fa7824a40995e37838c34e296538487}{\index{Random\+Forest\+Classifier@{Random\+Forest\+Classifier}!compute\+\_\+max\+\_\+feature@{compute\+\_\+max\+\_\+feature}}
+\index{compute\+\_\+max\+\_\+feature@{compute\+\_\+max\+\_\+feature}!Random\+Forest\+Classifier@{Random\+Forest\+Classifier}}
+\subsubsection[{compute\+\_\+max\+\_\+feature}]{\setlength{\rightskip}{0pt plus 5cm}int Random\+Forest\+Classifier\+::compute\+\_\+max\+\_\+feature (
+\begin{DoxyParamCaption}
+\item[{int}]{feature\+\_\+size}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_random_forest_classifier_a9fa7824a40995e37838c34e296538487}
+\hypertarget{class_random_forest_classifier_a0a8a6b33668d878c0fc6772fc63c5ebf}{\index{Random\+Forest\+Classifier@{Random\+Forest\+Classifier}!init@{init}}
+\index{init@{init}!Random\+Forest\+Classifier@{Random\+Forest\+Classifier}}
+\subsubsection[{init}]{\setlength{\rightskip}{0pt plus 5cm}void Random\+Forest\+Classifier\+::init (
+\begin{DoxyParamCaption}
+\item[{int}]{n\+\_\+trees, }
+\item[{int}]{n\+\_\+threads, }
+\item[{int}]{max\+\_\+depth, }
+\item[{int}]{min\+\_\+leaf\+\_\+samples}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_random_forest_classifier_a0a8a6b33668d878c0fc6772fc63c5ebf}
+\hypertarget{class_random_forest_classifier_a4298934ca4d0a44814c6d10f83aee2bf}{\index{Random\+Forest\+Classifier@{Random\+Forest\+Classifier}!parallel\+\_\+build\+\_\+forest@{parallel\+\_\+build\+\_\+forest}}
+\index{parallel\+\_\+build\+\_\+forest@{parallel\+\_\+build\+\_\+forest}!Random\+Forest\+Classifier@{Random\+Forest\+Classifier}}
+\subsubsection[{parallel\+\_\+build\+\_\+forest}]{\setlength{\rightskip}{0pt plus 5cm}void Random\+Forest\+Classifier\+::parallel\+\_\+build\+\_\+forest (
+\begin{DoxyParamCaption}
+\item[{int}]{tree\+\_\+start, }
+\item[{int}]{tree\+\_\+end, }
+\item[{double $\ast$}]{class\+\_\+weight}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_random_forest_classifier_a4298934ca4d0a44814c6d10f83aee2bf}
+\hypertarget{class_random_forest_classifier_a07680b59615bb765843e3eec4139365e}{\index{Random\+Forest\+Classifier@{Random\+Forest\+Classifier}!train@{train}}
+\index{train@{train}!Random\+Forest\+Classifier@{Random\+Forest\+Classifier}}
+\subsubsection[{train}]{\setlength{\rightskip}{0pt plus 5cm}void Random\+Forest\+Classifier\+::train (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{filename, }
+\item[{int}]{feature\+\_\+size, }
+\item[{bool}]{is\+\_\+text, }
+\item[{int $\ast$}]{discrete\+\_\+idx = {\ttfamily NULL}, }
+\item[{int}]{discrete\+\_\+size = {\ttfamily 0}, }
+\item[{double $\ast$}]{class\+\_\+weight = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)}}\label{class_random_forest_classifier_a07680b59615bb765843e3eec4139365e}
+\hypertarget{class_random_forest_classifier_a8a397b32e0f6ba43ecfb669ed9bc07e5}{\index{Random\+Forest\+Classifier@{Random\+Forest\+Classifier}!train@{train}}
+\index{train@{train}!Random\+Forest\+Classifier@{Random\+Forest\+Classifier}}
+\subsubsection[{train}]{\setlength{\rightskip}{0pt plus 5cm}void Random\+Forest\+Classifier\+::train (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{feature\+\_\+filename, }
+\item[{std\+::string}]{label\+\_\+filename, }
+\item[{int}]{feature\+\_\+size, }
+\item[{int}]{max\+\_\+feature, }
+\item[{int $\ast$}]{discrete\+\_\+idx = {\ttfamily NULL}, }
+\item[{int}]{discrete\+\_\+size = {\ttfamily 0}, }
+\item[{double $\ast$}]{class\+\_\+weight = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)}}\label{class_random_forest_classifier_a8a397b32e0f6ba43ecfb669ed9bc07e5}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{forest_8h}{forest.\+h}\item 
+\hyperlink{forest_8cpp}{forest.\+cpp}\end{DoxyCompactItemize}

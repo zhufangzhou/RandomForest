@@ -1,0 +1,53 @@
+\hypertarget{tree_8h}{\section{include/tree.h File Reference}
+\label{tree_8h}\index{include/tree.\+h@{include/tree.\+h}}
+}
+{\ttfamily \#include $<$cstdio$>$}\\*
+{\ttfamily \#include $<$cstdlib$>$}\\*
+{\ttfamily \#include $<$cmath$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+{\ttfamily \#include $<$algorithm$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$stack$>$}\\*
+{\ttfamily \#include $<$iomanip$>$}\\*
+{\ttfamily \#include \char`\"{}dataset.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}utils.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}random.\+h\char`\"{}}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classnode}{node}
+\begin{DoxyCompactList}\small\item\em An abstract class for node in the tree. \end{DoxyCompactList}\item 
+class \hyperlink{classbatch__node}{batch\+\_\+node}
+\begin{DoxyCompactList}\small\item\em Specify for batch tree algorithm (e.\+g. decision tree) \end{DoxyCompactList}\item 
+class \hyperlink{classonline__node}{online\+\_\+node}
+\begin{DoxyCompactList}\small\item\em Specify for online tree algorithm. \end{DoxyCompactList}\item 
+class \hyperlink{classtree}{tree}
+\item 
+class \hyperlink{classdecision__tree}{decision\+\_\+tree}
+\begin{DoxyCompactList}\small\item\em A Decision Tree Classifier which is for sparse dataset. \end{DoxyCompactList}\item 
+class \hyperlink{classonline__tree}{online\+\_\+tree}
+\begin{DoxyCompactList}\small\item\em Online Decision Tree Classifier. \end{DoxyCompactList}\item 
+class \hyperlink{classsplitter}{splitter}
+\begin{DoxyCompactList}\small\item\em Abstract class which is used to split the node. \end{DoxyCompactList}\item 
+class \hyperlink{classbest__splitter}{best\+\_\+splitter}
+\begin{DoxyCompactList}\small\item\em Test all the possible threshold to choose a best split. \end{DoxyCompactList}\item 
+class \hyperlink{classrandom__splitter}{random\+\_\+splitter}
+\begin{DoxyCompactList}\small\item\em Test some random threshold to choose a best split among these. \end{DoxyCompactList}\item 
+class \hyperlink{classcriterion}{criterion}
+\begin{DoxyCompactList}\small\item\em Heuristic measure. \end{DoxyCompactList}\item 
+class \hyperlink{classgini}{gini}
+\begin{DoxyCompactList}\small\item\em Gini index. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Zhu Fangzhou, \href{mailto:zhu.ark@gmail.com}{\tt zhu.\+ark@gmail.\+com} 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2014-\/11-\/19 
+\end{DoxyDate}

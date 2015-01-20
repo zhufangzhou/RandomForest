@@ -1,0 +1,205 @@
+\hypertarget{classnode}{\section{node Class Reference}
+\label{classnode}\index{node@{node}}
+}
+
+
+An abstract class for node in the tree.  
+
+
+
+
+{\ttfamily \#include $<$tree.\+h$>$}
+
+Inheritance diagram for node\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classnode}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classnode_a7e5f4a2e917fe20d91d75faf2e9ba5de}{node} (int \hyperlink{classnode_a8c4864582cb3fe15e84e7908d0965150}{n\+\_\+classes})
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\hyperlink{classnode_a482f83436a89f09d289b26144d817adf}{$\sim$node} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+void \hyperlink{classnode_a873438b420d0f6d2659a1b25875ed300}{dump} (const std\+::string \&filename)
+\begin{DoxyCompactList}\small\item\em Dump an single node to a binary file. \end{DoxyCompactList}\item 
+void \hyperlink{classnode_acab00fde3bcc5d44044c39a37313b4eb}{dump} (std\+::ofstream \&ofs)
+\begin{DoxyCompactList}\small\item\em Dump an single node to the output file stream. \end{DoxyCompactList}\item 
+void \hyperlink{classnode_a6a92c412ae9336cc7ca5f4575a6384c8}{load} (const std\+::string \&filename)
+\begin{DoxyCompactList}\small\item\em load Load an single node from a binary file \end{DoxyCompactList}\item 
+void \hyperlink{classnode_a6a25c31eb4c3e8c05d5b70b6bd06adff}{load} (std\+::ifstream \&ifs)
+\begin{DoxyCompactList}\small\item\em load Load an single node from the input file stream \end{DoxyCompactList}\item 
+void \hyperlink{classnode_a95d492b993f2bd1b59c2489e7eb20a13}{print\+\_\+info} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{classnode_a67c3c0be5001ace8494a6292e8079001}{is\+\_\+cate}
+\item 
+int \hyperlink{classnode_ad65aefa2c967c82cd88e6870085d7f3e}{feature\+\_\+id}
+\item 
+\hyperlink{dataset_8h_ac2e4791c62a663377be91b0922cede72}{feature\+\_\+t} \hyperlink{classnode_a3774a77cb58d1554f63f34cbcb737a0c}{threshold}
+\item 
+float \hyperlink{classnode_a7154054210920a77711f8ddb0cf45941}{gain}
+\item 
+int \hyperlink{classnode_a8c4864582cb3fe15e84e7908d0965150}{n\+\_\+classes}
+\item 
+float $\ast$ \hyperlink{classnode_ae4125b554711d8ad9d6726ffd69e0b77}{cur\+\_\+frequency}
+\item 
+int \hyperlink{classnode_abbd7d4174869fead5f901b042a2f9712}{leaf\+\_\+idx}
+\item 
+\hyperlink{classnode}{node} $\ast$ \hyperlink{classnode_a7cbff55ff448f557223f79299056e9b1}{left}
+\item 
+\hyperlink{classnode}{node} $\ast$ \hyperlink{classnode_abdc86d4c8604c481752953af3235fc47}{right}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+An abstract class for node in the tree. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classnode_a7e5f4a2e917fe20d91d75faf2e9ba5de}{\index{node@{node}!node@{node}}
+\index{node@{node}!node@{node}}
+\subsubsection[{node}]{\setlength{\rightskip}{0pt plus 5cm}node\+::node (
+\begin{DoxyParamCaption}
+\item[{int}]{n\+\_\+classes}
+\end{DoxyParamCaption}
+)}}\label{classnode_a7e5f4a2e917fe20d91d75faf2e9ba5de}
+
+
+Constructor. 
+
+point to right node 
+\begin{DoxyParams}{Parameters}
+{\em n\+\_\+classes} & number of different class \\
+\hline
+\end{DoxyParams}
+\hypertarget{classnode_a482f83436a89f09d289b26144d817adf}{\index{node@{node}!````~node@{$\sim$node}}
+\index{````~node@{$\sim$node}!node@{node}}
+\subsubsection[{$\sim$node}]{\setlength{\rightskip}{0pt plus 5cm}node\+::$\sim$node (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classnode_a482f83436a89f09d289b26144d817adf}
+
+
+Destructor. 
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classnode_a873438b420d0f6d2659a1b25875ed300}{\index{node@{node}!dump@{dump}}
+\index{dump@{dump}!node@{node}}
+\subsubsection[{dump}]{\setlength{\rightskip}{0pt plus 5cm}void node\+::dump (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{filename}
+\end{DoxyParamCaption}
+)}}\label{classnode_a873438b420d0f6d2659a1b25875ed300}
+
+
+Dump an single node to a binary file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & path to dump \\
+\hline
+\end{DoxyParams}
+\hypertarget{classnode_acab00fde3bcc5d44044c39a37313b4eb}{\index{node@{node}!dump@{dump}}
+\index{dump@{dump}!node@{node}}
+\subsubsection[{dump}]{\setlength{\rightskip}{0pt plus 5cm}void node\+::dump (
+\begin{DoxyParamCaption}
+\item[{std\+::ofstream \&}]{ofs}
+\end{DoxyParamCaption}
+)}}\label{classnode_acab00fde3bcc5d44044c39a37313b4eb}
+
+
+Dump an single node to the output file stream. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ofs} & output file stream (should be open first, did not close in this function) \\
+\hline
+\end{DoxyParams}
+\hypertarget{classnode_a6a92c412ae9336cc7ca5f4575a6384c8}{\index{node@{node}!load@{load}}
+\index{load@{load}!node@{node}}
+\subsubsection[{load}]{\setlength{\rightskip}{0pt plus 5cm}void node\+::load (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{filename}
+\end{DoxyParamCaption}
+)}}\label{classnode_a6a92c412ae9336cc7ca5f4575a6384c8}
+
+
+load Load an single node from a binary file 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & path to load\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a node 
+\end{DoxyReturn}
+\hypertarget{classnode_a6a25c31eb4c3e8c05d5b70b6bd06adff}{\index{node@{node}!load@{load}}
+\index{load@{load}!node@{node}}
+\subsubsection[{load}]{\setlength{\rightskip}{0pt plus 5cm}void node\+::load (
+\begin{DoxyParamCaption}
+\item[{std\+::ifstream \&}]{ifs}
+\end{DoxyParamCaption}
+)}}\label{classnode_a6a25c31eb4c3e8c05d5b70b6bd06adff}
+
+
+load Load an single node from the input file stream 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ifs} & input file stream (should be open first, did not close in this function)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a node 
+\end{DoxyReturn}
+\hypertarget{classnode_a95d492b993f2bd1b59c2489e7eb20a13}{\index{node@{node}!print\+\_\+info@{print\+\_\+info}}
+\index{print\+\_\+info@{print\+\_\+info}!node@{node}}
+\subsubsection[{print\+\_\+info}]{\setlength{\rightskip}{0pt plus 5cm}void node\+::print\+\_\+info (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classnode_a95d492b993f2bd1b59c2489e7eb20a13}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classnode_ae4125b554711d8ad9d6726ffd69e0b77}{\index{node@{node}!cur\+\_\+frequency@{cur\+\_\+frequency}}
+\index{cur\+\_\+frequency@{cur\+\_\+frequency}!node@{node}}
+\subsubsection[{cur\+\_\+frequency}]{\setlength{\rightskip}{0pt plus 5cm}float$\ast$ node\+::cur\+\_\+frequency}}\label{classnode_ae4125b554711d8ad9d6726ffd69e0b77}
+number of different class in the node \hypertarget{classnode_ad65aefa2c967c82cd88e6870085d7f3e}{\index{node@{node}!feature\+\_\+id@{feature\+\_\+id}}
+\index{feature\+\_\+id@{feature\+\_\+id}!node@{node}}
+\subsubsection[{feature\+\_\+id}]{\setlength{\rightskip}{0pt plus 5cm}int node\+::feature\+\_\+id}}\label{classnode_ad65aefa2c967c82cd88e6870085d7f3e}
+is the split feature categorical \hypertarget{classnode_a7154054210920a77711f8ddb0cf45941}{\index{node@{node}!gain@{gain}}
+\index{gain@{gain}!node@{node}}
+\subsubsection[{gain}]{\setlength{\rightskip}{0pt plus 5cm}float node\+::gain}}\label{classnode_a7154054210920a77711f8ddb0cf45941}
+for categorical attribute is the chosen feature value for left child node, for continous attribute is the threshold to determine left or right \hypertarget{classnode_a67c3c0be5001ace8494a6292e8079001}{\index{node@{node}!is\+\_\+cate@{is\+\_\+cate}}
+\index{is\+\_\+cate@{is\+\_\+cate}!node@{node}}
+\subsubsection[{is\+\_\+cate}]{\setlength{\rightskip}{0pt plus 5cm}bool node\+::is\+\_\+cate}}\label{classnode_a67c3c0be5001ace8494a6292e8079001}
+\hypertarget{classnode_abbd7d4174869fead5f901b042a2f9712}{\index{node@{node}!leaf\+\_\+idx@{leaf\+\_\+idx}}
+\index{leaf\+\_\+idx@{leaf\+\_\+idx}!node@{node}}
+\subsubsection[{leaf\+\_\+idx}]{\setlength{\rightskip}{0pt plus 5cm}int node\+::leaf\+\_\+idx}}\label{classnode_abbd7d4174869fead5f901b042a2f9712}
+size should be {\ttfamily n\+\_\+classes}, means the weighted frequency for each class \hypertarget{classnode_a7cbff55ff448f557223f79299056e9b1}{\index{node@{node}!left@{left}}
+\index{left@{left}!node@{node}}
+\subsubsection[{left}]{\setlength{\rightskip}{0pt plus 5cm}{\bf node}$\ast$ node\+::left}}\label{classnode_a7cbff55ff448f557223f79299056e9b1}
+-\/1 if this node is not leaf otherwise non-\/negtive integer \hypertarget{classnode_a8c4864582cb3fe15e84e7908d0965150}{\index{node@{node}!n\+\_\+classes@{n\+\_\+classes}}
+\index{n\+\_\+classes@{n\+\_\+classes}!node@{node}}
+\subsubsection[{n\+\_\+classes}]{\setlength{\rightskip}{0pt plus 5cm}int node\+::n\+\_\+classes}}\label{classnode_a8c4864582cb3fe15e84e7908d0965150}
+heuristic measure(e.\+g. gini index or information gain) \hypertarget{classnode_abdc86d4c8604c481752953af3235fc47}{\index{node@{node}!right@{right}}
+\index{right@{right}!node@{node}}
+\subsubsection[{right}]{\setlength{\rightskip}{0pt plus 5cm}{\bf node}$\ast$ node\+::right}}\label{classnode_abdc86d4c8604c481752953af3235fc47}
+point to left node \hypertarget{classnode_a3774a77cb58d1554f63f34cbcb737a0c}{\index{node@{node}!threshold@{threshold}}
+\index{threshold@{threshold}!node@{node}}
+\subsubsection[{threshold}]{\setlength{\rightskip}{0pt plus 5cm}{\bf feature\+\_\+t} node\+::threshold}}\label{classnode_a3774a77cb58d1554f63f34cbcb737a0c}
+split feature id 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{tree_8h}{tree.\+h}\item 
+src/\hyperlink{tree_8cpp}{tree.\+cpp}\end{DoxyCompactItemize}
