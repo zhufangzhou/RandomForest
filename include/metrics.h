@@ -52,7 +52,9 @@ namespace Metrics {
 	float f1_score_multi(int* y_pred, int* y_true, int n_classes, int size);
 
 	float roc_auc_score(float* y_pred, int* y_true, int size);
+	float roc_auc_score_multi(float* y_pred, int* y_true, int n_classes, int size);
 	float pr_auc_score(float* y_pred, int* y_true, int size);
+	float pr_auc_score_multi(float* y_pred, int* y_true, int n_classes, int size);
 	float auc(float* x, float* y, int size);
 
 	void performance_report(float* y_pred, int* y_true, int size, float threshold = 0.5);

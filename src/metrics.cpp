@@ -461,6 +461,28 @@ float Metrics::roc_auc_score(float* y_pred, int* y_true, int size) {
 	return ret_auc > 1.0 ? 1.0 : ret_auc;
 }
 
+float Metrics::roc_auc_score_multi(float* y_pred, int* y_true, int n_classes, int size) {
+	float avg_roc_auc_score = 0.0;	
+	int *y_true_oneVSrest = new int[size];
+	float *y_pred_oneVSrest;
+
+	for (int c = 0; c < n_classes; c++) {
+		y_pred_oneVSrest = y_pred + c*size;	
+		for (int i = 0; i < size; i++) {
+			y_true_oneVSrest[i] = y_true[i] == c ? 1 : 0;
+		}
+		avg_roc_auc_score += roc_auc_score(y_pred_oneVSrest, y_true_oneVSrest, size);
+	}
+	avg_roc_auc_score /= n_classes;
+
+	if (y_true_oneVSrest != nullptr) {
+		delete[] y_true_oneVSrest;
+		y_true_oneVSrest = nullptr;
+	}
+
+	return avg_roc_auc_score;
+}
+
 float Metrics::pr_auc_score(float* y_pred, int* y_true, int size) {
 	int TP = 0, FP = 0, TN = 0, FN = 0;
 	int *idx;
@@ -497,6 +519,26 @@ float Metrics::pr_auc_score(float* y_pred, int* y_true, int size) {
 	delete[] idx;
 
 	return ret_auc > 1.0 ? 1.0 : ret_auc;
+}
+
+float Metrics::pr_auc_score_multi(float* y_pred, int* y_true, int n_classes, int size) {
+	float avg_pr_auc_score = 0.0;
+	int*y_true_oneVSrest = new int[size];
+	float *y_pred_oneVSrest;
+	for (int c = 0; c < n_classes; c++) {
+		y_pred_oneVSrest = y_pred + c*size;
+		for (int i = 0; i < size; i++) {
+			y_true_oneVSrest[i] = y_true[i] == c ? 1 : 0;
+		}
+		avg_pr_auc_score += pr_auc_score(y_pred_oneVSrest, y_true_oneVSrest, size);
+	}
+	avg_pr_auc_score /= n_classes;
+
+	if (y_true_oneVSrest != nullptr) {
+		delete[] y_true_oneVSrest;
+		y_true_oneVSrest = nullptr;
+	}
+	return avg_pr_auc_score;
 }
 
 float Metrics::auc(float* x, float* y, int size) {
